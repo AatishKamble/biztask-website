@@ -52,7 +52,7 @@ const getUserProfile=async(req,res)=>{
 
         }
         const user=await userService.getUserByToken(jwt);
-
+      
     return res.json({success:true,user});
 
     } catch (error) {

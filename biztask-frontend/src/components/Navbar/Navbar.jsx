@@ -5,18 +5,43 @@ import { useEffect, useRef, useState } from "react";
 import {Link} from 'react-router-dom';
 import Login from "../Login/Login";
 import SignUP from "../Login/SignUP";
+import { getUserProfile,logout } from "../../Redux/Auth/Action.js";
+import { useDispatch,useSelector } from "react-redux";
 
 const Navbar = ({scrollToSection,howItWorkRef}) => {
 
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
-  const [loged, setLoged] = useState(true);
+ 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const auth = useSelector(store => store.auth);
+  const dispatch=useDispatch();
+  const jwt=localStorage.getItem("jwt");
+  useEffect(() => {
+     
+    if (jwt) {
+      
+      dispatch(getUserProfile(jwt));
+     
+    }
+
+  }, [jwt]);
+
+
+
+  function handleLogout() {
+    
+    dispatch(logout());
+    setIsDropdownOpen(false);
+    window.location.reload();
+  }
+
 
 
 
 let menuRef = useRef(null);
 const buttonRef = useRef(null);
+
 useEffect(() => {
   let handler =  (event) => {
     if (menuRef.current &&!menuRef.current.contains(event.target) && !buttonRef.current.contains(event.target)){
@@ -65,8 +90,8 @@ useEffect(() => {
             <VscAzure /></span>
         </div>
         <div className='h-16 w-[80%] bg-inherit flex justify-center items-center '>
-
-          <div className='h-16 w-[70%] bg-inherit flex justify-between items-center '>
+          
+          <div className='h-16  bg-inherit flex justify-between items-center '>
             <ul className='text-xl font-serif font-medium text-black flex justify-between '>
               <Link to={"/"}>
               <li className=' cursor-pointer mx-6'>Home</li></Link>
@@ -85,13 +110,19 @@ useEffect(() => {
 
 
         {
-          loged ?
+          auth.user? 
             <>
 
-              <div className="w-[20%] h-14 flex items-center justify-end pe-10 cursor-pointer bg-inherit ">
-                <div   ref={buttonRef} className=' bg-slate-500 w-[50px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+              <div className="w-[15%] h-14 flex items-center justify-end pe-10 cursor-pointer bg-inherit ">
+                {
 
-                </div>
+auth.user.name.length>0? <div   ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+<p className="text-blue-900 font-extrabold ">{auth.user.name.length>0?auth.user.name[0].toUpperCase():""}</p>
+</div>:<div   ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+
+</div>
+                }
+               
 
 
               </div>
@@ -124,7 +155,7 @@ useEffect(() => {
             <Link to="/profile">
                 <span className="text-[20px] font-serif ">Profile</span></Link>
               </div>
-              <div className=" py-2 w-full   flex justify-center cursor-pointer items-center hover:bg-slate-300  ">
+              <div className=" py-2 w-full   flex justify-center cursor-pointer items-center hover:bg-slate-300  " onClick={handleLogout}>
                 <span className="text-[20px] font-serif ">
                   Logout
                 </span>
