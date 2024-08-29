@@ -12,6 +12,7 @@ import JobDetail from "../components/JobTemplate/JobDetail.jsx";
 import SearchJobs from "../pages/SearchJobs.jsx";
 import SearchService from "../pages/SearchService.jsx";
 import AboutUs from "../pages/AboutUs.jsx";
+import ServiceRegistration from "../components/Forms/ServiceRegistration.jsx";
 
 const Routers = () => {
     const howItWorkRef = useRef(null);
@@ -36,6 +37,7 @@ const Routers = () => {
 <Route path="/services" element={<SearchService />}/>
 <Route path="/about-us" element={<AboutUs />}/>
 <Route path="/auth/google/callback" element={<Home />} />
+<Route path="/service-registration" element={<ServiceRegistration />} />
 
 
 </Routes>

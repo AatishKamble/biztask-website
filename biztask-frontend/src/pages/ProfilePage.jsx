@@ -4,6 +4,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
+import BusinessCard from '../components/BusinessCard/BusinessCard.jsx';
 const ProfilePage = () => {
   return (
     <>
@@ -28,7 +29,7 @@ const ProfilePage = () => {
               </Link> </div>
             <div>
               <Link to={"/bussiness-registration"}>
-                <button className='bg-slate-300 absolute bottom-3 right-5 rounded-md hover:border-slate-500 border-[1px] hover:bg-slate-200 w-[250px] h-[40px] text-slate-600 font-serif font-normal text-[24px]'>Register Bussiness</button>
+                <button className='bg-slate-100 absolute bottom-3 right-5 rounded-md hover:border-slate-500 border-[1px] hover:bg-slate-200 hover:text-blue-500 w-[250px] h-[40px] text-slate-600 font-serif font-normal text-[20px]'>Register Bussiness</button>
               </Link> </div>
 
 
@@ -56,18 +57,18 @@ const ProfilePage = () => {
 
           <div className='w-full  font-semibold p-2 h-auto text-[26px] text-slate-800 font-serif'>
             <div className=' flex justify-between items-center '>
-              <span >Posted Jobs</span>
+              <span >Businesses</span>
               <Link to={"/jobs"}>
               <span className='px-5 hover:text-slate-600 cursor-pointer'><FaExternalLinkAlt /></span>
               
               </Link></div>
           </div>
 
-          <div className=' w-full grid grid-cols-2 grid-rows-2 p-2 gap-2'>
-            <JobAdvertise typeText="Edit" />
-            <JobAdvertise typeText="Edit" />
-            <JobAdvertise typeText="Edit" />
-            <JobAdvertise typeText="Edit" />
+          <div className=' w-full grid grid-cols-3 grid-rows-2 p-2 gap-2 gap-y-6'>
+           <BusinessCard />
+           <BusinessCard />
+           <BusinessCard />
+           <BusinessCard />
           </div>
 
         </div>
@@ -99,7 +100,7 @@ const ProfilePage = () => {
 
           <div className='w-full font-semibold p-2 h-auto text-[26px] text-slate-800 font-serif'>
             <div className=' flex justify-between items-center '>
-              <span >Your Bussinesses</span>
+              <span >Your Services</span>
               <Link to={"/services"}>
               <span className='px-5 hover:text-slate-600 cursor-pointer'><FaExternalLinkAlt /></span></Link></div>
           </div>

@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 
 const userSchema=new mongoose.Schema({
@@ -21,13 +21,6 @@ const userSchema=new mongoose.Schema({
     profileImage:{
         type:String,  
     },
-    postedJobs:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'Jobs',
-            default:[]
-        }
-    ],
     appliedJobs:[
         {
             type:mongoose.Schema.Types.ObjectId,

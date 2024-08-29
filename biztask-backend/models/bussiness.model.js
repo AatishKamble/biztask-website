@@ -1,24 +1,13 @@
 import mongoose from "mongoose";
 
 const bussinessSchema=new mongoose.Schema(
-    {
-            bussinessType:{
-                type:String,
-                required:true
-            },
+    {       
+            user:{
+                type:mongoose.Schema.ObjectId,
+                required:true,
+                ref:"users"
+            }, 
             companyName:{
-                type:String,
-                required:true
-            },
-            OwnerName:{
-                type:String,
-                required:true
-            },
-            mobileNumber:{
-                type:String,
-                required:true
-            },
-            email:{
                 type:String,
                 required:true
             },
@@ -26,30 +15,22 @@ const bussinessSchema=new mongoose.Schema(
                 type: String,
                 required: true,
             },
-            minPrice: {
-                type: Number,
-                required: true,
-            },
-            maxPrice: {
-                type: Number,
-                required: true,
-            },
-            locations:[
-                {
-                    type:String,
-                }
-            ],
-            features:[
-                {
-                    type:String,
-                }
-            ],  
-            companyLogo:{
+        companyLogo:{
                 type:String,
                 required:false
+            },
+            services:[
+               { type:mongoose.Schema.ObjectId,
+                ref:"services",
+                default:[]
+            }
+            ],
+            createdAt:{
+                type:Date,
+                default:Date.now()
             }
 
-});
+},{minimize:false});
 
 const bussinessModel=  mongoose.models.bussiness ||mongoose.model('bussiness',bussinessSchema);
 

@@ -39,20 +39,18 @@ const JobListingForm = () => {
                     <label htmlFor="workingHours" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Working Hours:</label>
                     <input type="text" name='workingHours' placeholder="e.g., 9 AM - 5 PM or Flexible" className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
                 </div>
+                <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
-                <div className='w-full h-[50px] flex py-14  items-center text-black'>
-                    <div>
-                        <label htmlFor="startSal" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Minimum Salary:</label>
-                        <input type="text" name='startSal' placeholder="Minimum Salary" className=' text-[20px] h-12 font-serif outline-none px-4 ms-4 w-auto  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-
-                    </div>
-                    <div>
-                        <label htmlFor="endSal" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Maximum Salary:</label>
-                        <input type="text" name='endSal' placeholder="Maximum Salary " className=' text-[20px] h-12 font-serif outline-none px-4 w-auto  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-
-                    </div>
-
+                    <label htmlFor="startSal" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Minimum Salary:</label>
+                    <input type="text" name='startSal' placeholder="Minimum Salary" className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
                 </div>
+                <div className='w-full h-[50px] flex py-10  items-center text-black'>
+
+<label htmlFor="endSal" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Maximum Salary:</label>
+<input type="text" name='endSal' placeholder="Maximum Salary " className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+</div>
+
+               
 
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
@@ -74,7 +72,7 @@ const JobListingForm = () => {
 
                 </div>
 
-                <AddedBox/>
+                <AddedBox />
                 <div className='w-full h-[50px]  flex  py-10 justify-center  items-center text-[20px] text-blue-900 font-serif'>
                     <span>Job Overview</span>
                 </div>
@@ -90,7 +88,7 @@ const JobListingForm = () => {
                     </div>
 
                 </div>
-                <AddedBox/>
+                <AddedBox />
 
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
@@ -104,45 +102,45 @@ const JobListingForm = () => {
                     </div>
 
                 </div>
-                <AddedBox/>
+                <AddedBox />
 
 
 
 
 
                 <div className='w-full h-[50px]  flex  py-10 justify-center  items-center text-[20px] text-blue-900 font-serif'>
-                    <span>Business Details </span>
+                    <span>other Details </span>
                 </div>
 
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
-                    <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Business Type :</label>
-                    <input type="text" placeholder='Enter Your Business Name' className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
+                    <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Service Type :</label>
+                    <input type="text" className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' disabled="true" />
                 </div>
 
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Name :</label>
-                    <input type="text" placeholder='Enter Your company Name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="text" className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled="true" />
                 </div>
 
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="email" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Email :</label>
-                    <input type="email" name='email' placeholder='Enter Your Email' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="email" name='email' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled="true" />
                 </div>
 
 
                 <div className='w-full h-[300px] flex py-10  items-center text-black'>
 
-                    <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Description :</label>
+                    <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Company description :</label>
 
                     <textarea name="Description" id="DescriptionBox"
-                        placeholder="Description about your Service (maxLength-300 words)"
+
                         className=' text-[20px] h-[300px] font-serif outline-none p-4  w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
                         rows={5} cols={40}
                         style={{ resize: 'none', overflow: 'hidden' }}
-
+                        disabled="true"
                     ></textarea>
 
                 </div>
