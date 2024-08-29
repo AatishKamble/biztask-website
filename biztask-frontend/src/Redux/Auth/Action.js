@@ -35,6 +35,7 @@ try {
     if(user.success==true){
         console.log(user.token)
         localStorage.setItem("jwt",user.token);
+        window.location.reload();
         dispatch(signUpSuccess(user.token));
     }
     else{
@@ -43,6 +44,7 @@ try {
 
 
 } catch (error) {
+
     dispatch(signUpFailure(error.message));
 }
 

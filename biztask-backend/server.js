@@ -15,10 +15,7 @@ const app=express();
 const port=process.env.PORT;
 
 app.use(express.json());
-app.use(cors({
- 
-}
-));
+app.use(cors());
 
 
 
@@ -69,13 +66,10 @@ app.use('/api/user',userRouter);
 app.get('/auth/google',passport.authenticate("google",{scope:[ 'profile','email' ]}));
 
 app.get("/auth/google/callback",passport.authenticate("google",{session:false}),(req,res)=>{
-const {user,token}=req.user;
-res.status(200).json({
-  success: true,
-  token,
-  user
-});
-
+  const { token } = req.user;
+  const redirectUrl = `${process.env.FRONT_END_URL}/auth/google/callback?token=${token}`;
+  
+  res.redirect(redirectUrl);
 });
 
 

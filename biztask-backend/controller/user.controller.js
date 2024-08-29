@@ -9,7 +9,7 @@ try {
     return res.json({success:true,token});
     
 } catch (error) {
-    console.log(error);
+    
     return res.json({
         success:false,
         message:error.message
@@ -22,14 +22,11 @@ const loginUser=async(req,res)=>{
     try {
         const user=await userService.getUserByEmail(email);
         if (!user) {
-            return res.status(401).json({
-                success: false,
-                message: "User not exists"
-            });
+            throw new Error(error.message);
         }
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(401).send({ message: "Wrong password" });
+            throw new Error("Wrong password");
         }
         const token=jwtProvider.generateToken(user._id);
         return res.json({success:true,token});
@@ -48,7 +45,7 @@ const getUserProfile=async(req,res)=>{
         const jwt = req.headers.authorization?.split(" ")[1];
      
         if (!jwt) {
-            return res.status(404).send({ error: "Token not found" });
+            throw new Error("Token not found");
 
         }
         const user=await userService.getUserByToken(jwt);

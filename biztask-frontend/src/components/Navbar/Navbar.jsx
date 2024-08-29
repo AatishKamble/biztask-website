@@ -2,7 +2,7 @@ import { VscAzure } from "react-icons/vsc";
 import { IoMdLogIn } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Login from "../Login/Login";
 import SignUP from "../Login/SignUP";
 import { getUserProfile,logout } from "../../Redux/Auth/Action.js";
@@ -12,7 +12,7 @@ const Navbar = ({scrollToSection,howItWorkRef}) => {
 
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
- 
+ const navigate=useNavigate()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const auth = useSelector(store => store.auth);
   const dispatch=useDispatch();
@@ -25,7 +25,7 @@ const Navbar = ({scrollToSection,howItWorkRef}) => {
      
     }
 
-  }, [jwt]);
+  }, [jwt,dispatch]);
 
 
 
@@ -33,7 +33,7 @@ const Navbar = ({scrollToSection,howItWorkRef}) => {
     
     dispatch(logout());
     setIsDropdownOpen(false);
-    window.location.reload();
+   navigate('/');
   }
 
 
@@ -57,7 +57,9 @@ useEffect(() => {
 
 
   const handleLogInButtonClick = () => {
+   
     setLogin(!login);
+  
   }
 
   const handleSignUpButtonClick = () => {
@@ -69,12 +71,12 @@ useEffect(() => {
   return (
     <>
       {login &&
-        <Login longState={login} handleLogInButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick} />
+        <Login openState={login} type="login" handleButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick} />
 
       }
 
       {signUp &&
-        <SignUP signUp={signUp} handleSignUpButtonClick={handleSignUpButtonClick} handleLogInButtonClick={handleLogInButtonClick} />
+        <SignUP openState={signUp} type="signup" handleButtonClick={handleSignUpButtonClick} handleLogInButtonClick={handleLogInButtonClick} />
 
       }
 
