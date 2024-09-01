@@ -10,7 +10,10 @@ import {
     GET_USER_REQUEST,
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
-    LOGOUT
+    LOGOUT,
+    UPDATE_USER_DETAILS_REQUEST,
+    UPDATE_USER_DETAILS_SUCCESS,
+    UPDATE_USER_DETAILS_FAILURE
 } from "./ActionType.js";
 
 
@@ -25,6 +28,10 @@ const loginFailure = (error) => ({ type: LOGIN_FAILURE, payload: error });
 const getUserRequest = () => ({ type:GET_USER_REQUEST });
 const getUserSuccess = (user) => ({ type:GET_USER_SUCCESS, payload: user });
 const getUserFailure = (error) => ({ type:GET_USER_FAILURE, payload: error });
+
+const updateUserProfileRequest=()=>({type:UPDATE_USER_DETAILS_REQUEST});
+const updateUserProfileSuccess=(user,message)=>({type:UPDATE_USER_DETAILS_SUCCESS,payload:{user,message}});
+const updateUserProfileFailure=(error)=>({type:UPDATE_USER_DETAILS_FAILURE,payload:error});
 
 
 const register=(userData)=> async(dispatch)=>{
@@ -84,9 +91,10 @@ const getUserProfile = (jwt) => async (dispatch) => {
         });
 
         const users = response.data;
-       
+       console.log(users)
         if(users.success==true){
             dispatch(getUserSuccess(users.user));
+         
         }
         else{
             throw new Error(users.message);
@@ -104,5 +112,35 @@ const logout=()=>(dispatch)=>{
     localStorage.clear();
 }
 
+const updateUserProfile=(jwt,userData)=>async(dispatch)=>{
+    dispatch(updateUserProfileRequest());
+    try {
 
-export {register,login,getUserProfile,logout};
+            console.log("jwt",jwt);
+            console.log("user",userData);
+        
+        const response=await axios.patch(`${API_BASE_URL}/api/user/profile-update`,userData,{
+headers:{
+     "authorization":`Bearer ${jwt}`,
+      "Content-Type": "multipart/form-data"
+}
+        });
+
+        const newUser = response.data;
+    
+        if(newUser.success==true){
+            window.location.reload();
+            dispatch(updateUserProfileSuccess(newUser.user,newUser.message));
+        }
+        else{
+            throw new Error(newUser.message);
+        }
+
+        
+    } catch (error) {
+        dispatch(updateUserProfileFailure(error.message));
+    }
+}
+
+
+export {register,login,getUserProfile,logout,updateUserProfile};

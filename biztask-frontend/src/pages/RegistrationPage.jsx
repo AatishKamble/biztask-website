@@ -1,10 +1,10 @@
 import React from 'react'
 import BusinessRegistration from '../components/Forms/BusinessRegistration'
 
-const RegistrationPage = () => {
+const RegistrationPage = ({userDetails,registration}) => {
   return (
     <>
-    <BusinessRegistration/>
+    <BusinessRegistration userDetails={userDetails} registration={registration}/>
     </>
   )
 }

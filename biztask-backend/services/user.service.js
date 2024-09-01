@@ -2,6 +2,7 @@ import userModel from "../models/user.model.js";
 import validator from "validator";
 import jwtProvider from "../config/jwtProvider.js";
 import bcrypt from "bcrypt";
+import { unlink } from 'node:fs';
 const createUser = async (reqData) => {
     try {
         const { email, password } = reqData;
@@ -57,6 +58,22 @@ const getUserByToken=async(token)=>{
     try {
         const userId=jwtProvider.getUserByToken(token);
        
+        const user=await userModel.findOne({ _id: userId }).populate("businesses");
+   
+        if(!user){
+            throw new Error("User not found");
+     
+         }
+         return user;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+
+const getUserById=async(userId)=>{
+    try {
+    
         const user=await userModel.findOne({ _id: userId });
    
         if(!user){
@@ -70,8 +87,30 @@ const getUserByToken=async(token)=>{
 }
 
 
+const updateUserProfile=async(userId,userData,imageName)=>{
+try {
+
+const {name,mobileNumber}=userData;
+const user=await userModel.findById(userId);
+unlink(`uploads/${user.profileImage}`,()=>{});//delete before updating profile image
+const updatedUser=await userModel.findByIdAndUpdate(
+    userId,
+    {name:name,mobileNumber:mobileNumber,profileImage:imageName},
+    { new: true }
+);
+
+return updatedUser;
+
+} catch (error) {
+    throw new Error(error.message);
+}
+
+}
+
 export default {
     createUser,
     getUserByEmail,
-    getUserByToken
+    getUserByToken,
+    updateUserProfile,
+    getUserById,
 }

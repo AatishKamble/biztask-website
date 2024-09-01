@@ -60,8 +60,29 @@ const getUserProfile=async(req,res)=>{
     }
 }
 
+
+const updateUserProfile=async(req,res)=>{
+try {
+    const obj = JSON.parse(JSON.stringify(req.body));
+    const userId=req.user._id;
+    let image_filename=`${req.file?.filename}`;
+ 
+    const user=await userService.updateUserProfile(userId,obj,image_filename);
+    return res.json({success:true,message:"Profile Updated",user:user});
+    
+} catch (error) {
+    return res.json({
+        success:false,
+        message:error.message
+    });
+}
+
+
+}
+
 export default{
     loginUser,
     registerUser,
-    getUserProfile
+    getUserProfile,
+    updateUserProfile
 }

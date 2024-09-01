@@ -14,12 +14,17 @@ const userSchema=new mongoose.Schema({
         required:true,
         unique:true
     },
+    mobileNumber:{
+        type:String,
+        default:"0000000000"
+    },
     password:{
         type:String,
         required:true
     },
     profileImage:{
-        type:String,  
+        type:String,
+        default:"" 
     },
     appliedJobs:[
         {
@@ -31,7 +36,7 @@ const userSchema=new mongoose.Schema({
     businesses:[
         {
             type:mongoose.Schema.Types.ObjectId,
-            ref:'businesss',
+            ref:'bussiness',
             default:[]
         }
     ]

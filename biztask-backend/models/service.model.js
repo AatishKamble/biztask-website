@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const serviceShcema=new mongoose.Schema({
-                business:{
+                bussiness:{
                     type:mongoose.Schema.ObjectId,
                     required:true,
                     ref:"bussiness"
@@ -54,6 +54,6 @@ const serviceShcema=new mongoose.Schema({
 },{minimize:false});
 
 
-const serviceModel=mongoose.model.services || mongoose.model("services",serviceShcema);
+const serviceModel= mongoose.models.services || mongoose.model("services",serviceShcema);
 
 export default serviceModel;

@@ -1,21 +1,37 @@
 
 import { FaSave } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import AddedBox from "./AddedBox";
-const ServiceRegistration = () => {
+import { API_BASE_URL } from "../../configApi/ConfigApi";
+// import { getBusinessById } from "../../Redux/Business/Action";
+const ServiceRegistration = ({ userDetails }) => {
 
-    const profilePic = useRef(null);
-    const [image, setImage] = useState(null);
+    const jwt = localStorage.getItem("jwt");
+    const [formData, setFormData] = useState({
+        serviceType: "",
+        Description: "",
+        minPrice: "",
+        maxPrice: ""
 
-    const handleProfileChange = (event) => {
+    });
 
-        setImage(event.target.files[0]);
-    }
-    const handlePhotoUpload = () => {
-        profilePic.current.click();
+    // const { id } = useParams();
 
-    }
+    const dispatch = useDispatch();
+    const businessStore = useSelector(store => store.businessStore)
+    // useEffect(() => {
+    //     if (jwt && id) {
+    //         dispatch(getBusinessById(jwt, id));
+    //     }
+    // }, [jwt, id, dispatch]);
+
+    // console.log("in service reg",businessStore.business)
+
+
+
     return (
         <div className='bg-[#ffffff] py-10 w-full h-auto flex items-center justify-center'>
 
@@ -28,13 +44,13 @@ const ServiceRegistration = () => {
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Service Type :</label>
-                    <input type="text" placeholder='e.g.Cleaning,event decoration' className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="text" name="serviceType" value={formData.serviceType} placeholder='e.g.Cleaning,event decoration' className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
                 </div>
 
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Name :</label>
-                    <input type="text" placeholder='Enter Your company Name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="text" value={businessStore.business?.companyName} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
                 </div>
 
 
@@ -46,18 +62,18 @@ const ServiceRegistration = () => {
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Name :</label>
-                    <input type="text" placeholder='Enter Your Name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="text" value={userDetails?.name || ""} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
                 </div>
                 <div className='w-full h-[50px] flex py-10 items-center text-black'>
 
                     <label htmlFor="Name" className=' text-[20px] px-4 font-medium w-[300px] font-serif'> Phone :</label>
-                    <input type="tel" placeholder='Enter Your Mobile Number' className=' text-[20px] h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md w-full focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="tel" value={userDetails?.mobileNumber || ""} className=' text-[20px] h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md w-full focus-within:drop-shadow-xl' autoComplete='none' disabled />
                 </div>
 
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Email :</label>
-                    <input type="email" placeholder='Enter Your Email' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="email" value={userDetails?.email || ""} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
                 </div>
 
 
@@ -69,6 +85,7 @@ const ServiceRegistration = () => {
                     <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Description :</label>
 
                     <textarea name="Description" id="DescriptionBox"
+                        value={formData.Description}
                         placeholder="Description about your Service (maxLength-300 words)"
                         className=' text-[20px] h-[300px] font-serif outline-none p-4  w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
                         rows={5} cols={40}
@@ -82,13 +99,13 @@ const ServiceRegistration = () => {
                 <div className='w-full h-[40px] flex py-10  items-center text-black'>
 
                     <label htmlFor="MinPrice" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Min Price :</label>
-                    <input type="text" placeholder='Enter service Starting Price' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="text" name="minPrice" value={formData.minPrice} placeholder='Enter service Starting Price' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
 
                 </div>
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="MaxPrice" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Max Price :</label>
-                    <input type="text" placeholder='Enter ending price of service ' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                    <input type="text" name="maxPrice" value={formData.maxPrice} placeholder='Enter ending price of service ' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
 
                 </div>
 
@@ -97,16 +114,23 @@ const ServiceRegistration = () => {
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="Locations" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Locations :</label>
-                    
+
                     <input type="text" placeholder='Enter Locations' className=' text-[20px] h-[50px] font-serif outline-none px-4 ms-8 w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
                     <div className="w-[100px] h-[50px]">
                         <button className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center'>
                             Add
                         </button>
                     </div>
-                
+
                 </div>
-                <AddedBox />
+
+                <div className='w-full h-[50px] flex py-10  items-center text-black'>
+
+
+
+                    <AddedBox />
+                </div>
+
                 <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                     <label htmlFor="Features" className=' text-[20px] px-4 font-medium font-serif w-[200px]'> Features :</label>
@@ -118,21 +142,21 @@ const ServiceRegistration = () => {
                     </div>
 
                 </div>
+                <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
-                <AddedBox />
+
+
+                    <AddedBox />
+                </div>
                 <div className='w-full h-auto flex my-10 items-center  text-black'>
 
                     <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Logo:</label>
-                    <div className='w-[200px] h-[200px] bg-slate-700 cursor-pointer  border-[2px]  border-slate-400  rounded-xl shadow-blue-700' onClick={handlePhotoUpload}>
+                    <div className='w-[200px] h-[200px] bg-slate-700  border-[2px]  border-slate-400  rounded-xl shadow-blue-700' >
 
-                        {image ?
-                            <img src={URL.createObjectURL(image)} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
-                            :
-                            <img src="../src/assets/uploadPhoto.jpg" alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
-                        }
+                        <img src={businessStore.business?.companyLogo ? `${API_BASE_URL}/api/images/${businessStore.business?.companyLogo}` : "../src/assets/uploadPhoto.jpg"} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
+
 
                     </div>
-                    <input type="file" className=' hidden' ref={profilePic} onChange={handleProfileChange} />
                 </div>
 
 

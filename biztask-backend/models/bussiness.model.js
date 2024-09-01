@@ -32,7 +32,7 @@ const bussinessSchema=new mongoose.Schema(
 
 },{minimize:false});
 
-const bussinessModel=  mongoose.models.bussiness ||mongoose.model('bussiness',bussinessSchema);
+const bussinessModel=  mongoose.models.bussiness || mongoose.model('bussiness',bussinessSchema);
 
 export default bussinessModel
 

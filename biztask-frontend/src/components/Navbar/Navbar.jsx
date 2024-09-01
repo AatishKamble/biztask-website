@@ -2,33 +2,21 @@ import { VscAzure } from "react-icons/vsc";
 import { IoMdLogIn } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useNavigate,useLocation} from 'react-router-dom';
 import Login from "../Login/Login";
 import SignUP from "../Login/SignUP";
-import { getUserProfile,logout } from "../../Redux/Auth/Action.js";
-import { useDispatch,useSelector } from "react-redux";
+import {logout } from "../../Redux/Auth/Action.js";
+import { useDispatch} from "react-redux";
 
-const Navbar = ({scrollToSection,howItWorkRef}) => {
+const Navbar = ({scrollToSection,howItWorkRef,userDetails}) => {
 
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
  const navigate=useNavigate()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const auth = useSelector(store => store.auth);
+ 
   const dispatch=useDispatch();
-  const jwt=localStorage.getItem("jwt");
-  useEffect(() => {
-     
-    if (jwt) {
-      
-      dispatch(getUserProfile(jwt));
-     
-    }
-
-  }, [jwt,dispatch]);
-
-
-
+  
   function handleLogout() {
     
     dispatch(logout());
@@ -36,7 +24,12 @@ const Navbar = ({scrollToSection,howItWorkRef}) => {
    navigate('/');
   }
 
+  const location = useLocation();
+  useEffect(() => {
+ 
+        setIsDropdownOpen(false); 
 
+}, [location]); //for closing dropdown of profile and logout
 
 
 let menuRef = useRef(null);
@@ -67,6 +60,8 @@ useEffect(() => {
   }
 
 
+
+  
 
   return (
     <>
@@ -112,14 +107,18 @@ useEffect(() => {
 
 
         {
-          auth.user? 
+          userDetails? 
             <>
 
               <div className="w-[15%] h-14 flex items-center justify-end pe-10 cursor-pointer bg-inherit ">
                 {
+                  
 
-auth.user.name.length>0? <div   ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-<p className="text-blue-900 font-extrabold ">{auth.user.name.length>0?auth.user.name[0].toUpperCase():""}</p>
+                  userDetails.name.length>0? <div   ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+  
+
+  
+<p className="text-blue-900 font-extrabold ">{userDetails.name.length>0?userDetails.name[0].toUpperCase():""}</p>
 </div>:<div   ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
 
 </div>

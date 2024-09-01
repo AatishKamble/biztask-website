@@ -58,8 +58,10 @@ passport.use(new GoogleStrategy({
 
 
 //api endpoints
-app.use('/api/business',businessRouter);
+
 app.use('/api/user',userRouter);
+app.use('/api/images',express.static("uploads"));
+app.use('/api/business',businessRouter);
 
 
 //google auth
