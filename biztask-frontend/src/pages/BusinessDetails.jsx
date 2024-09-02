@@ -19,10 +19,11 @@ const BusinessDetails = ({ userDetails }) => {
     useEffect(() => {
         if (jwt && id) {
             dispatch(getBusinessById(jwt, id));
-            console.log("called in de")
+    
         }
 
     }, [jwt, id, dispatch]);
+
 
     return (
         <>
@@ -89,11 +90,11 @@ const BusinessDetails = ({ userDetails }) => {
 
 
                 <div className=' w-full grid grid-cols-4 grid-rows-2 p-2 gap-1 gap-y-8 justify-center items-center mb-10'>
-                    <ServiceCard />
-                    <ServiceCard />
-                    <ServiceCard />
-                    <ServiceCard />
-                    <ServiceCard />
+                   {
+                    businessStore.business?.services?.map((business,index)=>(
+<ServiceCard business={business} provider={businessStore.business?.companyName}/>
+                    ))
+                   }
                 </div>
 
             </div >

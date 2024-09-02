@@ -33,7 +33,7 @@ const findBusinessById=async(businessId)=>{
     try {
 
         console.log(businessId)
-        const business=await bussinessModel.findById(businessId);
+        const business=await bussinessModel.findById(businessId).populate("services");
   console.log(business)
         if(!business){
             throw new Error("Business Not Found");

@@ -3,6 +3,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import businessRouter from "./routes/bussiness.route.js";
 import userRouter from "./routes/user.route.js";
+import serviceRouter from "./routes/service.route.js";
 import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
 import userModel from "./models/user.model.js";
@@ -62,6 +63,7 @@ passport.use(new GoogleStrategy({
 app.use('/api/user',userRouter);
 app.use('/api/images',express.static("uploads"));
 app.use('/api/business',businessRouter);
+app.use('/api/services',serviceRouter)
 
 
 //google auth

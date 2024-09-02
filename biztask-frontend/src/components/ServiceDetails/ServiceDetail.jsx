@@ -9,8 +9,12 @@ import { BsPostcard } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
 import React, { useRef, useState } from 'react';
 import Review from "../Reviews/Review";
+import { API_BASE_URL } from "../../configApi/ConfigApi";
+import { removeService } from "../../Redux/ServiceR/Action.js";
+import { Link, useNavigate } from 'react-router-dom';
 
-const ServiceDetail = () => {
+import {useDispatch} from "react-redux";
+const ServiceDetail = ({ serviceDetails,userDetails }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,12 +36,21 @@ const ServiceDetail = () => {
         console.log("click");
     }
 
+    const navigate=useNavigate();
+const jwt=localStorage.getItem("jwt");
+const dispatch=useDispatch();
+    const handleServiceRemove=()=>{
+        dispatch(removeService(jwt,serviceDetails._id,serviceDetails?.bussiness?._id));
+       
+        navigate(`/bussiness/details/${serviceDetails?.bussiness?._id}`);
+      }
+
     return (
         <>
             <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto px-20'>
 
 
-                <div className=' w-[90%] h-[300px] bg-slate-100  drop-shadow-lg  my-10 flex items-center px-10'>
+                <div className=' w-[90%] h-auto py-10 bg-slate-100  drop-shadow-lg  my-10 flex items-center px-10'>
 
 
                     <div className='w-full h-[180px] relative flex items-start flex-col justify-center px-10'>
@@ -45,12 +58,13 @@ const ServiceDetail = () => {
 
 
                         <div className='w-full text-[30px] text-slate-800 font-serif py-2'>
-                            <span className=' font-semibold px-2'>Cleaning Services</span>
+                            <span className=' font-semibold px-2'>{serviceDetails?.serviceType}</span>
 
                         </div>
 
                         <div className='w-full text-[22px] text-slate-600 font-serif pb-2'>
-                            <span className=' font-normal px-2'>Aatish Suppliers</span>
+                            <span className=' font-normal px-2'>{serviceDetails?.bussiness?.companyName}
+                            </span>
 
                         </div>
                         <div className='w-full px-2 pb-5 flex justify-start items-center  text-[18px] text-blue-950 font-serif'>
@@ -60,20 +74,42 @@ const ServiceDetail = () => {
                         </div>
                         <div className='w-[400px]  h-auto text-[20px] flex justify-start items-center text-blue-950 font-serif px-2 '>
                             <span><IoLocationSharp /></span>
-                            <span className=' font-normal px-2 text-slate-900'>Kolhapur, Pune, Jalna</span>
+
+                            {
+                                serviceDetails?.locations?.map((location, idx) => (
+                                    <span className=' font-normal px-2 text-slate-900'>{location}</span>
+
+                                ))
+
+                            }
 
                         </div>
 
 
                     </div>
 
-                    <div className='w-[250px] h-[180px]  rounded-full mx-5'>
+                    <div className="flex flex-col w-[400px] items-center justify-center">
+                        <div className='w-[190px] h-[180px]   rounded-full m-5'>
 
-                        <img src="../src/assets/profilepic.jpg" alt="profile picture" className='bg-cover w-full h-full rounded-full' />
+                            <img src={`${API_BASE_URL}/api/images/` + serviceDetails?.bussiness?.companyLogo} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
+                        </div>
+
+{
+    userDetails?._id==serviceDetails?.user?._id &&
+
+<div>
+<Link to={`/job-post/${serviceDetails?._id}`}>
+           <button className='bg-[#9fe59b]  rounded-md p-2 me-2   hover:bg-slate-400 w-auto h-auto text-slate-600 font-sans font-bold text-[18px]'>Post Job</button>
+           </Link>
+                        <Link to={`/service-update/${serviceDetails?._id}`}>
+                        <button className='bg-[#66cae1]  rounded-md p-[7px]  hover:bg-[#88d4e6] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
+                        </Link>
+
+                        <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#d8b0b0]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleServiceRemove}>Remove</button>
+</div>}
                     </div>
+
                 </div>
-
-
 
                 <div className=' w-[90%] h-auto  drop-shadow-lg my-10 flex px-10 gap-10'>
 
@@ -84,14 +120,10 @@ const ServiceDetail = () => {
                             </div>
                             <div className='flex h-auto  p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
                                 <span className="">
-                                    “The platform made finding reliable workers for my event so easy! The decorator we hired through here did an amazing job, and the entire process was smooth and hassle-free.”
+                                    {
+                                        serviceDetails?.Description
 
-                                    “The platform made finding reliable workers for my event so easy! The decorator we hired through here did an amazing job, and the entire process was smooth and hassle-free.”
-
-                                    “The platform made finding reliable workers for my event so easy! The decorator we hired through here did an amazing job, and the entire process was smooth and hassle-free.”
-
-                                    “The platform made finding reliable workers for my event so easy! The decorator we hired through here did an amazing job, and the entire process was smooth and hassle-free.”
-
+                                    }
                                 </span>
 
 
@@ -105,17 +137,15 @@ const ServiceDetail = () => {
                             <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
                                 <span className="px-2 border-b-2 border-slate-600 font-semibold"> Features</span>
                             </div>
-                            <div className='flex h-auto bg-slate-100 p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
-                                <span className="">
-                                    “The platform made finding reliable workers for my event so easy! The decorator we hired through here did an amazing job, and the entire process was smooth and hassle-free.”
+                            <div className='flex flex-col h-auto bg-slate-100 p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
 
-                                    “The platform made finding reliable workers for my event so easy! The decorator we hired through here did an amazing job, and the entire process was smooth and hassle-free.”
+                                {
+                                    serviceDetails?.features?.map((features, idx) => (
+                                        <span >{idx + 1}. {features}</span>
 
-                                    “The platform made finding reliable workers for my event so easy! The decorator we hired through here did an amazing job, and the entire process was smooth and hassle-free.”
+                                    ))
+                                }
 
-                                    “The platform made finding reliable workers for my event so easy! The decorator we hired through here did an amazing job, and the entire process was smooth and hassle-free.”
-
-                                </span>
 
 
                             </div>
@@ -134,17 +164,29 @@ const ServiceDetail = () => {
                             <div className="w-full h-12 flex items-center px-4 text-[20px] text-slate-800 font-serif   ">
                                 <span className="px-2 font-medium"> Name :</span>
                                 <span className=" font-normal">
-                                    Aatish Kamble
+                                    {
+                                        serviceDetails?.user?.name
+                                    }
                                 </span>
                             </div>
                             <div className="w-full h-12 flex items-center px-4 text-[20px] text-slate-800 font-serif  ">
                                 <span className="px-2 font-medium flex items-center"> <FaPhone /></span>
 
-                                <span className=" align-middle font-normal">2222233333</span>
+                                <span className=" align-middle font-normal">
+                                    {
+                                        serviceDetails?.user?.mobileNumber
+
+                                    }
+                                </span>
                             </div>
                             <div className="w-full h-12 flex items-center px-4 text-[20px] text-slate-800 font-serif  ">
                                 <span className="px-2 font-medium flex items-center"> <MdEmail /></span>
-                                <span className=" align-middle font-normal">Ak123@Gmail.com</span>
+                                <span className=" align-middle font-normal">
+                                    {
+                                        serviceDetails?.user?.email
+
+                                    }
+                                </span>
                             </div>
 
                         </div>
@@ -153,10 +195,16 @@ const ServiceDetail = () => {
                             <div className=" w-full h-auto flex flex-col items-start px-4 py-10 text-[22px] text-slate-800 font-serif bg-slate-100  ">
                                 <span className="px-2 text-[24px] pb-5 font-semibold"> Pricing Details :</span>
                                 <div className="text-[20px] text-black font-serif ">
-                                    <span className="px-2 font-medium"> Min Price :</span> <span className="px-2 font-normal"> $40000</span></div>
+                                    <span className="px-2 font-medium"> Min Price :</span> <span className="px-2 font-normal">{
+                                        serviceDetails?.minPrice
+
+                                    }</span></div>
 
                                 <div className="text-[20px] text-black font-serif ">
-                                    <span className="px-2 font-medium"> Max Price :</span> <span className="px-2 font-normal"> $80000</span></div>
+                                    <span className="px-2 font-medium"> Max Price :</span> <span className="px-2 font-normal"> {
+                                        serviceDetails?.maxPrice
+
+                                    }</span></div>
 
                             </div>
 

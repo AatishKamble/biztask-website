@@ -91,7 +91,7 @@ const businessRegister = (businessData, jwt) => async (dispatch) => {
         });
         
         const newBusiness = response.data;
-        
+        console.log("business",newBusiness.business)
         if (newBusiness.success == true) {
             // window.location.reload();
             dispatch(registerBusinessSuccess(newBusiness.business));

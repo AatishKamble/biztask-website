@@ -6,6 +6,11 @@ const serviceShcema=new mongoose.Schema({
                     required:true,
                     ref:"bussiness"
                 },
+                user:{
+                    type:mongoose.Schema.ObjectId,
+                    required:true,
+                    ref:"users"
+                },
                 serviceType:{
                     type:String,
                     required:true,  

@@ -6,6 +6,11 @@ const jobsDetailsShcema=new mongoose.Schema({
                     required:true,
                     ref:"services"
                 },
+                user:{
+                    type:mongoose.Schema.ObjectId,
+                    required:true,
+                    ref:"users"
+                },
                 jobRole:{
                     type:String,
                     required:true,  

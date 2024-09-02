@@ -49,14 +49,15 @@ const Routers = () => {
           <Route path="/bussiness-update/:id" element={<RegistrationPage userDetails={auth.user} registration={false}/>} />
           <Route path="/bussiness/details/:id" element={ <BusinessDetails userDetails={auth.user} />} />
          
-          <Route path="/service-detail" element={<ServiceDetailPage />} />
-          <Route path="/job-post" element={<JobPostPage />} />
+          <Route path="/service-detail/:id" element={<ServiceDetailPage userDetails={auth.user} />} />
+          <Route path="/job-post/:id" element={<JobPostPage />} />
           <Route path="/job-detail" element={<JobDetail />} />
           <Route path="/jobs" element={<SearchJobs />} />
           <Route path="/services" element={<SearchService />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/auth/google/callback" element={<Home />} />
-          <Route path="/service-registration" element={<ServiceRegistration userDetails={auth.user} />} />
+          <Route path="/service-registration" element={<ServiceRegistration userDetails={auth.user} registration={true} />} />
+          <Route path="/service-update/:id" element={<ServiceRegistration userDetails={auth.user} registration={false}/>} />
 
 
         </Routes>
