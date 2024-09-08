@@ -11,6 +11,11 @@ const workPhotosShcema=new mongoose.Schema({
                     required:true,
                     ref:"users"
                 },
+                photos:[
+                    {
+                        type:String
+                    }
+                ],
                 createdAt:{
                     type:Date,
                     default:Date.now()

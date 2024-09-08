@@ -10,7 +10,13 @@ import {
     SERVICE_REMOVE_FAILURE ,
     SERVICE_UPDATE_REQUEST,
     SERVICE_UPDATE_SUCCESS,
-    SERVICE_UPDATE_FAILURE
+    SERVICE_UPDATE_FAILURE,
+    GET_ALL_SERVICE_REQUEST,
+    GET_ALL_SERVICE_SUCCESS,
+    GET_ALL_SERVICE_FAILURE,
+    UPLOAD_IMAGE_REQUEST,
+    UPLOAD_IMAGE_SUCCESS,
+    UPLOAD_IMAGE_FAILURE
 } from './ActionType.js';
 
 
@@ -29,6 +35,8 @@ export const serviceReducer = (state = initialState, action) => {
             case SERVICE_GET_BY_ID_REQUEST:
                 case SERVICE_REMOVE_REQUEST:
                     case  SERVICE_UPDATE_REQUEST:
+                        case GET_ALL_SERVICE_REQUEST:
+                            case UPLOAD_IMAGE_REQUEST:
             return {
                 ...state,
                 loading: true
@@ -49,6 +57,14 @@ export const serviceReducer = (state = initialState, action) => {
                     service:action.payload
                 };
 
+                case UPLOAD_IMAGE_SUCCESS:
+                    return {
+                        ...state,
+                        loading: false,
+                        service:action.payload.service,
+                        message:action.payload.message
+                    };
+
             case SERVICE_REMOVE_SUCCESS:
                 return {
                     ...state,
@@ -63,6 +79,13 @@ export const serviceReducer = (state = initialState, action) => {
                     service:action.payload
                 }
 
+                
+            case GET_ALL_SERVICE_SUCCESS:
+                return {
+                    ...state,
+                    isLoading:false,
+                    services:action.payload
+                }
        
 
 
@@ -71,6 +94,8 @@ export const serviceReducer = (state = initialState, action) => {
         case SERVICE_GET_BY_ID_FAILURE:
             case SERVICE_REMOVE_FAILURE:
                 case SERVICE_UPDATE_FAILURE:
+                    case GET_ALL_SERVICE_FAILURE:
+                        case   UPLOAD_IMAGE_FAILURE:
             return {
                 ...state,
                 loading: false,

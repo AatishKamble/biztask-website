@@ -1,8 +1,11 @@
 import userModel from "../models/user.model.js";
 import validator from "validator";
 import jwtProvider from "../config/jwtProvider.js";
+import jobsDetailsModel from "../models/jobsDetails.model.js";
 import bcrypt from "bcrypt";
 import { unlink } from 'node:fs';
+import path from "node:path";
+import { get } from "node:http";
 const createUser = async (reqData) => {
     try {
         const { email, password } = reqData;
@@ -58,7 +61,15 @@ const getUserByToken=async(token)=>{
     try {
         const userId=jwtProvider.getUserByToken(token);
        
-        const user=await userModel.findOne({ _id: userId }).populate("businesses");
+        const user=await userModel.findOne({ _id: userId }).populate("businesses").populate({
+            path:"appliedJobs",
+            model:"jobsDetails",
+            populate:[
+               { path:"business"},
+                {path:"service"}
+            ]
+           
+        });
    
         if(!user){
             throw new Error("User not found");
@@ -74,7 +85,15 @@ const getUserByToken=async(token)=>{
 const getUserById=async(userId)=>{
     try {
     
-        const user=await userModel.findOne({ _id: userId });
+        const user=await userModel.findOne({ _id: userId }).populate("businesses").populate({
+            path:"appliedJobs",
+            model:"jobsDetails",
+            populate:[
+               { path:"business"},
+                {path:"service"}
+            ]
+           
+        });
    
         if(!user){
             throw new Error("User not found");
@@ -99,12 +118,40 @@ const updatedUser=await userModel.findByIdAndUpdate(
     { new: true }
 );
 
-return updatedUser;
+const userUpdated=getUserById(userId)
+return userUpdated;
 
 } catch (error) {
     throw new Error(error.message);
 }
 
+}
+
+const applyJob=async(userId,jobId)=>{
+    try {
+
+        const user=await getUserById(userId);
+        if(user.appliedJobs.includes(jobId)){
+            throw new Error("You have already applied for this job");
+        }
+        const updatedUser=await userModel.findByIdAndUpdate(
+            userId,
+            { $push: { appliedJobs: jobId } },
+            { new: true }
+        );
+
+
+        await jobsDetailsModel.findByIdAndUpdate(
+            jobId,
+            {$push:{peopleApplied:userId}},
+            { new: true }
+        );
+
+        
+        return updatedUser;
+    } catch (error) {
+        throw new Error(error.message);
+    }
 }
 
 export default {
@@ -113,4 +160,5 @@ export default {
     getUserByToken,
     updateUserProfile,
     getUserById,
+    applyJob
 }

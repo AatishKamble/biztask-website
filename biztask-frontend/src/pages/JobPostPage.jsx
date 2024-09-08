@@ -1,13 +1,13 @@
 import React from 'react'
 import JobListingForm from '../components/Forms/JobListingForm'
 
-const JobPostPage = () => {
+const JobPostPage = ({registration}) => {
 
-  
+
   return (
     <>
     
-    <JobListingForm />
+    <JobListingForm registration={registration}/>
     
     </>
   )

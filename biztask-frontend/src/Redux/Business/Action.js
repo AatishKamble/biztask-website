@@ -16,6 +16,7 @@ import {
 import { API_BASE_URL } from '../../configApi/ConfigApi.js';
 import axios from 'axios';
 import {getUserProfile} from "../Auth/Action.js";
+import { toast } from 'react-toastify';
 
 // Register Business Actions
 const registerBusinessRequest = () => ({
@@ -91,11 +92,12 @@ const businessRegister = (businessData, jwt) => async (dispatch) => {
         });
         
         const newBusiness = response.data;
-        console.log("business",newBusiness.business)
+       
         if (newBusiness.success == true) {
             // window.location.reload();
             dispatch(registerBusinessSuccess(newBusiness.business));
             dispatch(getUserProfile(jwt));
+            toast.success(newBusiness.message);
         }
         else {
             throw new Error(newBusiness.message);
@@ -105,6 +107,7 @@ const businessRegister = (businessData, jwt) => async (dispatch) => {
     } catch (error) {
 
         dispatch(registerBusinessFailure(error.message));
+        toast.error(error.message);
     }
 
 }
@@ -130,14 +133,17 @@ const updateBusiness = (jwt, businessData, businessId) => async (dispatch) => {
            
             dispatch(updateBusinessSuccess(newBusiness.business));
             dispatch(getUserProfile(jwt));
+            toast.success(newBusiness.message);
         }
         else {
             throw new Error(newBusiness.message);
+           
         }
 
 
     } catch (error) {
         dispatch(updateBusinessFailure(error.message));
+        toast.error(error.message);
     }
 }
 
@@ -160,6 +166,7 @@ const removeBusiness = (jwt,businessId) => async (dispatch) => {
         if (newBusiness.success == true) {
             dispatch(removeBusinessSuccess(newBusiness.message));
             dispatch(getUserProfile(jwt));
+            toast.success(newBusiness.message);
         }
         else {
             throw new Error(newBusiness.message);
@@ -168,26 +175,23 @@ const removeBusiness = (jwt,businessId) => async (dispatch) => {
 
     } catch (error) {
         dispatch(removeBusinessFailure(error.message));
+        toast.error(error.message);
     }
 }
 
 
 //getBusinessById
-const getBusinessById = (jwt,businessId) => async (dispatch) => {
+const getBusinessById = (businessId) => async (dispatch) => {
     dispatch(getBusinessByIdRequest());
     try {
       
-        const response = await axios.get(`${API_BASE_URL}/api/business/details/${businessId}`, {
-            headers: {
-                "authorization": `Bearer ${jwt}`,
-            }
-        });
+        const response = await axios.get(`${API_BASE_URL}/api/business/details/${businessId}`);
 
 
 
         const newBusiness = response.data;
-console.log("in",newBusiness)
-        
+
+    
         if (newBusiness.success == true) {
            
             dispatch(getBusinessByIdSuccess(newBusiness.business));
@@ -199,6 +203,7 @@ console.log("in",newBusiness)
 
     } catch (error) {
         dispatch(getBusinessByIdFailure(error.message));
+        toast.error(error.message);
     }
 }
 

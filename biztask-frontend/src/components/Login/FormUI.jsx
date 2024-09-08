@@ -25,7 +25,7 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
             border: "1px solid #eff6ff",
             transform: 'translate(-50%, -50%)',
             width: "500px",
-            height: "650px",
+            height: "680px",
             backgroundColor: '#f0f9ff',
             zIndex: '1000'
         },
@@ -62,11 +62,15 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
         e.preventDefault();
         if (type == "login") {
             dispatch(login(formData));
+            handleButtonClick();
+        
         }
         else if (type == "signup") {
 
             if (formData.password == confPass) {
                 dispatch(register(formData));
+             
+            handleButtonClick();
             }
             else {
                 setFormData({
@@ -79,12 +83,6 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
         }
 
     }
-
-    useEffect(() => {
-        if (auth.error) {
-            setErrorMessage(auth.error);
-        }
-    }, [auth.error]);
 
 
     const handleGoogle = () => {

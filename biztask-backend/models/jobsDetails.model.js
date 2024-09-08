@@ -11,6 +11,11 @@ const jobsDetailsShcema=new mongoose.Schema({
                     required:true,
                     ref:"users"
                 },
+                business:{
+                    type:mongoose.Schema.ObjectId,
+                    required:true,
+                    ref:"bussiness"
+                },
                 jobRole:{
                     type:String,
                     required:true,  
@@ -51,6 +56,11 @@ const jobsDetailsShcema=new mongoose.Schema({
                     type:Date,
                     required:true, 
                 },
+                peopleApplied:[
+                   { type:mongoose.Schema.ObjectId,
+                    ref:"users"
+                }
+                ],
                 postedAt:{
                     type:Date,
                     default:Date.now()

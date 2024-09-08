@@ -7,10 +7,16 @@ import {
     SERVICE_GET_BY_ID_FAILURE,
     SERVICE_REMOVE_REQUEST,
     SERVICE_REMOVE_SUCCESS,
-    SERVICE_REMOVE_FAILURE ,
+    SERVICE_REMOVE_FAILURE,
     SERVICE_UPDATE_REQUEST,
     SERVICE_UPDATE_SUCCESS,
-    SERVICE_UPDATE_FAILURE
+    SERVICE_UPDATE_FAILURE,
+    GET_ALL_SERVICE_REQUEST,
+    GET_ALL_SERVICE_SUCCESS,
+    GET_ALL_SERVICE_FAILURE,
+    UPLOAD_IMAGE_REQUEST,
+    UPLOAD_IMAGE_SUCCESS,
+    UPLOAD_IMAGE_FAILURE
 
 } from './ActionType.js';
 
@@ -19,6 +25,7 @@ import { getBusinessById } from '../Business/Action.js';
 
 import { API_BASE_URL } from '../../configApi/ConfigApi.js';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 // Register Business Actions
@@ -84,13 +91,42 @@ const updateServiceFailure = (error) => ({
 });
 
 
+const getAllServicesRequest = () => ({
+    type: GET_ALL_SERVICE_REQUEST
+});
+
+const getAllServicesSuccess = (service) => ({
+    type: GET_ALL_SERVICE_SUCCESS,
+    payload: service
+});
+
+const getAllServicesFailure = (error) => ({
+    type: GET_ALL_SERVICE_FAILURE,
+    payload: error
+});
+
+
+
+//upload previous work images
+export const uploadImageRequest = () => ({
+    type: UPLOAD_IMAGE_REQUEST,
+  });
+  
+  export const uploadImageSuccess = (message,service) => ({
+    type: UPLOAD_IMAGE_SUCCESS,
+    payload: {message,service},
+  });
+  
+  export const uploadImageFailure = (error) => ({
+    type: UPLOAD_IMAGE_FAILURE,
+    payload: error,
+  });
 
 //register service
 
 const serviceRegister = (serviceData, jwt) => async (dispatch) => {
     dispatch(registerServiceRequest());
     try {
-        console.log([...serviceData.entries()]);
 
         const response = await axios.post(`${API_BASE_URL}/api/services/register`, serviceData, {
             headers: {
@@ -98,12 +134,14 @@ const serviceRegister = (serviceData, jwt) => async (dispatch) => {
                 "Content-Type": "multipart/form-data"
             }
         });
-        
+
         const newService = response.data;
-        console.log(newService);
+    
         if (newService.success == true) {
             // window.location.reload();
             dispatch(registerServiceSuccess(newService.message));
+            dispatch(getBusinessById(newService.service.bussiness));
+            toast.success(newService.message);
         }
         else {
             throw new Error(newService.message);
@@ -113,6 +151,7 @@ const serviceRegister = (serviceData, jwt) => async (dispatch) => {
     } catch (error) {
 
         dispatch(registerServiceFailure(error.message));
+        toast.error(error.message);
     }
 
 }
@@ -122,17 +161,16 @@ const serviceRegister = (serviceData, jwt) => async (dispatch) => {
 const getServiceById = (serviceId) => async (dispatch) => {
     dispatch(getServiceByIdRequest());
     try {
-      
-        console.log("get")
+
         const response = await axios.get(`${API_BASE_URL}/api/services/details/${serviceId}`);
 
 
 
         const newService = response.data;
-console.log("in",newService.service)
-        
+      
+
         if (newService.success == true) {
-           
+
             dispatch(getServiceByIdSuccess(newService.service));
         }
         else {
@@ -142,14 +180,15 @@ console.log("in",newService.service)
 
     } catch (error) {
         dispatch(getServiceByIdFailure(error.message));
+        toast.error(error.message)
     }
 }
 
-const removeService = (jwt,serviceId,businessId) => async (dispatch) => {
+const removeService = (jwt, serviceId, businessId) => async (dispatch) => {
     dispatch(removeServiceRequest());
     try {
 
-        const response = await axios.delete(`${API_BASE_URL}/api/services/remove/${serviceId}?businessId=${businessId}`,{
+        const response = await axios.delete(`${API_BASE_URL}/api/services/remove/${serviceId}?businessId=${businessId}`, {
             headers: {
                 "authorization": `Bearer ${jwt}`,
             }
@@ -158,10 +197,11 @@ const removeService = (jwt,serviceId,businessId) => async (dispatch) => {
 
 
         const newService = response.data;
-  
+
         if (newService.success == true) {
             dispatch(removeServiceSuccess(newService.message));
-      
+            dispatch(getBusinessById(newService.service.bussiness._id));
+                toast.success(newService.message);
         }
         else {
             throw new Error(newService.message);
@@ -170,6 +210,7 @@ const removeService = (jwt,serviceId,businessId) => async (dispatch) => {
 
     } catch (error) {
         dispatch(removeServiceFailure(error.message));
+        toast.error(error.message);
     }
 }
 
@@ -192,9 +233,11 @@ const updateService = (jwt, serviceData, serviceId) => async (dispatch) => {
         const newService = response.data;
 
         if (newService.success == true) {
-           
+
             dispatch(updateServiceSuccess(newService.service));
-            
+dispatch(getServiceById(newService.service._id))
+            toast.success(newService.message);
+
         }
         else {
             throw new Error(newService.message);
@@ -203,14 +246,83 @@ const updateService = (jwt, serviceData, serviceId) => async (dispatch) => {
 
     } catch (error) {
         dispatch(updateServiceFailure(error.message));
+        toast.error(error.message);
     }
 }
 
 
-export{
+
+//get all services
+const getAllServices = (reqData) => async (dispatch) => {
+    dispatch(getAllServicesRequest());
+    try {
+
+        const {
+            serviceName,
+            serviceLocation,
+            minPrice,
+            maxPrice,
+            rating,
+            page,
+            limit
+        } = reqData;
+
+        const response = await axios.get(`${API_BASE_URL}/api/services/all?serviceName=${serviceName}&serviceLocation=${serviceLocation}&minPrice=${minPrice}&maxPrice=${maxPrice}&rating=${rating}&page=${page}&limit=${limit}`);
+        const allServices = response.data;
+     
+        if (allServices.success == true) {
+            dispatch(getAllServicesSuccess(allServices));
+
+        }
+    } catch (error) {
+        dispatch(getAllServicesFailure(error.message));
+        toast.error(error.message);
+    }
+
+}
+
+
+
+//upload image
+
+const uploadImage = (formData, jwt) => async (dispatch) => {
+    dispatch(uploadImageRequest());
+    try {
+
+        const response = await axios.post(`${API_BASE_URL}/api/services/upload`, formData, {
+            headers: {
+                "authorization": `Bearer ${jwt}`,
+                "Content-Type": "multipart/form-data"
+            }
+        });
+
+        const newService = response.data;
+   
+        if (newService.success == true) {
+            // window.location.reload();
+            dispatch(uploadImageSuccess(newService.message,newService.service));
+            toast.success(newService.message);
+        }
+        else {
+            throw new Error(newService.message);
+        }
+
+
+    } catch (error) {
+
+        dispatch(uploadImageFailure(error.message));
+        toast.error(error.message);
+    }
+
+}
+
+
+export {
     serviceRegister,
     getServiceById,
     removeService,
-    updateService
+    updateService,
+    getAllServices,
+    uploadImage
 
 }

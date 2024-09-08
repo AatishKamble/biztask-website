@@ -1,7 +1,24 @@
 import { CiSearch } from "react-icons/ci";
 import { MdOutlineMyLocation } from "react-icons/md";
 import { LiaSearchDollarSolid } from "react-icons/lia";
-const FilterServices = () => {
+import Star from "../Reviews/Star";
+const FilterServices = ({
+    nameInput,
+    handleNameInputChange,
+    handleNameInputSubmit,
+  
+    locationInput,
+    handleLocationInputChange,
+    handleLocationInputSubmit,
+  
+    priceInput,
+    handlePriceInputChange,
+    handlePriceInputSubmit,
+  
+    selectedCheckbox,
+    handleCheckboxChange,
+    checkBoxOptions
+  })=> {
   return (
   
     <div className=' bg-[#ffffff] border-[1px] border-slate-300 w-[400px] drop-shadow-xl rounded-2xl shadow-slate-800 h-auto ms-2'>
@@ -15,8 +32,12 @@ const FilterServices = () => {
       </div>
 
       <div className='w-full h-[50px]  flex py-10  items-center text-black'>
-        <input type="text" placeholder='Find job with name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md' autoComplete='none' />
-        <button className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950  drop-shadow-2xl flex justify-center items-center'>
+        <input type="text"
+      name="name"
+      value={nameInput}
+      onChange={handleNameInputChange}
+        placeholder='Find services with name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md' autoComplete='none' />
+        <button onClick={handleNameInputSubmit} className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950  drop-shadow-2xl flex justify-center items-center'>
           <CiSearch />
         </button>
       </div>
@@ -33,8 +54,12 @@ const FilterServices = () => {
       </div>
 
       <div className='w-full h-[50px]  flex py-10  items-center text-black'>
-        <input type="text" placeholder='Find job with Location' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md' autoComplete='none' />
-        <button className='  text-[28px] hover:text-blue-950  font-serif font-bold align-middle h-[50px] w-[50px] drop-shadow-2xl flex justify-center items-center'>
+        <input type="text"
+        name="location"
+        value={locationInput}
+        onChange={handleLocationInputChange}
+        placeholder='Find srvice with Location' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md' autoComplete='none' />
+        <button onClick={handleLocationInputSubmit} className='  text-[28px] hover:text-blue-950  font-serif font-bold align-middle h-[50px] w-[50px] drop-shadow-2xl flex justify-center items-center'>
         <MdOutlineMyLocation />
         </button>
       </div>
@@ -50,8 +75,12 @@ const FilterServices = () => {
       </div>
 
       <div className='w-full h-[50px]  flex py-10  items-center text-black'>
-        <input type="text" placeholder='Enter Salary (Min or Max)' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md' autoComplete='none' />
-        <button className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950   drop-shadow-2xl flex justify-center items-center  -rotate-90'>
+        <input type="text"
+        name="price"
+        value={priceInput}
+        onChange={handlePriceInputChange}
+        placeholder='Enter Price (Min or Max)' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md' autoComplete='none' />
+        <button onClick={handlePriceInputSubmit} className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950   drop-shadow-2xl flex justify-center items-center  -rotate-90'>
         <LiaSearchDollarSolid />
         </button>
       </div>
@@ -67,39 +96,25 @@ const FilterServices = () => {
 </div>
 <div className='w-full h-auto pb-6 ps-4 pt-3 transition-all duration-1000 ease-in-out'>
             <ul className='list-none '>
-               
-                        <li className='text-[1.2rem] font-normal font-serif text-slate-950' >
-                            <div className='flex items-center'>
-                                <input type="checkbox"  className='h-5 w-[18px] me-3 cursor-pointer accent-blue-500 '  /><span className="text-[30px] font-serif font-normal px-2  text-yellow-400">★</span>
-                            </div>
-                        </li>
-               
-                        <li className='text-[1.2rem] font-normal font-serif text-slate-950'>
-                            <div className='flex items-center'>
-                                <input type="checkbox"  className='h-5 w-[18px] me-3 cursor-pointer accent-blue-500 '  /><span className="text-[30px] font-serif font-normal px-2  text-yellow-400">★★</span>
-                            </div>
-                        </li>
-
-                       
-
-
-                        <li className='text-[1.2rem] font-normal font-serif text-slate-950'>
-                            <div className='flex items-center'>
-                                <input type="checkbox"  className='h-5 w-[18px] me-3 cursor-pointer accent-blue-500 '  /><span className="text-[30px] font-serif font-normal px-2  text-yellow-400">★★★</span>
-                            </div>
-                        </li>
-                        <li className='text-[1.2rem] font-normal font-serif text-slate-950'>
-                            <div className='flex items-center'>
-                                <input type="checkbox"  className='h-5 w-[18px] me-3 cursor-pointer accent-blue-500 '  /><span className="text-[30px] font-serif font-normal px-2  text-yellow-400">★★★★</span>
-                            </div>
-                        </li>
-                        <li className='text-[1.2rem] font-normal font-serif text-slate-950'>
-                            <div className='flex items-center'>
-                                <input type="checkbox"  className='h-5 w-[18px] me-3 cursor-pointer accent-blue-500 '  /><span className="text-[30px] font-serif font-normal px-2  text-yellow-400">★★★★★</span>
-                            </div>
-                        </li>
-                        
-
+            {
+              checkBoxOptions.map((item, id) => (
+                <li key={id} className='text-[1.2rem] font-normal font-serif text-slate-950'>
+                  <div className='flex items-center'>
+                    <input 
+                      type="checkbox" 
+                      name={item} 
+                      value={item} 
+                      checked={selectedCheckbox.includes(item.toString())}
+                      onChange={handleCheckboxChange}
+                      className='h-5 w-[18px] me-3 cursor-pointer accent-blue-500' 
+                    />
+                    <label htmlFor={item}>
+                      <Star star={item} />
+                    </label>
+                  </div>
+                </li>
+              ))
+            }
                        
              
             </ul>

@@ -5,7 +5,7 @@ const createBusiness=async(req,res)=>{
     try {
         let company_logo=`${req.file?.filename}`;
         const userId=req.user._id;
-        console.log("con",req.body);
+     
         const business= await bussinessService.createBusiness(userId,req.body,company_logo);
         return res.json({success:true,message:'Business registered',business:business});
     } catch (error) {
@@ -73,5 +73,6 @@ export default{
     createBusiness,
     updateBusiness,
     removeBusiness,
-    getBusinessById
+    getBusinessById,
+    
 }

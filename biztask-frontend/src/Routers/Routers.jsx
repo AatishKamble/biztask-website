@@ -15,53 +15,70 @@ import AboutUs from "../pages/AboutUs.jsx";
 import ServiceRegistration from "../components/Forms/ServiceRegistration.jsx";
 import { getUserProfile} from "../Redux/Auth/Action.js";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import BusinessDetails from "../pages/BusinessDetails.jsx";
+import ScrollToTop from "../components/ScrollTo/ScrollToTop.jsx";
+import PeopleApplied from "../components/JobTemplate/PeopleApplied.jsx";
+import { toast } from "react-toastify";
 const Routers = () => {
-  const howItWorkRef = useRef(null);
+  
   const auth = useSelector(store => store.auth);
 
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
-  const scrollToSection = (sectionRef) => {
-    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
+ 
 
   useEffect(() => {
     if (jwt && !auth.user) { // Fetch only if the user data is not already available
         dispatch(getUserProfile(jwt));
-        console.log("call in router")
-       
+      
     }
+    
 }, [jwt, auth.user, dispatch]);
+const [login, setLogin] = useState(false);
+const [signUp, setSignUp] = useState(false);
+const handleLogInButtonClick = () => {
+  setLogin(!login);
 
+}
+
+const handleSignUpButtonClick = () => {
+  setSignUp(!signUp);
+}
 
   return (
     <>
 
       <Router>
-        <Navbar scrollToSection={scrollToSection} howItWorkRef={howItWorkRef} userDetails={auth.user} />
+        <ScrollToTop />
+        <Navbar userDetails={auth.user} login={login} handleLogInButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick}  signUp={signUp} />
         <Routes>
-          <Route path="/" element={<Home howItWorkRef={howItWorkRef} />} />
+          <Route path="/" element={<Home />} />
           <Route path="/profile" element={<ProfilePage userDetails={auth.user}/>} />
+          
           <Route path="/profile-edit" element={<ProfileEdit userDetails={auth.user}/>} />
           <Route path="/bussiness-registration" element={<RegistrationPage userDetails={auth.user} registration={true} />} />
           <Route path="/bussiness-update/:id" element={<RegistrationPage userDetails={auth.user} registration={false}/>} />
           <Route path="/bussiness/details/:id" element={ <BusinessDetails userDetails={auth.user} />} />
          
           <Route path="/service-detail/:id" element={<ServiceDetailPage userDetails={auth.user} />} />
-          <Route path="/job-post/:id" element={<JobPostPage />} />
-          <Route path="/job-detail" element={<JobDetail />} />
+          
+          <Route path="/job-post" element={<JobPostPage registration={true}/>} />
+          <Route path="/job-update/:id" element={<JobPostPage registration={false}/>} />
+          
+          <Route path="/job-detail/:id" element={<JobDetail userDetails={auth.user} handleLogInButtonClick={handleLogInButtonClick}/>} />
+          <Route path="/job-detail/people-applied/:id" element= { <PeopleApplied />} />
+        
           <Route path="/jobs" element={<SearchJobs />} />
           <Route path="/services" element={<SearchService />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/auth/google/callback" element={<Home />} />
-          <Route path="/service-registration" element={<ServiceRegistration userDetails={auth.user} registration={true} />} />
+          <Route path="/service-registration/:id" element={<ServiceRegistration userDetails={auth.user} registration={true} />} />
           <Route path="/service-update/:id" element={<ServiceRegistration userDetails={auth.user} registration={false}/>} />
 
 
         </Routes>
-        <Footer />
+        <Footer userDetails={auth.user} handleLogInButtonClick={handleLogInButtonClick}/>
       </Router>
     </>
   )

@@ -8,6 +8,8 @@ import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
 import userModel from "./models/user.model.js";
 import jwtProvider from "./config/jwtProvider.js";
+import jobRouter from "./routes/job.route.js";
+import reviweRouter from "./routes/reviews.route.js"
 import "dotenv/config";
 
 const app=express();
@@ -63,7 +65,9 @@ passport.use(new GoogleStrategy({
 app.use('/api/user',userRouter);
 app.use('/api/images',express.static("uploads"));
 app.use('/api/business',businessRouter);
-app.use('/api/services',serviceRouter)
+app.use('/api/services',serviceRouter);
+app.use('/api/jobs',jobRouter);
+app.use('/api/reviews',reviweRouter);
 
 
 //google auth

@@ -1,10 +1,11 @@
 import bussinessModel from "../models/bussiness.model.js";
 import userModel from "../models/user.model.js";
+import servicesService from "./services.service.js";
 import { unlink } from 'node:fs';
 const createBusiness = async (userId, reqData, companyLogo) => {
 
     try {
-        console.log("in ser",reqData);
+        
         const business = new bussinessModel({
             user: userId,
             companyName: reqData.companyName,
@@ -32,9 +33,9 @@ const createBusiness = async (userId, reqData, companyLogo) => {
 const findBusinessById=async(businessId)=>{
     try {
 
-        console.log(businessId)
+       
         const business=await bussinessModel.findById(businessId).populate("services");
-  console.log(business)
+
         if(!business){
             throw new Error("Business Not Found");
         }
@@ -76,6 +77,10 @@ const removeBusiness=async(businessId,userId)=>{
     
         unlink(`uploads/${business.companyLogo}`,()=>{});//for deleting previous image
         
+
+        business.services.map(async(service,idx)=>{
+            await servicesService.removeService(service._id,business.user,business._id);
+         })
        await bussinessModel.findByIdAndDelete(businessId);
       await userModel.findByIdAndUpdate(
             userId,

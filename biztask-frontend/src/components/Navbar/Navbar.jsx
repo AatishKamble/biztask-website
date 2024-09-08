@@ -8,10 +8,9 @@ import SignUP from "../Login/SignUP";
 import {logout } from "../../Redux/Auth/Action.js";
 import { useDispatch} from "react-redux";
 
-const Navbar = ({scrollToSection,howItWorkRef,userDetails}) => {
+const Navbar = ({userDetails,login,handleLogInButtonClick,handleSignUpButtonClick,signUp}) => {
 
-  const [login, setLogin] = useState(false);
-  const [signUp, setSignUp] = useState(false);
+  
  const navigate=useNavigate()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
  
@@ -49,19 +48,28 @@ useEffect(() => {
 });
 
 
-  const handleLogInButtonClick = () => {
-   
-    setLogin(!login);
   
-  }
 
-  const handleSignUpButtonClick = () => {
-    setSignUp(!signUp);
-  }
-
-
-
+  const handleBusinessRegistration = () => {
+    if (userDetails) {
+        // If user is logged in, navigate to business registration
+        navigate("/profile#bussiness-registration");
+    } else {
+        // If user is not logged in, open the login modal
+        handleLogInButtonClick();
+    }
+};
   
+const handleAppliedJob = () => {
+  if (userDetails) {
+      // If user is logged in, navigate to business registration
+      navigate("/profile#applied-jobs");
+  } else {
+      // If user is not logged in, open the login modal
+      handleLogInButtonClick();
+  }
+};
+
 
   return (
     <>
@@ -88,15 +96,17 @@ useEffect(() => {
         </div>
         <div className='h-16 w-[80%] bg-inherit flex justify-center items-center '>
           
-          <div className='h-16  bg-inherit flex justify-between items-center '>
-            <ul className='text-xl font-serif font-medium text-black flex justify-between '>
+          <div className='h-16 ps-5  bg-inherit flex justify-between items-center '>
+            <ul className='text-xl gap-16 font-serif font-medium text-black  flex justify-between '>
               <Link to={"/"}>
-              <li className=' cursor-pointer mx-6'>Home</li></Link>
+              <li className=' cursor-pointer '>Home</li></Link>
               <Link to={"/about-us"}>
-              <li className='mx-6 cursor-pointer'>About Us</li></Link>
-              <li className='mx-6 cursor-pointer' onClick={()=>scrollToSection(howItWorkRef)}>How It Works</li>
-             <Link to={"/bussiness-registration"}> <li className='mx-6 cursor-pointer'>Register Businesses</li></Link>
-             <Link to={"/job-post"} ><li className='mx-6 cursor-pointer'>Post Job</li></Link>
+              <li className=' cursor-pointer '>About Us</li></Link>
+              <Link to={"/#how-it-works"} >
+              <li className=' cursor-pointer ' >How It Works</li>
+              </Link>
+ <li className=' cursor-pointer' onClick={handleBusinessRegistration}>Register Businesses</li>
+          <li className=' cursor-pointer' onClick={handleAppliedJob}>Applied Job</li>
 
             </ul>
 
@@ -131,12 +141,12 @@ useEffect(() => {
             </> :
             <div className='w-[20%] h-14 flex items-center justify-beetween bg-inherit '>
 
-              <button className=' bg-blue-900 hover:bg-[#1e52c3] align-middle h-10 w-[110px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' onClick={handleLogInButtonClick}>
+              <button className=' bg-blue-800 hover:bg-[#0c2a6c] align-middle h-10 w-[110px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' onClick={()=>handleLogInButtonClick()}>
                 <span className='text-md font-serif font-medium me-1 text-white'><IoMdLogIn /></span>
                 <span className='text-md font-serif font-medium text-white'>Log In</span>
 
               </button>
-              <button className=' bg-blue-900 hover:bg-[#1e52c3]  align-middle h-10 w-[110px] rounded-xl border-blue-950 drop-shadow-2xl flex justify-center items-center px-1' onClick={handleSignUpButtonClick}>
+              <button className=' bg-blue-800 hover:bg-[#0c2a6c]  align-middle h-10 w-[110px] rounded-xl border-blue-950 drop-shadow-2xl flex justify-center items-center px-1' onClick={()=>handleSignUpButtonClick()}>
                 <span className='text-md font-serif font-medium me-1 text-white'><FaPlus /></span>
                 <span className='text-md font-serif font-medium text-white'>Sign Up</span>
 

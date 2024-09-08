@@ -6,22 +6,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { getServiceById } from "../../Redux/ServiceR/Action.js";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { jobRegister,updateJob,getJobById } from "../../Redux/Job/Action.js";
 
-
-const JobListingForm = () => {
+const JobListingForm = ({registration}) => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
-    //set serrvice details
+   
+
+    //get job
+    
     useEffect(() => {
         if (id) {
-            dispatch(getServiceById(id));
+            dispatch(getJobById(id));
         }
     }, [id, dispatch]);
 
+ 
+
     const serviceStore = useSelector(store => store.serviceStore);
+   
     const navigate = useNavigate();
     const jwt = localStorage.getItem("jwt");
+  
     const [formData, setFormData] = useState({
         jobRole: "",
         employmentType: "",
@@ -31,7 +38,6 @@ const JobListingForm = () => {
         maxSalary: "",
         deadline: ""
     });
-
 
     //locations
     const [location, setLocation] = useState('');
@@ -103,7 +109,7 @@ const JobListingForm = () => {
     //on input change
     function handleChange(e) {
 
-        console.log(e.target.value)
+       
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
@@ -111,8 +117,10 @@ const JobListingForm = () => {
 
 
     }
-
-
+//jobs
+    const jobStore=useSelector(store=>store.jobStore);
+   
+  
     //handle form submit
 
     const handleSubmit = (e) => {
@@ -126,18 +134,19 @@ const JobListingForm = () => {
         formD.append("minSalary", Number(formData.minSalary));
         formD.append("maxSalary", Number(formData.maxSalary));
         formD.append("deadline", formData.deadline);
-        formD.append("locations", JSON.stringify(locationArray));
+        formD.append("jobLocations", JSON.stringify(locationArray));
         formD.append("responsibilities", JSON.stringify(responsibilityArray));
         formD.append("skillsRequired", JSON.stringify(skillsRequiredArray));
 
-        dispatch(jobRegister(formD,jwt));
-        // if(registration==true){
-        //     formD.append("businessId",businessStore?.business?._id);
-        //     dispatch(serviceRegister(formD,jwt));  
-        //     }
-        //     else{
-        //         dispatch(updateService(jwt, formD, id));//service id
-        //     }
+        if(registration==true){
+            formD.append("serviceId",serviceStore?.service?._id);
+            dispatch(jobRegister(formD,jwt)); 
+            navigate(`/service-detail/${serviceStore?.service?._id}`); 
+            }
+            else{
+                dispatch(updateJob(jwt, formD, id));
+                  navigate(`/job-detail/${id}`);
+            }
 
 
         setFormData({
@@ -149,12 +158,36 @@ const JobListingForm = () => {
             maxSalary: "",
             deadline: ""
         });
-        skillsRequiredArray([]);
+        setSkillsRequiredArray([]);
         setLocationArray([]);
         setResponsibilityArray([]);
-        // navigate(`/bussiness/details/${businessStore?.business?._id}`);
+      
 
     }
+
+
+
+      //while updation of job
+      useEffect(() => {
+        if (jobStore.job && jobStore.job._id === id && registration==false) {
+            setFormData({
+                jobRole: jobStore.job?.jobRole || "",
+                employmentType: jobStore.job?.employmentType || "",
+                workingHours: jobStore.job?.workingHours || "",
+                experienceYear: jobStore.job?.experienceYear || 0,
+                minSalary: jobStore.job?.minSalary || 0,
+                maxSalary: jobStore.job?.maxSalary || 0,
+                deadline: jobStore.job?.deadline || ""  
+            });
+    
+    
+            setLocationArray(jobStore.job?.jobLocations || []);
+            setResponsibilityArray(jobStore.job?.responsibility || []);
+            setSkillsRequiredArray(jobStore.job?.skillsRequired || []);
+        }
+    }, [jobStore.job, id, registration]);
+    
+
 
     return (
         <div className='bg-[#ffffff] py-10 w-full h-auto flex items-center justify-center'>
@@ -162,7 +195,7 @@ const JobListingForm = () => {
             <div className='w-[50%] h-full bg-[#f4faff] p-10'>
 
                 <div className='w-full h-[50px] font-semibold flex justify-center pb-10  items-center text-[26px] text-blue-950 font-serif'>
-                    <span>Post Job</span>
+                    <span>{registration==true?"Post Job":"Update Job"}</span>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className='w-full h-[50px]  flex  py-10 justify-center  items-center text-[20px] text-blue-900 font-serif'>
@@ -331,15 +364,14 @@ const JobListingForm = () => {
                     </div>
 
 
-                    <div className='w-full h-[300px] flex py-10  items-center text-black'>
+                    <div className='w-full h-auto flex py-10  items-center text-black'>
 
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Company description :</label>
 
                         <textarea name="Description" id="DescriptionBox"
                             value={serviceStore.service?.bussiness?.description || ""}
-                            className=' text-[20px] h-[300px] font-serif outline-none p-4  w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
-                            rows={5} cols={40}
-                            style={{ resize: 'none', overflow: 'hidden' }}
+                            className=' text-[20px] h-auto font-serif outline-none p-4  w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
+                           rows={10}
                             disabled
                         ></textarea>
 
@@ -347,13 +379,8 @@ const JobListingForm = () => {
 
 
 
-                    <div className='flex items-center justify-between my-10 h-[200px]'>
+                    <div className='flex items-center justify-center my-10 h-[200px]'>
 
-                        <span className=' bg-[#3ca462] hover:bg-[#2cc163] align-middle h-12 w-[130px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' >
-
-                            <span className='text-lg font-serif font-medium text-white'>Cancel</span>
-
-                        </span>
 
                         <button className=' bg-blue-900 hover:bg-[#1e52c3] align-middle h-12 w-[130px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' >
                             <span className='text-lg font-serif font-medium me-1 text-white'><FaSave /></span>

@@ -7,8 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import AddedBox from "./AddedBox";
 import { API_BASE_URL } from "../../configApi/ConfigApi";
 import {serviceRegister,updateService,getServiceById} from "../../Redux/ServiceR/Action.js";
+import { toast } from "react-toastify";
+import { getBusinessById } from "../../Redux/Business/Action.js";
 // import { getBusinessById } from "../../Redux/Business/Action";
 const ServiceRegistration = ({ userDetails,registration }) => {
+   
     const navigate=useNavigate();
     const jwt = localStorage.getItem("jwt");
     const [formData, setFormData] = useState({
@@ -91,20 +94,32 @@ const ServiceRegistration = ({ userDetails,registration }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
        
+
+        const minPriceValue = Number(formData.minPrice);
+const maxPriceValue = Number(formData.maxPrice);
+
+
+if (isNaN(minPriceValue) || isNaN(maxPriceValue)) {
+  toast.error('Invalid price values');
+  return; 
+}
         const formD = new FormData();
         formD.append("serviceType", formData.serviceType);
         formD.append("Description", formData.Description);
-        formD.append("minPrice", Number(formData.minPrice));
-        formD.append("maxPrice", Number(formData.maxPrice));
+        formD.append("minPrice",minPriceValue);
+        formD.append("maxPrice", maxPriceValue);
         formD.append("locations", JSON.stringify(locationArray));
         formD.append("features", JSON.stringify(featureArray));
        
         if(registration==true){
-            formD.append("businessId",businessStore?.business?._id);
+            formD.append("businessId",businessStore.business?._id);
             dispatch(serviceRegister(formD,jwt));  
+            
+            navigate(`/bussiness/details/${businessStore.business?._id}`)
             }
             else{
                 dispatch(updateService(jwt, formD, id));//service id
+                navigate(`/service-detail/${serviceStore.service?._id}`);
             }
        
 
@@ -118,38 +133,42 @@ const ServiceRegistration = ({ userDetails,registration }) => {
         });
         setFeatureArray([]);
         setLocationArray([]);
-        navigate(`/bussiness/details/${businessStore?.business?._id}`);
-
+  
+        
     }
 
 
    
     useEffect(() => {
-        if (id) {
+        if ( registration===false && id) {
+       
             dispatch(getServiceById(id));
         }
-    }, [id, dispatch]);
+        else{
+            dispatch(getBusinessById(id));
+        }
+    }, [id,registration, dispatch]);
 
 const serviceStore=useSelector(store=>store.serviceStore);
 
 //while updating
 useEffect(() => {
-    if (serviceStore.service && serviceStore.service._id === id) {
+    if (registration===false && serviceStore.service && serviceStore.service._id == id) {
        
         setFormData(
             {
-                serviceType: serviceStore.service.serviceType,
-                Description:  serviceStore.service.Description,
-                minPrice:serviceStore.service.minPrice,
-                maxPrice: serviceStore.service.maxPrice
+                serviceType: serviceStore.service?.serviceType,
+                Description:  serviceStore.service?.Description,
+                minPrice:serviceStore.service?.minPrice,
+                maxPrice: serviceStore.service?.maxPrice
         
         });
 
-        setLocationArray([...serviceStore.service.locations]);
-        setFeatureArray([...serviceStore.service.features]);
+        setLocationArray([...serviceStore.service?.locations ||[]]);
+        setFeatureArray([...serviceStore.service?.features ||[]]);
         
     }
-}, [serviceStore.service, id]);
+}, [serviceStore.service,registration, id]);
     
 
 
@@ -251,7 +270,7 @@ useEffect(() => {
                             className=' text-[20px] h-[50px] font-serif outline-none px-4 ms-8 w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
                             autoComplete='none' />
                         <div className="w-[100px] h-[50px]">
-                            <span className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleLocationAdd}>
+                            <span className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px] cursor-pointer  drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleLocationAdd}>
                                 Add
                             </span>
                         </div>
@@ -278,7 +297,7 @@ useEffect(() => {
                             onChange={(e) => setFeatureInput(e.target.value)}
                             className=' text-[20px] h-[50px] font-serif outline-none px-4 ms-[90px] w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
                         <div className="w-[100px] h-[50px]">
-                            <span className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleFeatureAdd}>
+                            <span className=' bg-[#3b65be] text-lg font-serif cursor-pointer font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleFeatureAdd}>
                                 Add
                             </span>
                         </div>

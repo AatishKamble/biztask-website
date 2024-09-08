@@ -4,46 +4,166 @@ import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import { IoIosAddCircle } from "react-icons/io";
-import { MdDelete } from "react-icons/md";
-import { BsPostcard } from "react-icons/bs";
+
 import { IoClose } from "react-icons/io5";
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Review from "../Reviews/Review";
 import { API_BASE_URL } from "../../configApi/ConfigApi";
-import { removeService } from "../../Redux/ServiceR/Action.js";
+import { removeService, uploadImage } from "../../Redux/ServiceR/Action.js";
 import { Link, useNavigate } from 'react-router-dom';
+import { FaAddressCard } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import JobAdvertise from "../JobTemplate/JobAdvertise.jsx";
+import { removeReview } from "../../Redux/Review/Action.js";
 
-import {useDispatch} from "react-redux";
-const ServiceDetail = ({ serviceDetails,userDetails }) => {
+import { FaStar } from "react-icons/fa";
+
+import { addReview, getAllReviews } from "../../Redux/Review/Action.js";
+import Star from "../Reviews/Star.jsx";
+const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [files, setFiles] = useState([]);
+    const jwt = localStorage.getItem("jwt");
 
-    const workPic = useRef(null);
+    const handleModalOpen = (index) => {
 
-
-    const handleModalOpen = () => {
-        setIsModalOpen(true);
+        setIsModalOpen(index);
     }
     const handleModalClose = () => {
-        setIsModalOpen(false);
+
+        setIsModalOpen(null);
+
+    }
+    
+
+    //upload image submit
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        for (let file of files) {
+            formData.append("previousImages", file);
+        }
+
+        formData.append("serviceId", serviceDetails._id);
+        dispatch(uploadImage(formData, jwt));
+        setFiles([]);
+        navigate(`/service-detail/${serviceDetails?._id}`)
     }
 
-    const handleImageUpload = () => {
-        workPic.current.click();
+    //upload image filed change
+    const handleWorkPicChange = (e) => {
+        setFiles(Array.from(e.target.files));
+
     }
 
-    const handleWorkPicChange = () => {
-        console.log("click");
-    }
+    const navigate = useNavigate();
 
-    const navigate=useNavigate();
-const jwt=localStorage.getItem("jwt");
-const dispatch=useDispatch();
-    const handleServiceRemove=()=>{
-        dispatch(removeService(jwt,serviceDetails._id,serviceDetails?.bussiness?._id));
-       
+    const dispatch = useDispatch();
+    const handleServiceRemove = () => {
+        dispatch(removeService(jwt, serviceDetails._id, serviceDetails?.bussiness?._id));
+        setFiles([]);
         navigate(`/bussiness/details/${serviceDetails?.bussiness?._id}`);
-      }
+    }
+
+
+
+    //view jobs reference
+
+    const postedJobs = useRef(null);
+
+    const scrollToSection = (sectionRef) => {
+        const offset = -40; // Adjust this value for the desired space above the section
+        const elementPosition = sectionRef.current.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition + offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+        });
+    };
+
+
+    const [AllPhotos, setAllPhotos] = useState([]);
+
+    useEffect(() => {
+        if (serviceDetails?.WorkImage) {
+            const photos = serviceDetails.WorkImage.flatMap(workImage => workImage.photos);
+            setAllPhotos(photos);
+            setIsModalOpen(null);
+        }
+    }, [serviceDetails?.WorkImage]);
+
+
+//ratings
+const stars=Array(5).fill(0);
+const [currentValue,setCurrentValue]=useState(0);
+const [hoverValue,setHoverValue]=useState(undefined);
+const [input,setInput]=useState("");
+
+const handleClick=(value)=>{
+    setCurrentValue(value);
+}
+const handleMouseHover=(value)=>{
+    setHoverValue(value);
+}
+//word count for review
+const [wordCount, setWordCount] = useState(0);
+
+const handleInputChange=(e)=>{
+    const text = e.target.value;
+    const words = text.trim().split(/\s+/);  // Split by spaces, tabs, and newlines
+    const wordCount = words.filter(word => word).length; 
+
+    if (wordCount <= 20) {  
+        setInput(text);
+        setWordCount(wordCount);
+    }
+}
+
+const handleMouseLeave=(value)=>{
+    setHoverValue(undefined);
+}
+
+
+const handleSubmitReview=()=>{
+    const formData=new FormData();
+    formData.append("rating",currentValue);
+    formData.append("review",input);
+    formData.append("serviceId",serviceDetails?._id);
+
+
+    dispatch(addReview(formData,jwt));
+    setCurrentValue(0);
+    setHoverValue(undefined);
+    setInput("");
+}
+
+
+
+const reviewStore=useSelector(store=>store.reviewStore);
+
+useEffect(() => {
+    if (serviceDetails?._id) {
+        dispatch(getAllReviews(serviceDetails._id));
+    }
+}, [dispatch, serviceDetails._id]);
+
+
+
+//handling review visible
+
+const [visibleReviews, setVisibleReviews] = useState(10); 
+
+const handleViewMore = () => {
+    setVisibleReviews((prevVisibleReviews) => prevVisibleReviews + 10); 
+};
+
+const handleReviewDelete=(id)=>{
+    dispatch(removeReview(id,jwt));
+}
+
+
 
     return (
         <>
@@ -69,7 +189,7 @@ const dispatch=useDispatch();
                         </div>
                         <div className='w-full px-2 pb-5 flex justify-start items-center  text-[18px] text-blue-950 font-serif'>
                             <span>Ratings : </span>
-                            <span className="text-[30px] font-serif font-normal px-2  text-yellow-400">★★★</span>
+                            <span className="text-[30px] font-serif font-normal px-2  text-yellow-400"><Star star={serviceDetails?.rating} /> </span>
 
                         </div>
                         <div className='w-[400px]  h-auto text-[20px] flex justify-start items-center text-blue-950 font-serif px-2 '>
@@ -77,7 +197,7 @@ const dispatch=useDispatch();
 
                             {
                                 serviceDetails?.locations?.map((location, idx) => (
-                                    <span className=' font-normal px-2 text-slate-900'>{location}</span>
+                                    <span key={idx} className=' font-normal px-2 text-slate-900'>{location}</span>
 
                                 ))
 
@@ -88,25 +208,27 @@ const dispatch=useDispatch();
 
                     </div>
 
-                    <div className="flex flex-col w-[400px] items-center justify-center">
+                    <div className="flex flex-col w-[600px] items-center justify-center">
                         <div className='w-[190px] h-[180px]   rounded-full m-5'>
 
                             <img src={`${API_BASE_URL}/api/images/` + serviceDetails?.bussiness?.companyLogo} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
                         </div>
 
-{
-    userDetails?._id==serviceDetails?.user?._id &&
+                        {
+                            userDetails?._id == serviceDetails?.user?._id &&
 
-<div>
-<Link to={`/job-post/${serviceDetails?._id}`}>
-           <button className='bg-[#9fe59b]  rounded-md p-2 me-2   hover:bg-slate-400 w-auto h-auto text-slate-600 font-sans font-bold text-[18px]'>Post Job</button>
-           </Link>
-                        <Link to={`/service-update/${serviceDetails?._id}`}>
-                        <button className='bg-[#66cae1]  rounded-md p-[7px]  hover:bg-[#88d4e6] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
-                        </Link>
+                            <div>
 
-                        <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#d8b0b0]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleServiceRemove}>Remove</button>
-</div>}
+                                <button className='bg-[#94b6b5]  rounded-md p-2 me-2   hover:bg-[#79bdba] w-auto h-auto text-slate-600 font-sans font-bold text-[18px]' onClick={() => scrollToSection(postedJobs)}> View posted Job</button>
+
+                                <Link to={`/service-update/${serviceDetails?._id}`}>
+                                    <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
+                                </Link>
+
+                                <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleServiceRemove}>Remove</button>
+                            </div>
+
+                        }
                     </div>
 
                 </div>
@@ -141,7 +263,7 @@ const dispatch=useDispatch();
 
                                 {
                                     serviceDetails?.features?.map((features, idx) => (
-                                        <span >{idx + 1}. {features}</span>
+                                        <span key={idx} >{idx + 1}. {features}</span>
 
                                     ))
                                 }
@@ -214,61 +336,128 @@ const dispatch=useDispatch();
                 </div>
 
 
-                <div className=' w-[90%] h-auto relative bg-slate-100 drop-shadow-lg  my-10 flex flex-col px-5'>
 
-                    <div className='w-full flex justify-center items-center py-5'>
-                        <span className=' text-blue-950 font-serif font-semibold text-[30px]  mb-4'>Previous Work</span>
-                        <span className=' text-blue-950 font-serif font-semibold text-[30px]  mb-4 px-10 cursor-pointer' onClick={handleImageUpload}><IoCloudUploadSharp /> </span>
-                        <input type="file" className="hidden" ref={workPic} onChange={handleWorkPicChange} />
-                    </div>
-                    {
-                        isModalOpen &&
-
-                        <div className='w-[700px] z-50 h-[500px] absolute top-20 left-[20%]  bg-slate-400'>
-
-                            <button className="absolute right-3 top-2 text-[30px] hover:text-slate-700" onClick={handleModalClose}>
-                                <IoClose />
-                            </button>
-                            <img src="../src/assets/clean.jpg" alt="image" className="bg-cover w-full h-full" />
+                {/* job */}
+                {
+                    userDetails?._id === serviceDetails?.user?._id &&
+                    <div ref={postedJobs} className=' w-full h-auto  mb-10 mx-200'>
 
 
-
-
-
+                        <div className='w-full  font-semibold p-2 h-auto text-[26px] flex text-slate-800 font-serif'>
+                            <div className='w-full text-[26px] text-slate-600  font-serif pb-2'>
+                                <span className='border-b-[2px]'>Posted Jobs</span>
+                            </div>
+                            <Link to={`/job-post`}>
+                                <button className=' flex rounded-md hover:text-[#3543be] border-[1px] hover:bg-slate-100 w-[180px] p-2  items-center justify-center h-auto text-slate-600 font-sans font-semibold text-[24px]'><FaAddressCard /><span className='text-[18px] px-4'> Post Job</span></button>
+                            </Link>
 
                         </div>
+
+                        <div className=' w-full grid grid-cols-2 grid-rows-2 p-2 gap-2 my-10'>
+
+                            {
+                                serviceDetails?.jobs?.map((job, index) => (
+                                    <JobAdvertise key={index} typeText="View" job={job} business={serviceDetails?.bussiness} />
+
+                                ))
+                            }
+
+                        </div>
+                    </div>
+
+                }
+
+
+                <div className="pt-16">
+                    <span className=' text-blue-950 font-serif font-semibold text-[30px] border-b-[2px] my-4'>Previous Work</span>
+
+                </div>
+                <div className=' w-[90%] h-auto relative  drop-shadow-lg  my-10 flex flex-col px-5'>
+
+                    <form onSubmit={handleSubmit}>
+                        <div className='w-full flex justify-center items-center py-5'>
+
+                            <input type="file" className="bg-slate-100 w-[300px] p-5 outline-none font-sans font-semibold" onChange={handleWorkPicChange} multiple />
+                            <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  px-10 cursor-pointer' ><IoCloudUploadSharp /> </button>
+
+                        </div>
+                    </form>
+
+
+
+
+                    {
+
+                        files.length > 0 && (
+                            <div className={`w-full bg-slate-100 z-10 mb-5 h-auto relative grid grid-cols-4 gap-10 p-10 transition-all duration-300 `}>
+
+                                {
+                                    files.map((element) => {
+                                        return (
+                                            <div  className=" bg-slate-400 h-[200px] border-2 border-slate-600" >
+                                                <img src={URL.createObjectURL(element)} alt="picture" className=" bg-cover w-full h-full" />
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
 
                     }
 
-                    <div className={`w-full z-10 h-auto relative grid grid-cols-4 gap-10 p-10 transition-all duration-300 ${isModalOpen ? 'blur-sm brightness-50' : ''}`}>
-
-                        <div className=" bg-slate-400 h-[200px] cursor-pointer" onClick={handleModalOpen}>
-
-                        </div>
-
-                        <div className=" bg-slate-400 h-[200px] cursor-pointer">
-
-                        </div>
-                        <div className=" bg-slate-400 h-[200px] cursor-pointer">
-
-                        </div>
-                        <div className=" bg-slate-400 h-[200px] cursor-pointer">
-
-                        </div>
-                        <div className=" bg-slate-400 h-[200px] cursor-pointer">
-
-                        </div>
-                        <div className=" bg-slate-400 h-[200px] cursor-pointer">
-
-                        </div>
 
 
 
 
 
-                    </div>
+                    {
+                        AllPhotos.length == 0 ?
+                            <div className="w-full  flex items-center justify-center">
+                                <span className="text-[35px]  text-[#b0d0d2]  font-bold">
+                                    No Images Available
+                                </span></div> :
 
 
+<div className={`${isModalOpen !==null ? "h-[700px]" : "h-auto"} w-full bg-slate-100 z-10 relative grid grid-cols-4 gap-10 p-10 transition-all duration-300`}>
+ 
+
+                                {
+
+                                    AllPhotos.map((element, index) => {
+                                        return (
+                                            <>
+                                                <div key={index} className=" bg-slate-400 h-[200px] border-2 border-slate-600 cursor-pointer" onClick={() => handleModalOpen(index)} >
+                                                    <img src={`${API_BASE_URL}/api/images/${element}`} alt="picture" className=" bg-cover w-full h-full" />
+                                                </div>
+                                                {
+                                                    isModalOpen == index &&
+
+                                                    <div className='w-full z-50 h-[700px] absolute top-10  border-4 border-[#7da2a9]  bg-slate-400'>
+
+                                                        <button className="absolute right-3 top-2 text-[#5f1e53] text-[30px] hover:text-slate-700" onClick={handleModalClose}>
+                                                            <IoClose />
+                                                        </button>
+                                                        <img src={`${API_BASE_URL}/api/images/${element}`} alt="image" className="bg-cover w-full h-full" />
+
+
+
+
+
+                                                    </div>
+
+                                                }
+                                            </>
+                                        )
+                                    })
+                                }
+
+
+
+
+
+                            </div>
+
+                    }
                 </div>
 
 
@@ -279,33 +468,54 @@ const dispatch=useDispatch();
             <div className=' w-full h-auto relative drop-shadow-lg  my-10 flex flex-col px-5'>
 
                 <div className='w-full flex justify-center items-center py-5'>
-                    <span className=' text-blue-950 font-serif font-semibold text-[30px]  mb-4'>Reviews</span>
-                    <span className=' text-blue-950 font-serif font-semibold text-[30px]  mb-4 px-10 cursor-pointer' ><IoIosAddCircle /> </span>
+                    <span className=' text-blue-950 font-serif font-semibold text-[30px] '>Reviews</span>
+                    <button onClick={()=>handleSubmitReview()} className='mx-2 text-slate-200 flex items-center justify-center h-[40px] font-serif font-semibold text-[20px] w-[120px] px-10  bg-blue-700 rounded-2xl'>
+                    <span className="px-2"><IoIosAddCircle /> </span>
+                    <span>Add</span>
+                    </button>
+
+                    <div className="flex">
+
+                        {stars.map((_,index)=>{
+                            return(
+                                <FaStar key={index} size={24} 
+                                style={{marginRight:10,cursor:"pointer"}} 
+                                className={`${(hoverValue || currentValue)>index?'text-yellow-600':"text-slate-700"}`}
+                                onClick={()=>handleClick(index+1)} 
+                                onMouseOver={()=>handleMouseHover(index+1)}
+                                onMouseLeave={()=>handleMouseLeave(index+1)}
+                                />
+                            )
+                        })}
+                    </div>
+                    
                 </div>
 
-                <div className="w-full flex justify-center items-center">
+                <div className="w-full flex justify-center flex-col items-center">
                     <textarea name="review" id="review"
-                        placeholder="Write about work done"
+                        placeholder="Give review About Service Provider"
                         className=' text-[20px] h-[200px] font-serif outline-none p-4  w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
                         rows={5} cols={40}
                         style={{ resize: 'none', overflow: 'hidden' }}
+                        value={input}
+                        onChange={handleInputChange}
+                    ></textarea>
+                    
+                    <p>{wordCount} / 20 words</p>
+                    </div>
+                <div className="w-full grid grid-cols-2 gap-10 py-20 justify-center px-10">
 
-                    ></textarea></div>
-                <div className="w-full grid grid-cols-3 gap-10 py-20 justify-center px-10">
 
-                    <Review />
-                    <Review />
-                    <Review />
-                    <Review />
-                    <Review />
-                    <Review />
+               { reviewStore?.reviews.slice(0, visibleReviews).map((review,index)=>(<Review key={index} review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />))}
                 </div>
 
-                <div className='w-full flex justify-center items-center'>
+                {
+                    visibleReviews< reviewStore?.reviews.length &&
+                    <div className='w-full flex justify-center items-center'>
                     <div className='bg-[#eef1f1] hover:bg-[#d1d5d7] w-[200px] opacity-95 my-[20px] cursor-pointer h-10 rounded-xl flex justify-center items-center text-md '>
                         <span className="font-serif font-normal pe-2 text-xl text-slate-800">View All</span>
                     </div>
-                </div>
+                </div>}
             </div>
 
 

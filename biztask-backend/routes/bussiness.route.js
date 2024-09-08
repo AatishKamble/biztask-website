@@ -11,7 +11,7 @@ const router=express.Router();
 router.post('/register',authenticate,upload.single("companyLogo"),bussinessController.createBusiness);
 router.patch('/update/:id',authenticate,upload.single("companyLogo"),bussinessController.updateBusiness)
 router.delete('/remove/:id',authenticate,bussinessController.removeBusiness);
-router.get('/details/:id',authenticate,bussinessController.getBusinessById)
+router.get('/details/:id',bussinessController.getBusinessById)
 export default router
 
 

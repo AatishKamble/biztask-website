@@ -37,11 +37,12 @@ const BusinessRegistration = ({ userDetails,registration }) => {
 const businessStore=useSelector(store=>store.businessStore)
 
    useEffect(() => {
-        if (jwt && id) {
-            dispatch(getBusinessById(jwt, id)); 
+        if (id) {
+         
+            dispatch(getBusinessById(id)); 
         }
-    }, [jwt, id, dispatch]);
-
+    }, [id, dispatch]);
+  
     useEffect(() => {
         if (businessStore.business && businessStore.business._id === id) {
            
@@ -70,7 +71,7 @@ const businessStore=useSelector(store=>store.businessStore)
         formD.append("companyName", formData.companyName);
         formD.append("description", formData.description);
         formD.append("companyLogo", image);
-        console.log(formD);
+      
 
         if(registration==true){
         dispatch(businessRegister(formD,jwt));     
@@ -81,6 +82,7 @@ const businessStore=useSelector(store=>store.businessStore)
        
         navigate("/profile");
     }
+
     return (
         <div className='bg-[#ffffff] py-10 w-full h-auto flex items-center justify-center'>
 

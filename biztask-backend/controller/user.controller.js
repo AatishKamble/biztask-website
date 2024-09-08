@@ -6,7 +6,7 @@ try {
 
     const user=await userService.createUser(req.body);
     const token=jwtProvider.generateToken(user._id);
-    return res.json({success:true,token});
+    return res.json({success:true,token,message:"Registration successful"});
     
 } catch (error) {
     
@@ -29,7 +29,7 @@ const loginUser=async(req,res)=>{
             throw new Error("Wrong password");
         }
         const token=jwtProvider.generateToken(user._id);
-        return res.json({success:true,token});
+        return res.json({success:true,token,message:"Login Successfull"});
     
     } catch (error) {
         
@@ -80,9 +80,29 @@ try {
 
 }
 
+
+const applyJob=async(req,res)=>{
+try {
+  
+    const userId = req.user._id;
+    const jobId = req.body.jobId;
+
+        const user=await userService.applyJob(userId,jobId);
+
+return res.json({success:true,message:"Successfully Applied",user:user});
+    
+} catch (error) {
+    return res.json({
+        success:false,
+        message:error.message
+    });
+}
+}
+
 export default{
     loginUser,
     registerUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    applyJob
 }

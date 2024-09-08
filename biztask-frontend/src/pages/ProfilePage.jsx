@@ -1,16 +1,33 @@
 import JobAdvertise from '../components/JobTemplate/JobAdvertise.jsx'
 import ServiceCard from '../components/ServiceCard/ServiceCard.jsx'
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import BusinessCard from '../components/BusinessCard/BusinessCard.jsx';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaAddressCard } from "react-icons/fa6";
 import { API_BASE_URL } from '../configApi/ConfigApi.js';
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { getJobById } from "../Redux/Job/Action.js";
 const ProfilePage = ({ userDetails }) => {
+
+  const dispatch = useDispatch();
+  const appliedJobsRef = useRef(null);
+const businessRegistrationRef=useRef(null);
+  const location = useLocation();
+
+
+  useEffect(() => {
+    if (location.hash === "#applied-jobs" && appliedJobsRef.current) {
+      appliedJobsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+    if (location.hash === "#bussiness-registration" && businessRegistrationRef.current) {
+      businessRegistrationRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location])
+
 
   return (
     <>
@@ -18,8 +35,8 @@ const ProfilePage = ({ userDetails }) => {
         <div className=' w-full h-auto bg-[#ffffff] flex flex-col p-[100px] items-center justify-center '>
 
 
-          <div className='w-full text-[26px] text-slate-600  font-serif pb-2'>
-            <span className='border-b-[2px]'>Profile</span>
+          <div className='w-full text-[26px] text-slate-600 ms-10 font-semibold  font-serif pb-2'>
+            <span className='border-b-[2px]'>Profile Details</span>
           </div>
           <div className=' w-[80%] h-[240px] bg-inherit border-[1px] drop-shadow-lg border-slate-400 flex items-center px-10 my-10' >
 
@@ -58,72 +75,59 @@ const ProfilePage = ({ userDetails }) => {
           </div>
 
 
-          <div className=' border-slate-400 w-full h-auto  my-10'>
+          <div ref={businessRegistrationRef} className=' border-slate-400 w-full h-auto  mt-10'>
 
-            <div className='w-full  font-semibold p-2 h-auto text-[26px] text-slate-800 font-serif'>
-              <div className=' flex justify-between items-center py-10 '>
+            <div className='w-full  font-semibold p-2 h-auto text-[26px] text-slate-600 font-serif'>
+              <div className=' flex justify-between  items-center py-10 '>
                 <span >Businesses</span>
                 <div>
-                <Link to={"/bussiness-registration"}>
-                  <button className=' flex rounded-md hover:text-blue-500 border-[1px] hover:bg-slate-100 w-auto p-2 items-center justify-center h-auto text-slate-600 font-sans font-semibold text-[24px]'><FaAddressCard /><span className='text-[18px] px-4'> Register</span></button>
-                </Link>
+                  <Link to={"/bussiness-registration"}>
+                    <button className=' flex rounded-md hover:text-[#3543be] border-[1px] hover:bg-slate-100 w-auto p-2 items-center justify-center h-auto text-slate-600 font-sans font-semibold text-[24px]'><FaAddressCard /><span className='text-[18px] px-4'> Register</span></button>
+                  </Link>
 
-              </div>
                 </div>
+              </div>
             </div>
 
             <div className=' w-full grid grid-cols-3 grid-rows-2 p-2 gap-2 gap-y-6'>
-            {
-    userDetails?.businesses?.map((business, index) => (
-        <BusinessCard businessDetails={business} key={index} />
-    ))
-}
+              {
+                userDetails?.businesses?.map((business, index) => (
+                  <BusinessCard  businessDetails={business} key={index} />
+                ))
+              }
 
             </div>
 
           </div>
 
 
-          <div className=' w-full h-auto  mb-10'>
+          <div ref={appliedJobsRef} className=' w-full h-auto  mb-10'>
 
-            <div className='w-full font-semibold p-2 h-auto text-[26px] text-slate-800 font-serif'>
-              <div className=' flex justify-between items-center '>
+            <div className='w-full font-semibold p-2 h-auto text-[26px] text-slate-600 font-serif'>
+              <div className=' flex justify-between items-center relative'>
                 <span >Jobs Applied</span>
 
                 <Link to={"/jobs"}>
+
                   <span className='px-5 hover:text-slate-600 cursor-pointer'><FaExternalLinkAlt /></span>
 
                 </Link></div>
             </div>
 
             <div className=' w-full grid grid-cols-2 grid-rows-2 p-2 gap-2'>
-              <JobAdvertise typeText="View" />
-              <JobAdvertise typeText="View" />
-              <JobAdvertise typeText="View" />
-              <JobAdvertise typeText="View" />
+
+              {
+                userDetails?.appliedJobs?.map((job, index) => (
+                  <JobAdvertise key={index} typeText="View" job={job} business={job?.business} />
+                ))
+              }
+
             </div>
 
           </div>
 
 
-          <div className=' w-full h-auto  mb-10'>
 
-            <div className='w-full font-semibold p-2 h-auto text-[26px] text-slate-800 font-serif'>
-              <div className=' flex justify-between items-center '>
-                <span >Your Services</span>
-                <Link to={"/services"}>
-                  <span className='px-5 hover:text-slate-600 cursor-pointer'><FaExternalLinkAlt /></span></Link></div>
-            </div>
-
-            <div className=' w-full grid grid-cols-4 grid-rows-2 p-2 gap-1 gap-y-8 justify-center items-center'>
-              <ServiceCard />
-              <ServiceCard />
-              <ServiceCard />
-              <ServiceCard />
-              <ServiceCard />
-            </div>
-
-          </div>
         </div>
 
 

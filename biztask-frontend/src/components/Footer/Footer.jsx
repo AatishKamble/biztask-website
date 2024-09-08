@@ -3,7 +3,28 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
-const Footer = () => {
+const Footer = ({userDetails,handleLogInButtonClick}) => {
+
+  const handleBusinessRegistration = () => {
+    if (userDetails) {
+        // If user is logged in, navigate to business registration
+        navigate("/profile#bussiness-registration");
+    } else {
+        // If user is not logged in, open the login modal
+        handleLogInButtonClick();
+    }
+};
+  
+const handleAppliedJob = () => {
+  if (userDetails) {
+      // If user is logged in, navigate to business registration
+      navigate("/profile#applied-jobs");
+  } else {
+      // If user is not logged in, open the login modal
+      handleLogInButtonClick();
+  }
+};
+
   return (
     <>
       <div className='bg-[#eef3f3] w-full h-[350px] flex justify-between items-center '>
@@ -35,12 +56,12 @@ const Footer = () => {
               <Link to={"/services"}>
               <li className='cursor-pointer'>Services</li>
               </Link>
-              <Link to={"/bussiness-registration"}>
-              <li className='cursor-pointer'>Register Businesses</li>
-              </Link>
-              <Link to={"/job-post"}>
-              <li className=' cursor-pointer'>Job Post</li>
-</Link>
+            
+              <li className='cursor-pointer' onClick={handleBusinessRegistration}>Register Businesses</li>
+          
+            
+              <li className=' cursor-pointer' onClick={handleAppliedJob}>Applied Job</li>
+
             </ul>
           </div>
 

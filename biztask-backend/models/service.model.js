@@ -49,6 +49,11 @@ const serviceShcema=new mongoose.Schema({
                     ref:"jobsDetails",
                 default:[]
                 }],
+                rating:{
+                    type:Number,
+                    required:true,
+                    default:0
+                },
                 reviews:[{
                     type:mongoose.Schema.ObjectId,
                     ref:"Reviews",

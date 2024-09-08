@@ -40,12 +40,12 @@ const handleRemove=()=>{
         </div>
         <div className='w-full my-5 h-10 flex justify-center  px-2'>
         <Link to={`/bussiness/details/${businessDetails?._id}`}>
-           <button className='bg-[#9fe59b]  rounded-md p-2 me-2   hover:bg-slate-400 w-auto h-auto text-slate-600 font-sans font-bold text-[18px]'>View services</button>
+           <button className='bg-[#94b6b5]  rounded-md p-2 me-2   hover:bg-[#79bdba] w-auto h-auto text-slate-600 font-sans font-bold text-[18px]'>View services</button>
            </Link>
           <Link to={`/bussiness-update/${businessDetails?._id}`}>
-          <button className='bg-[#66cae1]  rounded-md p-[7px]  hover:bg-[#88d4e6] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
+          <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
           </Link>
-          <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#d8b0b0]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleRemove}>Remove</button>
+          <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleRemove}>Remove</button>
          
 
         </div>

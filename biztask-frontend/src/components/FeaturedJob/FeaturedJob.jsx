@@ -1,7 +1,27 @@
 import { Link } from 'react-router-dom'
 import JobAdvertise from '../JobTemplate/JobAdvertise'
+import { getAllJobs } from '../../Redux/Job/Action.js';
+import { useDispatch,useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const FeaturedJob = () => {
+
+const dispatch=useDispatch();
+const jobStore=useSelector(store=>store.jobStore);
+
+useEffect(()=>{
+  const data = {
+    jobName: null,
+    jobLocation: null,
+    minSalary: 0,
+    maxSalary: 1000000000000000,
+    employmentType: null,
+    page: 1,
+    limit: 10
+};
+dispatch(getAllJobs(data));
+
+},[])
   return (
    <>
    
@@ -11,10 +31,10 @@ const FeaturedJob = () => {
 
     </div>
     <div className='w-full h-auto grid grid-cols-2 gap-5 justify-center px-10 py-10 bg-[#ffffff]'>
-    <JobAdvertise typeText="Apply"/>
-    <JobAdvertise typeText="Apply"/>
-    <JobAdvertise typeText="Apply"/>
-    <JobAdvertise typeText="Apply"/>
+    
+   {
+    jobStore?.jobs?.jobs?.slice(0, 10)?.map((job,index)=>(<JobAdvertise key={index} typeText="Apply" job={job} business={job?.business}/>))
+   }
     
     </div>
 

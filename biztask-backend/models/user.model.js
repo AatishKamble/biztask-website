@@ -29,7 +29,7 @@ const userSchema=new mongoose.Schema({
     appliedJobs:[
         {
             type:mongoose.Schema.Types.ObjectId,
-            ref:'Jobs',
+            ref:'jobsDetails',
             default:[]
         }
     ],

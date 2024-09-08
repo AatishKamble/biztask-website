@@ -18,13 +18,12 @@ const BusinessDetails = ({ userDetails }) => {
 
     useEffect(() => {
         if (jwt && id) {
-            dispatch(getBusinessById(jwt, id));
-    
-        }
+            dispatch(getBusinessById(id));
+     }
 
     }, [jwt, id, dispatch]);
-
-
+console.log(businessStore.business)
+ 
     return (
         <>
 
@@ -81,8 +80,8 @@ const BusinessDetails = ({ userDetails }) => {
                         <div className='w-full text-[26px] text-slate-600  font-serif pb-2'>
                             <span className='border-b-[2px]'>Your Services</span>
                         </div>
-                        <Link to={`/service-registration`}>
-                            <button className=' flex rounded-md hover:text-blue-500 border-[1px] hover:bg-slate-100 w-auto p-2 mx-10 items-center justify-center h-auto text-slate-600 font-sans font-semibold text-[24px]'><FaAddressCard /><span className='text-[18px] px-4'> Register</span></button>
+                        <Link to={`/service-registration/${businessStore.business?._id}`}>
+                            <button className=' flex rounded-md hover:text-[#3543be] border-[1px] hover:bg-slate-100 w-auto p-2 mx-10 items-center justify-center h-auto text-slate-600 font-sans font-semibold text-[24px]'><FaAddressCard /><span className='text-[18px] px-4'> Register</span></button>
                         </Link>
 
                     </div>
@@ -92,7 +91,7 @@ const BusinessDetails = ({ userDetails }) => {
                 <div className=' w-full grid grid-cols-4 grid-rows-2 p-2 gap-1 gap-y-8 justify-center items-center mb-10'>
                    {
                     businessStore.business?.services?.map((business,index)=>(
-<ServiceCard business={business} provider={businessStore.business?.companyName}/>
+<ServiceCard key={index} business={businessStore?.business} service={business} provider={businessStore.business?.companyName}/>
                     ))
                    }
                 </div>
