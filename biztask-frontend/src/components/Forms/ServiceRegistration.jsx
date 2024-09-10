@@ -10,6 +10,7 @@ import {serviceRegister,updateService,getServiceById} from "../../Redux/ServiceR
 import { toast } from "react-toastify";
 import { getBusinessById } from "../../Redux/Business/Action.js";
 // import { getBusinessById } from "../../Redux/Business/Action";
+import dummyPhoto from "../../assets/uploadPhoto.jpg"
 const ServiceRegistration = ({ userDetails,registration }) => {
    
     const navigate=useNavigate();
@@ -316,7 +317,7 @@ useEffect(() => {
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Logo:</label>
                         <div className='w-[200px] h-[200px] bg-slate-700  border-[2px]  border-slate-400  rounded-xl shadow-blue-700' >
 
-                            <img src={businessStore.business?.companyLogo ? `${API_BASE_URL}/api/images/${businessStore.business?.companyLogo}` : "../src/assets/uploadPhoto.jpg"} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
+                            <img src={businessStore.business?.companyLogo ? `${API_BASE_URL}/api/images/${businessStore.business?.companyLogo}` : {dummyPhoto}} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
 
 
                         </div>

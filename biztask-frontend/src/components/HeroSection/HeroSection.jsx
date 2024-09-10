@@ -1,6 +1,7 @@
 import { HiChevronDoubleRight } from "react-icons/hi";
 import { MdOutlineExplore } from "react-icons/md";
 import { Link } from "react-router-dom";
+import heroSection from "../../assets/hero.jpg";
 const HeroSection = () => {
   return (
     <>
@@ -9,7 +10,7 @@ const HeroSection = () => {
 
     <div className='w-full h-[540px] bg-slate-700 '>
 
-    <img src="../../src/assets/hero.jpg" alt="" className=' w-full h-full object-cover opacity-40 ' />
+    <img src={heroSection} alt="" className=' w-full h-full object-cover opacity-40 ' />
 
     </div>
         <div className='  absolute top-44 w-full flex flex-col justify-center items-center'>

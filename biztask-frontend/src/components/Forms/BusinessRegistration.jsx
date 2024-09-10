@@ -7,6 +7,7 @@ import { useNavigate,useParams, useLocation } from 'react-router-dom';
 import AddedBox from "./AddedBox";
 import { businessRegister,getBusinessById,updateBusiness } from "../../Redux/Business/Action.js";
 import { useEffect } from "react";
+import dummyPhoto from "../../assets/uploadPhoto.jpg"
 
 const BusinessRegistration = ({ userDetails,registration }) => {
 
@@ -161,7 +162,7 @@ const businessStore=useSelector(store=>store.businessStore)
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Logo:</label>
                         <div className='w-[200px] h-[200px] bg-slate-700 cursor-pointer   border-[1px]  border-slate-200  rounded-xl shadow-blue-700' onClick={handlePhotoUpload}>
                        
-                        <img src={image ? URL.createObjectURL(image) : "../src/assets/uploadPhoto.jpg"} alt="photo" className='bg-cover rounded-xl  border-[1px] bg-center w-full h-full' />
+                        <img src={image ? URL.createObjectURL(image) : {dummyPhoto}} alt="photo" className='bg-cover rounded-xl  border-[1px] bg-center w-full h-full' />
 
 
                         </div>

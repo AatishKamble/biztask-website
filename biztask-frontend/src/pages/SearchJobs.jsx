@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import FilterBy from '../components/Filter/FilterBy'
+import FilterBy from '../components/Filter/FilterBy.jsx'
 import JobAdvertise from '../components/JobTemplate/JobAdvertise'
 import Pagination from '@mui/material/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { getAllJobs } from '../Redux/Job/Action';
+import { getAllJobs } from '../Redux/Job/Action.js';
+import  jobBack from "../assets/jobsbackground.jpg";
 const SearchJobs = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -169,7 +170,7 @@ handleCheckboxFilter("employmentType",value);
     <>
 
       <div className=' bg-blue-950 w-full h-[400px]  relative drop-shadow-xl shadow-blue-200  '>
-        <img src="../src/assets/jobsbackground.jpg" alt="" className=' w-full h-full object-cover opacity-40 ' />
+        <img src={jobBack} alt="" className=' w-full h-full object-cover opacity-40 ' />
 
         <div className='  absolute top-44 w-full flex flex-col justify-center items-center'>
           <span className=' font-mono font-semibold text-white text-[38px] opacity-75'>Finding Jobs became easy !</span>
