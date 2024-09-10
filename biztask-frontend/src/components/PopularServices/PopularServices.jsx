@@ -46,7 +46,7 @@ const PopularServices = () => {
 
             <div className='bg-[#ffffff] w-full h-auto px-20 my-10 flex'>
 
-                <div className='  bg-gradient-to-r from-slate-100 via-white-100 to-white w-[450px] px-4 h-[500px] flex flex-col justify-center  items-center my-2 pe-5'>
+                <div className='  bg-gradient-to-r from-slate-100 via-white to-white w-[450px] px-4 h-[500px] flex flex-col justify-center  items-center my-2 pe-5'>
                     <span className=' text-blue-950 font-serif font-semibold text-[35px] py-4'>Available Services</span>
 
                     <p className=' text-blue-950 font-serif font-medium text-[20px] align-middle'>

@@ -96,7 +96,7 @@ const ProfileEdit = ({ userDetails }) => {
                             <label htmlFor="Name" className=' text-[22px] px-4 font-medium font-serif w-[300px]'> Profile Image :</label>
                             <div className='w-[200px] h-[200px] bg-slate-700 cursor-pointer  border-[1px]  border-slate-200  rounded-xl shadow-blue-700' onClick={handlePhotoUpload}>
 
-                                <img src={image ? URL.createObjectURL(image) : {dummyPhoto}} alt="photo" className='bg-cover rounded-xl  border-[1px] bg-center w-full h-full' />
+                                <img src={image ? URL.createObjectURL(image) : dummyPhoto} alt="photo" className='bg-cover rounded-xl  border-[1px] bg-center w-full h-full' />
 
 
                             </div>

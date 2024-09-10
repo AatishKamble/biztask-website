@@ -22,7 +22,7 @@ import PeopleApplied from "../components/JobTemplate/PeopleApplied.jsx";
 import { toast } from "react-toastify";
 const Routers = () => {
   
-  const auth = useSelector(store => store.auth);
+  const auth = useSelector((store )=> store.auth);
 
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
