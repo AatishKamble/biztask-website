@@ -2,8 +2,8 @@ import { MdDelete } from "react-icons/md";
 const AddedBox = ({Index,Name,handleRemove}) => {
 
   return (
-    <div  className='w-full h-auto flex py-2 items-center me-4 text-black justify-end'>
-                    <div className=' text-[16px] flexflex-col h-auto h-min-[40px] font-serif  px-4 w-[450px]  bg-[#dfe1e3] rounded-sm' >
+    <div  className='w-full h-auto flex  py-2 items-center me-4 text-black justify-end'>
+                    <div className=' text-[16px] flexflex-col h-auto h-min-[40px] font-serif  px-4 w-[450px] xl:px-4 xl:w-[430px]  bg-[#dfe1e3] rounded-sm' >
                         <div className="  h-auto relative w-full p-2 flex items-center justify-between  ">
 
                             <span className="pe-5">{Name}</span>

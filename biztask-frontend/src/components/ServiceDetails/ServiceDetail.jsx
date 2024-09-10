@@ -167,10 +167,10 @@ const handleReviewDelete=(id)=>{
 
     return (
         <>
-            <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto px-20'>
+            <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto xl:px-20  sm:px-10'>
 
 
-                <div className=' w-[90%] h-auto py-10 bg-slate-100  drop-shadow-lg  my-10 flex items-center px-10'>
+                <div className=' 2xl:w-[90%] sm:w-full h-auto py-10 bg-slate-100  drop-shadow-lg  my-10 flex items-center px-10'>
 
 
                     <div className='w-full h-[180px] relative flex items-start flex-col justify-center px-10'>
@@ -233,10 +233,10 @@ const handleReviewDelete=(id)=>{
 
                 </div>
 
-                <div className=' w-[90%] h-auto  drop-shadow-lg my-10 flex px-10 gap-10'>
+                <div className=' 2xl:w-[90%] sm:w-full h-auto  drop-shadow-lg my-10 flex px-10 sm:px-2 sm:flex-col xl:flex-row gap-10'>
 
                     <div>
-                        <div className='bg-slate-100 w-[600px] h-auto p-5'>
+                        <div className='bg-slate-100 xl:w-[600px] sm:w-full h-auto p-5'>
                             <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
                                 <span><MdOutlineDescription /></span> <span className="px-2 border-b-2 border-slate-600 font-semibold"> Description</span>
                             </div>
@@ -255,7 +255,7 @@ const handleReviewDelete=(id)=>{
                         </div>
 
 
-                        <div className=' bg-slate-100 w-[600px] h-auto p-5 my-5'>
+                        <div className=' bg-slate-100 w-[600px] sm:w-full h-auto p-5 my-5'>
                             <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
                                 <span className="px-2 border-b-2 border-slate-600 font-semibold"> Features</span>
                             </div>
@@ -277,8 +277,8 @@ const handleReviewDelete=(id)=>{
 
 
                     </div>
-                    <div className=' w-[600px] h-auto p-4'>
-                        <div className="bg-slate-100   w-full h-[300px]">
+                    <div className=' xl:w-[600px] sm:w-full sm:gap-5 h-auto p-4 xl:p-0 sm:flex xl:flex-col     sm:justify-evenly'>
+                        <div className="bg-slate-100   w-full h-[280px]">
                             <div className="w-full h-12 flex items-center px-4 text-[24px] text-slate-800 font-serif   ">
                                 <span className="px-2 font-semibold"> Contact Details</span>
                             </div>
@@ -313,7 +313,7 @@ const handleReviewDelete=(id)=>{
 
                         </div>
 
-                        <div className='  my-5w-full h-auto py-10'>
+                        <div className='  my-5 w-full h-auto py-10 xl:py-0 sm:py-0 '>
                             <div className=" w-full h-auto flex flex-col items-start px-4 py-10 text-[22px] text-slate-800 font-serif bg-slate-100  ">
                                 <span className="px-2 text-[24px] pb-5 font-semibold"> Pricing Details :</span>
                                 <div className="text-[20px] text-black font-serif ">
@@ -353,7 +353,7 @@ const handleReviewDelete=(id)=>{
 
                         </div>
 
-                        <div className=' w-full grid grid-cols-2 grid-rows-2 p-2 gap-2 my-10'>
+                        <div className=' w-full grid xl:grid-cols-2 sm:grid-cols-1 md:px-16 lg:px-20 xl:p-2   p-2 gap-5 my-10'>
 
                             {
                                 serviceDetails?.jobs?.map((job, index) => (

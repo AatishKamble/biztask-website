@@ -9,7 +9,7 @@ const AboutUs = () => {
                 <span>Developer Details</span>
             </div>
 
-            <div className="w-full flex items-center justify-center h-auto">
+            <div className="w-full flex items-center justify-center h-auto ">
                 <div className='w-[80%] h-auto bg-inherit border-[1px] py-20 my-5 drop-shadow-lg border-slate-400 mb-10 flex justify-center items-center px-10'>
                     <div className='w-[300px] h-[300px] rounded-lg mx-1'>
                         <img src={aboutPhoto} alt="profile picture" className='bg-cover w-full h-full rounded-lg' />

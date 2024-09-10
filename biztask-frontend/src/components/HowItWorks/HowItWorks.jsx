@@ -8,14 +8,14 @@ const HowItWorks = ({HowItWorks}) => {
    
     return (
         <>
-            <div ref={HowItWorks}  className='w-full   h-[600px] px-10 my-20 flex justify-center'>
+            <div ref={HowItWorks}  className='w-full   xl:h-[600px] sm:h-[530px] px-10 lg:px-20 lg:h-[560px] my-20 flex justify-center'>
 
-                <div  className=' bg-blue-900 relative h-full w-[70%] rounded-2xl flex flex-col'>
+                <div  className=' bg-blue-900 relative h-full xl:w-[70%] rounded-2xl flex flex-col sm:w-full '>
                     <div className='w-full flex justify-center items-center h-24 bg-blue-900 py-10 mt-10'>
                         <span className=' font-serif font-semibold text-[#eeeef0] text-[38px]'>How It Works</span>
                     </div>
 
-                    <div className='w-full flex justify-between px-24 items-center h-[400px] bg-blue-900 '>
+                    <div className='w-full flex justify-between px-24 items-center h-[400px] sm:h-[350px] sm:grid sm:grid-cols-3 sm:px-10 bg-blue-900 '>
                         <div className="flex flex-col justify-center items-center">
                             <div className=' text-[60px] rounded-full w-[80px] h-[80px] bg-yellow-600 flex justify-center items-center font-serif font-bold text-white '>
                                 <TiBusinessCard />

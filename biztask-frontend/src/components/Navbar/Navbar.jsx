@@ -97,7 +97,7 @@ const handleAppliedJob = () => {
         <div className='h-16 w-[80%] bg-inherit flex justify-center items-center '>
           
           <div className='h-16 ps-5  bg-inherit flex justify-between items-center '>
-            <ul className='text-xl gap-16 font-serif font-medium text-black  flex justify-between '>
+            <ul className='text-xl xl:gap-16 2xl:gap-20 sm:gap-8 font-serif font-medium text-black  flex justify-between '>
               <Link to={"/"}>
               <li className=' cursor-pointer '>Home</li></Link>
               <Link to={"/about-us"}>
@@ -139,14 +139,14 @@ const handleAppliedJob = () => {
               </div>
              
             </> :
-            <div className='w-[20%] h-14 flex items-center justify-beetween bg-inherit '>
+            <div className='xl:w-[20%] sm:w-[20%] sm:me-2 xl:me-0 h-14 flex items-center justify-beetween bg-inherit '>
 
-              <button className=' bg-blue-800 hover:bg-[#0c2a6c] align-middle h-10 w-[110px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' onClick={()=>handleLogInButtonClick()}>
+              <button className=' bg-blue-800 hover:bg-[#0c2a6c] align-middle h-10 xl:w-[110px] sm:w-[100px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' onClick={()=>handleLogInButtonClick()}>
                 <span className='text-md font-serif font-medium me-1 text-white'><IoMdLogIn /></span>
                 <span className='text-md font-serif font-medium text-white'>Log In</span>
 
               </button>
-              <button className=' bg-blue-800 hover:bg-[#0c2a6c]  align-middle h-10 w-[110px] rounded-xl border-blue-950 drop-shadow-2xl flex justify-center items-center px-1' onClick={()=>handleSignUpButtonClick()}>
+              <button className=' bg-blue-800 hover:bg-[#0c2a6c]  align-middle h-10 xl:w-[110px]  sm:w-[100px] rounded-xl border-blue-950 drop-shadow-2xl flex justify-center items-center px-1' onClick={()=>handleSignUpButtonClick()}>
                 <span className='text-md font-serif font-medium me-1 text-white'><FaPlus /></span>
                 <span className='text-md font-serif font-medium text-white'>Sign Up</span>
 

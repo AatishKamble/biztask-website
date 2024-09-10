@@ -25,12 +25,12 @@ dispatch(getAllJobs(data));
   return (
    <>
    
-   <div className='w-full bg-[#ffffff] h-auto px-10'>
+   <div className='w-full bg-[#ffffff] h-auto xl:px-10 lg:px-20 sm:px-5'>
     <div className='w-full flex justify-center items-center'>
     <span className=' text-blue-950 font-serif font-semibold text-[30px]  border-b-2 border-b-blue-950 mb-4'>Recently Posted Job Openings</span>
 
     </div>
-    <div className='w-full h-auto grid grid-cols-2 gap-5 justify-center px-10 py-10 bg-[#ffffff]'>
+    <div className='w-full h-auto grid sm:grid-cols-1  lg:grid-cols-1 xl:grid-cols-2  gap-5 justify-center px-10  py-10 bg-[#ffffff] sm:px-20 xl:px-10'>
     
    {
     jobStore?.jobs?.jobs?.slice(0, 10)?.map((job,index)=>(<JobAdvertise key={index} typeText="Apply" job={job} business={job?.business}/>))

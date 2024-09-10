@@ -22,12 +22,11 @@ const BusinessDetails = ({ userDetails }) => {
      }
 
     }, [jwt, id, dispatch]);
-console.log(businessStore.business)
- 
+
     return (
         <>
 
-            <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto px-20'>
+            <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto px-20 lg:px-10 xl:px-16'>
 
 
                 <div className=' w-[100%] h-auto bg-slate-100  drop-shadow-lg  mt-10 mb-4 flex flex-col justify-center items-center p-10'>
@@ -88,7 +87,7 @@ console.log(businessStore.business)
                 </div>
 
 
-                <div className=' w-full grid grid-cols-4 grid-rows-2 p-2 gap-1 gap-y-8 justify-center items-center mb-10'>
+                <div className=' w-full grid xl:grid-cols-4 sm:grid-cols-2 sm:ps-10  xl:px-0 lg:gap-5 lg:px-0 sm:gap-y-8 lg:grid-cols-3 xl:gap-5   p-2 gap-1 gap-y-8 justify-center items-center mb-10'>
                    {
                     businessStore.business?.services?.map((business,index)=>(
 <ServiceCard key={index} business={businessStore?.business} service={business} provider={businessStore.business?.companyName}/>

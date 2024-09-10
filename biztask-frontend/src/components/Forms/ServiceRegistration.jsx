@@ -174,15 +174,15 @@ useEffect(() => {
 
 
     return (
-        <div className='bg-[#ffffff] py-10 w-full h-auto flex items-center justify-center'>
+        <div className='bg-[#ffffff] py-10 px-10 md:px-20 2xl:px-10 w-full h-auto flex items-center justify-center'>
 
-            <div className='w-[50%] h-full bg-[#f4faff] p-10'>
+            <div className='2xl:w-[50%] w-full   h-full bg-[#f4faff] p-10'>
 
                 <div className='w-full h-[50px] font-semibold flex justify-center pb-10  items-center text-[26px] text-blue-950 font-serif'>
                     <span>{registration==true?"Register Your Service":"Update Service"}</span>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
+                    <div className='w-full  h-[50px] flex py-10  items-center text-black'>
 
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Service Type :</label>
                         <input type="text"
@@ -263,12 +263,12 @@ useEffect(() => {
 
                     <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
-                        <label htmlFor="Locations" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Locations :</label>
+                        <label htmlFor="Locations" className=' text-[20px] md:px-4 2xl:px-4 font-medium font-serif w-[300px] lg:w-[250px] xl:w-[240px] 2xl:w-[300px]'> Locations :</label>
 
                         <input type="text" value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             placeholder='Enter Locations'
-                            className=' text-[20px] h-[50px] font-serif outline-none px-4 ms-8 w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
+                            className=' text-[20px] h-[50px] font-serif outline-none px-4 2xl:ms-10  md:ms-4 xl:ms-0 w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
                             autoComplete='none' />
                         <div className="w-[100px] h-[50px]">
                             <span className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px] cursor-pointer  drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleLocationAdd}>
@@ -278,7 +278,7 @@ useEffect(() => {
 
                     </div>
 
-                    <div className='w-full h-auto flex flex-col pb-10 pt-5  items-center text-black'>
+                    <div className='w-full h-auto flex flex-col pb-10 pt-5 md:px-12 lg:px-8 xl:mx-10  items-center text-black'>
                         {
                             locationArray.map((l, index) => (
                                 <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />
@@ -289,14 +289,14 @@ useEffect(() => {
 
                     </div>
 
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
+                    <div className='w-full h-[50px] flex py-10 md:py-2  items-center text-black'>
 
-                        <label htmlFor="Features" className=' text-[20px] px-4 font-medium font-serif w-[200px]'> Features :</label>
+                        <label htmlFor="Features" className=' text-[20px] md:px-4 2xl:px-4 font-medium font-serif w-[300px] lg:w-[270px] xl:w-[240px] 2xl:w-[300px]'> Features :</label>
                         <input type="text"
                             placeholder='Enter Features'
                             value={featureInput}
                             onChange={(e) => setFeatureInput(e.target.value)}
-                            className=' text-[20px] h-[50px] font-serif outline-none px-4 ms-[90px] w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                            className=' text-[20px] h-[50px] font-serif outline-none px-4 2xl:px-4 2xl:ms-10  md:ms-4 xl:ms-0  w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'  autoComplete='none' />
                         <div className="w-[100px] h-[50px]">
                             <span className=' bg-[#3b65be] text-lg font-serif cursor-pointer font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleFeatureAdd}>
                                 Add
@@ -304,7 +304,7 @@ useEffect(() => {
                         </div>
 
                     </div>
-                    <div className='w-full h-auto flex flex-col py-10  items-center text-black'>
+                    <div className='w-full h-auto flex flex-col py-10 md:px-12 lg:px-8 xl:mx-10   items-center text-black'>
                         {
                             featureArray.map((l, index) => (
                                 <AddedBox key={index} Index={index} Name={l} handleRemove={handleFeatureRemove} />
@@ -317,7 +317,7 @@ useEffect(() => {
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Logo:</label>
                         <div className='w-[200px] h-[200px] bg-slate-700  border-[2px]  border-slate-400  rounded-xl shadow-blue-700' >
 
-                            <img src={businessStore.business?.companyLogo ? `${API_BASE_URL}/api/images/${businessStore.business?.companyLogo}` : {dummyPhoto}} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
+                            <img src={businessStore.business?.companyLogo ? `${API_BASE_URL}/api/images/${businessStore.business?.companyLogo}` : dummyPhoto} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
 
 
                         </div>

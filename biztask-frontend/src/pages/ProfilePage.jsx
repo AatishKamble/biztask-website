@@ -89,7 +89,7 @@ const businessRegistrationRef=useRef(null);
               </div>
             </div>
 
-            <div className=' w-full grid grid-cols-3 grid-rows-2 p-2 gap-2 gap-y-6'>
+            <div className=' w-full grid sm:grid-cols-2 2xl:grid-cols-3 grid-rows-2 p-2 gap-2 gap-y-6'>
               {
                 userDetails?.businesses?.map((business, index) => (
                   <BusinessCard  businessDetails={business} key={index} />
@@ -101,7 +101,7 @@ const businessRegistrationRef=useRef(null);
           </div>
 
 
-          <div ref={appliedJobsRef} className=' w-full h-auto  mb-10'>
+          <div ref={appliedJobsRef} className=' w-full h-auto   mb-10'>
 
             <div className='w-full font-semibold p-2 h-auto text-[26px] text-slate-600 font-serif'>
               <div className=' flex justify-between items-center relative'>
@@ -114,7 +114,7 @@ const businessRegistrationRef=useRef(null);
                 </Link></div>
             </div>
 
-            <div className=' w-full grid grid-cols-2 grid-rows-2 p-2 gap-2'>
+            <div className='lg:px-20 xl:px-0 w-full grid xl:grid-cols-2  sm:grid-cols-1 sm:gap-5  p-2 gap-2'>
 
               {
                 userDetails?.appliedJobs?.map((job, index) => (

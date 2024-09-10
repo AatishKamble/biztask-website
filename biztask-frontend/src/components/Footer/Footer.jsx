@@ -40,7 +40,8 @@ const handleAppliedJob = () => {
             </div>
             <span className=' font-serif font-semibold text-blue-950  text-[28px]'>bizTask</span>
 
-            <span className=' font-sans font-normal text-slate-800  text-[18px]'>Connecting businesses, workers, and service seekers with ease</span>
+
+            <span className=' font-sans font-normal align-middle text-center  text-slate-800  text-[18px]'>Connecting businesses, workers, and service seekers with ease</span>
 
 
 
