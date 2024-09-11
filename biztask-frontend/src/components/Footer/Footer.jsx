@@ -27,7 +27,7 @@ const handleAppliedJob = () => {
 
   return (
     <>
-      <div className='bg-[#eef3f3] w-full h-[350px] flex justify-between items-center '>
+      <div className='bg-[#eef3f3]  w-full h-[350px] flex justify-between items-center '>
         <div className='w-full h-full grid grid-cols-4 bg-[#eef3f3] gap-5 p-8 '>
           <div className='flex flex-col justify-start items-center '>
 

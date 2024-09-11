@@ -16,7 +16,7 @@ const HeroSection = () => {
         <div className='  absolute xl:top-44 sm:top-36 lg:top-40 w-full flex flex-col justify-center items-center'>
         <span className=' font-serif font-semibold text-blue-950 text-center  text-[38px]'>Find the Right Worker, Job, or Service in Your Area!</span>
         
-        <span className=' font-sans  text-blue-300 sm:pt-2 font-semibold  text-[24px]'>Connecting businesses, workers, and service seekers with ease</span>
+        <span className=' font-sans  text-slate-800 sm:pt-2 font-semibold  text-[24px]'>Connecting businesses, workers, and service seekers with ease</span>
 
 
         <div className=' absolute xl:top-[130px] sm:top-[170px] lg:top-[150px] w-[700px] h-[100px] flex justify-around items-center '>
