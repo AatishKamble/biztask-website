@@ -432,7 +432,7 @@ const handleReviewDelete=(id)=>{
                                                 {
                                                     isModalOpen == index &&
 
-                                                    <div className='w-full z-50 h-[700px] absolute top-10  border-4 border-[#7da2a9]  bg-slate-400'>
+                                                    <div className='w-full z-50 h-[600px] absolute top-10  border-4 border-[#7da2a9]  bg-slate-400'>
 
                                                         <button className="absolute right-3 top-2 text-[#5f1e53] text-[30px] hover:text-slate-700" onClick={handleModalClose}>
                                                             <IoClose />
