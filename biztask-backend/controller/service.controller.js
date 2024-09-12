@@ -97,9 +97,11 @@ const uploadImage = async (req, res) => {
 
         const userId = req.user._id;
         const files = req.files.length > 0 && req.files;
+        console.log(req.files);
         let filesUrl = [];
         //for storing multiple images on cloudinary
         for(const file of files){
+            
             const uploadedImage=await uploadOnCloudinary(file.path);
             if(uploadedImage){
                 filesUrl.push({

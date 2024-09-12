@@ -288,14 +288,14 @@ const getAllServices = (reqData) => async (dispatch) => {
 const uploadImage = (formData, jwt) => async (dispatch) => {
     dispatch(uploadImageRequest());
     try {
-
+        
         const response = await axios.post(`${API_BASE_URL}/api/services/upload`, formData, {
             headers: {
                 "authorization": `Bearer ${jwt}`,
                 "Content-Type": "multipart/form-data"
             }
         });
-
+       
         const newService = response.data;
    
         if (newService.success == true) {
