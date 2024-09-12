@@ -66,7 +66,7 @@ const updateUserProfile=async(req,res)=>{
 try {
     const obj = JSON.parse(JSON.stringify(req.body));
     const userId=req.user._id;
-    const imageUploadUrl=await uploadOnCloudinary(req.file.path);
+    const imageUploadUrl=await uploadOnCloudinary(req.file?.path);
     if(!imageUploadUrl){
         throw new Error("Image Not Found");
     }
