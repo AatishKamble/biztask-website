@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import { unlink } from 'node:fs';
 import path from "node:path";
 import { get } from "node:http";
+import { deleteFromCloudinary } from "../config/Cloudinary.js";
 const createUser = async (reqData) => {
     try {
         const { email, password } = reqData;
@@ -29,7 +30,7 @@ const createUser = async (reqData) => {
         const saltRounds = 10;
         let hashedPassword = await bcrypt.hash(password, saltRounds);
         const newUser = new userModel({
-            email: email,
+            email: email.toLowerCase(),
             password: hashedPassword
         });
 
@@ -46,7 +47,7 @@ const createUser = async (reqData) => {
 async function getUserByEmail(userEmail) {
     try {
        
-        const user = await userModel.findOne({ email:userEmail });
+        const user = await userModel.findOne({ email:userEmail.toLowerCase() });
         if (!user) {
             throw new Error(`User not found with email: ${userEmail}`);
         }
@@ -106,15 +107,19 @@ const getUserById=async(userId)=>{
 }
 
 
-const updateUserProfile=async(userId,userData,imageName)=>{
+const updateUserProfile=async(userId,userData,imageUrl,imagePublicID)=>{
 try {
 
 const {name,mobileNumber}=userData;
 const user=await userModel.findById(userId);
-unlink(`uploads/${user.profileImage}`,()=>{});//delete before updating profile image
+
+if(user.profileImage && user.profileImage.publicId){
+    await deleteFromCloudinary(user.profileImage.publicId);
+}
+
 const updatedUser=await userModel.findByIdAndUpdate(
     userId,
-    {name:name,mobileNumber:mobileNumber,profileImage:imageName},
+    {name:name,mobileNumber:mobileNumber,profileImage:{ImageUrl:imageUrl,publicId:imagePublicID}},
     { new: true }
 );
 

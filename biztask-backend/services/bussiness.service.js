@@ -2,7 +2,8 @@ import bussinessModel from "../models/bussiness.model.js";
 import userModel from "../models/user.model.js";
 import servicesService from "./services.service.js";
 import { unlink } from 'node:fs';
-const createBusiness = async (userId, reqData, companyLogo) => {
+import { deleteFromCloudinary } from "../config/Cloudinary.js";
+const createBusiness = async (userId, reqData, companyLogoImage,imagePublicID) => {
 
     try {
         
@@ -10,7 +11,11 @@ const createBusiness = async (userId, reqData, companyLogo) => {
             user: userId,
             companyName: reqData.companyName,
             description: reqData.description,
-            companyLogo: companyLogo
+            companyLogo:{
+                imageUrl:companyLogoImage,
+                publicId:imagePublicID
+            }
+
         });
 
         const newBusiness = await business.save();
@@ -44,15 +49,23 @@ const findBusinessById=async(businessId)=>{
         throw new Error(error.message);
     }
 }
-const updateBusiness=async(businessId,reqData,companyLogo)=>{
+
+
+const updateBusiness=async(businessId,reqData,companyLogoImage,imagePublicID)=>{
  try {
     const {companyName,description}=reqData;
-    const business=findBusinessById(businessId);
-    unlink(`uploads/${business.companyLogo}`,()=>{});//for deleting previous image
+    const business=await findBusinessById(businessId);
+    // unlink(`uploads/${business.companyLogo}`,()=>{});//for deleting previous image
+    if(business.companyLogo && business.companyLogo.publicId){
+        await deleteFromCloudinary(business.companyLogo.publicId);
+    }
 
     const newBusiness=await bussinessModel.findByIdAndUpdate(
         businessId,
-        {companyName:companyName,description:description,companyLogo:companyLogo},
+        {companyName:companyName,description:description, companyLogo:{
+                imageUrl:companyLogoImage,
+                publicId:imagePublicID
+            }},
         {new:true}
     )
 
@@ -75,9 +88,12 @@ const removeBusiness=async(businessId,userId)=>{
         throw new Error("Business does not belong to this user");
     }
     
-        unlink(`uploads/${business.companyLogo}`,()=>{});//for deleting previous image
+        // unlink(`uploads/${business.companyLogo}`,()=>{});//for deleting previous image
         
-
+//delete image uploaded on cloudinary
+if(business.companyLogo && business.companyLogo.publicId){
+    await deleteFromCloudinary(business.companyLogo.publicId);
+}
         business.services.map(async(service,idx)=>{
             await servicesService.removeService(service._id,business.user,business._id);
          })

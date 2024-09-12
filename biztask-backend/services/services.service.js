@@ -3,6 +3,7 @@ import bussinessModel from "../models/bussiness.model.js";
 import jobsDetailsModel from "../models/jobsDetails.model.js";
 import workPhotosModel from "../models/workPhotos.model.js";
 import ReviewsModel from "../models/Reviews.model.js"
+import { deleteFromCloudinary } from "../config/Cloudinary.js";
 
 const createService = async (userId, reqData) => {
 
@@ -78,6 +79,16 @@ const removeService = async (serviceId, userId, businessId) => {
 
 //work
     service.WorkImage.map(async(image,index)=>{
+      const workPhoto=await workPhotosModel.findById(image._id);
+      if(workPhoto && workPhoto.photos.length>0){
+        for(const photo of workPhoto.photos){
+          const publicIdPhoto=photo.publicId;
+          if(publicIdPhoto){
+            await deleteFromCloudinary(publicIdPhoto);
+          }
+        }
+      }
+      
       await workPhotosModel.findByIdAndDelete(image._id);
     });
     
@@ -207,7 +218,7 @@ const getAllServices = async (reqQuery) => {
 const uploadImage = async (userId, serviceId, filesUrl) => {
   try {
 
-  
+
     const WorkPhoto = new workPhotosModel({
       service: serviceId,
       user: userId,

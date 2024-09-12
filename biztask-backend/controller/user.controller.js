@@ -1,6 +1,7 @@
 import userService from "../services/user.service.js";
 import jwtProvider from "../config/jwtProvider.js";
 import bcrypt from "bcrypt";
+import { uploadOnCloudinary } from "../config/Cloudinary.js";
 const registerUser=async(req,res)=>{
 try {
 
@@ -65,9 +66,11 @@ const updateUserProfile=async(req,res)=>{
 try {
     const obj = JSON.parse(JSON.stringify(req.body));
     const userId=req.user._id;
-    let image_filename=`${req.file?.filename}`;
- 
-    const user=await userService.updateUserProfile(userId,obj,image_filename);
+    const imageUploadUrl=await uploadOnCloudinary(req.file?.path);
+    if(!imageUploadUrl){
+        throw new Error("Image Not Found");
+    }
+    const user=await userService.updateUserProfile(userId,obj,imageUploadUrl.secure_url,imageUploadUrl.public_id);
     return res.json({success:true,message:"Profile Updated",user:user});
     
 } catch (error) {

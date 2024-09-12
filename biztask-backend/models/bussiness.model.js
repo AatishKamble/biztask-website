@@ -16,9 +16,15 @@ const bussinessSchema=new mongoose.Schema(
                 required: true,
             },
         companyLogo:{
+            imageUrl:{
                 type:String,
                 required:false
             },
+        publicId:{
+            type:String,
+            required:false
+        }
+        },
             services:[
                { type:mongoose.Schema.ObjectId,
                 ref:"services",

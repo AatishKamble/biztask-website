@@ -1,12 +1,18 @@
+import {uploadOnCloudinary} from "../config/Cloudinary.js";
 import bussinessService from "../services/bussiness.service.js"
 
 const createBusiness=async(req,res)=>{
 
     try {
-        let company_logo=`${req.file?.filename}`;
+   
         const userId=req.user._id;
+        const imageUploadUrl=await uploadOnCloudinary(req.file?.path);
      
-        const business= await bussinessService.createBusiness(userId,req.body,company_logo);
+        if(!imageUploadUrl){
+            throw new Error("Logo Image Not Found");
+        }
+        const business= await bussinessService.createBusiness(userId,req.body,imageUploadUrl.secure_url,imageUploadUrl.public_id);
+     
         return res.json({success:true,message:'Business registered',business:business});
     } catch (error) {
     
@@ -22,9 +28,13 @@ const createBusiness=async(req,res)=>{
 const updateBusiness=async(req,res)=>{
 try {
     
-    let companyLogo=`${req.file?.filename}`;
+    const imageUploadUrl=await uploadOnCloudinary(req.file?.path);
+     
+        if(!imageUploadUrl){
+            throw new Error("Logo Image Not Found");
+        }
     const businessId=req.params.id;
-const business=await bussinessService.updateBusiness(businessId,req.body,companyLogo);//req body error
+const business=await bussinessService.updateBusiness(businessId,req.body,imageUploadUrl.secure_url,imageUploadUrl.public_id);//req body error
 return res.json({success:true,message:'Business updated',business:business});
 
 

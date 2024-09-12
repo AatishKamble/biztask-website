@@ -11,10 +11,16 @@ const workPhotosShcema=new mongoose.Schema({
                     required:true,
                     ref:"users"
                 },
-                photos:[
-                    {
-                        type:String
+                photos:[{
+                    imageUrl: {
+                      type: String,
+                      required: false,
+                    },
+                    publicId: {
+                      type: String,
+                      required: false,
                     }
+                  }
                 ],
                 createdAt:{
                     type:Date,

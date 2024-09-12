@@ -1,3 +1,4 @@
+import { uploadOnCloudinary } from "../config/Cloudinary.js";
 import servicesService from "../services/services.service.js";
 
 
@@ -97,7 +98,16 @@ const uploadImage = async (req, res) => {
         const userId = req.user._id;
         const files = req.files.length > 0 && req.files;
         let filesUrl = [];
-        filesUrl = files.map(element => element.filename);
+        //for storing multiple images on cloudinary
+        for(const file of files){
+            const uploadedImage=await uploadOnCloudinary(file.path);
+            filesUrl.push({
+                imageUrl:uploadedImage.secure_url,
+                publicId:uploadedImage.public_id
+            });
+
+        }
+       
         const {serviceId}=req.body;
         const service = await servicesService.uploadImage(userId,serviceId,filesUrl);
         return res.json({ success: true, message:'Images uploaded Successfully', service: service });

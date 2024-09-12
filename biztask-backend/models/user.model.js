@@ -23,9 +23,15 @@ const userSchema=new mongoose.Schema({
         required:true
     },
     profileImage:{
+        ImageUrl:{
         type:String,
         default:"" 
     },
+publicId:{
+    type:String,
+    default:"" 
+}
+},
     appliedJobs:[
         {
             type:mongoose.Schema.Types.ObjectId,
