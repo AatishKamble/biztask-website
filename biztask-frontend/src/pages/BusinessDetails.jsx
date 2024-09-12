@@ -35,7 +35,7 @@ const BusinessDetails = ({ userDetails }) => {
 
                     <div className='w-[200px] h-[200px]  rounded-full mx-5'>
 
-                        <img src={`${API_BASE_URL}/api/images/` + businessStore.business.companyLogo} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
+                        <img src={`${businessStore.business.companyLogo?.imageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
                     </div>
                     <div>
                         <div className='w-full h-auto  flex flex-col  px-10'>
@@ -59,11 +59,11 @@ const BusinessDetails = ({ userDetails }) => {
                 </div>
 
 
-                <div className='w-full text-[26px] text-slate-600  font-serif pb-2 mt-6'>
+                <div className='w-full text-[26px]  text-slate-600  font-serif pb-2 mt-6'>
                     <span className='inline-block'><MdOutlineDescription /></span> <span className='border-b-[2px] font-semibold'> About the Company</span>
 
                 </div>
-                <div className='flex h-auto mb-10  p-4  py-2 text-slate-900 font-serif font-medium text-[18px]'>
+                <div className='flex w-[90%]  h-auto mb-10  p-4  py-2 text-slate-900 font-serif font-medium text-[18px]'>
                     <span className="">
                         {businessStore.business?.description}
                     </span>

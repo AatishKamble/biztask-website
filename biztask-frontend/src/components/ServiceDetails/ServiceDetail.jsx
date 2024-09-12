@@ -211,7 +211,7 @@ const handleReviewDelete=(id)=>{
                     <div className="flex flex-col w-[600px] items-center justify-center">
                         <div className='w-[190px] h-[180px]   rounded-full m-5'>
 
-                            <img src={`${API_BASE_URL}/api/images/` + serviceDetails?.bussiness?.companyLogo} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
+                            <img src={`${serviceDetails?.bussiness?.companyLogo?.imageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
                         </div>
 
                         {
@@ -392,9 +392,9 @@ const handleReviewDelete=(id)=>{
                             <div className={`w-full bg-slate-100 z-10 mb-5 h-auto relative grid grid-cols-4 gap-10 p-10 transition-all duration-300 `}>
 
                                 {
-                                    files.map((element) => {
+                                    files.map((element,idx) => {
                                         return (
-                                            <div  className=" bg-slate-400 h-[200px] border-2 border-slate-600" >
+                                            <div key={idx}  className=" bg-slate-400 h-[200px] border-2 border-slate-600" >
                                                 <img src={URL.createObjectURL(element)} alt="picture" className=" bg-cover w-full h-full" />
                                             </div>
                                         )
@@ -427,17 +427,17 @@ const handleReviewDelete=(id)=>{
                                         return (
                                             <>
                                                 <div key={index} className=" bg-slate-400 h-[200px] border-2 border-slate-600 cursor-pointer" onClick={() => handleModalOpen(index)} >
-                                                    <img src={`${API_BASE_URL}/api/images/${element}`} alt="picture" className=" bg-cover w-full h-full" />
+                                                    <img src={`${element.imageUrl}`} alt="picture" className=" bg-cover w-full h-full" />
                                                 </div>
                                                 {
                                                     isModalOpen == index &&
 
                                                     <div className='w-full z-50 h-[600px] absolute top-10  border-4 border-[#7da2a9]  bg-slate-400'>
 
-                                                        <button className="absolute right-3 top-2 text-[#5f1e53] text-[30px] hover:text-slate-700" onClick={handleModalClose}>
-                                                            <IoClose />
+                                                        <button className="absolute right-3 top-2 text-[#becbc7] text-[30px] hover:text-slate-700" onClick={handleModalClose}>
+                                                            <IoClose size={40}/>
                                                         </button>
-                                                        <img src={`${API_BASE_URL}/api/images/${element}`} alt="image" className="bg-cover w-full h-full" />
+                                                        <img src={`${element.imageUrl}`} alt="image" className="bg-cover w-full h-full" />
 
 
 

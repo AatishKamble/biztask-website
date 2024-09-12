@@ -89,12 +89,13 @@ const PeopleApplied = () => {
             <div className=' w-[90%] h-auto bg-slate-100  my-10 flex  '>
 
                 {jobStore?.job?.peopleApplied.map((people, index) => {
+                 
                     return (
                         <div key={index} className=' w-full h-[240px] bg-inherit border-[1px] drop-shadow-lg border-slate-400 flex items-center ' >
 
                             <div className='w-[180px] h-[180px]  bg-black rounded-lg mx-5'>
 
-                                <img src={`${API_BASE_URL}/api/images/` + people?.profileImage} alt="profile picture" className='bg-cover w-full h-full rounded-lg' />
+                                <img src={`${people?.profileImage?.ImageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-lg' />
   </div>
                             <div className='w-full h-[180px] relative flex items-center flex-col justify-center px-10'>
 

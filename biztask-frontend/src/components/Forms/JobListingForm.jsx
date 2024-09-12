@@ -271,7 +271,7 @@ const JobListingForm = ({registration}) => {
                         </div>
 
                     </div>
-                    <div className='w-full h-auto flex flex-col pb-10 pt-5  items-center text-black'>
+                    <div className='w-full h-auto flex flex-col pb-10   items-center text-black'>
                         {
                             locationArray.map((l, index) => (
                                 <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />

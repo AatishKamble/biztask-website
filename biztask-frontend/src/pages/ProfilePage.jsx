@@ -42,7 +42,7 @@ const businessRegistrationRef=useRef(null);
 
             <div className='w-[180px] h-[180px]  rounded-lg mx-5'>
 
-              <img src={`${API_BASE_URL}/api/images/` + userDetails.profileImage} alt="profile picture" className='bg-cover w-full h-full rounded-lg' />
+              <img src={`${userDetails.profileImage?.ImageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-lg' />
             </div>
             <div className='w-full h-[180px] relative flex items-center flex-col justify-center px-10'>
 
@@ -89,7 +89,7 @@ const businessRegistrationRef=useRef(null);
               </div>
             </div>
 
-            <div className=' w-full grid sm:grid-cols-2 2xl:grid-cols-3 grid-rows-2 p-2 gap-2 gap-y-6'>
+            <div className=' w-full grid sm:grid-cols-2 xl:grid-cols-3  p-2 gap-2 gap-y-6'>
               {
                 userDetails?.businesses?.map((business, index) => (
                   <BusinessCard  businessDetails={business} key={index} />

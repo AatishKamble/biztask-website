@@ -18,7 +18,7 @@ const handleRemove=()=>{
 
   return (
     <>
-      <div id={index} className="  bg-slate-100 w-auto h-auto  rounded-lg drop-shadow-xl shadow-slate-200 mx-5 "
+      <div id={index} className="  bg-slate-100 w-auto h-auto  rounded-lg drop-shadow-xl shadow-slate-200 border-[1px] mx-5 "
 
       >
 
@@ -26,7 +26,7 @@ const handleRemove=()=>{
         <div className='w-auto flex  p-5' >
           <div className=' w-[120px] h-[90px] rounded-full '
             style={{
-              backgroundImage: `url(${API_BASE_URL}/api/images/${businessDetails.companyLogo})`,
+              backgroundImage: `url(${businessDetails.companyLogo?.imageUrl})`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center',

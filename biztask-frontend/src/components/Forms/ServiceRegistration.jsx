@@ -2,18 +2,18 @@
 import { FaSave } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import React, { useEffect, useRef, useState } from 'react'
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import AddedBox from "./AddedBox";
 import { API_BASE_URL } from "../../configApi/ConfigApi";
-import {serviceRegister,updateService,getServiceById} from "../../Redux/ServiceR/Action.js";
+import { serviceRegister, updateService, getServiceById } from "../../Redux/ServiceR/Action.js";
 import { toast } from "react-toastify";
 import { getBusinessById } from "../../Redux/Business/Action.js";
 // import { getBusinessById } from "../../Redux/Business/Action";
 import dummyPhoto from "../../assets/uploadPhoto.jpg"
-const ServiceRegistration = ({ userDetails,registration }) => {
-   
-    const navigate=useNavigate();
+const ServiceRegistration = ({ userDetails, registration }) => {
+
+    const navigate = useNavigate();
     const jwt = localStorage.getItem("jwt");
     const [formData, setFormData] = useState({
         serviceType: "",
@@ -24,7 +24,7 @@ const ServiceRegistration = ({ userDetails,registration }) => {
     });
 
 
-    const {id}=useParams();
+    const { id } = useParams();
 
     const dispatch = useDispatch();
     const businessStore = useSelector(store => store.businessStore)
@@ -81,7 +81,7 @@ const ServiceRegistration = ({ userDetails,registration }) => {
 
     function handleChange(e) {
 
-       
+
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
@@ -94,83 +94,83 @@ const ServiceRegistration = ({ userDetails,registration }) => {
     //form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-       
+
 
         const minPriceValue = Number(formData.minPrice);
-const maxPriceValue = Number(formData.maxPrice);
+        const maxPriceValue = Number(formData.maxPrice);
 
 
-if (isNaN(minPriceValue) || isNaN(maxPriceValue)) {
-  toast.error('Invalid price values');
-  return; 
-}
+        if (isNaN(minPriceValue) || isNaN(maxPriceValue)) {
+            toast.error('Invalid price values');
+            return;
+        }
         const formD = new FormData();
         formD.append("serviceType", formData.serviceType);
         formD.append("Description", formData.Description);
-        formD.append("minPrice",minPriceValue);
+        formD.append("minPrice", minPriceValue);
         formD.append("maxPrice", maxPriceValue);
         formD.append("locations", JSON.stringify(locationArray));
         formD.append("features", JSON.stringify(featureArray));
-       
-        if(registration==true){
-            formD.append("businessId",businessStore.business?._id);
-            dispatch(serviceRegister(formD,jwt));  
-            
+
+        if (registration == true) {
+            formD.append("businessId", businessStore.business?._id);
+            dispatch(serviceRegister(formD, jwt));
+
             navigate(`/bussiness/details/${businessStore.business?._id}`)
-            }
-            else{
-                dispatch(updateService(jwt, formD, id));//service id
-                navigate(`/service-detail/${serviceStore.service?._id}`);
-            }
-       
-
-      setFormData (
-        {
-            serviceType: "",
-            Description: "",
-            minPrice: "",
-            maxPrice: ""
-    
-        });
-        setFeatureArray([]);
-        setLocationArray([]);
-  
-        
-    }
-
-
-   
-    useEffect(() => {
-        if ( registration===false && id) {
-       
-            dispatch(getServiceById(id));
         }
-        else{
-            dispatch(getBusinessById(id));
+        else {
+            dispatch(updateService(jwt, formD, id));//service id
+            navigate(`/service-detail/${serviceStore.service?._id}`);
         }
-    }, [id,registration, dispatch]);
 
-const serviceStore=useSelector(store=>store.serviceStore);
 
-//while updating
-useEffect(() => {
-    if (registration===false && serviceStore.service && serviceStore.service._id == id) {
-       
         setFormData(
             {
-                serviceType: serviceStore.service?.serviceType,
-                Description:  serviceStore.service?.Description,
-                minPrice:serviceStore.service?.minPrice,
-                maxPrice: serviceStore.service?.maxPrice
-        
-        });
+                serviceType: "",
+                Description: "",
+                minPrice: "",
+                maxPrice: ""
 
-        setLocationArray([...serviceStore.service?.locations ||[]]);
-        setFeatureArray([...serviceStore.service?.features ||[]]);
-        
+            });
+        setFeatureArray([]);
+        setLocationArray([]);
+
+
     }
-}, [serviceStore.service,registration, id]);
-    
+
+
+
+    useEffect(() => {
+        if (registration === false && id) {
+
+            dispatch(getServiceById(id));
+        }
+        else {
+            dispatch(getBusinessById(id));
+        }
+    }, [id, registration, dispatch]);
+
+    const serviceStore = useSelector(store => store.serviceStore);
+
+    //while updating
+    useEffect(() => {
+        if (registration === false && serviceStore.service && serviceStore.service._id == id) {
+
+            setFormData(
+                {
+                    serviceType: serviceStore.service?.serviceType,
+                    Description: serviceStore.service?.Description,
+                    minPrice: serviceStore.service?.minPrice,
+                    maxPrice: serviceStore.service?.maxPrice
+
+                });
+
+            setLocationArray([...serviceStore.service?.locations || []]);
+            setFeatureArray([...serviceStore.service?.features || []]);
+
+        }
+    }, [serviceStore.service, registration, id]);
+
 
 
     return (
@@ -179,14 +179,14 @@ useEffect(() => {
             <div className='2xl:w-[50%] w-full   h-full bg-[#f4faff] p-10'>
 
                 <div className='w-full h-[50px] font-semibold flex justify-center pb-10  items-center text-[26px] text-blue-950 font-serif'>
-                    <span>{registration==true?"Register Your Service":"Update Service"}</span>
+                    <span>{registration == true ? "Register Your Service" : "Update Service"}</span>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className='w-full  h-[50px] flex py-10  items-center text-black'>
 
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Service Type :</label>
                         <input type="text"
-                        onChange={handleChange} name="serviceType" value={formData.serviceType} placeholder='e.g.Cleaning,event decoration' className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
+                            onChange={handleChange} name="serviceType" value={formData.serviceType} placeholder='e.g.Cleaning,event decoration' className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
                     </div>
 
                     <div className='w-full h-[50px] flex py-10  items-center text-black'>
@@ -278,7 +278,7 @@ useEffect(() => {
 
                     </div>
 
-                    <div className='w-full h-auto flex flex-col pb-10 pt-5 md:px-12 lg:px-8 xl:mx-10  items-center text-black'>
+                    <div className='w-full h-auto flex flex-col pb-10 pt-5  ms-8  items-center text-black'>
                         {
                             locationArray.map((l, index) => (
                                 <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />
@@ -296,7 +296,7 @@ useEffect(() => {
                             placeholder='Enter Features'
                             value={featureInput}
                             onChange={(e) => setFeatureInput(e.target.value)}
-                            className=' text-[20px] h-[50px] font-serif outline-none px-4 2xl:px-4 2xl:ms-10  md:ms-4 xl:ms-0  w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'  autoComplete='none' />
+                            className=' text-[20px] h-[50px] font-serif outline-none px-4 2xl:px-4 2xl:ms-10  md:ms-4 xl:ms-0  w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
                         <div className="w-[100px] h-[50px]">
                             <span className=' bg-[#3b65be] text-lg font-serif cursor-pointer font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleFeatureAdd}>
                                 Add
@@ -304,7 +304,7 @@ useEffect(() => {
                         </div>
 
                     </div>
-                    <div className='w-full h-auto flex flex-col py-10 md:px-12 lg:px-8 xl:mx-10   items-center text-black'>
+                    <div className='w-full h-auto flex flex-col py-10  ms-8  items-center text-black'>
                         {
                             featureArray.map((l, index) => (
                                 <AddedBox key={index} Index={index} Name={l} handleRemove={handleFeatureRemove} />
@@ -317,7 +317,7 @@ useEffect(() => {
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Logo:</label>
                         <div className='w-[200px] h-[200px] bg-slate-700  border-[2px]  border-slate-400  rounded-xl shadow-blue-700' >
 
-                            <img src={businessStore.business?.companyLogo ? `${API_BASE_URL}/api/images/${businessStore.business?.companyLogo}` : dummyPhoto} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
+                            <img src={businessStore.business?.companyLogo ? `${businessStore.business?.companyLogo?.imageUrl}` : dummyPhoto} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
 
 
                         </div>
@@ -334,7 +334,7 @@ useEffect(() => {
                         </button>
 
                     </div>
-                    </form>
+                </form>
             </div>
         </div >
     )

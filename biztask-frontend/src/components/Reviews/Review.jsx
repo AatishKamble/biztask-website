@@ -19,7 +19,7 @@ const Review = ({ review,userDetails,handleReviewDelete}) => {
                     
                 <div className='flex flex-col justify-center items-center '>
                     <div className=' bg-slate-300 w-[150px] h-[150px] rounded-full ms-2'>
-                        <img src={`${API_BASE_URL}/api/images/${review?.user?.profileImage}`} alt="" className="w-full h-full rounded-full bg-cover" />
+                        <img src={`${review?.user?.profileImage?.ImageUrl}`} alt="" className="w-full h-full rounded-full bg-cover" />
                     </div>
 
                 </div>

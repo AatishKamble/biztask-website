@@ -46,7 +46,7 @@ const timeAgo = (postedAt) => {
             <div className='bg-[#ffffff] border-[1px] border-[#8895ab]  w-full h-[200px] rounded-2xl border-l-4 border-l-[#27038d] flex justify-center items-center'>
                 <div className='flex flex-col justify-center items-center w-[20%]'>
                     <div className=' bg-slate-300 w-[100px] h-[100px] rounded-full '>
-<img src={`${API_BASE_URL}/api/images/${business?.companyLogo}`} className=" bg-cover w-full h-full rounded-full" alt="service logo" />
+<img src={`${business?.companyLogo?.imageUrl}`} className=" bg-cover w-full h-full rounded-full" alt="service logo" />
                     </div>
                    
                 </div>

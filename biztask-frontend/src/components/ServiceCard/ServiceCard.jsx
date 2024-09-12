@@ -6,10 +6,10 @@ const ServiceCard = ({business,service,provider}) => {
 
   return (
    <>
-   <div className='bg-slate-200 w-[300px] h-[400px] flex flex-col drop-shadow-xl  shadow-slate-100'>
+   <div className='bg-slate-200 w-[300px] h-[420px] flex flex-col drop-shadow-xl border-[1px]  shadow-slate-100'>
 <div className={`w-full h-[280px] p-5 `}>
 
-<img src={`${API_BASE_URL}/api/images/${business?.companyLogo}`} alt="" className="bg-cover bg-center w-full h-full" />
+<img src={`${business?.companyLogo?.imageUrl}`} alt="" className="bg-cover bg-center w-full h-full" />
 </div>
 
 
