@@ -1,7 +1,13 @@
 import multer from "multer";
 
 
-const storage=multer.diskStorage({});
+const storage=multer.diskStorage({
+destination:"uploads",
+filename:(req,file,cb)=>{
+return cb(null,`${Date.now()}${file.originalname}`);
+}
+
+});
 
 const isImage=(req,file,cb)=>{
     if(file.mimetype.startsWith("image/")){
