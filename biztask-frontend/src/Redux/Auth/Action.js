@@ -16,7 +16,13 @@ import {
     UPDATE_USER_DETAILS_FAILURE,
     APPLY_JOB_REQUEST,
     APPLY_JOB_SUCCESS,
-    APPLY_JOB_FAILURE
+    APPLY_JOB_FAILURE,
+    FORGOT_PASSWORD_REQUEST,
+FORGOT_PASSWORD_SUCCESS,
+FORGOT_PASSWORD_FAILURE,
+RESET_PASSWORD_REQUEST,
+RESET_PASSWORD_SUCCESS,
+RESET_PASSWORD_FAILURE,
 } from "./ActionType.js";
 import { getJobById } from "../Job/Action.js";
 import { toast } from "react-toastify";
@@ -43,6 +49,14 @@ const updateUserProfileFailure = (error) => ({ type: UPDATE_USER_DETAILS_FAILURE
 const applyJobRequest = () => ({ type: APPLY_JOB_REQUEST });
 const applyJobSuccess = (user, message) => ({ type: APPLY_JOB_SUCCESS, payload: { user, message } });
 const applyJobFailure = (error) => ({ type: APPLY_JOB_FAILURE, payload: error });
+
+const forgotPasswordRequest=()=>({type:FORGOT_PASSWORD_REQUEST});
+const forgotPasswordSuccess=(message)=>({type:FORGOT_PASSWORD_SUCCESS,payload:message});
+const forgotPasswordFailure=(error)=>({type:FORGOT_PASSWORD_FAILURE,payload:error});
+
+const resetPasswordRequest=()=>({type:RESET_PASSWORD_REQUEST});
+const resetPasswordSuccess=(message)=>({type:RESET_PASSWORD_SUCCESS,payload:{message}});
+const resetPasswordFailure=(error)=>({type:RESET_PASSWORD_FAILURE,payload:error});
 
 
 const register = (userData) => async (dispatch) => {
@@ -191,4 +205,61 @@ const applyForJob = (jwt,formData) => async (dispatch) => {
 
 
 
-export { register, login, getUserProfile, logout, updateUserProfile, applyForJob };
+
+//forgotPassword
+const forgotPassword = (formData) => async (dispatch) => {
+    dispatch(forgotPasswordRequest());
+    try {
+
+        const response = await axios.post(`${API_BASE_URL}/api/user/forgot-password`,formData);
+
+        const newUser = response.data;
+
+        if (newUser.success == true) {
+           
+            dispatch(forgotPasswordSuccess(newUser.message));
+          
+            toast.success(newUser.message);
+        }
+        else {
+            throw new Error(newUser.message);
+        }
+
+
+    } catch (error) {
+        dispatch(forgotPasswordFailure(error.message));
+        toast.error(error.message);
+    }
+}
+
+
+//reset password
+
+const resetPassword = (formData,id,token) => async (dispatch) => {
+    dispatch(resetPasswordRequest());
+    try {
+
+        const response = await axios.post(`${API_BASE_URL}/api/user/reset-password/${id}/${token}`,formData);
+
+        const newUser = response.data;
+
+        if (newUser.success == true) {
+           
+            dispatch(resetPasswordSuccess(newUser.message));
+          
+           
+        }
+        else {
+            throw new Error(newUser.message);
+        }
+
+
+    } catch (error) {
+        dispatch(resetPasswordFailure(error.message));
+      
+    }
+}
+
+
+
+export { register, login, getUserProfile, logout, updateUserProfile, applyForJob,forgotPassword,resetPassword };

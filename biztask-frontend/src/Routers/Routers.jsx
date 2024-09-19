@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home.jsx";
 import Navbar from '../components/Navbar/Navbar.jsx'
 import React, { useRef } from 'react';
@@ -20,6 +20,9 @@ import BusinessDetails from "../pages/BusinessDetails.jsx";
 import ScrollToTop from "../components/ScrollTo/ScrollToTop.jsx";
 import PeopleApplied from "../components/JobTemplate/PeopleApplied.jsx";
 import { toast } from "react-toastify";
+import ForgotPassword from "../components/Login/ForgotPassword.jsx";
+import ResetPassword from "../components/Login/ResetPassword.jsx";
+import Loader from "../components/Loader/Loader.jsx";
 const Routers = () => {
   
   const auth = useSelector((store )=> store.auth);
@@ -46,12 +49,32 @@ const handleSignUpButtonClick = () => {
   setSignUp(!signUp);
 }
 
+const location=useLocation();
+
+//for loading 
+const isAuthLoading = useSelector((state) => state.auth.isLoading);
+const isBusinessLoading = useSelector((state) => state.businessStore.isLoading);
+const isServiceLoading = useSelector((state) => state.serviceStore.isLoading);
+const isJobLoading = useSelector((state) => state.jobStore.isLoading);
+const isReviewLoading = useSelector((state) => state.reviewStore.isLoading);
+
+const isLoading = isAuthLoading || isBusinessLoading || isServiceLoading || isJobLoading || isReviewLoading ;
+
+
   return (
     <>
+    {
+      isLoading && <div className='fixed inset-0 bg-[#000000] opacity-90 z-40'></div> 
+         
+    }
+    {isLoading &&  <div className='fixed inset-0 flex items-center justify-center z-50'><Loader/></div>}
 
-      <Router>
+     
         <ScrollToTop />
+        {
+        (  !location.pathname.startsWith("/reset-password") && !location.pathname.startsWith("/forgot-password"))&&
         <Navbar userDetails={auth.user} login={login} handleLogInButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick}  signUp={signUp} />
+}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<ProfilePage userDetails={auth.user}/>} />
@@ -75,11 +98,16 @@ const handleSignUpButtonClick = () => {
           <Route path="/auth/google/callback" element={<Home />} />
           <Route path="/service-registration/:id" element={<ServiceRegistration userDetails={auth.user} registration={true} />} />
           <Route path="/service-update/:id" element={<ServiceRegistration userDetails={auth.user} registration={false}/>} />
-
-
+    <Route path="/forgot-password" element={<ForgotPassword />}/>
+    
+    <Route path="/reset-password/:id/:token" element={<ResetPassword />}/>
+  
         </Routes>
+        {
+           (!location.pathname.startsWith("/reset-password")&& !location.pathname.startsWith("/forgot-password"))&&
+       
         <Footer userDetails={auth.user} handleLogInButtonClick={handleLogInButtonClick}/>
-      </Router>
+        }
     </>
   )
 }

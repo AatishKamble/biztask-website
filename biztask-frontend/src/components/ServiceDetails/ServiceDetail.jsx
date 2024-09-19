@@ -20,6 +20,7 @@ import { FaStar } from "react-icons/fa";
 
 import { addReview, getAllReviews } from "../../Redux/Review/Action.js";
 import Star from "../Reviews/Star.jsx";
+import PopUp from "../PopUp/PopUp.jsx";
 const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,7 +36,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         setIsModalOpen(null);
 
     }
-    
+
 
     //upload image submit
     const handleSubmit = (e) => {
@@ -60,6 +61,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
     const handleServiceRemove = () => {
         dispatch(removeService(jwt, serviceDetails._id, serviceDetails?.bussiness?._id));
         setFiles([]);
@@ -95,76 +97,84 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     }, [serviceDetails?.WorkImage]);
 
 
-//ratings
-const stars=Array(5).fill(0);
-const [currentValue,setCurrentValue]=useState(0);
-const [hoverValue,setHoverValue]=useState(undefined);
-const [input,setInput]=useState("");
+    //ratings
+    const stars = Array(5).fill(0);
+    const [currentValue, setCurrentValue] = useState(0);
+    const [hoverValue, setHoverValue] = useState(undefined);
+    const [input, setInput] = useState("");
 
-const handleClick=(value)=>{
-    setCurrentValue(value);
-}
-const handleMouseHover=(value)=>{
-    setHoverValue(value);
-}
-//word count for review
-const [wordCount, setWordCount] = useState(0);
-
-const handleInputChange=(e)=>{
-    const text = e.target.value;
-    const words = text.trim().split(/\s+/);  // Split by spaces, tabs, and newlines
-    const wordCount = words.filter(word => word).length; 
-
-    if (wordCount <= 20) {  
-        setInput(text);
-        setWordCount(wordCount);
+    const handleClick = (value) => {
+        setCurrentValue(value);
     }
-}
-
-const handleMouseLeave=(value)=>{
-    setHoverValue(undefined);
-}
-
-
-const handleSubmitReview=()=>{
-    const formData=new FormData();
-    formData.append("rating",currentValue);
-    formData.append("review",input);
-    formData.append("serviceId",serviceDetails?._id);
-
-
-    dispatch(addReview(formData,jwt));
-    setCurrentValue(0);
-    setHoverValue(undefined);
-    setInput("");
-}
-
-
-
-const reviewStore=useSelector(store=>store.reviewStore);
-
-useEffect(() => {
-    if (serviceDetails?._id) {
-        dispatch(getAllReviews(serviceDetails._id));
+    const handleMouseHover = (value) => {
+        setHoverValue(value);
     }
-}, [dispatch, serviceDetails._id]);
+    //word count for review
+    const [wordCount, setWordCount] = useState(0);
+
+    const handleInputChange = (e) => {
+        const text = e.target.value;
+        const words = text.trim().split(/\s+/);  // Split by spaces, tabs, and newlines
+        const wordCount = words.filter(word => word).length;
+
+        if (wordCount <= 20) {
+            setInput(text);
+            setWordCount(wordCount);
+        }
+    }
+
+    const handleMouseLeave = (value) => {
+        setHoverValue(undefined);
+    }
+
+
+    const handleSubmitReview = () => {
+        const formData = new FormData();
+        formData.append("rating", currentValue);
+        formData.append("review", input);
+        formData.append("serviceId", serviceDetails?._id);
+
+
+        dispatch(addReview(formData, jwt));
+        setCurrentValue(0);
+        setHoverValue(undefined);
+        setInput("");
+    }
 
 
 
-//handling review visible
+  
+   
 
-const [visibleReviews, setVisibleReviews] = useState(10); 
+    const reviewStore = useSelector(store => store.reviewStore);
 
-const handleViewMore = () => {
-    setVisibleReviews((prevVisibleReviews) => prevVisibleReviews + 10); 
-};
+    //handling review visible
 
-const handleReviewDelete=(id)=>{
-    dispatch(removeReview(id,jwt));
-}
+    const [visibleReviews, setVisibleReviews] = useState(10);
+
+    const handleViewMore = () => {
+        setVisibleReviews((prevVisibleReviews) => prevVisibleReviews + 10);
+    };
+
+    const handleReviewDelete = (id) => {
+        dispatch(removeReview(id, jwt));
+    }
+
+    //remove popUp
+    const [popupwarning, setPopupWarning] = useState(false);
+
+    const handlePopupWarningOpen = () => {
+
+        setPopupWarning(true);
+    };
+
+    const handlePopupWarningClose = () => {
+        setPopupWarning(false);
+
+    };
 
 
-
+    const [uploadButtonHover,setUploadButtonHover]=useState(false);
     return (
         <>
             <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto xl:px-20  sm:px-10'>
@@ -225,7 +235,7 @@ const handleReviewDelete=(id)=>{
                                     <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
                                 </Link>
 
-                                <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleServiceRemove}>Remove</button>
+                                <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handlePopupWarningOpen}>Remove</button>
                             </div>
 
                         }
@@ -375,12 +385,18 @@ const handleReviewDelete=(id)=>{
                 <div className=' w-[90%] h-auto relative  drop-shadow-lg  my-10 flex flex-col px-5'>
 
                     <form onSubmit={handleSubmit}>
-                        <div className='w-full flex justify-center items-center py-5'>
+                        <div className='w-full flex relative justify-center items-center py-5'>
 
                             <input type="file" className="bg-slate-100 w-[300px] p-5 outline-none font-sans font-semibold" onChange={handleWorkPicChange} multiple />
-                            <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  px-10 cursor-pointer' ><IoCloudUploadSharp /> </button>
-
-                        </div>
+                            <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  ps-10 cursor-pointer'  ><IoCloudUploadSharp onMouseEnter={()=>setUploadButtonHover(!uploadButtonHover)} onMouseLeave={()=>setUploadButtonHover(!uploadButtonHover)}/></button>
+                          {
+                            uploadButtonHover &&<div className="bg-blue-100 absolute  right-80 text-[18px] h-10 flex items-center justify-center w-[80px] ms-2 font-serif">
+                                upload
+                                
+                                </div>
+                     
+                          }  
+                               </div>
                     </form>
 
 
@@ -392,9 +408,9 @@ const handleReviewDelete=(id)=>{
                             <div className={`w-full bg-slate-100 z-10 mb-5 h-auto relative grid grid-cols-4 gap-10 p-10 transition-all duration-300 `}>
 
                                 {
-                                    files.map((element,idx) => {
+                                    files.map((element, idx) => {
                                         return (
-                                            <div key={idx}  className=" bg-slate-400 h-[200px] border-2 border-slate-600" >
+                                            <div key={idx} className=" bg-slate-400 h-[200px] border-2 border-slate-600" >
                                                 <img src={URL.createObjectURL(element)} alt="picture" className=" bg-cover w-full h-full" />
                                             </div>
                                         )
@@ -418,8 +434,8 @@ const handleReviewDelete=(id)=>{
                                 </span></div> :
 
 
-<div className={`${isModalOpen !==null ? "h-[700px]" : "h-auto"} w-full bg-slate-100 z-10 relative grid grid-cols-4 gap-10 p-10 transition-all duration-300`}>
- 
+                            <div className={`${isModalOpen !== null ? "h-[700px]" : "h-auto"} w-full bg-slate-100 z-10 relative grid grid-cols-4 gap-10 p-10 transition-all duration-300`}>
+
 
                                 {
 
@@ -435,7 +451,7 @@ const handleReviewDelete=(id)=>{
                                                     <div className='w-full z-50 h-[600px] absolute top-10  border-4 border-[#7da2a9]  bg-slate-400'>
 
                                                         <button className="absolute right-3 top-2 text-[#becbc7] text-[30px] hover:text-slate-700" onClick={handleModalClose}>
-                                                            <IoClose size={40}/>
+                                                            <IoClose size={40} />
                                                         </button>
                                                         <img src={`${element.imageUrl}`} alt="image" className="bg-cover w-full h-full" />
 
@@ -461,6 +477,17 @@ const handleReviewDelete=(id)=>{
                 </div>
 
 
+                {popupwarning && (
+            <div className='fixed inset-0 bg-black opacity-50 z-40'></div> 
+          )}
+
+                    {popupwarning && (
+            <div className='fixed inset-0 flex items-center justify-center z-50'>
+               <PopUp message="Remove Service" submessage="Are you sure you want to remove this service ?" button1="Cancel" button2="Remove" submessage2={`Service Name: ${serviceDetails?.serviceType}`} closeButton={handlePopupWarningClose} handleRemove={handleServiceRemove} />
+ 
+              </div>
+)}
+
             </div>
 
 
@@ -469,26 +496,26 @@ const handleReviewDelete=(id)=>{
 
                 <div className='w-full flex justify-center items-center py-5'>
                     <span className=' text-blue-950 font-serif font-semibold text-[30px] '>Reviews</span>
-                    <button onClick={()=>handleSubmitReview()} className='mx-2 text-slate-200 flex items-center justify-center h-[40px] font-serif font-semibold text-[20px] w-[120px] px-10  bg-blue-700 rounded-2xl'>
-                    <span className="px-2"><IoIosAddCircle /> </span>
-                    <span>Add</span>
+                    <button onClick={() => handleSubmitReview()} className='mx-2 text-slate-200 flex items-center justify-center h-[40px] font-serif font-semibold text-[20px] w-[120px] px-10  bg-blue-700 rounded-2xl'>
+                        <span className="px-2"><IoIosAddCircle /> </span>
+                        <span>Add</span>
                     </button>
 
                     <div className="flex">
 
-                        {stars.map((_,index)=>{
-                            return(
-                                <FaStar key={index} size={24} 
-                                style={{marginRight:10,cursor:"pointer"}} 
-                                className={`${(hoverValue || currentValue)>index?'text-yellow-600':"text-slate-700"}`}
-                                onClick={()=>handleClick(index+1)} 
-                                onMouseOver={()=>handleMouseHover(index+1)}
-                                onMouseLeave={()=>handleMouseLeave(index+1)}
+                        {stars.map((_, index) => {
+                            return (
+                                <FaStar key={index} size={24}
+                                    style={{ marginRight: 10, cursor: "pointer" }}
+                                    className={`${(hoverValue || currentValue) > index ? 'text-yellow-600' : "text-slate-700"}`}
+                                    onClick={() => handleClick(index + 1)}
+                                    onMouseOver={() => handleMouseHover(index + 1)}
+                                    onMouseLeave={() => handleMouseLeave(index + 1)}
                                 />
                             )
                         })}
                     </div>
-                    
+
                 </div>
 
                 <div className="w-full flex justify-center flex-col items-center">
@@ -500,22 +527,23 @@ const handleReviewDelete=(id)=>{
                         value={input}
                         onChange={handleInputChange}
                     ></textarea>
-                    
+
                     <p>{wordCount} / 20 words</p>
-                    </div>
+                </div>
                 <div className="w-full grid grid-cols-2 gap-10 py-20 justify-center px-10">
 
 
-               { reviewStore?.reviews.slice(0, visibleReviews).map((review,index)=>(<Review key={index} review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />))}
+                    {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (<Review key={index} review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />))}
                 </div>
 
                 {
-                    visibleReviews< reviewStore?.reviews.length &&
+                    visibleReviews < reviewStore?.reviews.length &&
                     <div className='w-full flex justify-center items-center'>
-                    <div className='bg-[#eef1f1] hover:bg-[#d1d5d7] w-[200px] opacity-95 my-[20px] cursor-pointer h-10 rounded-xl flex justify-center items-center text-md '>
-                        <span className="font-serif font-normal pe-2 text-xl text-slate-800">View All</span>
-                    </div>
-                </div>}
+                        <div className='bg-[#eef1f1] hover:bg-[#d1d5d7] w-[200px] opacity-95 my-[20px] cursor-pointer h-10 rounded-xl flex justify-center items-center text-md '>
+                            <span className="font-serif font-normal pe-2 text-xl text-slate-800">View All</span>
+                        </div>
+                    </div>}
+
             </div>
 
 

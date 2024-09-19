@@ -13,7 +13,9 @@ import { getBusinessById } from "../../Redux/Business/Action.js";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { applyForJob, getUserProfile } from "../../Redux/Auth/Action.js";
 import timeAgo from "../timeCalculate.js";
-const JobDetail = ({ userDetails,handleLogInButtonClick}) => {
+import { HiBellAlert } from "react-icons/hi2";
+import PopUp from "../PopUp/PopUp.jsx";
+const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
 
     const { id } = useParams();
@@ -27,12 +29,12 @@ const JobDetail = ({ userDetails,handleLogInButtonClick}) => {
         if (id) {
             // dispatch(getUserProfile(jwt))
             dispatch(getJobById(id));
-            
+
         }
 
     }, [id, dispatch])
 
-   
+
     //date format
     const formatDate = (dateString) => {
         if (!dateString || isNaN(new Date(dateString).getTime())) {
@@ -43,8 +45,6 @@ const JobDetail = ({ userDetails,handleLogInButtonClick}) => {
         return date.toISOString().split('T')[0];
     };
 
-
-    //time showing
 
 
 
@@ -59,53 +59,74 @@ const JobDetail = ({ userDetails,handleLogInButtonClick}) => {
 
     const [popUp, setPopUp] = useState(false);
     const handleEditProfile = () => {
-       if(userDetails){
-navigate('/profile-edit');
-       }else{
-        handleLogInButtonClick();
-    }
-    setPopUp(false);
+        if (userDetails) {
+            navigate('/profile-edit');
+        } else {
+            handleLogInButtonClick();
+        }
+        setPopUp(false);
     }
 
     const handleApply = () => {
-if(userDetails){
+        if (userDetails) {
 
 
-        const formData = new FormData();
-        formData.append("jobId", id);
-        dispatch(applyForJob(jwt, formData));
-       
-        navigate(`/job-detail/${id}`);}
-        else{
+            const formData = new FormData();
+            formData.append("jobId", id);
+            dispatch(applyForJob(jwt, formData));
+
+            navigate(`/job-detail/${id}`);
+        }
+        else {
             handleLogInButtonClick();
         }
         setPopUp(false);
     }
 
 
+    //remove popUp
+    const [popupwarning, setPopupWarning] = useState(false);
+
+    const handlePopupWarningOpen = () => {
+
+        setPopupWarning(true);
+    };
+
+    const handlePopupWarningClose = () => {
+        setPopupWarning(false);
+
+    };
+
+
+
     return (
         <>
             {
-                popUp && <div className="bg-[#ced8d8] border-[1px] border-slate-400 w-[400px] drop-shadow-lg h-auto pb-5  fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 ">
+                popUp &&
+                <div className='fixed inset-0 bg-black opacity-50 z-40'></div>
+            }
+            {
+                popUp && <div className="bg-slate-100 border-[1px] border-slate-400 w-[800px] drop-shadow-lg h-auto pb-5  fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 ">
 
-                    <div className="w-full p-4 flex justify-center border-b-slate-400 border-[1px]">
-                        <div className="absolute top-2 right-2 text-[30px] cursor-pointer hover:text-slate-600" onClick={()=>setPopUp(false)}> <span><IoIosCloseCircleOutline /></span></div>
-                        <h1 className="text-[24px] font-bold text-[#df9a87]">Please Confirm !</h1>
+                    <div className="w-full p-4 flex justify-center items-center border-b-slate-400 border-[1px]">
+                        <span className="text-[24px] font-bold text-[#df9a87] px-2"><HiBellAlert /></span>
+                        <div className="absolute top-2 right-2 text-[30px] cursor-pointer hover:text-slate-600" onClick={() => setPopUp(false)}> <span><IoIosCloseCircleOutline /></span></div>
+                        <h1 className="text-[24px] font-bold text-[#df9a87]">Please Review Your Profile!</h1>
                     </div>
                     <div className="flex justify-center flex-col items-center p-5">
-                        <p className="text-[20px] text-blue-600 font-semibold">Is your Profile Details are correct ?</p>
-                        <p className="text-[20px] text-blue-600 font-semibold">if not,then edit it and then apply</p>
+                        <p className="text-[18px] text-blue-600 font-medium">Before proceeding, take a moment to ensure that your profile details are accurate.</p>
+                        <p className="text-[18px] text-slate-600 ">If something needs updating, make the necessary changes to avoid any issues while applying.</p>
 
                     </div>
                     <div className="flex justify-center p-5 gap-x-5">
-                        <button className='bg-[#6163d7]  rounded-md p-2 ms-2  hover:bg-[#495fad]   w-[100px] h-auto text-white  font-sans font-bold text-[18px]' onClick={handleApply}>Apply</button>
-                     
-                            <button className='bg-[#51b57b]  rounded-md p-2 ms-2  hover:bg-[#0d7634]   w-[100px] h-auto text-white  font-sans font-bold text-[18px]' onClick={handleEditProfile}>Edit</button>
-                      
+                        <button className='bg-[#6163d7]  rounded-md p-2 ms-2  hover:bg-[#3b3bc7]   w-[100px] h-auto text-white  font-sans font-bold text-[18px]' onClick={handleApply}>Apply</button>
+
+                        <button className='bg-[#51b57b]  rounded-md p-2 ms-2  hover:bg-[#0d7634]   w-[100px] h-auto text-white  font-sans font-bold text-[18px]' onClick={handleEditProfile}>Edit</button>
+
                     </div>
                 </div>
             }
-            <div className={`bg-[#ffffff] relative flex flex-col  items-center w-full h-auto px-20 ${popUp ? 'blur-sm pointer-events-none' : ""}`} >
+            <div className={`bg-[#ffffff] relative flex flex-col  items-center w-full h-auto px-20 `} >
 
 
 
@@ -156,14 +177,14 @@ if(userDetails){
                             userDetails?._id == jobStore?.job?.user?._id ?
                                 (<div>
 
-                                        <Link to={`/job-detail/people-applied/${jobStore?.job?._id}`}>
-                                    <button className='bg-[#94b6b5]   rounded-md p-[7px]   hover:bg-[#79bdba] w-auto h-auto text-slate-600  font-sans font-bold text-[18px] me-2' >View People</button>
+                                    <Link to={`/job-detail/people-applied/${jobStore?.job?._id}`}>
+                                        <button className='bg-[#94b6b5]   rounded-md p-[7px]   hover:bg-[#79bdba] w-auto h-auto text-slate-600  font-sans font-bold text-[18px] me-2' >View People</button>
                                     </Link>
                                     <Link to={`/job-update/${jobStore?.job?._id}`}>
                                         <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
                                     </Link>
 
-                                    <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleJobRemove} >Remove</button>
+                                    <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handlePopupWarningOpen} >Remove</button>
                                 </div>)
 
                                 : (
@@ -172,7 +193,7 @@ if(userDetails){
                                             Applied
                                         </button>
                                     ) : (
-                                        <button className='bg-[#6163d7] rounded-md p-2 ms-2 hover:bg-[#495fad] w-[100px] h-auto text-white font-sans font-bold text-[18px]' onClick={()=>setPopUp(true)}>
+                                        <button className='bg-[#6163d7] rounded-md p-2 ms-2 hover:bg-[#495fad] w-[100px] h-auto text-white font-sans font-bold text-[18px]' onClick={() => setPopUp(true)}>
                                             Apply
                                         </button>
                                     )
@@ -330,6 +351,18 @@ if(userDetails){
 
                     </div>
                 </div>
+
+                {popupwarning && (
+            <div className='fixed inset-0 bg-black opacity-50 z-40'></div> 
+          )}
+
+                    {popupwarning && (
+            <div className='fixed inset-0 flex items-center justify-center z-50'>
+               <PopUp message="Remove Job Posting" submessage="Are you sure you want to remove this posted Job  ?" button1="Cancel" button2="Remove" submessage2={`Job Role: ${jobStore?.job?.jobRole}`} closeButton={handlePopupWarningClose} handleRemove={handleJobRemove} />
+
+              </div>
+)}
+
 
             </div>
 

@@ -31,21 +31,21 @@ export const businessReducer = (state = initialState, action) => {
         case BUSINESS_GET_BY_ID_REQUEST:
             return {
                 ...state,
-                loading: true
+                isLoading: true
             };
 
 
         case BUSINESS_REGISTER_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                isLoading: false,
                 businesses: [...state.businesses, action.payload],
             };
 
         case BUSINESS_UPDATE_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                isLoading: false,
                 businesses: state.businesses.map(business =>
                     business._id === action.payload._id ? action.payload : business
                 )
@@ -61,7 +61,7 @@ export const businessReducer = (state = initialState, action) => {
             case BUSINESS_GET_BY_ID_SUCCESS:
         return {
             ...state,
-            loading: false,
+            isLoading: false,
             business: action.payload // store the retrieved business details
         };
 
@@ -71,7 +71,7 @@ export const businessReducer = (state = initialState, action) => {
         case BUSINESS_GET_BY_ID_FAILURE:
             return {
                 ...state,
-                loading: false,
+                isLoading: false,
                 error: action.payload
             };
 

@@ -71,6 +71,9 @@ const businessStore=useSelector(store=>store.businessStore)
         const formD = new FormData();
         formD.append("companyName", formData.companyName);
         formD.append("description", formData.description);
+        if(image){
+            
+        }
         formD.append("companyLogo", image);
       
 

@@ -7,10 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { register, getUserProfile, login } from '../../Redux/Auth/Action.js';
 import { API_BASE_URL } from "../../configApi/ConfigApi.js";
+import { RiLockPasswordFill } from "react-icons/ri";
 import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
 
+    const navigate=useNavigate();
     //modal style
     const customStyles = {
 
@@ -168,6 +171,18 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
                             }}>{type === "login" ? "Sign Up" : "Log In"}</span>
 
                         </div>
+
+                       { 
+                        type==="login" &&
+                        <div className='flex justify-center items-center'>
+                            <span className='text-blue-950 text-[20px]'><RiLockPasswordFill /></span>
+                        
+                            <span className='text-[18px] cursor-pointer text-blue-900 hover:text-[#1e52c3] font-serif font-normal px-2' onClick={()=>{
+                                 handleButtonClick();
+                                 navigate("/forgot-password")
+                            }}>Forgot Password ?</span>
+                 
+                        </div>}
 
                     </div>
                 </form>

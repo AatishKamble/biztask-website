@@ -1,24 +1,26 @@
 import JobAdvertise from '../components/JobTemplate/JobAdvertise.jsx'
 import ServiceCard from '../components/ServiceCard/ServiceCard.jsx'
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation ,useNavigate} from 'react-router-dom';
 import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import BusinessCard from '../components/BusinessCard/BusinessCard.jsx';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaAddressCard } from "react-icons/fa6";
 import { API_BASE_URL } from '../configApi/ConfigApi.js';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { getJobById } from "../Redux/Job/Action.js";
+import PopUp from '../components/PopUp/PopUp.jsx';
+import { removeBusiness } from '../Redux/Business/Action.js';
 const ProfilePage = ({ userDetails }) => {
 
   const dispatch = useDispatch();
   const appliedJobsRef = useRef(null);
-const businessRegistrationRef=useRef(null);
+  const businessRegistrationRef = useRef(null);
   const location = useLocation();
-
-
+  const jwt=localStorage.getItem("jwt");
+  const navigate=useNavigate();
   useEffect(() => {
     if (location.hash === "#applied-jobs" && appliedJobsRef.current) {
       appliedJobsRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -29,8 +31,29 @@ const businessRegistrationRef=useRef(null);
   }, [location])
 
 
+  const [popupwarning, setPopupWarning] = useState(false);
+  const [currentBusinessId, setCurrentBusinessId] = useState(null);
+
+  const handlePopupWarningOpen = (businessId) => {
+    setCurrentBusinessId(businessId);
+    setPopupWarning(true);
+  };
+
+  const handlePopupWarningClose = () => {
+    setPopupWarning(false);
+    setCurrentBusinessId(null);
+  };
+
+  const handleRemove=()=>{
+    dispatch(removeBusiness(jwt,currentBusinessId));
+    setPopupWarning(false);
+    navigate('/profile');
+  }
+
   return (
     <>
+
+
       {userDetails &&
         <div className=' w-full h-auto bg-[#ffffff] flex flex-col p-[100px] items-center justify-center '>
 
@@ -92,7 +115,11 @@ const businessRegistrationRef=useRef(null);
             <div className=' w-full grid sm:grid-cols-2 xl:grid-cols-3  p-2 gap-2 gap-y-6'>
               {
                 userDetails?.businesses?.map((business, index) => (
-                  <BusinessCard  businessDetails={business} key={index} />
+                  <>
+
+                    <BusinessCard businessDetails={business} key={index} handlePopupWarningOpen={handlePopupWarningOpen} />
+
+                  </>
                 ))
               }
 
@@ -126,8 +153,16 @@ const businessRegistrationRef=useRef(null);
 
           </div>
 
+          {popupwarning && (
+            <div className='fixed inset-0 bg-black opacity-50 z-40'></div> 
+          )}
 
-
+  {popupwarning && (
+            <div className='fixed inset-0 flex items-center justify-center z-50'>
+               <PopUp message="Remove Business" submessage="Are you sure you want to remove this business ?" button1="Cancel" button2="Remove" submessage2={`Business Name: ${ userDetails?.businesses.find(b => b._id === currentBusinessId)?.companyName}`} closeButton={handlePopupWarningClose} handleRemove={handleRemove} />
+ 
+              </div>
+)}
         </div>
 
 

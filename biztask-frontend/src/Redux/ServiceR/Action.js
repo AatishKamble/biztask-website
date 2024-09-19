@@ -309,9 +309,15 @@ const uploadImage = (formData, jwt) => async (dispatch) => {
 
 
     } catch (error) {
-
+           
         dispatch(uploadImageFailure(error.message));
-        toast.error(error.message);
+        if(jwt===null){
+            toast.error("Session expired,Please Login !")
+        }
+        else{
+
+       
+        toast.error(error.message); }
     }
 
 }

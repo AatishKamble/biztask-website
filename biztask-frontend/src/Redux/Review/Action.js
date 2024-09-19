@@ -102,7 +102,14 @@ const addReview = (formData, jwt) => async (dispatch) => {
 
     } catch (error) {
         dispatch(addReviewFailure(error.message));
-        toast.error(error.message);
+        if(jwt===null){
+            toast.error("Session expired,Please Login !")
+        }
+        else{
+
+       
+        toast.error(error.message); }
+    
     }
 };
 

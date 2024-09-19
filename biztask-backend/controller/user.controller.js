@@ -102,10 +102,43 @@ return res.json({success:true,message:"Successfully Applied",user:user});
 }
 }
 
+const forgotpassword=async(req,res)=>{
+    try {
+
+        const {email}=req.body;
+   
+        const message=await userService.forgotpassword(email);
+        res.json({success:true,message:message});
+        
+    } catch (error) {
+        return res.json({
+            success:false,
+            message:error.message
+        }); 
+    }
+}
+
+const resetpassword=async(req,res)=>{
+    try {
+const {id,token}=req.params;
+        const {password}=req.body;
+   
+        const message=await userService.resetpassword(id,token,password);
+        res.json({success:true,message:message});
+        
+    } catch (error) {
+        return res.json({
+            success:false,
+            message:error.message
+        }); 
+    }
+}
 export default{
     loginUser,
     registerUser,
     getUserProfile,
     updateUserProfile,
-    applyJob
+    applyJob,
+    forgotpassword,
+    resetpassword
 }

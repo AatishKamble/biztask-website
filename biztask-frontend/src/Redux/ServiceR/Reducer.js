@@ -39,28 +39,28 @@ export const serviceReducer = (state = initialState, action) => {
                             case UPLOAD_IMAGE_REQUEST:
             return {
                 ...state,
-                loading: true
+                isLoading: true
             };
 
 
         case SERVICE_REGISTER_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                isLoading: false,
                 message:action.payload
             };
 
             case SERVICE_UPDATE_SUCCESS:
                 return {
                     ...state,
-                    loading: false,
+                    isLoading: false,
                     service:action.payload
                 };
 
                 case UPLOAD_IMAGE_SUCCESS:
                     return {
                         ...state,
-                        loading: false,
+                        isLoading: false,
                         service:action.payload.service,
                         message:action.payload.message
                     };
@@ -68,14 +68,14 @@ export const serviceReducer = (state = initialState, action) => {
             case SERVICE_REMOVE_SUCCESS:
                 return {
                     ...state,
-                    loading: false,
+                    isLoading: false,
                     message:action.payload
                 };
 
             case SERVICE_GET_BY_ID_SUCCESS:
                 return {
                     ...state,
-                    loading:false,
+                    isLoading:false,
                     service:action.payload
                 }
 
@@ -98,7 +98,7 @@ export const serviceReducer = (state = initialState, action) => {
                         case   UPLOAD_IMAGE_FAILURE:
             return {
                 ...state,
-                loading: false,
+                isLoading: false,
                 error: action.payload
             };
 

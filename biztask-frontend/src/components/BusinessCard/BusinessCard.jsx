@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { API_BASE_URL } from '../../configApi/ConfigApi';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
-import { removeBusiness } from '../../Redux/Business/Action.js';
+// import { useDispatch} from 'react-redux';
+// import { removeBusiness } from '../../Redux/Business/Action.js';
+// import PopUp from '../PopUp/PopUp.jsx';
 
-const BusinessCard = ({ businessDetails, index }) => {
+const BusinessCard = ({ businessDetails, index,handlePopupWarningOpen }) => {
 
-  const jwt=localStorage.getItem("jwt");
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
+  // const jwt=localStorage.getItem("jwt");
+  // const dispatch=useDispatch();
+  // const navigate=useNavigate();
 
-const handleRemove=()=>{
-  dispatch(removeBusiness(jwt,businessDetails._id));
- 
-  navigate('/profile');
+
+
+const handleRemoveClick=()=>{
+  handlePopupWarningOpen(businessDetails?._id);
 }
 
   return (
@@ -45,12 +46,12 @@ const handleRemove=()=>{
           <Link to={`/bussiness-update/${businessDetails?._id}`}>
           <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
           </Link>
-          <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleRemove}>Remove</button>
+          <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handleRemoveClick}>Remove</button>
          
 
         </div>
-
-      </div>
+     </div>
+     
     </>
   )
 }
