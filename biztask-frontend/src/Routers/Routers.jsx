@@ -64,7 +64,7 @@ const isLoading = isAuthLoading || isBusinessLoading || isServiceLoading || isJo
   return (
     <>
     {
-      isLoading && <div className='fixed inset-0 bg-[#000000] opacity-90 z-40'></div> 
+      isLoading && <div className='fixed inset-0 bg-[#000000] opacity-100 z-40'></div> 
          
     }
     {isLoading &&  <div className='fixed inset-0 flex items-center justify-center z-50'><Loader/></div>}
