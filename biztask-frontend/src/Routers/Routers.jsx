@@ -53,18 +53,14 @@ const location=useLocation();
 
 //for loading 
 const isAuthLoading = useSelector((state) => state.auth.isLoading);
-const isBusinessLoading = useSelector((state) => state.businessStore.isLoading);
-const isServiceLoading = useSelector((state) => state.serviceStore.isLoading);
-const isJobLoading = useSelector((state) => state.jobStore.isLoading);
-const isReviewLoading = useSelector((state) => state.reviewStore.isLoading);
 
-const isLoading = isAuthLoading || isBusinessLoading || isServiceLoading || isJobLoading || isReviewLoading ;
+const isLoading = isAuthLoading ;
 
 
   return (
     <>
     {
-      isLoading && <div className='fixed inset-0 bg-[#000000] opacity-90 z-40'></div> 
+      isLoading && <div className='fixed inset-0 bg-[#252727] opacity-100 z-40'></div> 
          
     }
     {isLoading &&  <div className='fixed inset-0 flex items-center justify-center z-50'><Loader/></div>}

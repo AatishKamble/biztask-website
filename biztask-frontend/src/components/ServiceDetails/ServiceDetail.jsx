@@ -21,6 +21,7 @@ import { FaStar } from "react-icons/fa";
 import { addReview, getAllReviews } from "../../Redux/Review/Action.js";
 import Star from "../Reviews/Star.jsx";
 import PopUp from "../PopUp/PopUp.jsx";
+import DetailLoader from "../Loader/DetailLoader.jsx";
 const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -143,8 +144,8 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
 
-  
-   
+
+
 
     const reviewStore = useSelector(store => store.reviewStore);
 
@@ -174,12 +175,24 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     };
 
 
-    const [uploadButtonHover,setUploadButtonHover]=useState(false);
+    const [uploadButtonHover, setUploadButtonHover] = useState(false);
+
+    const isLoading = useSelector(store => store.serviceStore.isLoading);
+
     return (
         <>
-            <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto xl:px-20  sm:px-10'>
 
 
+            <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto xl:px-20  sm:px-10 relative'>
+
+
+
+                {isLoading == true && (
+                    <div className="absolute w-full h-[100%] inset-0 flex items-center justify-center bg-[#ffffff]  opacity-100 z-10">
+
+                        <DetailLoader />
+                    </div>
+                )}
                 <div className=' 2xl:w-[90%] sm:w-full h-auto py-10 bg-slate-100  drop-shadow-lg  my-10 flex items-center px-10'>
 
 
@@ -388,15 +401,15 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         <div className='w-full flex relative justify-center items-center py-5'>
 
                             <input type="file" className="bg-slate-100 w-[300px] p-5 outline-none font-sans font-semibold" onChange={handleWorkPicChange} multiple />
-                            <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  ps-10 cursor-pointer'  ><IoCloudUploadSharp onMouseEnter={()=>setUploadButtonHover(!uploadButtonHover)} onMouseLeave={()=>setUploadButtonHover(!uploadButtonHover)}/></button>
-                          {
-                            uploadButtonHover &&<div className="bg-blue-100 absolute  right-80 text-[18px] h-10 flex items-center justify-center w-[80px] ms-2 font-serif">
-                                upload
-                                
+                            <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  ps-10 cursor-pointer'  ><IoCloudUploadSharp onMouseEnter={() => setUploadButtonHover(!uploadButtonHover)} onMouseLeave={() => setUploadButtonHover(!uploadButtonHover)} /></button>
+                            {
+                                uploadButtonHover && <div className="bg-blue-100 absolute  right-80 text-[18px] h-10 flex items-center justify-center w-[80px] ms-2 font-serif">
+                                    upload
+
                                 </div>
-                     
-                          }  
-                               </div>
+
+                            }
+                        </div>
                     </form>
 
 
@@ -478,20 +491,20 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                 {popupwarning && (
-            <div className='fixed inset-0 bg-black opacity-50 z-40'></div> 
-          )}
+                    <div className='fixed inset-0 bg-black opacity-50 z-40'></div>
+                )}
 
-                    {popupwarning && (
-            <div className='fixed inset-0 flex items-center justify-center z-50'>
-               <PopUp message="Remove Service" submessage="Are you sure you want to remove this service ?" button1="Cancel" button2="Remove" submessage2={`Service Name: ${serviceDetails?.serviceType}`} closeButton={handlePopupWarningClose} handleRemove={handleServiceRemove} />
- 
-              </div>
-)}
+                {popupwarning && (
+                    <div className='fixed inset-0 flex items-center justify-center z-50'>
+                        <PopUp message="Remove Service" submessage="Are you sure you want to remove this service ?" button1="Cancel" button2="Remove" submessage2={`Service Name: ${serviceDetails?.serviceType}`} closeButton={handlePopupWarningClose} handleRemove={handleServiceRemove} />
+
+                    </div>
+                )}
 
             </div>
 
 
-
+           { isLoading == false &&
             <div className=' w-full h-auto relative drop-shadow-lg  my-10 flex flex-col px-5'>
 
                 <div className='w-full flex justify-center items-center py-5'>
@@ -547,7 +560,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
             </div>
 
 
-
+}
         </>
     )
 }

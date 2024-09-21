@@ -15,6 +15,8 @@ import { applyForJob, getUserProfile } from "../../Redux/Auth/Action.js";
 import timeAgo from "../timeCalculate.js";
 import { HiBellAlert } from "react-icons/hi2";
 import PopUp from "../PopUp/PopUp.jsx";
+import Loader from "../Loader/Loader.jsx";
+import DetailLoader from "../Loader/DetailLoader.jsx"
 const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
 
@@ -97,6 +99,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
     };
 
+    const isLoading = useSelector(store => store.jobStore.isLoading) ;
 
 
     return (
@@ -126,9 +129,16 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                     </div>
                 </div>
             }
+
+          
             <div className={`bg-[#ffffff] relative flex flex-col  items-center w-full h-auto px-20 `} >
 
+            {isLoading == true && (
+          <div className="absolute w-full h-[100%] inset-0 flex items-center justify-center bg-[#ffffff]  opacity-100 z-10">
 
+<DetailLoader />
+          </div>
+        )}
 
 
                 <div className=' w-[90%] h-[200px] bg-slate-100  drop-shadow-lg  my-10 flex items-center px-10'>

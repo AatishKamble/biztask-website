@@ -7,6 +7,9 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessById } from "../Redux/Business/Action.js";
 import { API_BASE_URL } from '../configApi/ConfigApi.js';
+import JobLoader from '../components/Loader/JobLoader.jsx';
+import Loader from '../components/Loader/Loader.jsx';
+import DetailLoader from '../components/Loader/DetailLoader.jsx';
 const BusinessDetails = ({ userDetails }) => {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -23,12 +26,23 @@ const BusinessDetails = ({ userDetails }) => {
 
     }, [jwt, id, dispatch]);
 
+    const isLoading = useSelector(store => store.businessStore.isLoading) ;
+
+
+
     return (
         <>
 
-            <div className='bg-[#ffffff] flex flex-col  items-center w-full h-auto px-20 lg:px-10 xl:px-16'>
+            <div className='bg-[#ffffff] flex relative flex-col  items-center w-full h-auto px-20 lg:px-10 xl:px-16'>
 
+            {isLoading == true && (
+          <div className="absolute w-full h-[100%] inset-0 flex items-center justify-center bg-[#ffffff]  opacity-100 z-10">
 
+<DetailLoader/>
+          </div>
+        )}
+       
+      
                 <div className=' w-[100%] h-auto bg-slate-100  drop-shadow-lg  mt-10 mb-4 flex flex-col justify-center items-center p-10'>
 
 

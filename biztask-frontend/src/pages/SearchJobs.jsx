@@ -5,7 +5,9 @@ import Pagination from '@mui/material/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { getAllJobs } from '../Redux/Job/Action.js';
-import  jobBack from "../assets/jobsbackground.jpg";
+import jobBack from "../assets/jobsbackground.jpg";
+import jobLoader from "../components/Loader/JobLoader.jsx"
+import JobLoader from '../components/Loader/JobLoader.jsx';
 const SearchJobs = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -14,26 +16,26 @@ const SearchJobs = () => {
 
   const decodedQueryString = decodeURIComponent(location.search);
   const searchParams = new URLSearchParams(decodedQueryString);
-  
-  let pageNumber=searchParams.get("page") || 1;
-  let employmentType=searchParams.get("employmentType") || null;
-  let minSalary=searchParams.get("minSalary") || 0;
-  let maxSalary=searchParams.get("maxSalary") || 1000000000000000;
-  let JobLocations=searchParams.get("jobLocation") || null;
-  let jobName=searchParams.get("jobName") || null;
+
+  let pageNumber = searchParams.get("page") || 1;
+  let employmentType = searchParams.get("employmentType") || null;
+  let minSalary = searchParams.get("minSalary") || 0;
+  let maxSalary = searchParams.get("maxSalary") || 1000000000000000;
+  let JobLocations = searchParams.get("jobLocation") || null;
+  let jobName = searchParams.get("jobName") || null;
   useEffect(() => {
     const data = {
-        jobName: jobName,
-        jobLocation: JobLocations,
-        minSalary: minSalary,
-        maxSalary: maxSalary,
-        employmentType: employmentType,
-        page: pageNumber,
-        limit: 10
+      jobName: jobName,
+      jobLocation: JobLocations,
+      minSalary: minSalary,
+      maxSalary: maxSalary,
+      employmentType: employmentType,
+      page: pageNumber,
+      limit: 10
     };
 
     dispatch(getAllJobs(data));
-}, [dispatch, jobName, JobLocations, minSalary, maxSalary, employmentType, pageNumber]);
+  }, [dispatch, jobName, JobLocations, minSalary, maxSalary, employmentType, pageNumber]);
 
 
   const jobStore = useSelector(store => store.jobStore);
@@ -54,16 +56,16 @@ const SearchJobs = () => {
     const maxSalary = searchParams.get("maxSalary") ? searchParams.get("maxSalary") : "";
 
     const employmentTypes = searchParams.get("employmentType") ? searchParams.get("employmentType").split(",") : [];
-   
+
     setNameInput(jobsName);
     setLocationInput(locationNames);
-    const updateSalary=minSalary + "," + maxSalary;
-    updateSalary==","?setPriceInput(""):setPriceInput(minSalary + "," + maxSalary);
-    
+    const updateSalary = minSalary + "," + maxSalary;
+    updateSalary == "," ? setPriceInput("") : setPriceInput(minSalary + "," + maxSalary);
+
     setSelectedCheckbox(employmentTypes);
   }, [location.search]);
 
-//handling filters in url
+  //handling filters in url
   const handleFilter = (sectionId, value) => {
     const searchParams = new URLSearchParams(location.search);
     if (value) {
@@ -94,61 +96,61 @@ const SearchJobs = () => {
       .filter((location, index, self) => location !== "" && self.indexOf(location) === index);
     const newValue = jobLocations.join(',');
     handleFilter('jobLocation', newValue);
-};
+  };
 
 
   // Handling the price input submission
   const handlePriceInputSubmit = () => {
     const searchParams = new URLSearchParams(location.search);
-    const salaryRange=priceInput.split(",");
-    let minSalary=salaryRange[0]?salaryRange[0]:"";
-    let maxSalary=salaryRange[1]?salaryRange[1]:"";
-  
+    const salaryRange = priceInput.split(",");
+    let minSalary = salaryRange[0] ? salaryRange[0] : "";
+    let maxSalary = salaryRange[1] ? salaryRange[1] : "";
+
     if (minSalary !== "") {
       searchParams.set("minSalary", minSalary);
-  } else {
+    } else {
       searchParams.delete("minSalary");
-  }
+    }
 
 
-  if (maxSalary !== "") {
+    if (maxSalary !== "") {
       searchParams.set("maxSalary", maxSalary);
-  } else {
+    } else {
       searchParams.delete("maxSalary");
-  }
+    }
 
 
-  navigate({ search: searchParams.toString() });
+    navigate({ search: searchParams.toString() });
   };
 
 
 
-//for check box filter 
-function handleCheckboxFilter(sectionId,value){
-  const searchParams = new URLSearchParams(location.search);
+  //for check box filter 
+  function handleCheckboxFilter(sectionId, value) {
+    const searchParams = new URLSearchParams(location.search);
 
-  let filterValues=searchParams.get(sectionId)?searchParams.get(sectionId).split(","):[];
-  if(filterValues.includes(value)){
-    filterValues=filterValues.filter(item=>item!==value);
-    if(filterValues.length==0){
-      searchParams.delete(sectionId);
+    let filterValues = searchParams.get(sectionId) ? searchParams.get(sectionId).split(",") : [];
+    if (filterValues.includes(value)) {
+      filterValues = filterValues.filter(item => item !== value);
+      if (filterValues.length == 0) {
+        searchParams.delete(sectionId);
+      }
+    } else {
+      filterValues.push(value);
     }
-  }else{
-   filterValues.push(value);
+
+
+    if (filterValues.length) {
+      searchParams.set(sectionId, filterValues.join(","));
+    }
+
+    navigate({ search: searchParams.toString() });
   }
-
-
-  if(filterValues.length){
-    searchParams.set(sectionId,filterValues.join(","));
-  }
-
-  navigate({search:searchParams.toString()});
-}
 
   // Handling checkbox selection
   const handleCheckboxChange = (e) => {
     const { value } = e.target;
-handleCheckboxFilter("employmentType",value);
+    handleCheckboxFilter("employmentType", value);
     setSelectedCheckbox(prevState =>
       prevState.includes(value)
         ? prevState.filter(item => item !== value)
@@ -158,13 +160,15 @@ handleCheckboxFilter("employmentType",value);
 
 
   function handlePageChange(event, page) {
-    
-    searchParams.set("page",page);
-    const query=searchParams.toString();
-    navigate({search:`?${query}`})
+
+    searchParams.set("page", page);
+    const query = searchParams.toString();
+    navigate({ search: `?${query}` })
     window.scrollTo(0, 0);
 
   }
+
+  const isLoading = useSelector(store => store.jobStore.isLoading) ;
 
   return (
     <>
@@ -184,7 +188,7 @@ handleCheckboxFilter("employmentType",value);
 
 
           <div className='b mx-10 mb-5 w-[300px]  text-[35px] '>
-            <span className='w-fullflex justify-start items-center text-blue-800 font-sans font-semibold '> Jobs</span>
+            <span className='w-full flex justify-start items-center text-blue-800 font-sans font-semibold '> Jobs</span>
 
           </div>
 
@@ -209,9 +213,19 @@ handleCheckboxFilter("employmentType",value);
 
 
         </div>
-        <div className=' w-full h-auto grid grid-cols-1 gap-10 p-20 '>
+       
+        <div className=' w-full h-auto  grid grid-cols-1 gap-10 p-20 relative '>
+
+        {isLoading == true && (
+          <div className="absolute w-full h-[800px] inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
+
+            <JobLoader />
+
+          </div>
+        )}
           {
-            jobStore.jobs?.jobs?.map((job, index) => (<JobAdvertise key={index} typeText="Apply" job={job} business={job.business} />))
+            
+            isLoading == false && jobStore.jobs?.jobs?.map((job, index) => (<JobAdvertise key={index} typeText="Apply" job={job} business={job.business} />))
           }
 
           <div>
