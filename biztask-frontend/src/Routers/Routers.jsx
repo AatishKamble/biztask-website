@@ -60,7 +60,7 @@ const isLoading = isAuthLoading ;
   return (
     <>
     {
-      isLoading && <div className='fixed inset-0 bg-[#252727] opacity-100 z-40'></div> 
+      isLoading && <div className='fixed inset-0 bg-[#000000] opacity-100 z-40'></div> 
          
     }
     {isLoading &&  <div className='fixed inset-0 flex items-center justify-center z-50'><Loader/></div>}
