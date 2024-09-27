@@ -405,15 +405,12 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  ps-10 cursor-pointer'  ><IoCloudUploadSharp onMouseEnter={() => setUploadButtonHover(!uploadButtonHover)} onMouseLeave={() => setUploadButtonHover(!uploadButtonHover)} /></button>
                             {
                                 uploadButtonHover && <div className="bg-blue-100  text-[18px] h-10 flex items-center justify-center w-[80px] ms-2  font-serif">
-                                    upload
-
+                                   upload
                                 </div>
 
                             }</div>
                         </div>
                     </form>
-
-
 
 
                     {
