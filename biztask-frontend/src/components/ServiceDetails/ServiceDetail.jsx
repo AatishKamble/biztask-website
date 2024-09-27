@@ -317,7 +317,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             <div className="w-full h-12 flex items-center px-4 text-[20px] text-slate-800 font-serif  ">
                                 <span className="px-2 font-medium flex items-center"> <FaPhone /></span>
 
-                                <span className=" align-middle font-normal">
+                                <span className=" align-middle font-normal inline-block leading-none ">
                                     {
                                         serviceDetails?.user?.mobileNumber
 
@@ -395,20 +395,21 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     <span className=' text-blue-950 font-serif font-semibold text-[30px] border-b-[2px] my-4'>Previous Work</span>
 
                 </div>
-                <div className=' w-[90%] h-auto relative  drop-shadow-lg  my-10 flex flex-col px-5'>
+                <div className=' w-[90%] h-auto relative  drop-shadow-lg  my-10 mt-6 flex flex-col px-5'>
 
                     <form onSubmit={handleSubmit}>
-                        <div className='w-full flex relative justify-center items-center py-5'>
+                        <div className='w-full flex relative justify-center items-center py-5 mb-5'>
 
                             <input type="file" className="bg-slate-100 w-[300px] p-5 outline-none font-sans font-semibold" onChange={handleWorkPicChange} multiple />
+                            <div className="w-[15%] flex">
                             <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  ps-10 cursor-pointer'  ><IoCloudUploadSharp onMouseEnter={() => setUploadButtonHover(!uploadButtonHover)} onMouseLeave={() => setUploadButtonHover(!uploadButtonHover)} /></button>
                             {
-                                uploadButtonHover && <div className="bg-blue-100 absolute  right-80 text-[18px] h-10 flex items-center justify-center w-[80px] ms-2 font-serif">
+                                uploadButtonHover && <div className="bg-blue-100  text-[18px] h-10 flex items-center justify-center w-[80px] ms-2  font-serif">
                                     upload
 
                                 </div>
 
-                            }
+                            }</div>
                         </div>
                     </form>
 
