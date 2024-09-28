@@ -4,7 +4,7 @@ import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import { IoIosAddCircle } from "react-icons/io";
-
+import { FaUserSecret } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import React, { useEffect, useRef, useState } from 'react';
 import Review from "../Reviews/Review";
@@ -307,7 +307,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             </div>
 
                             <div className="w-full h-12 flex items-center px-4 text-[20px] text-slate-800 font-serif   ">
-                                <span className="px-2 font-medium"> Name :</span>
+                                <span className="px-2 font-medium"> <FaUserSecret /></span>
                                 <span className=" font-normal">
                                     {
                                         serviceDetails?.user?.name

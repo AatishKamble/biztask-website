@@ -71,8 +71,8 @@ const handleAppliedJob = () => {
           <div className="bg-[#eef3f3] p-2 ps-8 border-r-2 border-sky-900 border-dotted">
             <span className="text-xl font-serif font-semibold  text-slate-700 ">Resources</span>
             <ul className='text-lg font-serif font-light text-black flex flex-col gap-2 justify-between mt-4'>
-              <Link to={"/profile"}>
-              <li className=' cursor-pointer'>Profile</li>
+              <Link to={"/#how-it-works"}>
+              <li className=' cursor-pointer'>How It Works</li>
               </Link>
               <li className='cursor-pointer'>Support</li>
 
