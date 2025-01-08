@@ -310,8 +310,8 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     <div className=' xl:w-[600px] sm:w-full sm:gap-5 h-auto p-4 xl:p-0 sm:flex xl:flex-col     sm:justify-evenly'>
                         <div className="bg-slate-100 pt-5  w-full h-[280px] pe-10">
 
-                        <div className="w-40 h-40  float-right mt-5 rounded-[50%]">
-<img src={serviceDetails?.user?.profileImage?.ImageUrl} alt="Owner Photo" className=" object-contain rounded-[50%]" />
+                        <div className="w-40 h-[180px] bg-black  float-right mt-5 ">
+<img src={serviceDetails?.user?.profileImage?.ImageUrl} alt="Owner Photo" className="w-40 h-[180px]" />
 </div>
 <div className="float-left">
                             <div className="w-full h-12 flex items-center px-4 text-[24px] text-slate-800 font-serif   ">
