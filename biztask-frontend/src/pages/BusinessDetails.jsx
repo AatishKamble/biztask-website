@@ -72,13 +72,13 @@ const BusinessDetails = ({ userDetails }) => {
                     </div>
                 </div>
 
-<div className='w-[80%]'>
+<div className='w-[85%]'>
 
 <div className='w-full text-[26px]  text-slate-600  font-serif pb-2 mt-6'>
                     <span className='inline-block'><MdOutlineDescription /></span> <span className='border-b-[2px] font-semibold'> About the Company</span>
 
                 </div>
-                <div className='flex w-[90%]  h-auto mb-10  p-4  py-2 text-slate-900 font-serif font-medium text-[18px]'>
+                <div className='flex w-full  h-auto mb-10  p-4  py-2 text-slate-900 font-serif font-medium text-[18px]'>
                     <span className="">
                         {businessStore.business?.description}
                     </span>
