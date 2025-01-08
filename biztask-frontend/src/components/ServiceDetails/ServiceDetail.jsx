@@ -217,15 +217,22 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </div>
                         <div className='w-[400px]  h-auto text-[20px] flex justify-start items-center text-blue-950 font-serif px-2 '>
                             <span><IoLocationSharp /></span>
-
+                            <span  className=' font-normal px-2 text-slate-900'>
                             {
-                                serviceDetails?.locations?.map((location, idx) => (
-                                    <span key={idx} className=' font-normal px-2 text-slate-900'>{location}</span>
+                                serviceDetails?.locations?.map((location, ind) => {
 
-                                ))
+                                    let locationFirstLetterCapital = location.charAt(0).toUpperCase()+location.slice(1);
+                                    if(ind!=(serviceDetails?.locations?.length - 1)){
+                                        locationFirstLetterCapital +=", ";
+                                       
+                                    }
+                                return locationFirstLetterCapital}
+                                  
+
+                                )
 
                             }
-
+</span>
                         </div>
 
 
@@ -301,7 +308,12 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     </div>
                     <div className=' xl:w-[600px] sm:w-full sm:gap-5 h-auto p-4 xl:p-0 sm:flex xl:flex-col     sm:justify-evenly'>
-                        <div className="bg-slate-100   w-full h-[280px]">
+                        <div className="bg-slate-100 pt-5  w-full h-[280px] pe-10">
+
+                        <div className="w-40 h-40  float-right mt-5 rounded-[50%]">
+<img src={serviceDetails?.user?.profileImage?.ImageUrl} alt="Owner Photo" className=" object-contain rounded-[50%]" />
+</div>
+<div className="float-left">
                             <div className="w-full h-12 flex items-center px-4 text-[24px] text-slate-800 font-serif   ">
                                 <span className="px-2 font-semibold"> Contact Details</span>
                             </div>
@@ -319,9 +331,11 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                                 <span className=" align-middle font-normal inline-block leading-none ">
                                     {
+                                       
                                         serviceDetails?.user?.mobileNumber
 
                                     }
+                                  
                                 </span>
                             </div>
                             <div className="w-full h-12 flex items-center px-4 text-[20px] text-slate-800 font-serif  ">
@@ -334,11 +348,14 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 </span>
                             </div>
 
+
+                            </div>
+                                        
                         </div>
 
                         <div className='  my-5 w-full h-auto py-10 xl:py-0 sm:py-0 '>
                             <div className=" w-full h-auto flex flex-col items-start px-4 py-10 text-[22px] text-slate-800 font-serif bg-slate-100  ">
-                                <span className="px-2 text-[24px] pb-5 font-semibold"> Pricing Details :</span>
+                                <span className="px-2 text-[24px] pb-5 font-semibold"> Pricing Details</span>
                                 <div className="text-[20px] text-black font-serif ">
                                     <span className="px-2 font-medium"> Min Price :</span> <span className="px-2 font-normal">{
                                         serviceDetails?.minPrice

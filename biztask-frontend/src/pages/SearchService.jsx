@@ -192,8 +192,8 @@ const SearchService = () => {
         <div>
 
 
-          <div className='mx-10 mb-5 w-[300px]  text-[35px] py-5 '>
-            <span className='w-fullflex justify-start items-center text-blue-800 font-sans font-semibold '> Services</span>
+          <div className='ps-4 mb-5 w-[300px]  text-[35px] py-2 '>
+            <span className='w-fullflex justify-start items-center text-blue-800 font-sans font-semibold '>Services</span>
 
           </div>
 

@@ -187,8 +187,8 @@ const SearchJobs = () => {
         <div>
 
 
-          <div className='b mx-10 mb-5 w-[300px]  text-[35px] '>
-            <span className='w-full flex justify-start items-center text-blue-800 font-sans font-semibold '> Jobs</span>
+          <div className='mb-5 mx-10 ps-2  w-[300px]  text-[35px] '>
+            <span className='w-full flex justify-start items-center text-blue-800 font-serif font-semibold '>Jobs</span>
 
           </div>
 

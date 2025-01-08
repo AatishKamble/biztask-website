@@ -43,7 +43,7 @@ const timeAgo = (postedAt) => {
 
     return (
         <>
-            <div className='bg-[#ffffff] border-[1px] border-[#8895ab]  w-full h-[200px] rounded-2xl border-l-4 border-l-[#27038d] flex justify-center items-center'>
+            <div className='bg-slate-100 border-[1px] border-[#8895ab]  w-full h-[200px] rounded-2xl border-l-4 border-l-[#1f2580] flex justify-center items-center'>
                 <div className='flex flex-col justify-center items-center w-[20%]'>
                     <div className=' bg-slate-300 w-[100px] h-[100px] rounded-full '>
 <img src={`${business?.companyLogo?.imageUrl}`} className=" bg-cover w-full h-full rounded-full" alt="service logo" />
@@ -54,7 +54,7 @@ const timeAgo = (postedAt) => {
 
 
 
-                <div className='w-[80%] relative h-full px-4 bg-[#ffffff] rounded-2xl flex flex-col justify-center '>
+                <div className='w-[80%] relative h-full px-4 bg-slate-100 rounded-2xl flex flex-col justify-center '>
                     <Link to={`/job-detail/${job?._id}`}><div className="absolute right-5 top-5  border-1 border-[#143670] hover:bg-[#628edc] rounded-md flex justify-center items-center bg-[#7692c2] w-28 h-10">
                     <p className=' text-[#262837] font-serif font-medium text-[24px] cursor-pointer '>
                       {typeText}
@@ -69,7 +69,8 @@ const timeAgo = (postedAt) => {
                       </div>
                     <div className='flex justify-between w-[400px] py-10 text-gray-600 font-serif font-medium text-[20px]'>
                         <span className="flex justify-center items-center">
-                            <span className=" text-slate-900 pe-1"><MdOutlineAccessTime /></span>{timeAgo(job?.postedAt)}
+                            <span className=" text-slate-900 pe-1 pt-1"><MdOutlineAccessTime /></span>
+                            {timeAgo(job?.postedAt)}
                         </span>
                         <span className="flex justify-center items-center">
                             <span className=" text-slate-900 pe-1"><MdLocationOn /></span>{job?.jobLocations[0]}

@@ -44,7 +44,8 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
         }
 
         const date = new Date(dateString);
-        return date.toISOString().split('T')[0];
+        
+        return date.toISOString().split("T")[0].split("-").reverse().join("/");
     };
 
 
@@ -165,12 +166,20 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
                         </div>
 
-                        <div className='w-[400px]  h-auto text-[20px] flex justify-start items-center text-blue-950 font-serif '>
-                            <span><IoLocationSharp /></span>
-                            {jobStore?.job?.jobLocations?.map((location, ind) => (<span className=' font-normal px-2 text-slate-900'> {location}</span>))
+                        <div className='w-[70%]  text-[20px] flex justify-start items-center text-blue-950 font-serif px-2'>
+                            <span ><IoLocationSharp /></span>
+                            <span className=' font-normal  text-slate-900 '>
+                            {jobStore?.job?.jobLocations?.slice(0,8).map((location, ind) => {
+                                
+                                
+                                let locationFirstLetterCapital = location.charAt(0).toUpperCase()+location.slice(1);
+                                    if(ind!=(jobStore?.job?.jobLocations?.length - 1)){
+                                        locationFirstLetterCapital +=", ";
+                                       
+                                    }
+                                return locationFirstLetterCapital})
                             }
-
-
+</span>
                         </div>
 
                         <div className='w-full px-2 pt-5 flex justify-start items-center  text-[18px] text-slate-600 font-serif'>
@@ -219,7 +228,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
                     <div>
                         <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
-                            <span className="px-2  font-semibold"> Job Overview</span>
+                            <span className="px-2  font-semibold">Job Overview</span>
                         </div>
                         <div className='bg-slate-100 w-[600px] h-auto p-5'>
                             <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
@@ -240,7 +249,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
                         <div className='bg-slate-100 w-[600px] h-auto p-5 mt-8'>
                             <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
-                                <span className="px-2  font-medium"> Skill Required </span>
+                                <span className="px-2  font-medium"> Skills Required </span>
                             </div>
                             <div className='flex flex-col h-auto  p-4 px-10 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
                                 <ul className=" list-disc">
@@ -271,19 +280,23 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                                 <span className="px-2 font-medium"> Employment Type :</span>
                                 <span className=" font-extralight">
 
-                                    {jobStore?.job?.employmentType
+                                    {jobStore?.job?.employmentType?.charAt(0).toUpperCase()+jobStore?.job?.employmentType?.slice(1)
                                     }
 
                                 </span>
                             </div>
 
                             <div className="w-full h-12 flex items-center px-4 text-[20px] text-slate-800 font-serif   ">
-                                <span className="px-2 font-medium">Experience :</span>
-                                <span className=" font-extralight">
+                                <span className="ps-2 pe-1 font-medium">Experience :</span>
+                                <span className=" font-extralight ">
 
 
                                     {jobStore?.job?.experienceYear
                                     }
+                                   
+                                </span>
+                                <span className="ps-1">
+                                years
                                 </span>
                             </div>
 
@@ -293,7 +306,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
                                 <div>
                                     <span className="px-2 font-medium inline-block"> Working Hours:</span>
-                                    <span className=" font-extralight px-2 inline-block">
+                                    <span className=" font-extralight px-2 text-[18px] ">
                                         {jobStore?.job?.workingHours
                                         }
                                     </span></div>
@@ -330,9 +343,9 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
 
                 <div className=' w-[90%] h-auto  drop-shadow-lg my-10 flex px-10 gap-10 '>
-                    <div className='bg-slate-100 w-[900px] h-auto pb-10'>
+                    <div className='bg-slate-100 w-[900px] h-auto p-10 pb-10'>
                         <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
-                            <span className="px-2  font-semibold"> About the Company</span>
+                            <span className="  font-semibold"> About the Company</span>
                         </div>
                         <div className='flex flex-col h-auto  p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
                             <span className="">

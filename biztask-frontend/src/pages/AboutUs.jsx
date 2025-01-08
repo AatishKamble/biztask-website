@@ -5,6 +5,7 @@ import aboutPhoto from "../assets/hd-face-cartoon.png";
 import { ImLinkedin } from "react-icons/im";
 import handShake from "../assets/handShake.png";
 const AboutUs = () => {
+    
     return (
         <>
 
@@ -40,16 +41,16 @@ const AboutUs = () => {
                 <div>
 
                     <div className='w-full text-[26px] text-black font-serif items-center text-center pb-2 p-10 '>
-                        <p className='  text-blue-900 font-bold border-b-2 inline-block border-slate-500'>Developer</p>
+                        <p className='  text-blue-900 font-bold border-b-2 inline-block border-slate-500'>Developer Details</p>
                     </div>
-                    <div className='w-full h-auto bg-slate-100 border-[1px] py-10 my-5 drop-shadow-lg border-slate-400 mb-20  flex flex-row justify-center px-10 
+                    <div className='w-full h-auto bg-slate-100  border-[2px]  py-10 my-5 drop-shadow-lg border-slate-400  border-x-blue-300 border-y-teal-300  mb-20  flex flex-row justify-center px-10 
                 
                 
                 '>
                         <div className='w-[200px] h-[180px] rounded-lg'>
                             <img src={aboutPhoto} alt="profile picture" className='bg-cover w-full h-full rounded-lg' />
                         </div>
-                        <div className='px-5'>
+                        <div className='px-5 w-[400px]'>
                             <div className='w-full text-[22px] text-slate-800 font-serif py-2'>
                                 <span className="px-2 text-[30px] font-bold ">Aatish Kamble</span>
                             </div>
@@ -63,7 +64,7 @@ const AboutUs = () => {
                             </div>
                             <div className='w-full text-[22px] text-slate-800 font-serif flex pb-2'>
                                 <span className="px-2 font-medium flex items-center"><ImLinkedin /></span>
-                                <span className=' font-serif '>aatish-kamble-367700259</span>
+                                <span>aatish-kamble2003</span>
                             </div>
                         </div>
 
