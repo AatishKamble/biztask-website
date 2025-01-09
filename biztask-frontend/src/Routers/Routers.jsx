@@ -63,7 +63,7 @@ const isLoading = isAuthLoading ;
       isLoading && <div className='fixed inset-0 bg-[#000000] opacity-100 z-40'></div> 
          
     }
-    {isLoading &&  <div className='fixed inset-0 flex items-center justify-center z-50'><Loader/></div>}
+    {/* {isLoading &&  <div className='fixed inset-0 flex items-center justify-center z-50'><Loader/></div>} */}
 
      
         <ScrollToTop />
