@@ -102,13 +102,13 @@ const businessStore=useSelector(store=>store.businessStore)
       
               {/* Name Field */}
               <div className="w-full flex items-center py-3 text-black">
-                <label htmlFor="Name" className="text-lg px-4 font-medium font -serif w-40">
+                <label htmlFor="Name" className="text-lg px-4 font-medium font-serif w-40">
                   Name:
                 </label>
                 <input
                   type="text"
                   value={userDetails?.name || ""}
-                  className="text-lg h-12 font -serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
+                  className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
                   autoComplete="off"
                   disabled
                 />
@@ -116,14 +116,14 @@ const businessStore=useSelector(store=>store.businessStore)
       
               {/* Phone Field */}
               <div className="w-full flex items-center py-3 text-black">
-                <label htmlFor="mono" className="text-lg px-4 font-medium font -serif w-40">
+                <label htmlFor="mono" className="text-lg px-4 font-medium font-serif w-40">
                   Phone:
                 </label>
                 <input
                   type="tel"
                   name="mono"
                   value={userDetails?.mobileNumber || ""}
-                  className="text-lg h-12 font -serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
+                  className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
                   autoComplete="off"
                   disabled
                 />
@@ -131,27 +131,27 @@ const businessStore=useSelector(store=>store.businessStore)
       
               {/* Email Field */}
               <div className="w-full flex items-center py-3 text-black">
-                <label htmlFor="email" className="text-lg px-4 font-medium font -serif w-40">
+                <label htmlFor="email" className="text-lg px-4 font-medium font-serif w-40">
                   Email:
                 </label>
                 <input
                   type="email"
                   name="email"
                   value={userDetails?.email || ""}
-                  className="text-lg h-12 font -serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
+                  className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
                   autoComplete="off"
                   disabled
                 />
               </div>
       
               {/* Business Details Header */}
-              <div className="w-full flex justify-center items-center py-4 text-lg text-blue-900 font -serif font-semibold">
+              <div className="w-full flex justify-center items-center py-4 text-lg text-blue-900 font-serif font-semibold">
                 <span>Business Details</span>
               </div>
       
               {/* Company Name Field */}
               <div className="w-full flex items-center py-3 text-black">
-                <label htmlFor="companyName" className="text-lg px-4 font-medium font -serif w-40">
+                <label htmlFor="companyName" className="text-lg px-4 font-medium font-serif w-40">
                   Company Name:
                 </label>
                 <input
@@ -160,14 +160,14 @@ const businessStore=useSelector(store=>store.businessStore)
                   value={formData.companyName}
                   onChange={handleChange}
                   placeholder="Enter Your Company Name"
-                  className="text-lg h-12 font -serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
+                  className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
                   autoComplete="off"
                 />
               </div>
       
               {/* Company Description */}
               <div className="w-full flex items-start py-3 text-black">
-                <label htmlFor="description" className="text-lg px-4 font-medium font -serif w-40">
+                <label htmlFor="description" className="text-lg px-4 font-medium font-serif w-40">
                   Company Description:
                 </label>
                 <textarea
@@ -176,7 +176,7 @@ const businessStore=useSelector(store=>store.businessStore)
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Description about your Business (maxLength-300 words)"
-                  className="text-lg h-32 font -serif outline-none p-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500 resize-none"
+                  className="text-lg h-32 font-serif outline-none p-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500 resize-none"
                   rows={5}
                   cols={40}
                   style={{ overflow: "hidden" }}
@@ -185,7 +185,7 @@ const businessStore=useSelector(store=>store.businessStore)
       
               {/* Company Logo */}
               <div className="w-full flex items-center py-5 text-black">
-                <label htmlFor="companyLogo" className="text-lg px-4 font-medium font -serif w-40">
+                <label htmlFor="companyLogo" className="text-lg px-4 font-medium font-serif w-40">
                   Company Logo:
                 </label>
                 <div
@@ -207,10 +207,10 @@ const businessStore=useSelector(store=>store.businessStore)
                   type="submit"
                   className="bg-blue-900 hover:bg-blue-800 h-12 w-32 rounded-xl shadow-lg mx-3 flex justify-center items-center"
                 >
-                  <span className="text-lg font -serif font-medium mr-2 text-white">
+                  <span className="text-lg font-serif font-medium mr-2 text-white">
                     <FaSave />
                   </span>
-                  <span className="text-lg font -serif font-medium text-white">Submit</span>
+                  <span className="text-lg font-serif font-medium text-white">Submit</span>
                 </button>
               </div>
             </form>
