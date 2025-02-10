@@ -36,7 +36,7 @@ const FilterServices = ({
       name="name"
       value={nameInput}
       onChange={handleNameInputChange}
-        placeholder='Find services with name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md' autoComplete='none' />
+        placeholder='Find services with name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full   border-slate-600 bg-[#dfe1e3] focus-within:border focu rounded-md focus-within:drop-shadow-md' autoComplete='none' />
         <button onClick={handleNameInputSubmit} className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950  drop-shadow-2xl flex justify-center items-center'>
           <CiSearch />
         </button>

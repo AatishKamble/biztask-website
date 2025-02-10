@@ -10,6 +10,7 @@ import ScrollToTop from '../components/ScrollTo/ScrollToTop.jsx';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { getUserProfile } from '../Redux/Auth/Action.js';
+
 const Home = () => {
   const navigate = useNavigate();
 

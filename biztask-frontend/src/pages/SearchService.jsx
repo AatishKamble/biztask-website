@@ -219,7 +219,7 @@ const SearchService = () => {
           />
         </div>
        
-        <div className=' w-full h-auto  grid grid-cols-3 py-20 gap-10 ps-10 pe-2 mt-10 relative '>
+        <div className=' w-full h-auto  grid grid-cols-3  gap-10 ps-10 pe-2 mt-10 relative '>
 
         {isLoading == true && (
           <div className="absolute w-full h-[800px] inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
