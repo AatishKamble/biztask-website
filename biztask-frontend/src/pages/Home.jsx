@@ -10,6 +10,7 @@ import ScrollToTop from '../components/ScrollTo/ScrollToTop.jsx';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { getUserProfile } from '../Redux/Auth/Action.js';
+import ProfilePage from './ProfilePage.jsx';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ const dispatch=useDispatch();
       <PopularServices />
       <FeaturedJob />
       <HowItWorks HowItWorks={HowItWorksRef}/>
+      <ProfilePage userDetails={{email:"Aatish"}}/>
    
     </>
   );

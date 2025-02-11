@@ -1,7 +1,7 @@
 import JobAdvertise from '../components/JobTemplate/JobAdvertise.jsx'
 import ServiceCard from '../components/ServiceCard/ServiceCard.jsx'
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { Link, useLocation ,useNavigate} from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import BusinessCard from '../components/BusinessCard/BusinessCard.jsx';
@@ -19,8 +19,8 @@ const ProfilePage = ({ userDetails }) => {
   const appliedJobsRef = useRef(null);
   const businessRegistrationRef = useRef(null);
   const location = useLocation();
-  const jwt=localStorage.getItem("jwt");
-  const navigate=useNavigate();
+  const jwt = localStorage.getItem("jwt");
+  const navigate = useNavigate();
   useEffect(() => {
     if (location.hash === "#applied-jobs" && appliedJobsRef.current) {
       appliedJobsRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -44,8 +44,8 @@ const ProfilePage = ({ userDetails }) => {
     setCurrentBusinessId(null);
   };
 
-  const handleRemove=()=>{
-    dispatch(removeBusiness(jwt,currentBusinessId));
+  const handleRemove = () => {
+    dispatch(removeBusiness(jwt, currentBusinessId));
     setPopupWarning(false);
     navigate('/profile');
   }
@@ -122,7 +122,7 @@ const ProfilePage = ({ userDetails }) => {
                   </>
                 ))
               }
-
+ 
             </div>
 
           </div>
@@ -154,15 +154,15 @@ const ProfilePage = ({ userDetails }) => {
           </div>
 
           {popupwarning && (
-            <div className='fixed inset-0 bg-black opacity-50 z-40'></div> 
+            <div className='fixed inset-0 bg-black opacity-50 z-40'></div>
           )}
 
-  {popupwarning && (
+          {popupwarning && (
             <div className='fixed inset-0 flex items-center justify-center z-50'>
-               <PopUp message="Remove Business" submessage="Are you sure you want to remove this business ?" button1="Cancel" button2="Remove" submessage2={`Business Name: ${ userDetails?.businesses.find(b => b._id === currentBusinessId)?.companyName}`} closeButton={handlePopupWarningClose} handleRemove={handleRemove} />
- 
-              </div>
-)}
+              <PopUp message="Remove Business" submessage="Are you sure you want to remove this business ?" button1="Cancel" button2="Remove" submessage2={`Business Name: ${userDetails?.businesses.find(b => b._id === currentBusinessId)?.companyName}`} closeButton={handlePopupWarningClose} handleRemove={handleRemove} />
+
+            </div>
+          )}
         </div>
 
 

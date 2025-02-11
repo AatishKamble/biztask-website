@@ -3,11 +3,12 @@ import { FaSave } from "react-icons/fa";
 import { updateUserProfile } from "../../Redux/Auth/Action.js";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import dummyPhoto from "../../assets/uploadPhoto.jpg"
+import dummyPhoto from "../../assets/uploadPhoto.jpg";
+import { GoUpload } from "react-icons/go";
 const ProfileEdit = ({ userDetails }) => {
 
     const dispatch = useDispatch();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const jwt = localStorage.getItem("jwt");
     const profilePic = useRef(null);
     const [image, setImage] = useState(null);
@@ -51,13 +52,13 @@ const ProfileEdit = ({ userDetails }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-      
+
         const formD = new FormData();
         formD.append("name", formData.name);
         formD.append("mobileNumber", formData.mobileNumber);
         formD.append("profileImage", image);
-       
-        dispatch(updateUserProfile(jwt,formD));
+
+        dispatch(updateUserProfile(jwt, formD));
         navigate("/profile");
     }
 
@@ -65,57 +66,104 @@ const ProfileEdit = ({ userDetails }) => {
 
     return (
         <>
-            <div className='bg-[#ffffff] py-20 w-full h-auto flex items-center justify-center'>
-
-                <div className='w-[50%] h-full bg-[#f4faff] p-10'>
-
-                    <div className='w-full h-[50px] font-semibold flex justify-center pb-10  items-center text-[26px] text-blue-900 font-serif'>
-                        <span>Edit Profile</span>
+            <div className="min-h-screen bg-gradient-to-br from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-2xl mx-auto bg-[#f4faff] rounded-2xl shadow-lg overflow-hidden">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-[#3d7c9c] to-blue-300 px-8 py-6">
+                        <h2 className="text-2xl font-serif text-white font-semibold text-center">
+                            Edit Profile
+                        </h2>
                     </div>
-                    <form onSubmit={handleSubmit}>
-                        <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
-                            <label htmlFor="Name" className=' text-[24px] px-4 font-medium font-serif w-[200px]'> Name :</label>
-                            <input type="text" name='name' value={formData.name} onChange={handleChange} placeholder='Enter Your Name' className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
-                        </div>
-
-                        <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                            <label htmlFor="Name" className=' text-[22px] px-4 font-medium font-serif w-[200px]'> Email :</label>
-                            <input type="email" name='email' value={userDetails?.email || ""} className=' text-[20px] h-12 font-serif text-slate-400 outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
-                        </div>
-
-                        <div className='w-full h-[50px] flex py-10 items-center text-black'>
-
-                            <label htmlFor="Name" className=' text-[22px] px-4 font-medium w-[200px] font-serif'> Phone :</label>
-                            <input type="tel" name='mobileNumber' placeholder='Enter Your Mobile Number' value={formData.mobileNumber} onChange={handleChange} className=' text-[20px] h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md w-full focus-within:drop-shadow-xl' autoComplete='none' />
-                        </div>
-
-                        <div className='w-full h-auto flex my-10 items-center  text-black'>
-
-                            <label htmlFor="Name" className=' text-[22px] px-4 font-medium font-serif w-[300px]'> Profile Image :</label>
-                            <div className='w-[200px] h-[200px] bg-slate-700 cursor-pointer  border-[1px]  border-slate-200  rounded-xl shadow-blue-700' onClick={handlePhotoUpload}>
-
-                                <img src={image ? URL.createObjectURL(image) : dummyPhoto} alt="photo" className='bg-cover rounded-xl  border-[1px] bg-center w-full h-full' />
-
-
+                    <form onSubmit={handleSubmit} className="p-8 space-y-8">
+                           {/* Profile Image */}
+                           <div className="flex flex-col items-center space-y-4">
+                            <div
+                                onClick={handlePhotoUpload}
+                                className="relative group cursor-pointer"
+                            >
+                                <div className="w-40 h-40 rounded-full overflow-hidden ring-4 ring-blue-100 shadow-lg">
+                                    <img
+                                        src={image ? URL.createObjectURL(image) : dummyPhoto}
+                                        alt="Profile"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div className="absolute inset-0 bg-black/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                                    <GoUpload className="text-white w-8 h-8" />
+                                </div>
                             </div>
-                            <input type="file" className='  hidden' ref={profilePic} onChange={handleProfileChange} />
+                            <input
+                                type="file"
+                                className="hidden"
+                                ref={profilePic}
+                                onChange={handleProfileChange}
+                            />
+                        </div>
+                        {/* Name Field */}
+                        <div>
+                            <label className="block font-serif text-sm font-medium text-gray-700 mb-1">
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                placeholder="Enter Your Name"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border outline-none border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 text-lg font-serif"
+                                autoComplete="off"
+                            />
                         </div>
 
+                        {/* Email Field */}
+                        <div>
+                            <label className="block text-sm font-serif font-medium text-gray-700 mb-1">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={userDetails?.email || ""}
+                                disabled
+                                className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 text-gray-500 text-lg font-serif cursor-not-allowed"
+                                autoComplete="off"
+                            />
+                        </div>
 
-                        <div className='flex items-center justify-center my-10 h-[200px]'>
+                        {/* Phone Field */}
+                        <div>
+                            <label className="block font-serif text-sm font-medium text-gray-700 mb-1">
+                                Phone
+                            </label>
+                            <input
+                                type="tel"
+                                name="mobileNumber"
+                                value={formData.mobileNumber}
+                                onChange={handleChange}
+                                placeholder="Enter Your Mobile Number"
+                                className="w-full px-4 py-3 rounded-lg outline-none bg-gray-50 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 text-lg font-serif"
+                                autoComplete="off"
+                                maxLength={10}
+                            />
+                        </div>
 
+                     
 
-                            <button type='submit' className=' bg-blue-900 hover:bg-[#1e52c3] align-middle h-12 w-[130px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' >
-                                <span className='text-lg font-serif font-medium me-1 text-white'><FaSave /></span>
-                                <span className='text-lg font-serif font-medium text-white'>Save</span>
-
+                        {/* Submit Button */}
+                        <div className="pt-6">
+                            <button
+                                type="submit"
+                                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+                            >
+                                <FaSave className="w-5 h-5" />
+                                <span className="text-lg font-medium font-serif">Save Changes</span>
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
+
 
 
         </>

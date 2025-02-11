@@ -22,11 +22,11 @@ const BusinessDetails = ({ userDetails }) => {
     useEffect(() => {
         if (jwt && id) {
             dispatch(getBusinessById(id));
-     }
+        }
 
     }, [jwt, id, dispatch]);
 
-    const isLoading = useSelector(store => store.businessStore.isLoading) ;
+    const isLoading = useSelector(store => store.businessStore.isLoading);
 
 
 
@@ -35,60 +35,58 @@ const BusinessDetails = ({ userDetails }) => {
 
             <div className='bg-[#ffffff] flex relative flex-col  items-center w-full h-auto px-20 lg:px-10 xl:px-16'>
 
-            {isLoading == true && (
-          <div className="absolute w-full h-[100%] inset-0 flex items-center justify-center bg-[#ffffff]  opacity-100 z-10">
+                {isLoading == true && (
+                    <div className="absolute w-full h-[100%] inset-0 flex items-center justify-center bg-[#ffffff]  opacity-100 z-10">
 
-<DetailLoader/>
-          </div>
-        )}
-       
-      
-                <div className=' w-[100%] h-auto bg-slate-100  drop-shadow-lg  mt-10 mb-4 flex flex-col justify-center items-center p-10'>
+                        <DetailLoader />
+                    </div>
+                )}
 
 
+                <div className=' w-[100%] h-auto bg-gradient-to-r  drop-shadow-lg  mt-10 mb-4 flex flex-col justify-center items-center p-10'>
 
-                    <div className='w-[200px] h-[200px]  rounded-full mx-5'>
 
+
+                <div className="bg-white w-full rounded-2xl shadow-lg overflow-hidden mb-8">
+          <div className="bg-gradient-to-r from-slate-50 to-blue-50 p-8 sm:p-12">
+            <div className="flex flex-col items-center">
+              {/* Profile Image */}
+              <div className="relative mb-6">
+                <div className="w-48 h-48 rounded-full overflow-hidden ring-4 ring-white shadow-xl">
+               
                         <img src={`${businessStore.business.companyLogo?.imageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
-                    </div>
-                    <div>
-                        <div className='w-full h-auto  flex flex-col  px-10'>
-
-
-
-                            <div className='w-full text-[30px] flex items-center justify-center text-slate-800 font-serif py-2'>
-                                <span className=' font-semibold px-2'>{businessStore.business?.companyName}</span>
-
-                            </div>
-
-                            <div className='w-full text-[22px] flex items-center justify-center  text-slate-600 font-serif'>
-                                <span className=' font-normal px-2 text-[22px]  text-slate-600 font-serif '>{userDetails?.name}</span>
-
-                            </div>
-
-
-
                         </div>
+                        </div>
+                        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-800 mb-2 w-[60%] break-words">
+                       {businessStore.business?.companyName}</h1>
+
+                       <p className="text-xl text-slate-600 font-serif">{userDetails?.name}</p>
+                       </div>
+          </div>
+        </div>
+                            </div>
+
+
+
+                      
+
+                <div className='w-[85%] bg-white rounded-xl shadow-md p-6 mb-8'>
+
+                    <div className='w-full text-[26px]  text-slate-600  font-serif pb-2 mt-6'>
+                        <span className='inline-block'><MdOutlineDescription /></span> <span className='border-b-[2px] font-semibold'> About the Company</span>
+
                     </div>
-                </div>
+                    <div className='flex w-full  h-auto mb-10  p-4  py-2 text-slate-900 font-serif font-medium text-[18px]'>
+                        <span className="">
+                            {businessStore.business?.description}
+                        </span>
 
-<div className='w-[85%]'>
 
-<div className='w-full text-[26px]  text-slate-600  font-serif pb-2 mt-6'>
-                    <span className='inline-block'><MdOutlineDescription /></span> <span className='border-b-[2px] font-semibold'> About the Company</span>
-
-                </div>
-                <div className='flex w-full  h-auto mb-10  p-4  py-2 text-slate-900 font-serif font-medium text-[18px]'>
-                    <span className="">
-                        {businessStore.business?.description}
-                    </span>
-
+                    </div>
 
                 </div>
 
-</div>
-
-                <div className=' w-full h-auto  mb-10'>
+                <div className=' w-full h-auto  mb-10 ' >
 
 
                     <div className='w-full  font-semibold p-2 h-auto text-[26px] flex text-slate-800 font-serif'>
@@ -104,11 +102,11 @@ const BusinessDetails = ({ userDetails }) => {
 
 
                 <div className=' w-full grid xl:grid-cols-4 sm:grid-cols-2 sm:ps-10  xl:px-0 lg:gap-5 lg:px-0 sm:gap-y-8 lg:grid-cols-3 xl:gap-5   p-2 gap-1 gap-y-8 justify-center items-center mb-10'>
-                   {
-                    businessStore.business?.services?.map((business,index)=>(
-<ServiceCard key={index} business={businessStore?.business} service={business} provider={businessStore.business?.companyName}/>
-                    ))
-                   }
+                    {
+                        businessStore.business?.services?.map((business, index) => (
+                            <ServiceCard key={index} business={businessStore?.business} service={business} provider={businessStore.business?.companyName} />
+                        ))
+                    }
                 </div>
 
             </div >
