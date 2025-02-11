@@ -57,7 +57,7 @@ const BusinessDetails = ({ userDetails }) => {
                         <img src={`${businessStore.business.companyLogo?.imageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
                         </div>
                         </div>
-                        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-800 mb-2 w-[60%] break-words">
+                        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-800 mb-2 w-[60%] text-center break-words">
                        {businessStore.business?.companyName}</h1>
 
                        <p className="text-xl text-slate-600 font-serif">{userDetails?.name}</p>

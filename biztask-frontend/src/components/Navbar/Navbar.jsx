@@ -2,73 +2,73 @@ import { VscAzure } from "react-icons/vsc";
 import { IoMdLogIn } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import {Link, useNavigate,useLocation} from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Login from "../Login/Login";
 import SignUP from "../Login/SignUP";
-import {logout } from "../../Redux/Auth/Action.js";
-import { useDispatch} from "react-redux";
+import { logout } from "../../Redux/Auth/Action.js";
+import { useDispatch } from "react-redux";
 
-const Navbar = ({userDetails,login,handleLogInButtonClick,handleSignUpButtonClick,signUp}) => {
+const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButtonClick, signUp }) => {
 
-  
- const navigate=useNavigate()
+
+  const navigate = useNavigate()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
- 
-  const dispatch=useDispatch();
-  
+
+  const dispatch = useDispatch();
+
   function handleLogout() {
-    
+
     dispatch(logout());
     setIsDropdownOpen(false);
-   navigate('/');
+    navigate('/');
   }
 
   const location = useLocation();
   useEffect(() => {
- 
-        setIsDropdownOpen(false); 
 
-}, [location]); //for closing dropdown of profile and logout
+    setIsDropdownOpen(false);
+
+  }, [location]); //for closing dropdown of profile and logout
 
 
-let menuRef = useRef(null);
-const buttonRef = useRef(null);
+  let menuRef = useRef(null);
+  const buttonRef = useRef(null);
 
-useEffect(() => {
-  let handler =  (event) => {
-    if (menuRef.current &&!menuRef.current.contains(event.target) && !buttonRef.current.contains(event.target)){
-      setIsDropdownOpen(false);
+  useEffect(() => {
+    let handler = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target) && !buttonRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
     }
-  }
-  document.addEventListener("mousedown",handler);
+    document.addEventListener("mousedown", handler);
 
-  return () => {
-    document.removeEventListener("mousedown",handler)
-  }
-});
+    return () => {
+      document.removeEventListener("mousedown", handler)
+    }
+  });
 
 
-  
+
 
   const handleBusinessRegistration = () => {
     if (userDetails) {
-        // If user is logged in, navigate to business registration
-        navigate("/profile#bussiness-registration");
-    } else {
-        // If user is not logged in, open the login modal
-        handleLogInButtonClick();
-    }
-};
-  
-const handleAppliedJob = () => {
-  if (userDetails) {
       // If user is logged in, navigate to business registration
-      navigate("/profile#applied-jobs");
-  } else {
+      navigate("/profile#bussiness-registration");
+    } else {
       // If user is not logged in, open the login modal
       handleLogInButtonClick();
-  }
-};
+    }
+  };
+
+  const handleAppliedJob = () => {
+    if (userDetails) {
+      // If user is logged in, navigate to business registration
+      navigate("/profile#applied-jobs");
+    } else {
+      // If user is not logged in, open the login modal
+      handleLogInButtonClick();
+    }
+  };
 
 
   return (
@@ -95,18 +95,18 @@ const handleAppliedJob = () => {
             <VscAzure /></span>
         </div>
         <div className='h-16 w-[80%] bg-inherit flex justify-center items-center '>
-          
+
           <div className='h-16 ps-5  bg-inherit flex justify-between items-center '>
             <ul className='text-xl xl:gap-16 2xl:gap-20 sm:gap-8 font-serif font-medium text-black  flex justify-between '>
               <Link to={"/"}>
-              <li className=' cursor-pointer '>Home</li></Link>
+                <li className=' cursor-pointer '>Home</li></Link>
               <Link to={"/about-us"}>
-              <li className=' cursor-pointer '>About Us</li></Link>
+                <li className=' cursor-pointer '>About Us</li></Link>
               <Link to={"/#how-it-works"} >
-              <li className=' cursor-pointer ' >How It Works</li>
+                <li className=' cursor-pointer ' >How It Works</li>
               </Link>
- <li className=' cursor-pointer' onClick={handleBusinessRegistration}>Register Businesses</li>
-          <li className=' cursor-pointer' onClick={handleAppliedJob}>Applied Job</li>
+              <li className=' cursor-pointer' onClick={handleBusinessRegistration}>Register Businesses</li>
+              <li className=' cursor-pointer' onClick={handleAppliedJob}>Applied Job</li>
 
             </ul>
 
@@ -117,36 +117,36 @@ const handleAppliedJob = () => {
 
 
         {
-          userDetails? 
+          userDetails ?
             <>
 
               <div className="w-[15%] h-14 flex items-center justify-end pe-10 cursor-pointer bg-inherit ">
                 {
-                  
 
-                  userDetails.name.length>0? <div   ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-  
 
-  
-<p className="text-blue-900 font-extrabold ">{userDetails.name.length>0?userDetails.name[0].toUpperCase():""}</p>
-</div>:<div   ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                  userDetails.name.length > 0 ? <div ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
 
-</div>
+
+
+                    <p className="text-blue-900 font-extrabold ">{userDetails.name.length > 0 ? userDetails.name[0].toUpperCase() : ""}</p>
+                  </div> : <div ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+
+                  </div>
                 }
-               
+
 
 
               </div>
-             
+
             </> :
             <div className='xl:w-[20%] sm:w-[20%] sm:me-2 xl:me-0 h-14 flex items-center justify-beetween bg-inherit '>
 
-              <button className=' bg-blue-800 hover:bg-[#0c2a6c] align-middle h-10 xl:w-[110px] sm:w-[100px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' onClick={()=>handleLogInButtonClick()}>
+              <button className=' bg-blue-800 hover:bg-[#0c2a6c] align-middle h-10 xl:w-[110px] sm:w-[100px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' onClick={() => handleLogInButtonClick()}>
                 <span className='text-md font-serif font-medium me-1 text-white'><IoMdLogIn /></span>
                 <span className='text-md font-serif font-medium text-white'>Log In</span>
 
               </button>
-              <button className=' bg-blue-800 hover:bg-[#0c2a6c]  align-middle h-10 xl:w-[110px]  sm:w-[100px] rounded-xl border-blue-950 drop-shadow-2xl flex justify-center items-center px-1' onClick={()=>handleSignUpButtonClick()}>
+              <button className=' bg-blue-800 hover:bg-[#0c2a6c]  align-middle h-10 xl:w-[110px]  sm:w-[100px] rounded-xl border-blue-950 drop-shadow-2xl flex justify-center items-center px-1' onClick={() => handleSignUpButtonClick()}>
                 <span className='text-md font-serif font-medium me-1 text-white'><FaPlus /></span>
                 <span className='text-md font-serif font-medium text-white'>Sign Up</span>
 
@@ -158,21 +158,28 @@ const handleAppliedJob = () => {
 
       </div>
 
-              {isDropdownOpen &&
+      {isDropdownOpen &&
 
-                
-              <div ref={menuRef} className=' bg-slate-200 drop-shadow-xl shadow-slate-400  w-[120px] h-auto absolute  top-20 right-8 z-50 ' >
-              <div className=" cursor-pointer  py-2 w-full flex justify-center items-center hover:bg-slate-300 ">
-            <Link to="/profile">
-                <span className="text-[20px] font-serif ">Profile</span></Link>
-              </div>
-              <div className=" py-2 w-full   flex justify-center cursor-pointer items-center hover:bg-slate-300  " onClick={handleLogout}>
-                <span className="text-[20px] font-serif ">
-                  Logout
-                </span>
-              </div>
-              </div>
-}
+        <div
+          ref={menuRef}
+          className="absolute top-20 right-8 z-50 w-[140px] bg-white rounded-lg shadow-lg ring-1 ring-gray-200"
+        >
+          <div className="cursor-pointer py-2 w-full flex justify-center items-center hover:bg-gray-100 transition-colors">
+            <Link to="/profile" className="w-full text-center text-base font-serif text-gray-800">
+              Profile
+            </Link>
+          </div>
+          <div
+            className="cursor-pointer py-2 w-full flex justify-center items-center hover:bg-gray-100 transition-colors"
+            onClick={handleLogout}
+          >
+            <span className="w-full text-center text-base font-serif text-gray-800">
+              Logout
+            </span>
+          </div>
+        </div>
+
+      }
     </>
   );
 }

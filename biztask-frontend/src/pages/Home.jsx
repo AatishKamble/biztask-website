@@ -61,8 +61,7 @@ const dispatch=useDispatch();
       <PopularServices />
       <FeaturedJob />
       <HowItWorks HowItWorks={HowItWorksRef}/>
-      <ProfilePage userDetails={{email:"Aatish"}}/>
-   
+      
     </>
   );
 };
