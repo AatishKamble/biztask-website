@@ -23,6 +23,7 @@ import { addReview, getAllReviews } from "../../Redux/Review/Action.js";
 import Star from "../Reviews/Star.jsx";
 import PopUp from "../PopUp/PopUp.jsx";
 import DetailLoader from "../Loader/DetailLoader.jsx";
+import { toast } from "react-toastify";
 const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
