@@ -99,12 +99,13 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
                 isOpen={openState}//change
                 style={customStyles}
                 onRequestClose={() => handleButtonClick()}//change 
+               
             >
                 <div className=' bg-inherit w-full h-20 flex text-[35px] font-extrabold justify-center items-center font-serif text-blue-900'>
                     {type == "login" ? <span>Login</span> : <span>Sign Up</span>}
 
                 </div>
-                <div className='flex w-full flex-col h-auto justify-center items-center'>
+                <div className='flex  w-full flex-col h-auto justify-center items-center'>
                 <span className='text-[18px] font-serif text-slate-600 '>Continue with</span>
                         <div className='mb-4 mt-2 h-16 w-full flex flex-col justify-center items-center pb-5'>
 

@@ -48,7 +48,6 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         // new Chnage
         if (files.length === 0) {
             toast.error('Please upload at least one image.');
-           
             return;}
         for (let file of files) {
             formData.append("previousImages", file);
@@ -57,7 +56,6 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         formData.append("serviceId", serviceDetails._id);
         dispatch(uploadImage(formData, jwt));
         setFiles([]);
-      
         navigate(`/service-detail/${serviceDetails?._id}`)
     }
 
@@ -445,7 +443,6 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
                         <div className="flex items-center justify-center py-5 mb-5 space-x-4">
                             <input
-                              
                                 type="file"
                                 multiple
                                 onChange={handleWorkPicChange}
@@ -496,7 +493,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 </span></div> :
 
 
-                            <div className={`${isModalOpen !== null ? "h-[700px]" : "h-auto"} w-full bg-white  border-y border-slate-500 rounded-xl  z-10 relative grid grid-cols-4 gap-10 p-10 transition-all duration-300`}>
+                            <div className={`${isModalOpen !== null ? "h-[700px]" : "h-auto"} w-full bg-white  border-y border-slate-500 rounded-xl   relative grid grid-cols-4 gap-10 p-10 transition-all duration-300`}>
 
 
                                 {
