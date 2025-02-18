@@ -57,7 +57,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         formData.append("serviceId", serviceDetails._id);
         dispatch(uploadImage(formData, jwt));
         setFiles([]);
-        isLoading = useSelector(store => store.serviceStore.isLoading);
+      
         navigate(`/service-detail/${serviceDetails?._id}`)
     }
 
@@ -205,7 +205,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                 {isLoading == true && (
-                    <div className="absolute w-full h-[100%] inset-0 flex items-center justify-center bg-[#ffffff]  opacity-100 z-10">
+                    <div className="absolute w-full h-[100%] inset-0 flex items-center justify-center bg-[#ffffff]  opacity-100 z-40">
 
                         <DetailLoader />
                     </div>
@@ -445,7 +445,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
                         <div className="flex items-center justify-center py-5 mb-5 space-x-4">
                             <input
-                                value={files}
+                              
                                 type="file"
                                 multiple
                                 onChange={handleWorkPicChange}
@@ -488,7 +488,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                         
                     {
-                        !isLoading &&
+                    
                        AllPhotos.length == 0 ?
                             <div className="w-full  flex items-center justify-center">
                                 <span className="text-[35px]  text-[#b0d0d2]  font-bold">
