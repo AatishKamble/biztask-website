@@ -48,6 +48,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         // new Chnage
         if (files.length === 0) {
             toast.error('Please upload at least one image.');
+            navigate(`/service-detail/${serviceDetails?._id}`)
             return;}
         for (let file of files) {
             formData.append("previousImages", file);
@@ -56,7 +57,6 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         formData.append("serviceId", serviceDetails._id);
         dispatch(uploadImage(formData, jwt));
         setFiles([]);
-      
         navigate(`/service-detail/${serviceDetails?._id}`)
     }
 
@@ -485,7 +485,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
 
-                    {   !isLoading &&
+                    {
                         AllPhotos.length == 0 ?
                             <div className="w-full  flex items-center justify-center">
                                 <span className="text-[35px]  text-[#b0d0d2]  font-bold">
