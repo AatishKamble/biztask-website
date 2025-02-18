@@ -7,6 +7,7 @@ import { useNavigate,useParams, useLocation } from 'react-router-dom';
 import AddedBox from "./AddedBox";
 import { businessRegister,getBusinessById,updateBusiness } from "../../Redux/Business/Action.js";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 import dummyPhoto from "../../assets/uploadPhoto.jpg"
 
 const BusinessRegistration = ({ userDetails,registration }) => {
@@ -69,8 +70,18 @@ const businessStore=useSelector(store=>store.businessStore)
         e.preventDefault();
 
         const formD = new FormData();
+        {/*new Change */}
+        if (formData.companyName.trim()=="") {
+            toast.error('company name is required');
+            return;
+        }
+        if (formData.description.trim()=="") {
+          toast.error('company description is required');
+          return;
+      }
         formD.append("companyName", formData.companyName);
         formD.append("description", formData.description);
+
         if(image){
             
         }

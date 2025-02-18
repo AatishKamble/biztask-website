@@ -104,6 +104,31 @@ const ServiceRegistration = ({ userDetails, registration }) => {
             toast.error('Invalid price values');
             return;
         }
+      {/*new Change */} 
+if (formData.serviceType.trim()=="") {
+    toast.error('Service type is required');
+    return;
+}
+if (formData.Description.trim()=="") {
+    toast.error('Description is required');
+    return;
+}
+if (minPriceValue.trim()=="") {
+    toast.error('Minimum price is required');
+    return;
+}
+if (maxPriceValue.trim()=="") {
+    toast.error('Maximum price is required');
+    return;
+}
+if (!locationArray || locationArray.length === 0) {
+    toast.error('Location is required');
+    return;
+}
+if (!featureArray || featureArray.length === 0) {
+    toast.error('Feature is required');
+    return;
+} 
         const formD = new FormData();
         formD.append("serviceType", formData.serviceType);
         formD.append("Description", formData.Description);
@@ -155,7 +180,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
     //while updating
     useEffect(() => {
         if (registration === false && serviceStore.service && serviceStore.service._id == id) {
-
+            
             setFormData(
                 {
                     serviceType: serviceStore.service?.serviceType,

@@ -44,6 +44,10 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
+        // new Chnage
+        if (files.length === 0) {
+            toast.error('Please upload at least one image.');
+            return;}
         for (let file of files) {
             formData.append("previousImages", file);
         }
@@ -132,6 +136,15 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     const handleSubmitReview = () => {
         const formData = new FormData();
+
+        if(input.trim()===""){
+                toast.error('Please enter at least one character.');
+                return;
+        }
+        if(currentValue===0){
+            toast.error('Rating should be between 1 to 5');
+            return;
+    }
         formData.append("rating", currentValue);
         formData.append("review", input);
         formData.append("serviceId", serviceDetails?._id);
