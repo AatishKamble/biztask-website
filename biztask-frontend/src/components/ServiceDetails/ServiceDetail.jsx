@@ -56,6 +56,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         formData.append("serviceId", serviceDetails._id);
         dispatch(uploadImage(formData, jwt));
         setFiles([]);
+        setAllPhotos([]);
         navigate(`/service-detail/${serviceDetails?._id}`)
     }
 
