@@ -48,7 +48,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         // new Chnage
         if (files.length === 0) {
             toast.error('Please upload at least one image.');
-            navigate(`/service-detail/${serviceDetails?._id}`)
+           
             return;}
         for (let file of files) {
             formData.append("previousImages", file);
@@ -484,9 +484,10 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
 
-
+                        
                     {
-                        AllPhotos.length == 0 ?
+                        isLoading &&
+                       AllPhotos.length == 0 ?
                             <div className="w-full  flex items-center justify-center">
                                 <span className="text-[35px]  text-[#b0d0d2]  font-bold">
                                     No Images Available
