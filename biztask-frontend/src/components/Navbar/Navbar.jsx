@@ -149,7 +149,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
 
 
 
-        {
+ {
           userDetails ?
             <>
 
@@ -157,11 +157,11 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
                 {
 
 
-                  userDetails.name.length > 0 ? <div ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+userDetails.name.length > 0 ? <div ref={buttonRef} className=' bg-yellow-500 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
 
 
 
-                    <p className="text-blue-900 font-extrabold ">{userDetails.name.length > 0 ? userDetails.name[0].toUpperCase() : ""}</p>
+                    <p className="text-blue-900 font-extrabold  ">{userDetails.name.length > 0 ? userDetails.name[0].toUpperCase() : ""}</p>
                   </div> : <div ref={buttonRef} className=' bg-slate-300 w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full  ' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
 
                   </div>
@@ -174,38 +174,40 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
             </> :
             <div className="xl:w-[20%] sm:w-[20%] sm:me-4 h-14 flex items-center justify-between bg-inherit">
   
-  {/* Log In Button */}
-  <button
-    className="relative bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 h-10 xl:w-[110px] sm:w-[100px] rounded-xl border border-yellow-700 shadow-lg mx-2 flex justify-center items-center transition-transform duration-300 hover:scale-110 overflow-hidden group"
-    onClick={handleLogInButtonClick}
-  >
-    {/* Hover Background Glow Effect */}
-    <span className="absolute inset-0 bg-sky-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
-
-    {/* Icon & Text */}
-    <span className="relative text-md font-serif font-medium text-white flex items-center gap-2">
-      <IoMdLogIn />
-      Log In
-    </span>
-  </button>
-
-  {/* Sign Up Button */}
-  <button
-   className="relative bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 h-10 xl:w-[110px] sm:w-[100px] rounded-xl border border-yellow-700 shadow-lg mx-2 flex justify-center items-center transition-transform duration-300 hover:scale-110 overflow-hidden group"
-   onClick={handleSignUpButtonClick}
-  >
-    {/* Hover Background Glow Effect */}
-    <span className="absolute inset-0 bg-sky-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
-
-    {/* Icon & Text */}
-    <span className="relative text-md font-serif font-medium text-white flex items-center gap-2">
-      <FaPlus />
-      Sign Up
-    </span>
-  </button>
-</div>
+            {/* Log In Button */}
+            <button
+              className="relative bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 h-10 xl:w-[110px] sm:w-[100px] rounded-xl border border-yellow-700 shadow-lg mx-2 flex justify-center items-center transition-transform duration-300 hover:scale-110 overflow-hidden group"
+              onClick={handleLogInButtonClick}
+            >
+              {/* Hover Background Glow Effect */}
+              <span className="absolute inset-0 bg-sky-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
+          
+              {/* Icon & Text */}
+              <span className="relative text-md font-serif font-medium text-white flex items-center gap-2">
+                <IoMdLogIn />
+                Log In
+              </span>
+            </button>
+          
+            {/* Sign Up Button */}
+            <button
+             className="relative bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 h-10 xl:w-[110px] sm:w-[100px] rounded-xl border border-yellow-700 shadow-lg mx-2 flex justify-center items-center transition-transform duration-300 hover:scale-110 overflow-hidden group"
+             onClick={handleSignUpButtonClick}
+            >
+              {/* Hover Background Glow Effect */}
+              <span className="absolute inset-0 bg-sky-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
+          
+              {/* Icon & Text */}
+              <span className="relative text-md font-serif font-medium text-white flex items-center gap-2">
+                <FaPlus />
+                Sign Up
+              </span>
+            </button>
+          </div>
 
         }
+
+
 
 
 
@@ -216,21 +218,18 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
       {isDropdownOpen &&
 
 
-        <div ref={menuRef} className='bg-yellow-500 text-white w-[50px] flex justify-center items-center text-[30px] h-[50px] rounded-full shadow-lg hover:bg-yellow-600 transition'
-        >
-          <div className="py-2 w-full flex justify-center items-center text-white hover:bg-yellow-500 transition"
-          style={{ transition: "all 0.3s ease-in-out" }}
-          >
-            <Link to="/profile">
-              <span className="text-[20px] font-serif ">Profile</span></Link>
-          </div>
-          <div className=" py-2 w-full   flex justify-center cursor-pointer items-center hover:bg-slate-300  " onClick={handleLogout} style={{ transition: "all 0.3s ease-in-out" }}>
-            <span className="text-[20px] font-serif ">
-              Logout
-            </span>
-          </div>
-        </div>
-      }
+<div ref={menuRef} className=' bg-yellow-500 text-white drop-shadow-xl shadow-slate-400  w-[120px] h-auto absolute  top-20 right-8 z-50 ' >
+  <div className=" cursor-pointer  py-2 w-full flex justify-center items-center hover:bg-yellow-300 hover:text-black transition border-blue-500 border-b " style={{ transition: "all 0.3s ease-in-out" }}>
+    <Link to="/profile">
+      <span className="text-[20px] font-serif ">Profile</span></Link>
+  </div>
+  <div className=" py-2 w-full   flex justify-center cursor-pointer items-center hover:bg-yellow-300 hover:text-black transition  " onClick={handleLogout}>
+    <span className="text-[20px] font-serif ">
+      Logout
+    </span>
+  </div>
+</div>
+}
 
 
       

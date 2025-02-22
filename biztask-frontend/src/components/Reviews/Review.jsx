@@ -46,10 +46,10 @@ const Review = ({ review,userDetails,handleReviewDelete}) => {
 
 {/* Delete Icon (only for the user) */}
 {review?.user?._id === userDetails?._id && (
-    <div className="absolute top-4 right-4">
-        <span className="p-2 rounded-full bg-red-500 text-white hover:bg-red-700 cursor-pointer transition duration-300"
+    <div className="absolute bottom-4 right-4">
+        <span className="p-2 rounded-full  text-white hover:text-red-700 cursor-pointer transition duration-300"
               onClick={() => handleReviewDelete(review?._id)}>
-            <RiDeleteBin2Fill size={20} />
+            <RiDeleteBin2Fill size={30} />
         </span>
     </div>
 )}
