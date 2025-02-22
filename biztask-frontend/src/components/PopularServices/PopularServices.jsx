@@ -10,76 +10,99 @@ const PopularServices = () => {
     const services = [
         {
             type: "Event Decoration",
-            image:eventDecoration,
-             value:"Event Decoration"
+            image: eventDecoration,
+            value: "Event Decoration"
         },
         {
             type: "Home Cleaning",
             image: homeCleaning,
-             value:"Cleaning"
+            value: "Cleaning"
         },
         {
             type: "Plumbing Services",
             image: plumbing,
-            value:"Plumbing"
+            value: "Plumbing"
         },
         {
             type: "Catering Services",
             image: catering,
-             value:"Catering"
+            value: "Catering"
         },
         {
             type: "Gardening Services",
-            image:gardening,
-            value:"Gardening"
+            image: gardening,
+            value: "Gardening"
         },
         {
             type: "Motor Reparing",
             image: motor,
-            value:"motor"
+            value: "motor"
         }
     ];
 
 
     return (
         <>
+            <div className="bg-gradient-to-b from-white via-slate-100 to-blue-50 w-full py-12 sm:px-10 xl:px-20 flex xl:flex-row sm:flex-col items-center mx-auto">
 
-            <div className='bg-[#ffffff] w-full h-auto sm:px-10 xl:px-20 my-10 xl:mb-12 flex xl:flex-row sm:flex-col'>
+               {/* Left Section: Available Services */}
+<div className="bg-gradient-to-r from-[#1A374D] to-[#406882] text-white sm:w-full xl:w-[450px] xl:h-[500px] flex flex-col justify-center items-center rounded-[50px] shadow-xl p-6 sm:h-[320px] relative overflow-hidden">
 
-                <div className='  bg-gradient-to-r from-slate-100 via-white xl:to-white sm:to-slate-100 sm:w-full sm:h-[300px] xl:w-[450px] xl:px-4 xl:h-[500px] flex flex-col justify-center  items-center my-2 xl:pe-5'>
-                    <span className=' text-blue-950 font-serif font-semibold text-[35px] py-4'>Available Services</span>
+{/* Title */}
+<span className="text-white font-serif font-extrabold text-[36px] py-4">
+  Available Services
+</span>
 
-                    <p className=' text-blue-950 font-serif font-medium text-[20px] align-middle'>
-                        "Connecting You with Skilled Professionals
-                        to Get the Job Done Right."
-                    </p>
-                    <Link to={"/services"}>
-                        <div className='bg-[#dde6ed]  hover:bg-[#b2c5d4]  w-[250px] opacity-95 mt-[50px] cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-[1px] border-slate-400'>
-                            <span className="font-serif font-bold pe-2 text-xl text-slate-800">View All</span>
-                        </div>
-                    </Link>
+{/* Subtitle */}
+<p className="text-white font-serif font-medium text-[20px] text-center px-4 opacity-90">
+  "Connecting You with Skilled Professionals to Get the Job Done Right."
+</p>
 
-                </div>
+{/* Floating Glow Effect */}
+<div className="absolute -bottom-6 -right-6 w-24 h-24 bg-white opacity-20 rounded-full blur-xl"></div>
 
-                <div>
+{/* View All Button */}
+<Link to={"/services"}>
+  <div className="bg-white hover:bg-[#A8DADC] text-blue-900 w-[250px] mt-6 cursor-pointer h-14 rounded-full flex justify-center items-center text-lg border-2 border-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+    <span className="font-serif font-bold pe-2 text-xl">View All</span>
+  </div>
+</Link>
 
-                    <div className="  grid grid-cols-2 gap-6 xl:gap-6 sm:m-2 lg:px-10 sm:ps-2 sm:pt-5  sm:gap-y-6 lg:gap-10  sm:gap-x-4 m-6  ms-8 justify-center items-center">
-                        {
-                            services.map((element, ind) => (
-                                <Link to={`/services?serviceName=${element.value}`} key={ind}>
-                                    <div className=" bg-slate-100 w-[400px] sm:w-[400px] lg:w-full h-[140px] xl:h-[140px] lg:h-[160px] flex lg:justify-start lg:ps-[50px] justify-center items-center rounded-lg drop-shadow-xl shadow-slate-200 cursor-pointer hover:bg-slate-300 transition duration-300 sm:mx-2 lg:mx-0 xl:mx-5 mx-5">
-
-                                        <span className="w-[90px] h-[90px] rounded-[100%] bg-slate-800  bg-cover bg-center" style={{ backgroundImage: `url(${element.image})` }}></span>
-                                        <span className=' text-blue-950 font-serif font-semibold text-[20px] mx-5 flex justify-center items-center w-[200px]'>{element.type}</span>
-                                    </div>
-                                </Link>
-                            ))
-                        }
-                    </div>
-                </div>
+</div>
 
 
+   {/* Right Section: Service Cards Grid */}
+<div className="grid grid-cols-2 gap-8 xl:gap-6 lg:px-10 sm:px-4 lg:gap-10 justify-center items-center self-center my-auto lg:ms-10">
+  {services.map((element, ind) => (
+    <Link to={`/services?serviceName=${element.value}`} key={ind}>
+      <div className="relative bg-gradient-to-r from-[#FFE5B4] to-[#FFFACD] w-[400px] sm:w-[380px] lg:w-full h-[160px] rounded-[40px] shadow-md flex items-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
+        
+        {/* Circular Icon Section */}
+        <div className="w-[90px] h-[90px] rounded-full bg-[#A7C7E7] shadow-lg flex justify-center items-center ml-6">
+          <span
+            className="w-[80px] h-[80px] rounded-full"
+            style={{
+              backgroundImage: `url(${element.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></span>
+        </div>
 
+        {/* Service Name */}
+        <div className="flex-grow pl-6 pr-4">
+          <span className="text-[#1F2937] font-serif font-semibold text-[22px] break-words">
+            {element.type}
+          </span>
+        </div>
+
+        {/* Right Glow Effect for Hover */}
+        <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#FFCC80] rounded-full opacity-30 transition-all duration-300"></div>
+
+      </div>
+    </Link>
+  ))}
+</div>
 
 
             </div>

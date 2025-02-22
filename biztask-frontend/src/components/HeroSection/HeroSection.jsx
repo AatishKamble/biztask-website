@@ -3,48 +3,80 @@ import { MdOutlineExplore } from "react-icons/md";
 import { Link } from "react-router-dom";
 import heroSection from "../../assets/hero.jpg";
 const HeroSection = () => {
+
   return (
     <>
-    
-    <div className=' z-0 relative w-full h-[540px] xl:h-[560px] '>
 
-    <div className='w-full h-[540px] xl:h-[560px] bg-slate-700 '>
+      <div className="relative  w-full h-[540px] flex items-center mt-1 xl:h-[100vh] overflow-hidden">
+      
+        <div className="w-full h-full bg-slate-700 relative">
+          <img
+            src={heroSection}
+            alt="Hero Section"
+            className="w-full h-full object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900 opacity-50"></div>
+        </div>
+        <style>
+          {`
+          @keyframes fadeInZoom {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+          }
 
-    <img src={heroSection} alt="" className=' w-full h-full object-cover opacity-40 ' />
+          @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+        `}
+        </style>
 
-    </div>
-        <div className='  absolute xl:top-44 sm:top-36 lg:top-40 w-full flex flex-col justify-center items-center'>
-        <span className=' font-serif font-semibold text-blue-950 text-center  text-[38px]'>Find the Right Worker, Job, or Service in Your Area!</span>
-        
-        <span className=' font-sans  text-slate-800 sm:pt-2 font-semibold  text-[24px]'>Connecting businesses, workers, and service seekers with ease</span>
+        <div className="absolute  mt-10 inset-0 flex flex-col justify-center items-center text-center animate-fadeIn">
+          <span className="font-serif font-semibold text-blue-950 text-[40px] drop-shadow-md 
+    opacity-0 animate-[fadeInZoom_1.2s_ease-in-out_forwards]">
+            Find the right worker, job or service in your area!
+          </span>
+
+          <span className="font-sans text-gray-300 sm:pt-3 font-semibold text-[24px] drop-shadow-md 
+    opacity-0 animate-[fadeInUp_1.5s_ease-in-out_0.5s_forwards]">
+            Connecting businesses, workers and service seekers with ease
+          </span>
 
 
-        <div className=' absolute xl:top-[130px] sm:top-[170px] lg:top-[150px] w-[700px] h-[100px] flex justify-around items-center '>
 
-          <Link to={"/jobs"}>
-         
-            <div className='bg-[#98b1c1] hover:bg-[#6e8da0] w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-[2px] border-slate-600'>
-            <span className="font-serif font-bold pe-2 text-xl text-slate-800">Search Jobs</span>
-            <span className="font-serif font-bold  text-3xl text-slate-800"><HiChevronDoubleRight /></span>
-            </div>
+          <div className="absolute xl:top-[200px]  sm:top-[170px] lg:top-[150px] 2xl:top-[180px] flex gap-12">
 
+
+            <Link to={"/jobs"}>
+              <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-2 border-blue-700 shadow-lg 
+          transition-all duration-500 hover:scale-110 hover:bg-blue-700 hover:shadow-[0_0_15px_4px_rgba(0,119,255,0.8)]">
+                <span className="font-serif font-bold pe-2 text-xl text-white">
+                  Search Jobs
+                </span>
+                <span className="font-serif font-bold text-3xl text-white">
+                  <HiChevronDoubleRight />
+                </span>
+              </div>
             </Link>
 
+
             <Link to={"/services"}>
-            <div className='bg-[#a0afaf] hover:bg-[#6e8da0] w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-[2px] border-slate-600'>
-            <span className="font-serif font-bold pe-2 text-xl text-slate-800">Explore Services</span>
-            <span className="font-serif font-bold  text-3xl text-slate-800"><MdOutlineExplore /></span>
-            </div></Link>
+              <div className="relative bg-[#a0afaf] w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-2 border-slate-600 shadow-lg 
+          transition-all duration-500 hover:scale-110 hover:bg-[#8b9c9c] hover:shadow-[0_0_15px_4px_rgba(119,150,150,0.8)]">
+                <span className="font-serif font-bold pe-2 text-xl text-slate-800">
+                  Explore Services
+                </span>
+                <span className="font-serif font-bold text-3xl text-slate-800">
+                  <MdOutlineExplore />
+                </span>
+              </div>
+            </Link>
+
+          </div>
         </div>
-        </div>
-       
-   
+      </div>
 
 
-    
-
-    </div>
-    
     </>
   )
 }

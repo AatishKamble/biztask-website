@@ -71,6 +71,7 @@ const isLoading = isAuthLoading ;
         (  !location.pathname.startsWith("/reset-password") && !location.pathname.startsWith("/forgot-password"))&&
         <Navbar userDetails={auth.user} login={login} handleLogInButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick}  signUp={signUp} />
 }
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<ProfilePage userDetails={auth.user}/>} />
@@ -103,6 +104,7 @@ const isLoading = isAuthLoading ;
            (!location.pathname.startsWith("/reset-password")&& !location.pathname.startsWith("/forgot-password"))&&
        
         <Footer userDetails={auth.user} handleLogInButtonClick={handleLogInButtonClick}/>
+       
         }
     </>
   )

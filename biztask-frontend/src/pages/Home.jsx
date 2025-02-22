@@ -13,6 +13,15 @@ import { getUserProfile } from '../Redux/Auth/Action.js';
 import ProfilePage from './ProfilePage.jsx';
 
 const Home = () => {
+
+  const heroRef = useRef(null); 
+  useEffect(() => {
+   
+    if (heroRef.current) {
+      heroRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
+
   const navigate = useNavigate();
 
   const HowItWorksRef=useRef(null);
@@ -57,7 +66,9 @@ const dispatch=useDispatch();
   return (
     <>
    
-      <HeroSection />
+   <div ref={heroRef}>
+        <HeroSection />
+      </div>
       <PopularServices />
       <FeaturedJob />
       <HowItWorks HowItWorks={HowItWorksRef}/>

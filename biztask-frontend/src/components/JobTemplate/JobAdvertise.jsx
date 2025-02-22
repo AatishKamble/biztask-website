@@ -43,50 +43,60 @@ const timeAgo = (postedAt) => {
 
     return (
         <>
-            <div className='bg-slate-100 border-[1px] border-[#8895ab]  w-full h-[200px] rounded-2xl border-l-4 border-l-[#1f2580] flex justify-center items-center'>
-                <div className='flex flex-col justify-center items-center w-[20%]'>
-                    <div className=' bg-slate-300 w-[100px] h-[100px] rounded-full '>
-<img src={`${business?.companyLogo?.imageUrl}`} className=" bg-cover w-full h-full rounded-full" alt="service logo" />
-                    </div>
-                   
-                </div>
+<div className="relative w-full max-w-2xl mx-auto p-6 bg-gradient-to-r from-[#e0f2fe] to-[#bfdbfe] rounded-3xl shadow-lg flex flex-col sm:flex-row items-center overflow-hidden">
 
+{/* Left Section - Larger Circular Logo */}
+<div className="relative w-full sm:w-[35%] flex flex-col items-center">
+  <div className="w-[140px] h-[140px] rounded-full shadow-md overflow-hidden border-[5px] border-blue-800 bg-white">
+    <img src={`${business?.companyLogo?.imageUrl}`} className="w-full h-full object-cover" alt="Company Logo" />
+  </div>
+</div>
 
+{/* Right Section - Job Details with a Wave Shape */}
+<div className="w-full sm:w-[65%] bg-white px-6 py-8 rounded-tl-[60px] rounded-br-[60px] shadow-md relative overflow-hidden">
 
+  {/* Wave Shape (For Unique Design) */}
+  <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#4c83ff] rounded-full opacity-25"></div>
 
-                <div className='w-[80%] relative h-full px-4 bg-slate-100 rounded-2xl flex flex-col justify-center '>
-                    <Link to={`/job-detail/${job?._id}`}><div className="absolute right-5 top-5  border-1 border-[#143670] hover:bg-[#628edc] rounded-md flex justify-center items-center bg-[#7692c2] w-28 h-10">
-                    <p className=' text-[#262837] font-serif font-medium text-[24px] cursor-pointer '>
-                      {typeText}
-                    </p>
-                    </div></Link>
-                    <p className=' text-blue-950 font-serif font-medium text-[24px] pt-5'>
-                       {job?.jobRole}
-                    </p>
-                    <div className=' text-blue-950 w-[400px] h-5 pt-3  font-serif font-normal text-[18px]'>
-                    <span className=' text-gray-600 font-serif font-normal text-[20px] py-5'>  {business?.companyName }</span>
-                 
-                      </div>
-                    <div className='flex justify-between w-[400px] py-10 text-gray-600 font-serif font-medium text-[20px]'>
-                        <span className="flex justify-center items-center">
-                            <span className=" text-slate-900 pe-1 pt-1"><MdOutlineAccessTime /></span>
-                            {timeAgo(job?.postedAt)}
-                        </span>
-                        <span className="flex justify-center items-center">
-                            <span className=" text-slate-900 pe-1"><MdLocationOn /></span>{job?.jobLocations[0]}
-                        </span>
-                        <span className="flex justify-center items-center">
-                            <span className=" text-slate-900 pe-1"><FaRegMoneyBillAlt />
-                            </span> <span className=" text-red-500">{job?.maxSalary
-}</span>
-                        </span>
+  {/* Apply Button - Fixed Position to Avoid Overlap */}
+  <Link to={`/job-detail/${job?._id}`}>
+    <div className="absolute top-3 right-3 bg-[#4c83ff] hover:bg-[#3968d1] text-white rounded-lg px-5 py-2 font-serif font-medium text-lg shadow-md transition duration-300">
+      {typeText}
+    </div>
+  </Link>
 
-                    </div>
+  {/* Job Role & Company Name - Ensuring No Overlap */}
+  <div className="mb-4">
+    <p className="text-blue-900 font-serif font-bold text-[22px] sm:text-[24px] leading-tight break-words">{job?.jobRole}</p>
+    <p className="text-gray-700 font-serif font-medium text-[18px] mt-1 truncate">{business?.companyName}</p>
+  </div>
 
-                </div>
+  {/* Job Details - Time, Location, Salary */}
+  <div className="flex flex-wrap justify-between items-center mt-3 text-gray-700 font-serif text-[16px]">
 
+    {/* Posted Time */}
+    <span className="flex items-center">
+      <MdOutlineAccessTime className="text-blue-700 mr-2 text-[18px]" />
+      {timeAgo(job?.postedAt)}
+    </span>
 
-            </div>
+    {/* Job Location */}
+    <span className="flex items-center w-full sm:w-auto truncate">
+      <MdLocationOn className="text-blue-700 mr-2 text-[18px]" />
+      {job?.jobLocations[0]}
+    </span>
+
+    {/* Salary */}
+    <span className="flex items-center">
+      <FaRegMoneyBillAlt className="text-green-700 mr-2 text-[18px]" />
+      <span className="text-green-600 font-semibold">{job?.maxSalary}</span>
+    </span>
+
+  </div>
+
+</div>
+
+</div>
 
 
         </>

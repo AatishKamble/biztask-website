@@ -128,6 +128,10 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
             setInput(text);
             setWordCount(wordCount);
         }
+        else {
+            toast.error('Maximum word has reached');
+            return;
+        }
     }
 
     const handleMouseLeave = (value) => {
@@ -208,8 +212,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         <DetailLoader />
                     </div>
                 )}
-                <div className=' 2xl:w-[90%] sm:w-full h-auto py-10 bg-slate-100  drop-shadow-lg  my-10 flex items-center px-10 rounded-2xl'>
-
+               <div className="2xl:w-[90%] sm:w-full h-auto py-10 bg-white/30 backdrop-blur-lg shadow-lg my-10 flex flex-col lg:flex-row items-center px-10 rounded-2xl border border-gray-300">
 
                     <div className='w-full h-[180px] relative flex items-start flex-col justify-center px-10'>
 
@@ -255,7 +258,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     </div>
 
                     <div className="flex flex-col w-[600px] items-center justify-center">
-                        <div className='w-[190px] h-[180px]   rounded-full m-5'>
+                        <div className='w-[190px] h-[180px] shadow-lg shadow-white border-cyan-600 border-4   rounded-full m-5'>
 
                             <img src={`${serviceDetails?.bussiness?.companyLogo?.imageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
                         </div>
@@ -279,128 +282,114 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                 </div>
 
-                <div className=' 2xl:w-[90%] sm:w-full h-auto  drop-shadow-lg my-10 mt-5 flex px-10 sm:px-2 sm:flex-col xl:flex-row gap-10'>
+                <div className="2xl:w-[90%] sm:w-full h-auto drop-shadow-lg my-10 mt-5 flex flex-col xl:flex-row gap-10 px-6 sm:px-2">
 
-                    <div>
-                        <div className='bg-slate-100 xl:w-[620px]  sm:w-full h-auto p-5'>
-                            <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
-                                <span><MdOutlineDescription /></span> <span className="px-2 border-b-2 border-slate-600 font-semibold"> Description</span>
-                            </div>
-                            <div className='flex h-auto  p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
-                                <span className="">
-                                    {
-                                        serviceDetails?.Description
+  {/* Left Section */}
+  <div className="flex flex-col  xl:w-2/3 gap-6">
+    
+    {/* Description Section */}
+    <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl p-6 shadow-lg">
+      <div className="w-full flex items-center text-[24px] text-blue-900 font-serif font-semibold pb-3 border-b-2 border-blue-500">
+        <MdOutlineDescription className="mr-2" /> Description
+      </div>
+      <p  className='flex h-auto font-semibold  p-4 justify-between  py-2 text-slate-900 font-serif  text-[18px]'>
+                            
+        {serviceDetails?.Description}
+      </p>
+    </div>
 
-                                    }
-                                </span>
-
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div className=' bg-slate-100 w-[600px] sm:w-full h-auto p-5 mt-10'>
-                            <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif   ">
-                                <span className="px-2 border-b-2 border-slate-600 font-semibold"> Features</span>
-                            </div>
-                            <div className='flex flex-col h-auto bg-slate-100 p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
-
-                                {
-                                    serviceDetails?.features?.map((features, idx) => (
-                                        <span key={idx} >{idx + 1}. {features}</span>
-
-                                    ))
-                                }
+    {/* Features Section */}
+    <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl p-6 shadow-lg">
+      <div className="w-full flex items-center text-[24px] text-blue-900 font-serif font-semibold pb-3 border-b-2 border-blue-500">
+        Features
+      </div>
+      <ul className='flex flex-col h-auto  p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
 
 
+        {serviceDetails?.features?.map((feature, idx) => (
+          <li key={idx} className="flex font-semibold items-start">
+            <span className="text-blue-600  mr-2">{idx + 1}.</span> {feature}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
 
-                            </div>
-                        </div>
+  {/* Right Section */}
+  <div className="w-full flex  min-w-[30%] max-w-[40%] flex-col gap-6">
+    
+    {/* Contact Details */}
+    <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-start">
+      
+      {/* Contact Info */}
+      <div className="flex-1 px-4 space-y-3">
+        <div className="text-[24px] text-blue-900 font-serif font-semibold pb-3">Contact Details</div>
 
-
-
-
-                    </div>
-                    <div className=' xl:w-full sm:w-full sm:gap-5 h-auto p-4 xl:p-0 sm:flex xl:flex-col     sm:justify-evenly'>
-                        <div className="bg-slate-100 pt-5 w-full min-h-[280px] pe-10 flex flex-col sm:flex-row">
-                            {/* Text Details */}
-                            <div className="flex-1 px-4 space-y-3">
-                                <div className="text-[24px] text-slate-800 font-semibold font-serif">
-                                    <span>Contact Details</span>
-                                </div>
-
-                                {/* Name */}
-                                <div className="flex flex-wrap items-center text-[20px] text-slate-800 font-serif">
-                                    <span className="px-2 font-medium">
+        {/* Name */}
+        <div className="flex flex-wrap items-center text-[20px] text-slate-800 font-serif ">
+                                    <span className="px-2 text-blue-700 font-medium ">
                                         <FaUserSecret />
                                     </span>
-                                    <span className="font-normal break-words">
+                                    <span className=" break-words font-medium">
                                         {serviceDetails?.user?.name}
                                     </span>
                                 </div>
-
-                                {/* Phone */}
-                                <div className="flex flex-wrap items-center text-[20px] text-slate-800" style={{ fontFamily: 'sans-serif' }}>
-                                    <span className="px-2 font-medium flex items-center">
+        {/* Phone */}
+        <div className="flex flex-wrap items-center text-[20px] text-slate-800 " style={{ fontFamily: 'sans-serif' }}>
+                                    <span className="px-2 font-medium flex text-blue-700 items-center">
                                         <FaPhone />
                                     </span>
-                                    <span className="font-normal break-words">
+                                    <span className=" break-words  font-medium ">
                                         {serviceDetails?.user?.mobileNumber}
                                     </span>
                                 </div>
 
-                                {/* Email */}
-                                <div className="flex  items-center text-[20px] text-slate-800 font-serif">
-                                    <span className="px-2 font-medium flex items-center">
+        {/* Email */}
+        <div className="flex  items-center text-[20px] text-slate-800 font-serif  font-medium">
+                                    <span className="px-2 text-blue-700 font-medium flex items-center">
                                         <MdEmail />
                                     </span>
-                                    <span className=" flex flex-wrap font-normal break-words">
+                                    <span className=" flex flex-wrap  font-medium break-words">
                                         {serviceDetails?.user?.email}
                                     </span>
                                 </div>
                             </div>
 
-                            {/* Profile Image */}
-                            <div className="w-full sm:w-auto flex justify-center items-center mt-5 sm:mt-0">
-                                <div className="w-40 h-[180px] bg-black rounded-md overflow-hidden">
-                                    <img
-                                        src={serviceDetails?.user?.profileImage?.ImageUrl}
-                                        alt="Owner Photo"
-                                        className="w-40 h-[180px] object-cover transition-transform duration-300 hover:scale-105"
-                                    />
-                                </div>
-                            </div>
-                        </div>
 
+      {/* Profile Image */}
+      <div className="w-[160px] h-[180px] rounded-xl overflow-hidden shadow-md border-2 border-blue-300">
+        <img
+          src={serviceDetails?.user?.profileImage?.ImageUrl}
+          alt="Owner Photo"
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+    </div>
 
-                        <div className='my-5 w-full h-auto py-10 xl:py-0 sm:py-0'>
-                            <div className="w-full h-auto flex flex-col items-start px-4 py-10 text-[22px] text-slate-800 font-sans bg-slate-100 rounded-lg">
-                                <span className="px-2 text-[24px] pb-5 font-semibold font-serif">Pricing Details</span>
+    {/* Pricing Details */}
+    <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl p-6 shadow-lg">
+      <div className="text-[24px] text-blue-900 font-serif font-semibold pb-3 border-b-2 border-blue-500">
+        Pricing Details
+      </div>
 
-                                {/* Min Price Row */}
-                                <div className="flex items-center text-[20px] font-sans">
-                                    <span className="px-2 font-medium font-serif">Min Price:</span>
-                                    <span className="px-2 font-normal flex items-center">
-                                        <MdOutlineCurrencyRupee className="" /> {serviceDetails?.minPrice}
+      <div className="flex mt-6 items-center text-[20px] font-sans">
+                                    <span className="px-2 font-semibold font-serif">Min Price:</span>
+                                    <span className="px-2 font-semibold flex items-center">
+                                        <MdOutlineCurrencyRupee className=" text-blue-700  " /> {serviceDetails?.minPrice}
                                     </span>
                                 </div>
 
                                 {/* Max Price Row */}
                                 <div className="flex items-center text-[20px]  font-sans w-full">
-                                    <span className="px-2 font-medium font-serif">Max Price:</span>
-                                    <span className="px-2 font-normal flex items-center">
-                                        <MdOutlineCurrencyRupee className="" /> {serviceDetails?.maxPrice}
+                                    <span className="px-2 font-semibold font-serif">Max Price:</span>
+                                    <span className="px-2 font-semibold flex items-center">
+                                        <MdOutlineCurrencyRupee className=" text-blue-700 " /> {serviceDetails?.maxPrice}
                                     </span>
                                 </div>
-                            </div>
-                        </div>
+    </div>
+  </div>
+</div>
 
-
-                    </div>
-
-                </div>
 
 
                 {/* job */}
@@ -537,36 +526,45 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                 {popupwarning && (
-                    <div className='fixed inset-0 bg-black opacity-50 z-40'></div>
-                )}
+    <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40'></div>
+)}
 
-                {popupwarning && (
-                    <div className='fixed inset-0 flex items-center justify-center z-50'>
-                        <PopUp message="Remove Service" submessage="Are you sure you want to remove this service ?" button1="Cancel" button2="Remove" submessage2={`Service Name: ${serviceDetails?.serviceType}`} closeButton={handlePopupWarningClose} handleRemove={handleServiceRemove} />
+{popupwarning && (
+    <div className='fixed inset-0 flex items-center justify-center z-50'>
+        <div className='bg-white shadow-xl rounded-lg p-6 w-[400px] flex flex-col items-center'>
+            <h2 className='text-2xl font-bold text-slate-800 mb-2'>Remove Service</h2>
+            <p className='text-slate-600 text-center mb-4'>Are you sure you want to remove this service?</p>
+            <p className='text-slate-500 text-sm italic mb-6'>Service Name: {serviceDetails?.serviceType}</p>
+            <div className='flex gap-4'>
+                <button className='px-4 py-2 rounded-md bg-gray-300 text-slate-700 hover:bg-gray-400 transition' onClick={handlePopupWarningClose}>Cancel</button>
+                <button className='px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition' onClick={handleServiceRemove}>Remove</button>
+            </div>
+        </div>
+    </div>
+)}
 
-                    </div>
-                )}
 
             </div>
 
 
             {isLoading == false &&
-                <div className=' w-full h-auto relative  my-10 flex flex-col px-5'>
-
-                    <div className='w-full flex justify-center items-center py-5'>
-                        <span className=' text-blue-950 font-serif font-semibold text-[30px] '>Reviews</span>
-                        <button onClick={() => handleSubmitReview()} className='mx-2 text-blue-700 border flex items-center justify-center h-[40px] font-serif font-semibold text-[20px] w-[120px] px-10 ps-4  bg-white rounded-xl hover:bg-blue-200'>
+               <div className='w-full h-auto relative my-10 flex flex-col px-5 bg-gray-50 rounded-xl py-8'>
+    <div className='w-full flex flex-col md:flex-row justify-center items-center gap-4 py-5'>
+    <span className='text-blue-950 font-serif font-semibold text-[32px] border-b-2 border-blue-800 pb-1'>Reviews</span>
+       <button onClick={() => handleSubmitReview()}
+       className='flex items-center justify-center h-[40px] text-white font-serif font-semibold text-[20px] w-[140px] px-5 bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all duration-300'>
+       
                             <span className="px-2"><IoIosAddCircle /> </span>
-                            <span>Add</span>
+                            <span className="ml-2">Add</span>
                         </button>
 
-                        <div className="flex">
+                        <div className="flex gap-1">
 
                             {stars.map((_, index) => {
                                 return (
                                     <FaStar key={index} size={24}
                                         style={{ marginRight: 10, cursor: "pointer" }}
-                                        className={`${(hoverValue || currentValue) > index ? 'text-yellow-600' : "text-slate-700"}`}
+                                        className={`${(hoverValue || currentValue) > index ? 'text-yellow-500 drop-shadow-md' : "text-gray-400"} transition-all duration-200`}
                                         onClick={() => handleClick(index + 1)}
                                         onMouseOver={() => handleMouseHover(index + 1)}
                                         onMouseLeave={() => handleMouseLeave(index + 1)}
@@ -579,29 +577,35 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     <div className="w-full flex justify-center flex-col items-center">
                         <textarea name="review" id="review"
-                            placeholder="Give review About Service Provider"
-                            className=' text-[20px] h-[200px] text-slate-600 font-serif outline-none p-4  w-[700px]  border-[1px] border-dashed border-slate-600 bg-[#ffffff] rounded-md '
-                            rows={5} cols={40}
-                            style={{ resize: 'none', overflow: 'hidden' }}
-                            value={input}
+                           placeholder="Share your experience with the service provider..."
+                           className='text-[18px] h-[180px] text-gray-700 font-serif outline-none p-4 w-[90%] md:w-[700px] border border-gray-400 bg-white rounded-lg shadow-md focus:ring-2 focus:ring-blue-400 transition-all duration-200'
+                          
+                           rows={5} 
+                           style={{ resize: 'none' }}
+                           value={input}
                             onChange={handleInputChange}
                         ></textarea>
 
-                        <p className="font-serif">{wordCount} / 20 words</p>
+<p className="font-serif text-gray-500 mt-2">{wordCount} / 20 words</p>
                     </div>
-                    <div className="w-full grid grid-cols-2 gap-10 py-20 justify-center px-10">
+                    <div className="w-full grid md:grid-cols-3 gap-4 py-10 px-1">
+    {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (
+        <div key={index} className="p-5 rounded-lg  mx-auto">
+            <Review review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />
+        </div>
+    ))}
+</div>
 
 
-                        {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (<Review key={index} review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />))}
-                    </div>
-
-                    {
-                        visibleReviews < reviewStore?.reviews.length &&
-                        <div className='w-full flex justify-center items-center'>
-                            <div className='bg-[#eef1f1] hover:bg-[#d1d5d7] w-[200px] opacity-95 my-[20px] cursor-pointer h-10 rounded-xl flex justify-center items-center text-md '>
-                                <span className="font-serif font-normal pe-2 text-xl text-slate-800">View All</span>
-                            </div>
-                        </div>}
+{visibleReviews < reviewStore?.reviews.length && (
+    <div className='w-full flex justify-center'>
+        <button 
+          
+            className='bg-blue-600 hover:bg-blue-800 text-white px-6 py-2 rounded-lg text-lg font-serif font-medium shadow-md transition-all duration-300'>
+            View All
+        </button>
+    </div>
+)}
 
                 </div>
 

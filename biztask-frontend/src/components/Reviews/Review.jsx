@@ -14,64 +14,46 @@ const Review = ({ review,userDetails,handleReviewDelete}) => {
     return (
         <>
 
-            <div className='bg-[#ffffff]  border-[1px] border-[#8895ab]  w-[600px] h-auto h-min-[400px] rounded-2xl border-l-4 border-t-4 border-t-yellow-500 border-l-[#b3a8d3] flex justify-center items-center'>
+<div className="relative bg-[#0f172a] text-[#e2e8f0] mt-5 w-[450px] min-h-[360px] p-6 rounded-[30px] border-[3px] border-[#1e3a8a] shadow-2xl transform transition-all duration-500 hover:scale-105 hover:border-[#2563eb] hover:shadow-[#9333ea]/50">
 
-                    
-                <div className='flex flex-col justify-center items-center '>
-                    <div className=' bg-slate-300 w-[150px] h-[150px] rounded-full ms-2'>
-                        <img src={`${review?.user?.profileImage?.ImageUrl}`} alt="" className="w-full h-full rounded-full bg-cover" />
-                    </div>
-
-                </div>
-
-
-
-
-                <div className='w-[70%] relative h-full px-4 bg-[#ffffff] rounded-2xl flex flex-col justify-center '>
-
-
-{
-    review?.user?._id===userDetails?._id &&<div className="absolute w-auto flex items-center top-2 right-4 ">
-    <span className="text-slate-800 p-2  hover:bg-red-200 me-2 cursor-pointer" onClick={()=>handleReviewDelete(review?._id)}>
-      <RiDeleteBin2Fill size={24} className="text-red-700"/>
-    </span>
-   
+{/* Floating Hexagonal Profile Image */}
+<div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] bg-[#1e3a8a] rounded-md overflow-hidden border-[4px] border-[#2563eb] shadow-md rotate-[6deg]">
+    <img src={`${review?.user?.profileImage?.ImageUrl}`} alt="User" className="w-full h-full object-cover" />
 </div>
 
-}
-                
+{/* Review Content */}
+<div className="mt-16 px-4 text-center">
 
-                    <div className='flex justify-between h-auto my-10 text-slate-900 font-serif font-medium text-[16px]'>
-                        <span className="flex justify-center items-center">
-                            {
-                                review?.ReviewMessage
-                            }
-                        </span>
+    {/* Review Message */}
+    <p className="text-lg font-medium leading-relaxed italic bg-white bg-opacity-10 p-4 rounded-lg border border-white/20 shadow-md">
+        "{review?.ReviewMessage}"
+    </p>
 
+    {/* Star Rating */}
+    <div className="flex justify-center items-center gap-2 mt-4">
+        <Star star={review?.rating} />
+    </div>
 
-                    </div>
-                    <div className='flex  py-2 text-slate-900 font-serif font-medium text-[16px]'>
-                        <span className="flex justify-center items-center">
-                            <Star star={review?.rating} />
-                        </span>
+    {/* Footer (Time & User Name) */}
+    <div className="flex justify-between items-center text-sm text-gray-300 mt-6">
+        <span className="flex items-center gap-1">
+            <MdOutlineAccessTime className="text-[#2563eb]" />
+            {timeAgo(review?.postedAt)}
+        </span>
+        <p className="text-lg font-semibold text-[#2563eb]">{review?.user?.name}</p>
+    </div>
+</div>
 
-
-                    </div>
-                    <div className='flex justify-between w-inherit py-2 pe-5 text-gray-600 font-serif font-medium text-[14px]'>
-                        <span className="flex justify-center items-center">
-                            <span className=" text-slate-900 pe-1"><MdOutlineAccessTime /></span>{timeAgo(review?.postedAt)}
-                        </span>
-                        <p className=' text-blue-950 font-serif font-medium text-[16px] pt-2'>
-                            <span> {review?.user?.name}</span>
-                        </p>
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
+{/* Delete Icon (only for the user) */}
+{review?.user?._id === userDetails?._id && (
+    <div className="absolute top-4 right-4">
+        <span className="p-2 rounded-full bg-red-500 text-white hover:bg-red-700 cursor-pointer transition duration-300"
+              onClick={() => handleReviewDelete(review?._id)}>
+            <RiDeleteBin2Fill size={20} />
+        </span>
+    </div>
+)}
+</div>
 
         </>
     )

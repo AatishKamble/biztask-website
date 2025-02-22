@@ -58,14 +58,14 @@ const ProfilePage = ({ userDetails }) => {
         <div className=' w-full h-auto bg-[#ffffff] flex flex-col p-[100px] items-center justify-center '>
 
 
-          <div className='w-full text-[26px] text-slate-600 ms-10 font-semibold  font-serif pb-2'>
-            <span className='border-b-[2px]'>Profile Details</span>
-          </div>
-          <div className=' w-[80%] h-[240px] bg-inherit border-[1px] drop-shadow-lg border-slate-400 flex items-center px-10 my-10' >
+<div className="w-full max-w-4xl text-3xl text-blue-900 font-bold font-serif pb-4 border-b-2 border-blue-400">
+  Profile Details
+</div>
+          <div className=' w-[80%] h-[240px] bg-gradient-to-r from-purple-500 to-teal-400 rounded-3xl shadow-xl border-[1px] drop-shadow-lg border-slate-400 flex items-center px-10 my-10' >
+          <div className="absolute w-32 h-32 bg-white/20 rounded-full -top-6 -left-6 blur-lg"></div>
 
-            <div className='w-[180px] h-[180px]  rounded-lg mx-5'>
-
-              <img src={`${userDetails.profileImage?.ImageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-lg' />
+          <div className="w-40 h-40 rounded-full border-4 border-white p-1 bg-white shadow-lg overflow-hidden flex-shrink-0">
+          <img src={`${userDetails.profileImage?.ImageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
             </div>
             <div className='w-full h-[180px] relative flex items-center flex-col justify-center px-10'>
 

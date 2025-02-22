@@ -5,6 +5,8 @@ const JobDetailPage = () => {
  
   return (
     <JobDetail />
+    
+    
   )
 }
 

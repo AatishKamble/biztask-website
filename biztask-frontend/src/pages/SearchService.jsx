@@ -178,7 +178,7 @@ const SearchService = () => {
   return (
     <>
 
-      <div className=' bg-blue-950 w-full h-[400px]  relative drop-shadow-xl shadow-blue-200  '>
+      <div className=' bg-blue-950 w-full h-[400px] mt-1 relative drop-shadow-xl shadow-blue-200  '>
         <img src={serviceBack} alt="" className=' w-full h-full object-cover opacity-40 ' />
 
         <div className='  absolute top-44 w-full flex flex-col justify-center items-center'>

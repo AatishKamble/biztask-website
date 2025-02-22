@@ -99,17 +99,19 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
                 isOpen={openState}//change
                 style={customStyles}
                 onRequestClose={() => handleButtonClick()}//change 
+                className="relative bg-gradient-to-br from-blue-100 to-cyan-200 shadow-2xl rounded-3xl p-8 border border-blue-300 backdrop-blur-2xl"
+  
                
             >
-                <div className=' bg-inherit w-full h-20 flex text-[35px] font-extrabold justify-center items-center font-serif text-blue-900'>
-                    {type == "login" ? <span>Login</span> : <span>Sign Up</span>}
+                <div className='  w-full h-20 flex text-[35px] font-extrabold justify-center items-center font-serif text-blue-900'>
+                    {type == "login" ? <span className="text-4xl font-bold text-blue-900 tracking-wide drop-shadow-lg">Login</span> : <span className="text-4xl font-bold text-blue-900 tracking-wide drop-shadow-lg">Sign Up</span>}
 
                 </div>
                 <div className='flex  w-full flex-col h-auto justify-center items-center'>
                 <span className='text-[18px] font-serif text-slate-600 '>Continue with</span>
                         <div className='mb-4 mt-2 h-16 w-full flex flex-col justify-center items-center pb-5'>
 
-                            <div className=' w-auto px-5 hover:border-[1px] hover:outline-slate-900 cursor-pointer'>
+                            <div className=' w-auto px-5 hover:border-[1px] bg-gradient-to-br  hover:from-blue-300 hover:to-blue-200 transition duration-300 rounded-xl cursor-pointer'>
                                 <button onClick={handleGoogle} className='flex items-center py-2 text-[24px] font-serif font-semibold'>
                                     <FcGoogle />
                                     <span className='text-[24px] font-serif font-light ps-2 text-slate-600'>Google</span>
@@ -121,22 +123,22 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
                         
 
 
-                        <div className='bg-[#c5c8cd] h-14 w-full flex justify-center items-center text-slate-600 rounded-md' style={type === "login" ? { marginBottom: "10px" } : {}}>
+                        <div className='bg-white  h-14 w-full flex justify-center items-center text-slate-600 rounded-md' style={type === "login" ? { marginBottom: "10px" } : {}}>
                             <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
                                 <MdOutlineMail />
                             </div>
-                            <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Enter Email' className='w-full p-2 me-4 h-10 text-[20px] align-middle font-sans font-medium outline-none bg-inherit' />
+                            <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Enter Email' className='w-full p-2 me-4 h-10 text-[20px] align-middle font-sans font-medium outline-none bg-inherit ' />
                         </div>
 
 
-                        <div className='bg-[#c5c8cd] rounded-md mt-5 h-14 w-full flex justify-center items-center text-slate-600'>
+                        <div className='bg-white rounded-md mt-5 h-14 w-full flex justify-center items-center text-slate-600'>
                             <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
                                 <GoLock />
                             </div>
                             <input type="password" name='password' value={formData.password} onChange={handleChange} placeholder='password' className='w-full p-2 me-4 h-12 text-[20px] align-middle font-sans font-medium outline-none bg-inherit' autoComplete='false' />
                         </div>
 
-                        {type == "signup" && <div className='bg-[#c5c8cd] rounded-md my-5 h-14 w-full flex justify-center items-center text-slate-600'>
+                        {type == "signup" && <div className='bg-white rounded-md my-5 h-14 w-full flex justify-center items-center text-slate-600'>
                             <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
                                 <GoLock />
                             </div>
