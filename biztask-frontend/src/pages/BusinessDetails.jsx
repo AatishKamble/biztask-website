@@ -82,7 +82,7 @@ const BusinessDetails = ({ userDetails }) => {
       </div>
 
       {/* Services Grid */}
-      <div className='w-full grid xl:grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 p-4 gap-6 justify-center items-center mt-5 mb-10'>
+      <div className='w-full grid xl:grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 p-4 gap-6 justify-center items-center  mb-10'>
         {businessStore.business?.services?.map((service, index) => (
           <ServiceCard key={index} business={businessStore?.business} service={service} provider={businessStore.business?.companyName} />
         ))}

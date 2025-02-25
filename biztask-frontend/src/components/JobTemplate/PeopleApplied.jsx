@@ -33,14 +33,14 @@ const PeopleApplied = () => {
         <div className={`bg-[#ffffff] relative flex flex-col  items-center w-full h-auto px-20 }`} >
 
 
-            <div className=' w-[90%] h-[200px] bg-white dark:bg-[#1E1E2E] shadow-xl rounded-2xl dark:border-gray-700 transition-all hover:shadow-purple-400/50 my-10 flex items-center px-10'>
+            <div className=' w-[90%] h-[200px] bg-gradient-to-r from-blue-300 via-cyan-300 to-blue-300 shadow-xl rounded-2xl dark:border-gray-700 transition-all hover:shadow-purple-400/50 my-10 flex items-center px-10'>
 
 
                 <div className='w-full h-[200px] relative flex items-start flex-col justify-center px-10'>
 
 
 
-                    <div className='w-full text-[30px] text-gray-900 dark:text-white font-serif font-bold py-2'>
+                    <div className='w-full text-[30px] text-white font-serif font-bold py-2'>
                         <span className=' font-semibold px-2'>
                             {jobStore?.job?.jobRole
                             }
@@ -59,7 +59,7 @@ const PeopleApplied = () => {
 
                     <div className="w-[400px] h-auto text-[20px] flex items-center text-blue-700 dark:text-teal-300 font-serif">
                         <IoLocationSharp className="text-blue-500 dark:text-teal-400" />
-                        {jobStore?.job?.jobLocations?.map((location, ind) => (<span className=' font-normal ps-1 text-blue-500'> {location}{ind!=jobStore?.job?.jobLocations?.length-1?',':"" }</span>))
+                        {jobStore?.job?.jobLocations?.map((location, ind) => (<span className=' font-normal ps-1 text-white'> {location}{ind!=jobStore?.job?.jobLocations?.length-1?',':"" }</span>))
                         }
 
 
@@ -82,7 +82,7 @@ const PeopleApplied = () => {
 
 
             <div className='w-[90%] text-[26px] font-semibold text-slate-600  font-serif pb-2'>
-                <span className="relative border-b-[3px] border-purple-500 dark:border-purple-400 pb-1 px-2">
+                <span className="relative  pb-1 px-2">
     Peoples Applied
     <span className="absolute left-0 bottom-0 w-full h-[1px] bg-gradient-to-r from-purple-500 to-blue-500 dark:from-purple-400 dark:to-blue-400"></span>
   </span>
@@ -95,7 +95,7 @@ const PeopleApplied = () => {
 
                     return (
                         <div key={index} className=' w-full h-[240px] bg-inherit border-[1px] drop-shadow-lg
-                          bg-white dark:bg-[#282A36]  border-gray-200 dark:border-gray-700 shadow-lg rounded-xl flex items-center p-5 transition-all hover:shadow-purple-400/50 hover:scale-[1.02]' >
+                          bg-white dark:bg-[#282A36]  border-gray-200 dark:border-gray-700 shadow-lg rounded-xl flex items-center p-5 transition-all ' >
 
                             <div className="w-[180px] h-[180px] rounded-xl overflow-hidden shadow-md border border-gray-300 dark:border-gray-600">
 

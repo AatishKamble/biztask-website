@@ -344,15 +344,15 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
     </div>
 
     {/* Min Salary */}
-    <div className="text-[20px] text-[#2E3A46] font-serif px-4 mb-2">
+    <div className="text-[20px] text-[#2E3A46] flex font-serif px-4 mb-2">
       <span className="font-semibold">Min Salary:</span>
-      <span className="pl-2 font-medium text-[#3B6064]"><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.minSalary}</span>
+      <span className="pl-2 flex font-medium text-[#3B6064]"><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.minSalary}</span>
     </div>
 
     {/* Max Salary */}
-    <div className="text-[20px] text-[#2E3A46] font-serif px-4">
+    <div className="text-[20px] flex text-[#2E3A46] font-serif px-4">
       <span className="font-semibold">Max Salary:</span>
-      <span className="pl-2 font-medium text-[#3B6064]"><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.maxSalary}</span>
+      <span className="pl-2 font-medium flex text-[#3B6064]"><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.maxSalary}</span>
     </div>
 
   </div>

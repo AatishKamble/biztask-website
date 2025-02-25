@@ -125,7 +125,7 @@ const ProfilePage = ({ userDetails }) => {
 
 
 
-          <div ref={appliedJobsRef} className=' w-full h-auto border-slate-300 mt-10 bg-white shadow-md rounded-xl   mb-10'>
+          <div ref={appliedJobsRef} className=' w-full h-auto  mt-10   mb-10'>
 
             <div className='w-full font-semibold p-4 h-auto text-[26px] text-slate-600 font-serif'>
               <div className=' flex justify-between items-center relative'>
