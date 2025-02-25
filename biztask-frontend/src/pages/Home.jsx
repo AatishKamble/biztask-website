@@ -72,7 +72,7 @@ const dispatch=useDispatch();
       <PopularServices />
       <FeaturedJob />
       <HowItWorks HowItWorks={HowItWorksRef}/>
-      
+  
     </>
   );
 };

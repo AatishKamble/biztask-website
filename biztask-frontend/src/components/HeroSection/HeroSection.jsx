@@ -14,6 +14,7 @@ const HeroSection = () => {
             src={heroSection}
             alt="Hero Section"
             className="w-full h-full object-cover opacity-40"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900 opacity-50"></div>
         </div>

@@ -58,14 +58,14 @@ const ProfilePage = ({ userDetails }) => {
         <div className=' w-full h-auto bg-[#ffffff] flex flex-col p-[100px] items-center justify-center '>
 
 
-<div className="w-full max-w-4xl text-3xl text-blue-900 font-bold font-serif pb-4 border-b-2 border-blue-400">
-  Profile Details
-</div>
+          <div className="w-full max-w-4xl text-3xl text-blue-900 font-bold font-serif pb-4 border-b-2 border-blue-400">
+            Profile Details
+          </div>
           <div className=' w-[80%] h-[240px] bg-gradient-to-r from-purple-500 to-teal-400 rounded-3xl shadow-xl border-[1px] drop-shadow-lg border-slate-400 flex items-center px-10 my-10' >
-          <div className="absolute w-32 h-32 bg-white/20 rounded-full -top-6 -left-6 blur-lg"></div>
+            <div className="absolute w-32 h-32 bg-white/20 rounded-full -top-6 -left-6 blur-lg"></div>
 
-          <div className="w-40 h-40 rounded-full border-4 border-white p-1 bg-white shadow-lg overflow-hidden flex-shrink-0">
-          <img src={`${userDetails.profileImage?.ImageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
+            <div className="w-40 h-40 rounded-full border-4 border-white p-1 bg-white shadow-lg overflow-hidden flex-shrink-0">
+              <img src={`${userDetails.profileImage?.ImageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
             </div>
             <div className='w-full h-[180px] relative flex items-center flex-col justify-center px-10'>
 
@@ -97,46 +97,43 @@ const ProfilePage = ({ userDetails }) => {
 
           </div>
 
+          <div ref={businessRegistrationRef} className="border-slate-300 w-full h-auto mt-10 bg-white shadow-md rounded-xl p-6">
+  {/* Header Section */}
+  <div className="w-full font-semibold text-[26px] text-slate-700 font-serif border-b border-slate-300 pb-6">
+    <div className="flex justify-between items-center">
+      <span>Businesses</span>
+      <div>
+        <Link to={"/bussiness-registration"}>
+          <button className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-[18px] font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-md">
+            <FaAddressCard className="text-[22px]" />
+            <span>Register</span>
+          </button>
+        </Link>
+      </div>
+    </div>
+  </div>
 
-          <div ref={businessRegistrationRef} className=' border-slate-400 w-full h-auto  mt-10'>
-
-            <div className='w-full  font-semibold p-2 h-auto text-[26px] text-slate-600 font-serif'>
-              <div className=' flex justify-between  items-center py-10 '>
-                <span >Businesses</span>
-                <div>
-                  <Link to={"/bussiness-registration"}>
-                    <button className=' flex rounded-md hover:text-[#3543be] border-[1px] hover:bg-slate-100 w-auto p-2 items-center justify-center h-auto text-slate-600 font-sans font-semibold text-[24px]'><FaAddressCard /><span className='text-[18px] px-4'> Register</span></button>
-                  </Link>
-
-                </div>
-              </div>
-            </div>
-
-            <div className=' w-full grid sm:grid-cols-2 xl:grid-cols-3  p-2 gap-2 gap-y-6'>
-              {
-                userDetails?.businesses?.map((business, index) => (
-                  <>
-
-                    <BusinessCard businessDetails={business} key={index} handlePopupWarningOpen={handlePopupWarningOpen} />
-
-                  </>
-                ))
-              }
- 
-            </div>
-
-          </div>
+  {/* Business Cards Grid */}
+  <div className="w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
+    {userDetails?.businesses?.map((business, index) => (
+      <BusinessCard businessDetails={business} key={index} handlePopupWarningOpen={handlePopupWarningOpen} />
+    ))}
+    
+    
+  </div>
+</div>
 
 
-          <div ref={appliedJobsRef} className=' w-full h-auto   mb-10'>
 
-            <div className='w-full font-semibold p-2 h-auto text-[26px] text-slate-600 font-serif'>
+          <div ref={appliedJobsRef} className=' w-full h-auto border-slate-300 mt-10 bg-white shadow-md rounded-xl   mb-10'>
+
+            <div className='w-full font-semibold p-4 h-auto text-[26px] text-slate-600 font-serif'>
               <div className=' flex justify-between items-center relative'>
                 <span >Jobs Applied</span>
 
                 <Link to={"/jobs"}>
 
-                  <span className='px-5 hover:text-slate-600 cursor-pointer'><FaExternalLinkAlt /></span>
+                  <span className='px-5 hover:text-blue-600 text-blue-600 cursor-pointer'><FaExternalLinkAlt /></span>
 
                 </Link></div>
             </div>

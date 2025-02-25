@@ -28,7 +28,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-[#dde9f2] to-[#c3d3db] w-full h-[350px] flex justify-between items-center shadow-lg border-t-4 border-blue-900">
+      <div className="bg-gradient-to-r from-blue-300 via-blue-400 to-blue-300  w-full h-[350px] flex justify-between items-center shadow-lg border-t-4 border-cyan-500">
 
         <div className="w-full h-full grid grid-cols-4 gap-5 p-8">
 
@@ -42,34 +42,34 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             <span className="font-serif font-semibold text-blue-900 text-[30px]">
               bizTask
             </span>
-            <p className="text-center text-slate-800 text-[18px] leading-relaxed px-4">
+            <p className="text-center font-serif text-slate-800 text-[18px] leading-relaxed px-4">
               Connecting businesses, workers, and service seekers with ease
             </p>
           </div>
 
           <div className="p-4 ps-8 border-r-2 border-blue-900 border-dotted">
-            <span className="text-xl font-serif font-semibold text-blue-950">
+            <span className="text-xl font-serif font-semibold text-blue-900">
               Quick Links
             </span>
             <ul className="text-lg font-serif font-light text-black flex flex-col gap-3 mt-3">
               <Link to={"/jobs"}>
-                <li className="cursor-pointer hover:text-blue-600 hover:translate-x-1 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-200 hover:translate-x-1 transition-all duration-300">
                   Jobs
                 </li>
               </Link>
               <Link to={"/services"}>
-                <li className="cursor-pointer hover:text-blue-600 hover:translate-x-1 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-200 hover:translate-x-1 transition-all duration-300">
                   Services
                 </li>
               </Link>
               <li
-                className="cursor-pointer hover:text-blue-600 hover:translate-x-1 transition-all duration-300"
+                className="cursor-pointer hover:text-cyan-200 hover:translate-x-1 transition-all duration-300"
                 onClick={handleBusinessRegistration}
               >
                 Register Businesses
               </li>
               <li
-                className="cursor-pointer hover:text-blue-600 hover:translate-x-1 transition-all duration-300"
+                className="cursor-pointer hover:text-cyan-200 hover:translate-x-1 transition-all duration-300"
                 onClick={handleAppliedJob}
               >
                 Applied Job
@@ -80,20 +80,20 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
 
           {/* Resources */}
           <div className="p-2 ps-8 border-r-2 border-sky-900 border-dotted">
-            <span className="text-xl font-serif font-semibold text-slate-700">
+            <span className="text-xl font-serif font-semibold text-blue-900">
               Resources
             </span>
             <ul className="text-lg font-serif font-light text-black flex flex-col gap-2 mt-4">
               <Link to={"/#how-it-works"}>
-                <li className="cursor-pointer hover:text-blue-800 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-200 transition-all duration-300">
                   How It Works
                 </li>
               </Link>
-              <li className="cursor-pointer hover:text-blue-800 transition-all duration-300">
+              <li className="cursor-pointer hover:text-cyan-200 transition-all duration-300">
                 Support
               </li>
               <Link to={"/about-us"}>
-                <li className="cursor-pointer hover:text-blue-800 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-200 transition-all duration-300">
                   Developers
                 </li>
               </Link>

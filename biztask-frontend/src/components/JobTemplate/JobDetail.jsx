@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { getJobById, removeJob } from "../../Redux/Job/Action.js";
 import { getBusinessById } from "../../Redux/Business/Action.js";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { applyForJob, getUserProfile } from "../../Redux/Auth/Action.js";
 import timeAgo from "../timeCalculate.js";
 import { HiBellAlert } from "react-icons/hi2";
@@ -345,13 +346,13 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
     {/* Min Salary */}
     <div className="text-[20px] text-[#2E3A46] font-serif px-4 mb-2">
       <span className="font-semibold">Min Salary:</span>
-      <span className="pl-2 font-medium text-[#3B6064]">${jobStore?.job?.minSalary}</span>
+      <span className="pl-2 font-medium text-[#3B6064]"><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.minSalary}</span>
     </div>
 
     {/* Max Salary */}
     <div className="text-[20px] text-[#2E3A46] font-serif px-4">
       <span className="font-semibold">Max Salary:</span>
-      <span className="pl-2 font-medium text-[#3B6064]">${jobStore?.job?.maxSalary}</span>
+      <span className="pl-2 font-medium text-[#3B6064]"><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.maxSalary}</span>
     </div>
 
   </div>
