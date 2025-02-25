@@ -33,14 +33,14 @@ const PeopleApplied = () => {
         <div className={`bg-[#ffffff] relative flex flex-col  items-center w-full h-auto px-20 }`} >
 
 
-            <div className=' w-[90%] h-[200px] bg-gradient-to-r from-blue-300 via-cyan-300 to-blue-300 shadow-xl rounded-2xl dark:border-gray-700 transition-all hover:shadow-purple-400/50 my-10 flex items-center px-10'>
+            <div className=' w-[90%] h-[200px] bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400 shadow-xl rounded-2xl dark:border-gray-700 transition-all hover:shadow-blue-400/50 my-10 flex items-center px-10'>
 
 
                 <div className='w-full h-[200px] relative flex items-start flex-col justify-center px-10'>
 
 
 
-                    <div className='w-full text-[30px] text-white font-serif font-bold py-2'>
+                    <div className='w-full text-[30px] text-black font-serif font-bold py-2'>
                         <span className=' font-semibold px-2'>
                             {jobStore?.job?.jobRole
                             }
@@ -49,7 +49,7 @@ const PeopleApplied = () => {
                     </div>
 
                     <div className='w-full text-[22px] text-slate-600 font-serif pb-2'>
-                        <span className='text-gray-600 dark:text-gray-300 font-serif pb-2 p font-normal px-2'>
+                        <span className='text-gray-600  font-serif pb-2 p font-normal px-2'>
                             {
                                 jobStore?.job?.business?.companyName
                             }
@@ -58,15 +58,15 @@ const PeopleApplied = () => {
                     </div>
 
                     <div className="w-[400px] h-auto text-[20px] flex items-center text-blue-700 dark:text-teal-300 font-serif">
-                        <IoLocationSharp className="text-blue-500 dark:text-teal-400" />
+                        <IoLocationSharp className="text-black" />
                         {jobStore?.job?.jobLocations?.map((location, ind) => (<span className=' font-normal ps-1 text-white'> {location}{ind!=jobStore?.job?.jobLocations?.length-1?',':"" }</span>))
                         }
 
 
                     </div>
 
-                    <div className="w-full px-2 pt-5 flex items-center text-[18px] text-gray-600 dark:text-gray-400 font-serif">
-                        <IoMdTime className="text-gray-500 dark:text-gray-300" />
+                    <div className="w-full px-2 pt-5 flex items-center text-[18px] text-gray-600 dark:text-gray-600 font-serif">
+                        <IoMdTime className="text-gray-500 " />
                         <span className="text-[16px] font-serif font-normal px-2 "> {timeAgo(jobStore?.job?.postedAt)}</span>
 
                     </div>
