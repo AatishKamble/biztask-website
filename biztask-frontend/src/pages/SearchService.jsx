@@ -173,7 +173,7 @@ const SearchService = () => {
 
   }
 
-  const isLoading = useSelector(store => store.serviceStore.isLoading) ;
+  const isLoading = useSelector(store => store.serviceStore.isLoading);
 
   return (
     <>
@@ -181,10 +181,51 @@ const SearchService = () => {
       <div className=' bg-blue-950 w-full h-[400px] mt-1 relative drop-shadow-xl shadow-blue-200  '>
         <img src={serviceBack} alt="" className=' w-full h-full object-cover opacity-40 ' />
 
-        <div className='  absolute top-44 w-full flex flex-col justify-center items-center'>
-          <span className=' font-mono font-semibold text-[#ffffff]  text-[38px] opacity-75'>Find Services Effectively!</span>
+        <div className='absolute top-[205px] w-full flex flex-col justify-center items-center'>
+
+          <div className='absolute bottom-[85px] left-1/3 w-1 flex flex-col items-center'>
+            {
+              Array.from({ length: 14 }).map((_, i) => <div className={`w-1 h-3 bg-gray-400 mb-1`}></div>
+              )
+            }
+
+          </div>
+
+          {/* Right long hanging chain */}
+          <div className='absolute bottom-[85px] right-1/3 w-1 flex flex-col items-center'>
+            {
+              Array.from({ length: 14 }).map((_, i) => <div className={`w-1 h-3 bg-gray-400 mb-1`}></div>
+              )
+            }
+          </div>
 
 
+          <div className=' w-[600px] bg-gradient-to-b from-teal-50 to-teal-100  font-sans font-semibold text-blue-500 px-10 py-5 rounded-md shadow-lg border-2 border-teal-200 relative transform hover:translate-y-1 transition-all duration-500 swing'>
+
+            <div className='absolute -top-3 left-1/3 w-6 h-6 border-4 border-blue-500 rounded-full bg-rose-300'></div>
+            <div className='absolute -top-3 right-1/3 w-6 h-6 border-4 border-blue-500 rounded-full bg-rose-300'></div>
+
+            <div className='absolute inset-0 overflow-hidden opacity-10'>
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className='w-full h-1 bg-teal-800 my-3' style={{ marginTop: `${i * 9}px` }}></div>
+              ))}
+            </div>
+
+
+            <span className='text-[38px] opacity-80 block text-center drop-shadow-md'>Find Services Effectively!</span>
+          </div>
+
+          {/* CSS for gentle swinging animation */}
+          <style jsx>{`
+    @keyframes swing {
+      0% { transform: rotate(-1deg); }
+      50% { transform: rotate(1deg); }
+      100% { transform: rotate(-1deg); }
+    }
+    .swing {
+      animation: swing 4s infinite ease-in-out;
+    }
+  `}</style>
         </div>
 
       </div>
@@ -193,7 +234,7 @@ const SearchService = () => {
 
 
           <div className='ps-4 mb-5 w-[300px]  text-[35px] py-2 '>
-            <span className='w-fullflex justify-start items-center text-blue-800 font-sans font-semibold '>Services</span>
+            <span className='w-fullflex justify-start items-center text-blue-800 font-serif font-semibold '>Services</span>
 
           </div>
 
@@ -218,18 +259,18 @@ const SearchService = () => {
 
           />
         </div>
-       
+
         <div className=' w-full h-auto  grid grid-cols-3  gap-10 ps-10 pe-2 mt-10 relative '>
 
-        {isLoading == true && (
-          <div className="absolute w-full h-[800px] inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
+          {isLoading == true && (
+            <div className="absolute w-full h-[800px] inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
 
-            <JobLoader />
+              <JobLoader />
 
-          </div>
-        )}
+            </div>
+          )}
           {
-             isLoading == false &&  serviceStore.services?.services?.map((service, index) => (<ServiceCard business={service?.bussiness} service={service} provider={service?.bussiness?.companyName} />))
+            isLoading == false && serviceStore.services?.services?.map((service, index) => (<ServiceCard business={service?.bussiness} service={service} provider={service?.bussiness?.companyName} />))
           }
 
 

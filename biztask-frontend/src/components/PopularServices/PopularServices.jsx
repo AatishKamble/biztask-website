@@ -75,10 +75,10 @@ const PopularServices = () => {
 <div className="grid grid-cols-2 gap-8 xl:gap-6 lg:px-10 sm:px-4 lg:gap-10 justify-center items-center self-center my-auto lg:ms-10">
   {services.map((element, ind) => (
     <Link to={`/services?serviceName=${element.value}`} key={ind}>
-      <div className="relative bg-gradient-to-r from-[#FFE5B4] to-[#FFFACD] w-[400px] sm:w-[380px] lg:w-full h-[160px] rounded-[40px] shadow-md flex items-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
+      <div className="relative bg-gradient-to-r from-[#748fd7] to-[#608dcf] w-[400px] sm:w-[380px] lg:w-full h-[160px] rounded-[40px] shadow-md flex items-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
         
         {/* Circular Icon Section */}
-        <div className="w-[90px] h-[90px] rounded-full bg-[#A7C7E7] shadow-lg flex justify-center items-center ml-6">
+        <div className="w-[90px] h-[90px] rounded-full bg-[#e7e5a7] shadow-lg flex justify-center items-center ml-6">
           <span
             className="w-[80px] h-[80px] rounded-full"
             style={{
@@ -97,7 +97,7 @@ const PopularServices = () => {
         </div>
 
         {/* Right Glow Effect for Hover */}
-        <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#FFCC80] rounded-full opacity-30 transition-all duration-300"></div>
+        <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#2966e0] rounded-full opacity-30 transition-all duration-300"></div>
 
       </div>
     </Link>

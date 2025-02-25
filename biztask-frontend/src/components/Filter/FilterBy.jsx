@@ -11,7 +11,7 @@ const FilterBy = ({
 }) => {
 
   return (
-    <div className='bg-[#ffffff] border-[1px] border-slate-300 w-[400px] drop-shadow-xl rounded-2xl shadow-slate-800 h-auto mx-10'>
+    <div className='bg-gradient-to-r from-[#e0f2fe] to-[#bfdbfe] border-[1px] border-slate-300 w-[400px] drop-shadow-xl rounded-2xl shadow-slate-800 h-auto mx-10 '>
       <div className='px-10 py-10 border-[1px] border-slate-300 w-full drop-shadow-xl rounded-t-2xl shadow-slate-800 h-[200px]'>
         <div className='w-full text-[24px] flex justify-start items-center text-blue-950 font-serif py-2'>
           <span className='font-semibold px-2'>Find Job</span>
@@ -23,7 +23,7 @@ const FilterBy = ({
             value={nameInput}
             onChange={handleNameInputChange}
             placeholder='Find job with name'
-            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md'
+            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  border-slate-600 bg-[#eceef0] rounded-md focus-within:drop-shadow-md'
           />
           <button className='text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950 drop-shadow-2xl flex justify-center items-center' onClick={handleNameInputSubmit}>
             <CiSearch />
@@ -42,7 +42,7 @@ const FilterBy = ({
             value={locationInput}
             onChange={handleLocationInputChange}
             placeholder='Find job with Location'
-            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md'
+            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  border-slate-600 bg-[#eceef0] rounded-md focus-within:drop-shadow-md'
           />
           <button className='text-[28px] hover:text-blue-950 font-serif font-bold align-middle h-[50px] w-[50px] drop-shadow-2xl flex justify-center items-center' onClick={handleLocationInputSubmit}>
             <MdOutlineMyLocation />
@@ -61,7 +61,7 @@ const FilterBy = ({
             value={priceInput}
             onChange={handlePriceInputChange}
             placeholder='Enter Salary (Min,Max)'
-            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-md'
+            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  bg-[#eceef0] rounded-md focus-within:drop-shadow-md'
           />
           <button className='text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950 drop-shadow-2xl flex justify-center items-center -rotate-90' onClick={handlePriceInputSubmit}>
             <LiaSearchDollarSolid />
