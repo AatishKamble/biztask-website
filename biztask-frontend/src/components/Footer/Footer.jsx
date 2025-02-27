@@ -28,7 +28,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-blue-300 via-blue-400 to-blue-300  w-full h-[350px] flex justify-between items-center shadow-lg border-t-4 border-cyan-500">
+      <div className="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200  w-full h-[350px] flex justify-between items-center shadow-lg border-t-4 border-cyan-500">
 
         <div className="w-full h-full grid grid-cols-4 gap-5 p-8">
 
@@ -53,23 +53,23 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             </span>
             <ul className="text-lg font-serif font-light text-black flex flex-col gap-3 mt-3">
               <Link to={"/jobs"}>
-                <li className="cursor-pointer hover:text-cyan-200 hover:translate-x-1 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-500 hover:translate-x-1 transition-all duration-300">
                   Jobs
                 </li>
               </Link>
               <Link to={"/services"}>
-                <li className="cursor-pointer hover:text-cyan-200 hover:translate-x-1 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-500 hover:translate-x-1 transition-all duration-300">
                   Services
                 </li>
               </Link>
               <li
-                className="cursor-pointer hover:text-cyan-200 hover:translate-x-1 transition-all duration-300"
+                className="cursor-pointer hover:text-cyan-500 hover:translate-x-1 transition-all duration-300"
                 onClick={handleBusinessRegistration}
               >
                 Register Businesses
               </li>
               <li
-                className="cursor-pointer hover:text-cyan-200 hover:translate-x-1 transition-all duration-300"
+                className="cursor-pointer hover:text-cyan-500 hover:translate-x-1 transition-all duration-300"
                 onClick={handleAppliedJob}
               >
                 Applied Job
@@ -85,15 +85,15 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             </span>
             <ul className="text-lg font-serif font-light text-black flex flex-col gap-2 mt-4">
               <Link to={"/#how-it-works"}>
-                <li className="cursor-pointer hover:text-cyan-200 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-500 transition-all duration-300">
                   How It Works
                 </li>
               </Link>
-              <li className="cursor-pointer hover:text-cyan-200 transition-all duration-300">
+              <li className="cursor-pointer hover:text-cyan-500 transition-all duration-300">
                 Support
               </li>
               <Link to={"/about-us"}>
-                <li className="cursor-pointer hover:text-cyan-200 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-500 transition-all duration-300">
                   Developers
                 </li>
               </Link>

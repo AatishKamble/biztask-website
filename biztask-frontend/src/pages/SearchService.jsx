@@ -200,10 +200,10 @@ const SearchService = () => {
           </div>
 
 
-          <div className=' w-[600px] bg-gradient-to-b from-teal-50 to-teal-100  font-sans font-semibold text-blue-500 px-10 py-5 rounded-md shadow-lg border-2 border-teal-200 relative transform hover:translate-y-1 transition-all duration-500 swing'>
+          <div className=' w-[600px] bg-gradient-to-br from-blue-50 to-blue-100 font-sans font-semibold text-blue-950 px-10 py-5 rounded-md shadow-lg border-2 border-slate-300 relative transform hover:translate-y-1 transition-all duration-500 swing'>
 
-            <div className='absolute -top-3 left-1/3 w-6 h-6 border-4 border-blue-500 rounded-full bg-rose-300'></div>
-            <div className='absolute -top-3 right-1/3 w-6 h-6 border-4 border-blue-500 rounded-full bg-rose-300'></div>
+            <div className='absolute -top-3 left-1/3 w-6 h-6 border-4 border-blue-500 rounded-full bg-yellow-500'></div>
+            <div className='absolute -top-3 right-1/3 w-6 h-6 border-4 border-blue-500 rounded-full bg-yellow-500'></div>
 
             <div className='absolute inset-0 overflow-hidden opacity-10'>
               {Array.from({ length: 12 }).map((_, i) => (
