@@ -79,11 +79,11 @@ const AboutUs = () => {
           <MdEmail className="text-blue-400 text-xl" />
           <span className="hover:text-blue-500 transition font-serif">Atishk2454@gmail.com</span>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex font-serif items-center space-x-2">
           <MdPhone className="text-teal-400 text-xl" />
           <span className="hover:text-teal-500 transition">9373912454</span>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex font-serif items-center space-x-2">
           <ImLinkedin className="text-blue-500 text-xl" />
           <span className="hover:text-blue-600 transition ">aatish-kamble2003</span>
         </div>

@@ -22,7 +22,7 @@ const Review = ({ review,userDetails,handleReviewDelete}) => {
 </div>
 
 {/* Review Content */}
-<div className="mt-16 px-4 text-center">
+<div className="mt-16 px-4 font-serif text-center">
 
     {/* Review Message */}
     <p className="text-lg font-medium leading-relaxed italic bg-white bg-opacity-10 p-4 rounded-lg border border-white/20 shadow-md">
@@ -46,7 +46,7 @@ const Review = ({ review,userDetails,handleReviewDelete}) => {
 
 {/* Delete Icon (only for the user) */}
 {review?.user?._id === userDetails?._id && (
-    <div className="absolute bottom-4 right-4">
+    <div className="absolute bottom-3 right-4">
         <span className="p-2 rounded-full  text-white hover:text-red-700 cursor-pointer transition duration-300"
               onClick={() => handleReviewDelete(review?._id)}>
             <RiDeleteBin2Fill size={30} />

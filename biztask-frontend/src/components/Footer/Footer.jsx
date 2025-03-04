@@ -53,23 +53,23 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             </span>
             <ul className="text-lg font-serif font-light text-black flex flex-col gap-3 mt-3">
               <Link to={"/jobs"}>
-                <li className="cursor-pointer hover:text-cyan-500 hover:translate-x-1 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-600 hover:translate-x-1 transition-all duration-300">
                   Jobs
                 </li>
               </Link>
               <Link to={"/services"}>
-                <li className="cursor-pointer hover:text-cyan-500 hover:translate-x-1 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-600 hover:translate-x-1 transition-all duration-300">
                   Services
                 </li>
               </Link>
               <li
-                className="cursor-pointer hover:text-cyan-500 hover:translate-x-1 transition-all duration-300"
+                className="cursor-pointer hover:text-cyan-600 hover:translate-x-1 transition-all duration-300"
                 onClick={handleBusinessRegistration}
               >
                 Register Businesses
               </li>
               <li
-                className="cursor-pointer hover:text-cyan-500 hover:translate-x-1 transition-all duration-300"
+                className="cursor-pointer hover:text-cyan-600 hover:translate-x-1 transition-all duration-300"
                 onClick={handleAppliedJob}
               >
                 Applied Job
@@ -85,15 +85,15 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             </span>
             <ul className="text-lg font-serif font-light text-black flex flex-col gap-2 mt-4">
               <Link to={"/#how-it-works"}>
-                <li className="cursor-pointer hover:text-cyan-500 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-600 transition-all duration-300">
                   How It Works
                 </li>
               </Link>
-              <li className="cursor-pointer hover:text-cyan-500 transition-all duration-300">
+              <li className="cursor-pointer hover:text-cyan-600 transition-all duration-300">
                 Support
               </li>
               <Link to={"/about-us"}>
-                <li className="cursor-pointer hover:text-cyan-500 transition-all duration-300">
+                <li className="cursor-pointer hover:text-cyan-600 transition-all duration-300">
                   Developers
                 </li>
               </Link>

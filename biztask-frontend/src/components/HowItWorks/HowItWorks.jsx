@@ -32,7 +32,7 @@ const HowItWorks = ({ HowItWorks }) => {
         <span className="text-white font-serif font-bold text-[22px] pt-4">
           For Businesses
         </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[18px] pt-2 w-[200px]">
+        <ol className="text-gray-300 font-serif font-normal list-disc text-[16px] pt-2 w-[200px]">
           <li>Register Your Business.</li>
           <li>Add Your Services.</li>
           <li>Post Job Openings.</li>
@@ -47,7 +47,7 @@ const HowItWorks = ({ HowItWorks }) => {
         <span className="text-white font-serif font-bold text-[22px] pt-4">
           For Workers
         </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[18px] pt-2 w-[200px]">
+        <ol className="text-gray-300 font-serif font-normal list-disc text-[16px] pt-2 w-[200px]">
           <li>Find Job Opportunities.</li>
           <li>Start Providing Services.</li>
         </ol>
@@ -61,7 +61,7 @@ const HowItWorks = ({ HowItWorks }) => {
         <span className="text-white font-serif font-bold text-[22px] pt-4">
           For Service Seekers
         </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[18px] pt-2 w-[200px]">
+        <ol className="text-gray-300 font-serif font-normal list-disc text-[16px] pt-2 w-[200px]">
           <li>Search Services Easily.</li>
           <li>Flexible for Your Location.</li>
         </ol>

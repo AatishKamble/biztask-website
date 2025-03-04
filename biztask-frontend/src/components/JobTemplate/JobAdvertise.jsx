@@ -67,7 +67,7 @@ const timeAgo = (postedAt) => {
 
   {/* Job Role & Company Name - Ensuring No Overlap */}
   <div className="mb-4">
-    <p className="text-blue-900 font-serif font-bold text-[22px] sm:text-[24px] leading-tight break-words">{job?.jobRole}</p>
+    <p className="text-blue-900 font-serif font-bold text-[20px] sm:text-[24px] leading-tight break-words pe-20">{job?.jobRole}</p>
     <p className="text-gray-700 font-serif font-medium text-[18px] mt-1 truncate">{business?.companyName}</p>
   </div>
 

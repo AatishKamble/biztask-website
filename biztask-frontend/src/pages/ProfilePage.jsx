@@ -104,7 +104,7 @@ const ProfilePage = ({ userDetails }) => {
       <span>Businesses</span>
       <div>
         <Link to={"/bussiness-registration"}>
-          <button className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-[18px] font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-md">
+          <button className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-[17px] font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-md">
             <FaAddressCard className="text-[22px]" />
             <span>Register</span>
           </button>

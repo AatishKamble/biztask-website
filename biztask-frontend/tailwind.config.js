@@ -3,7 +3,9 @@ export default {
   content: [ "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
-    extend: {},
+    extend: {fontFamily: {
+        'serif': ['Merriweather', 'ui-serif', 'Georgia', 'Cambria', "Times New Roman", 'Times', 'serif'],
+     },},
   },
   plugins: [],
 }

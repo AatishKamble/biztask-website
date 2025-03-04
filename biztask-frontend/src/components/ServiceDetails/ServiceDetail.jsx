@@ -218,24 +218,24 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
 
-                        <div className='w-full text-[30px] text-slate-800 font-serif py-2'>
+                        <div className='w-full text-[28px] text-slate-800 font-serif py-2'>
                             <span className=' font-semibold px-2'>{serviceDetails?.serviceType}</span>
 
                         </div>
 
-                        <div className='w-full text-[22px] text-slate-600 font-serif pb-2'>
+                        <div className='w-full text-[20px] text-slate-600 font-serif pb-2'>
                             <span className=' font-normal px-2'>{serviceDetails?.bussiness?.companyName}
                             </span>
 
                         </div>
-                        <div className='w-full px-2 pb-5 flex justify-start items-center  text-[18px] text-blue-950 font-serif'>
+                        <div className='w-full px-2 pb-5 flex justify-start items-center  text-[16px] text-blue-950 font-serif'>
                             <span>Ratings : </span>
-                            <span className="text-[30px] font-serif font-normal px-2  text-yellow-400"><Star star={serviceDetails?.rating} /> </span>
+                            <span className="text-[26px] font-serif font-normal px-2  text-yellow-400"><Star star={serviceDetails?.rating} /> </span>
 
                         </div>
-                        <div className='w-[400px]  h-auto text-[20px] flex justify-start items-center text-blue-950 font-serif px-2 '>
-                            <span><IoLocationSharp /></span>
-                            <span className=' font-normal px-2 text-slate-900'>
+                        <div className='w-[400px]  h-auto text-[16px] flex justify-start items-center text-blue-950 font-serif px-2 '>
+                            <span className="text-[24px]"><IoLocationSharp /></span>
+                            <span className=' font-normal px text-slate-900'>
                                 {
                                     serviceDetails?.locations?.map((location, ind) => {
 
@@ -268,13 +268,13 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                             <div>
 
-                                <button className='bg-[#94b6b5]  rounded-md p-2 me-2   hover:bg-[#79bdba] w-auto h-auto text-slate-600 font-sans font-bold text-[18px]' onClick={() => scrollToSection(postedJobs)}> View posted Job</button>
+                                <button className='bg-[#94b6b5]  rounded-md p-2 me-2   hover:bg-[#79bdba] w-auto h-auto text-slate-600 font-serif font-bold text-[16px]' onClick={() => scrollToSection(postedJobs)}> View posted Job</button>
 
                                 <Link to={`/service-update/${serviceDetails?._id}`}>
-                                    <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' >Update</button>
+                                    <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-serif font-bold text-[16px]' >Update</button>
                                 </Link>
 
-                                <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-sans font-bold text-[18px]' onClick={handlePopupWarningOpen}>Remove</button>
+                                <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-serif font-bold text-[16px]' onClick={handlePopupWarningOpen}>Remove</button>
                             </div>
 
                         }
@@ -292,7 +292,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
       <div className="w-full flex items-center text-[24px] text-blue-900 font-serif font-semibold pb-3 border-b-2 border-blue-500">
         <MdOutlineDescription className="mr-2" /> Description
       </div>
-      <p  className='flex h-auto font-semibold  p-4 justify-between  py-2 text-slate-900 font-serif  text-[18px]'>
+      <p  className='flex h-auto text-justify  p-4 justify-between  py-2 text-slate-900 font-serif  text-[16px]'>
                             
         {serviceDetails?.Description}
       </p>
@@ -303,11 +303,11 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
       <div className="w-full flex items-center text-[24px] text-blue-900 font-serif font-semibold pb-3 border-b-2 border-blue-500">
         Features
       </div>
-      <ul className='flex flex-col h-auto  p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[18px]'>
+      <ul className='flex flex-col h-auto  p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[16px]'>
 
 
         {serviceDetails?.features?.map((feature, idx) => (
-          <li key={idx} className="flex font-semibold items-start">
+          <li key={idx} className="flex items-start">
             <span className="text-blue-600  mr-2">{idx + 1}.</span> {feature}
           </li>
         ))}
@@ -326,7 +326,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         <div className="text-[24px] text-blue-900 font-serif font-semibold pb-3">Contact Details</div>
 
         {/* Name */}
-        <div className="flex flex-wrap items-center text-[20px] text-slate-800 font-serif ">
+        <div className="flex flex-wrap items-center text-[18px] text-slate-800 font-serif ">
                                     <span className="px-2 text-blue-700 font-medium ">
                                         <FaUserSecret />
                                     </span>
@@ -335,7 +335,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     </span>
                                 </div>
         {/* Phone */}
-        <div className="flex flex-wrap items-center text-[20px] text-slate-800 " style={{ fontFamily: 'sans-serif' }}>
+        <div className="flex flex-wrap items-center text-[18px] text-slate-800 " style={{ fontFamily: 'sans-serif' }}>
                                     <span className="px-2 font-medium flex text-blue-700 items-center">
                                         <FaPhone />
                                     </span>
@@ -345,7 +345,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 </div>
 
         {/* Email */}
-        <div className="flex  items-center text-[20px] text-slate-800 font-serif  font-medium">
+        <div className="flex  items-center text-[18px] text-slate-800 font-serif  font-medium">
                                     <span className="px-2 text-blue-700 font-medium flex items-center">
                                         <MdEmail />
                                     </span>
@@ -372,17 +372,17 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         Pricing Details
       </div>
 
-      <div className="flex mt-6 items-center text-[20px] font-sans">
+      <div className="flex mt-6 items-center text-[18px] font-serif">
                                     <span className="px-2 font-semibold font-serif">Min Price:</span>
-                                    <span className="px-2 font-semibold flex items-center">
+                                    <span className="px-2  flex items-center">
                                         <MdOutlineCurrencyRupee className=" text-blue-700  " /> {serviceDetails?.minPrice}
                                     </span>
                                 </div>
 
                                 {/* Max Price Row */}
-                                <div className="flex items-center text-[20px]  font-sans w-full">
+                                <div className="flex items-center text-[18px]  font-serif w-full">
                                     <span className="px-2 font-semibold font-serif">Max Price:</span>
-                                    <span className="px-2 font-semibold flex items-center">
+                                    <span className="px-2  flex items-center">
                                         <MdOutlineCurrencyRupee className=" text-blue-700 " /> {serviceDetails?.maxPrice}
                                     </span>
                                 </div>
@@ -403,7 +403,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 <span className='border-b-[2px]'>Posted Jobs</span>
                             </div>
                             <Link to={`/job-post`}>
-                                <button className=' flex rounded-md hover:text-[#3543be] border-[1px] hover:bg-slate-100 w-[180px] p-2  items-center justify-center h-auto text-slate-600 font-sans font-semibold text-[24px]'><FaAddressCard /><span className='text-[18px] px-4'> Post Job</span></button>
+                                <button className=' flex rounded-md hover:text-[#3543be] border-[1px] hover:bg-slate-100 w-[180px] p-2  items-center justify-center h-auto text-slate-600 font-serif font-semibold text-[24px]'><FaAddressCard /><span className='text-[16px] px-4'> Post Job</span></button>
                             </Link>
 
                         </div>
@@ -435,12 +435,12 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 type="file"
                                 multiple
                                 onChange={handleWorkPicChange}
-                                className="w-64 p-3 bg-slate-100 border border-gray-300 rounded-md text-gray-800 font-sans font-semibold focus:outline-none focus:ring-2 "
+                                className="w-64 p-3 bg-slate-100 border border-gray-300 rounded-md text-gray-800 font-serif  focus:outline-none focus:ring-2 "
                             />
                             <div className="w-[20%] flex">
                                 <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  ps-10 cursor-pointer'  ><IoCloudUploadSharp onMouseEnter={() => setUploadButtonHover(!uploadButtonHover)} onMouseLeave={() => setUploadButtonHover(!uploadButtonHover)} /></button>
                                 {
-                                    uploadButtonHover && <div className="bg-white border-black border px-4 rounded-xl rounded-bl-none  text-[18px] h-10 flex items-center justify-center w-[80px] ms-2  font-serif">
+                                    uploadButtonHover && <div className="bg-white border-black border px-4 rounded-xl rounded-bl-none  text-[16px] h-10 flex items-center justify-center w-[80px] ms-2  font-serif">
                                         upload
                                     </div>
 
@@ -552,7 +552,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     <div className='w-full flex flex-col md:flex-row justify-center items-center gap-4 py-5'>
     <span className='text-blue-950 font-serif font-semibold text-[32px] border-b-2 border-blue-800 pb-1'>Reviews</span>
        <button onClick={() => handleSubmitReview()}
-       className='flex items-center justify-center h-[40px] text-white font-serif font-semibold text-[20px] w-[140px] px-5 bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all duration-300'>
+       className='flex items-center justify-center h-[40px] text-white font-serif font-semibold text-[18px] w-[140px] px-5 bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all duration-300'>
        
                             <span className="px-2"><IoIosAddCircle /> </span>
                             <span className="ml-2">Add</span>
@@ -578,7 +578,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     <div className="w-full flex justify-center flex-col items-center">
                         <textarea name="review" id="review"
                            placeholder="Share your experience with the service provider..."
-                           className='text-[18px] h-[180px] text-gray-700 font-serif outline-none p-4 w-[90%] md:w-[700px] border border-gray-400 bg-white rounded-lg shadow-md focus:ring-2 focus:ring-blue-400 transition-all duration-200'
+                           className='text-[16px] h-[180px] text-gray-700 font-serif outline-none p-4 w-[90%] md:w-[700px] border border-gray-400 bg-white rounded-lg shadow-md focus:ring-2 focus:ring-blue-400 transition-all duration-200'
                           
                            rows={5} 
                            style={{ resize: 'none' }}

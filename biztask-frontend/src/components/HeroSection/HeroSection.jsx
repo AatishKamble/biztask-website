@@ -9,7 +9,7 @@ const HeroSection = () => {
 
       <div className="relative  w-full h-[540px] flex items-center mt-1 xl:h-[100vh] overflow-hidden">
       
-        <div className="w-full h-full bg-slate-700 relative">
+        <div className="w-full h-full bg-blue-900 relative">
           <img
             src={heroSection}
             alt="Hero Section"

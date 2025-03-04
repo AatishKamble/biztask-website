@@ -9,6 +9,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { getAllServices } from '../Redux/ServiceR/Action.js';
 import serviceBack from "../assets/service.jpg"
 import JobLoader from '../components/Loader/JobLoader.jsx';
+import HangingBanner from '../components/HangingBanner/HangingBanner.jsx';
 const SearchService = () => {
 
   const location = useLocation();
@@ -178,57 +179,10 @@ const SearchService = () => {
   return (
     <>
 
-      <div className=' bg-blue-950 w-full h-[400px] mt-1 relative drop-shadow-xl shadow-blue-200  '>
+      <div className=' bg-blue-900 w-full h-[400px] mt-1 relative drop-shadow-xl shadow-blue-200  '>
         <img src={serviceBack} alt="" className=' w-full h-full object-cover opacity-40 ' />
-
-        <div className='absolute top-[205px] w-full flex flex-col justify-center items-center'>
-
-          <div className='absolute bottom-[85px] left-1/3 w-1 flex flex-col items-center'>
-            {
-              Array.from({ length: 14 }).map((_, i) => <div className={`w-1 h-3 bg-gray-400 mb-1`}></div>
-              )
-            }
-
-          </div>
-
-          {/* Right long hanging chain */}
-          <div className='absolute bottom-[85px] right-1/3 w-1 flex flex-col items-center'>
-            {
-              Array.from({ length: 14 }).map((_, i) => <div className={`w-1 h-3 bg-gray-400 mb-1`}></div>
-              )
-            }
-          </div>
-
-
-          <div className=' w-[600px] bg-gradient-to-br from-blue-50 to-blue-100 font-sans font-semibold text-blue-950 px-10 py-5 rounded-md shadow-lg border-2 border-slate-300 relative transform hover:translate-y-1 transition-all duration-500 swing'>
-
-            <div className='absolute -top-3 left-1/3 w-6 h-6 border-4 border-blue-500 rounded-full bg-yellow-500'></div>
-            <div className='absolute -top-3 right-1/3 w-6 h-6 border-4 border-blue-500 rounded-full bg-yellow-500'></div>
-
-            <div className='absolute inset-0 overflow-hidden opacity-10'>
-              {Array.from({ length: 12 }).map((_, i) => (
-                <div key={i} className='w-full h-1 bg-teal-800 my-3' style={{ marginTop: `${i * 9}px` }}></div>
-              ))}
-            </div>
-
-
-            <span className='text-[38px] opacity-80 block text-center drop-shadow-md'>Find Services Effectively!</span>
-          </div>
-
-          {/* CSS for gentle swinging animation */}
-          <style jsx>{`
-    @keyframes swing {
-      0% { transform: rotate(-1deg); }
-      50% { transform: rotate(1deg); }
-      100% { transform: rotate(-1deg); }
-    }
-    .swing {
-      animation: swing 4s infinite ease-in-out;
-    }
-  `}</style>
-        </div>
-
-      </div>
+<HangingBanner title="Find Services Effectively!"/>
+       </div>
       <div className='  w-full h-full pt-10 pb-10 ps-10 pe-0 flex '>
         <div>
 

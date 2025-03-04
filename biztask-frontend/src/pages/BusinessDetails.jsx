@@ -41,7 +41,7 @@ const BusinessDetails = ({ userDetails }) => {
       )}
 
       {/* Profile Section */}
-      <div className='w-full bg-gradient-to-r from-blue-50 to-slate-100 drop-shadow-lg mt-10 mb-6 flex flex-col justify-center items-center p-10 rounded-2xl shadow-md'>
+      <div className='w-full bg-gradient-to-r from-blue-100 to-slate-200 drop-shadow-lg mt-10 mb-6 flex flex-col justify-center items-center p-10 rounded-2xl shadow-md'>
         <div className="bg-white w-full rounded-2xl shadow-xl overflow-hidden mb-8 p-8 sm:p-12">
           <div className="flex flex-col items-center text-center">
             {/* Profile Image */}
