@@ -19,7 +19,7 @@ const HangingBanner=({title})=>{
             ))}
           </div>
 
-          {/* Job Search Banner */}
+          {/*  Search Banner */}
           <div className="w-[600px] bg-gradient-to-b from-gray-50 to-gray-200 font-sans font-semibold text-blue-600 px-10 py-5 rounded-lg shadow-xl border-2 border-blue-400 relative transform hover:translate-y-1 transition-all duration-500 swing">
 
 

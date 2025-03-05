@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { getUserProfile } from '../Redux/Auth/Action.js';
 import ProfilePage from './ProfilePage.jsx';
+import BusinessCard from '../components/BusinessCard/BusinessCard.jsx';
 
 const Home = () => {
 
@@ -72,7 +73,7 @@ const dispatch=useDispatch();
       <PopularServices />
       <FeaturedJob />
       <HowItWorks HowItWorks={HowItWorksRef}/>
-  
+ 
     </>
   );
 };

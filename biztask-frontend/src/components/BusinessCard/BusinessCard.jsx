@@ -25,7 +25,7 @@ const handleRemoveClick=()=>{
   <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-400 to-teal-400 rounded-3xl opacity-20 blur-xl transition-all duration-300 group-hover:opacity-40"></div>
   
   <div className="relative bg-white/90 backdrop-blur-lg rounded-3xl overflow-hidden shadow-lg border border-slate-200 
-    hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+    hover:shadow-2xl hover:-translate-y transition-all duration-300">
     
     {/* Header  */}
     <div className="bg-gradient-to-r from-sky-200 to-blue-300 p-6 rounded-t-3xl relative">

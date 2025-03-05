@@ -219,11 +219,11 @@ userDetails.name.length > 0 ? <div ref={buttonRef} className=' bg-cyan-500 w-[50
 
 
 <div ref={menuRef} className=' bg-cyan-500 text-white drop-shadow-xl shadow-lime-400  w-[120px] h-auto absolute  top-20 right-8 z-50 ' >
-  <div className=" cursor-pointer  py-2 w-full flex justify-center items-center hover:bg-yellow-300 hover:text-black transition border-blue-500 border-b " style={{ transition: "all 0.3s ease-in-out" }}>
+  <div className=" cursor-pointer  py-2 w-full flex justify-center items-center hover:bg-yellow-200 hover:text-black transition border-blue-500 border-b " style={{ transition: "all 0.3s ease-in-out" }}>
     <Link to="/profile">
       <span className="text-[20px] font-serif ">Profile</span></Link>
   </div>
-  <div className=" py-2 w-full   flex justify-center cursor-pointer items-center hover:bg-yellow-300 hover:text-black transition  " onClick={handleLogout}>
+  <div className=" py-2 w-full   flex justify-center cursor-pointer items-center hover:bg-yellow-200 hover:text-black transition  " onClick={handleLogout}>
     <span className="text-[20px] font-serif ">
       Logout
     </span>

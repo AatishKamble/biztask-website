@@ -4,7 +4,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
     extend: {fontFamily: {
-        'serif': ['Merriweather', 'ui-serif', 'Georgia', 'Cambria', "Times New Roman", 'Times', 'serif'],
+        'serif': ['Nunito', 'ui-serif', 'Georgia', 'Cambria', "Times New Roman", 'Times', 'serif'],
      },},
   },
   plugins: [],

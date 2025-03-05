@@ -12,7 +12,7 @@ const HowItWorks = ({ HowItWorks }) => {
   ref={HowItWorks}
   className="w-full xl:h-[600px] sm:h-[530px] px-6 lg:px-20 lg:h-[560px] my-20 flex justify-center"
 >
-  <div className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-800 relative h-full xl:w-[80%] rounded-3xl flex flex-col sm:w-full shadow-xl border border-gray-700">
+  <div className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-800 relative h-full xl:w-[90%] rounded-3xl flex flex-col sm:w-full shadow-xl border border-gray-700">
 
     {/* Section Title */}
     <div className="w-full flex justify-center items-center h-24 py-10 mt-8">
@@ -32,7 +32,7 @@ const HowItWorks = ({ HowItWorks }) => {
         <span className="text-white font-serif font-bold text-[22px] pt-4">
           For Businesses
         </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[16px] pt-2 w-[200px]">
+        <ol className="text-gray-300 font-serif font-normal list-disc text-[17px] pt-2 w-[200px]">
           <li>Register Your Business.</li>
           <li>Add Your Services.</li>
           <li>Post Job Openings.</li>
@@ -47,7 +47,7 @@ const HowItWorks = ({ HowItWorks }) => {
         <span className="text-white font-serif font-bold text-[22px] pt-4">
           For Workers
         </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[16px] pt-2 w-[200px]">
+        <ol className="text-gray-300 font-serif font-normal list-disc text-[17px] pt-2 w-[200px]">
           <li>Find Job Opportunities.</li>
           <li>Start Providing Services.</li>
         </ol>
@@ -61,9 +61,10 @@ const HowItWorks = ({ HowItWorks }) => {
         <span className="text-white font-serif font-bold text-[22px] pt-4">
           For Service Seekers
         </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[16px] pt-2 w-[200px]">
+        <ol className="text-gray-300 font-serif font-normal list-disc text-[17px] pt-2 w-[300px]">
           <li>Search Services Easily.</li>
           <li>Flexible for Your Location.</li>
+          <li>Apply filters.</li>
         </ol>
       </div>
 

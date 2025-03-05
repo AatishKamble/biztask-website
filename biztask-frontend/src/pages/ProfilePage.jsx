@@ -97,7 +97,7 @@ const ProfilePage = ({ userDetails }) => {
 
           </div>
 
-          <div ref={businessRegistrationRef} className="border-slate-300 w-full h-auto mt-10 bg-white shadow-md rounded-xl p-6">
+          <div ref={businessRegistrationRef} className="border-slate-400 w-full h-auto mt-10 bg-white  rounded-xl p-6">
   {/* Header Section */}
   <div className="w-full font-semibold text-[26px] text-slate-700 font-serif border-b border-slate-300 pb-6">
     <div className="flex justify-between items-center">
@@ -151,7 +151,7 @@ const ProfilePage = ({ userDetails }) => {
           </div>
 
           {popupwarning && (
-            <div className='fixed inset-0 bg-black opacity-50 z-40'></div>
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-md z-40 animate-fadeIn"></div>
           )}
 
           {popupwarning && (

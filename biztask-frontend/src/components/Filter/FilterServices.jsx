@@ -36,7 +36,7 @@ const FilterServices = ({
       name="name"
       value={nameInput}
       onChange={handleNameInputChange}
-        placeholder='Find services with name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full   border-slate-600 bg-[#dfe1e3] focus:ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
+        placeholder='Find services with name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full   border-slate-600 bg-[#eceef0]  focus:ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
         <button onClick={handleNameInputSubmit} className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950  drop-shadow-2xl flex justify-center items-center'>
           <CiSearch />
         </button>
@@ -58,7 +58,7 @@ const FilterServices = ({
         name="location"
         value={locationInput}
         onChange={handleLocationInputChange}
-        placeholder='Find srvice with Location' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] focus:ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
+        placeholder='Find srvice with Location' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#eceef0]  focus:ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
         <button onClick={handleLocationInputSubmit} className='  text-[28px] hover:text-blue-950  font-serif font-bold align-middle h-[50px] w-[50px] drop-shadow-2xl flex justify-center items-center'>
         <MdOutlineMyLocation />
         </button>
@@ -79,7 +79,7 @@ const FilterServices = ({
         name="price"
         value={priceInput}
         onChange={handlePriceInputChange}
-        placeholder='Enter Price (Min or Max)' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] focus:ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
+        placeholder='Enter Price (Min or Max)' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#eceef0] focus:ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
         <button onClick={handlePriceInputSubmit} className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950   drop-shadow-2xl flex justify-center items-center  -rotate-90'>
         <LiaSearchDollarSolid />
         </button>

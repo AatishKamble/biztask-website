@@ -335,7 +335,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     </span>
                                 </div>
         {/* Phone */}
-        <div className="flex flex-wrap items-center text-[18px] text-slate-800 " style={{ fontFamily: 'sans-serif' }}>
+        <div className="flex flex-wrap items-center text-[18px] text-slate-800 font-serif" >
                                     <span className="px-2 font-medium flex text-blue-700 items-center">
                                         <FaPhone />
                                     </span>
@@ -526,8 +526,8 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                 {popupwarning && (
-    <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40'></div>
-)}
+     <div className="fixed inset-0 bg-black/50 backdrop-blur-md z-40 animate-fadeIn"></div>
+    )}
 
 {popupwarning && (
     <div className='fixed inset-0 flex items-center justify-center z-50'>

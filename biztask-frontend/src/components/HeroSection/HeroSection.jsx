@@ -33,7 +33,7 @@ const HeroSection = () => {
         </style>
 
         <div className="absolute  mt-10 inset-0 flex flex-col justify-center items-center text-center animate-fadeIn">
-          <span className="font-serif font-semibold text-blue-950 text-[40px] drop-shadow-md 
+          <span className="font-serif font-extrabold text-[#111346] text-[40px] drop-shadow-md 
     opacity-0 animate-[fadeInZoom_1.2s_ease-in-out_forwards]">
             Find the right worker, job or service in your area!
           </span>
@@ -50,7 +50,7 @@ const HeroSection = () => {
 
             <Link to={"/jobs"}>
               <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-2 border-blue-700 shadow-lg 
-          transition-all duration-500 hover:scale-110 hover:bg-blue-700 hover:shadow-[0_0_15px_4px_rgba(0,119,255,0.8)]">
+          transition-all duration-500 hover:scale-105 hover:bg-blue-700 hover:shadow-[0_0_15px_4px_rgba(0,119,255,0.8)]">
                 <span className="font-serif font-bold pe-2 text-xl text-white">
                   Search Jobs
                 </span>
@@ -63,7 +63,7 @@ const HeroSection = () => {
 
             <Link to={"/services"}>
               <div className="relative bg-[#a0afaf] w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-2 border-slate-600 shadow-lg 
-          transition-all duration-500 hover:scale-110 hover:bg-[#8b9c9c] hover:shadow-[0_0_15px_4px_rgba(119,150,150,0.8)]">
+          transition-all duration-500 hover:scale-105 hover:bg-[#8b9c9c] hover:shadow-[0_0_15px_4px_rgba(119,150,150,0.8)]">
                 <span className="font-serif font-bold pe-2 text-xl text-slate-800">
                   Explore Services
                 </span>

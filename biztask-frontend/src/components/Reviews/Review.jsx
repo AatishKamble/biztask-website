@@ -14,7 +14,7 @@ const Review = ({ review,userDetails,handleReviewDelete}) => {
     return (
         <>
 
-<div className="relative bg-[#0f172a] text-[#e2e8f0] mt-5 w-[450px] min-h-[360px] p-6 rounded-[30px] border-[3px] border-[#1e3a8a] shadow-2xl transform transition-all duration-500 hover:scale-105 hover:border-[#2563eb] hover:shadow-[#9333ea]/50">
+<div className="relative bg-[#0f172a] text-[#e2e8f0] mt-5 w-[450px] min-h-[360px] p-6 rounded-[30px] border-[3px] border-[#1e3a8a] shadow-2xl transform transition-all duration-500 hover:scale-105 hover:border-[#2563eb] hover:shadow-[#7333ea]/50">
 
 {/* Floating Hexagonal Profile Image */}
 <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] bg-[#1e3a8a] rounded-md overflow-hidden border-[4px] border-[#2563eb] shadow-md rotate-[6deg]">
