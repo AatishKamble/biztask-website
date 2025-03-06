@@ -61,7 +61,7 @@ const HowItWorks = ({ HowItWorks }) => {
         <span className="text-white font-serif font-bold text-[22px] pt-4">
           For Service Seekers
         </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[17px] pt-2 w-[300px]">
+        <ol className="text-gray-300 ps-8 font-serif font-normal list-disc text-[17px] pt-2 w-[300px]">
           <li>Search Services Easily.</li>
           <li>Flexible for Your Location.</li>
           <li>Apply filters.</li>
