@@ -54,14 +54,14 @@ const HowItWorks = ({ HowItWorks }) => {
       </div>
 
       {/* Service Seekers Section */}
-      <div className="relative flex flex-col justify-center items-center bg-blue-700 bg-opacity-30 p-6 rounded-[20px] hover:scale-105 transition-all duration-300 shadow-lg border border-blue-500 hover:shadow-blue-500/50">
+      <div className="relative flex flex-col justify-center items-center bg-blue-700 bg-opacity-30 p-8 rounded-[20px] hover:scale-105 transition-all duration-300 shadow-lg border border-blue-500 hover:shadow-blue-500/50">
         <div className="text-[50px] w-[90px] h-[90px] rounded-full bg-yellow-500 flex justify-center items-center font-serif font-bold text-white shadow-lg">
           <MdMiscellaneousServices />
         </div>
         <span className="text-white font-serif font-bold text-[22px] pt-4">
           For Service Seekers
         </span>
-        <ol className="text-gray-300 ps-8 font-serif font-normal list-disc text-[17px] pt-2 w-[300px]">
+        <ol className="text-gray-300  font-serif font-normal list-disc text-[17px] pt-2  mx-auto">
           <li>Search Services Easily.</li>
           <li>Flexible for Your Location.</li>
           <li>Apply filters.</li>

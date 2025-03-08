@@ -43,10 +43,10 @@ const PopularServices = () => {
 
     return (
         <>
-            <div className="bg-gradient-to-b from-white via-slate-100 to-blue-50 w-full py-12 sm:px-10 xl:px-20 flex xl:flex-row sm:flex-col items-center mx-auto">
+            <div className="bg-gradient-to-b from-white via-slate-100 to-blue-50 w-full py-12 sm:px-10 xl:px-20 xl:ps-24 flex xl:flex-row sm:flex-col items-center mx-auto">
 
                {/* Left Section: Available Services */}
-<div className="bg-gradient-to-r from-[#4163ba] to-[#4266df] text-white sm:w-full xl:w-[450px] xl:h-[500px] flex flex-col justify-center items-center rounded-[50px] shadow-xl p-6 sm:h-[320px] relative overflow-hidden">
+<div className="bg-gradient-to-r from-[#4163ba] to-[#4266df] text-white sm:w-full xl:w-[450px] xl:h-[500px] flex flex-col justify-center items-center rounded-[50px] shadow-xl p-6 sm:h-[320px] relative overflow-hidden ">
 
 {/* Title */}
 <span className="text-white font-serif font-extrabold text-[36px] py-4">
@@ -72,7 +72,7 @@ const PopularServices = () => {
 
 
    {/* Right Section: Service Cards Grid */}
-<div className="grid grid-cols-2 gap-8 xl:gap-6 lg:px-10 sm:px-4 lg:gap-10 justify-center items-center self-center my-auto lg:ms-10">
+<div className="grid grid-cols-2 gap-8 xl:gap-6 xl:gap-x-9 lg:px-10 sm:px-4 lg:gap-10 justify-center items-center self-center my-auto lg:ms-10">
   {services.map((element, ind) => (
     <Link to={`/services?serviceName=${element.value}`} key={ind}>
       <div className="relative bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 w-[400px] sm:w-[380px] lg:w-full h-[160px] rounded-[40px] shadow-md flex items-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">

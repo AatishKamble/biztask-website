@@ -183,12 +183,12 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
             </h2>
 
             {/* Company Name */}
-            <h3 className="text-[22px] font-serif text-[#3D5060] px-3">{jobStore?.job?.business?.companyName}</h3>
+            <h3 className="text-[20px] font-serif text-[#3D5060] px-3">{jobStore?.job?.business?.companyName}</h3>
 
             {/* Job Location */}
             <div className="flex items-center text-[#1C4E80] px-1 space-x-1 mt-2">
-              <IoLocationSharp className="text-2xl text-[#0F3057]" />
-              <span className="text-gray-900 font-serif text-[18px]">
+              <IoLocationSharp className="text-2xl " />
+              <span className=" font-serif text-[18px]">
                 {jobStore?.job?.jobLocations?.slice(0, 8).map((location, ind) => {
                   let formattedLocation = location.charAt(0).toUpperCase() + location.slice(1);
                   if (ind !== jobStore?.job?.jobLocations?.length - 1) {
@@ -251,8 +251,8 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
           <div className="w-[650px]">
 
             {/* Job Overview Heading */}
-            <div className="w-full h-14 flex items-center px-6 text-[24px] font-serif font-bold text-blue-900 bg-[#cad8e1] rounded-t-lg shadow-md">
-              <span className="px-2">Job Overview</span>
+            <div className="w-full h-12 flex items-center px-2 text-[24px]   text-slate-800 font-serif font-bold">
+              <span className="border-b-2 border-blue-500 rounded-b-xl px-6">Job Overview</span>
             </div>
 
             {/* Responsibilities Section */}
@@ -309,7 +309,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
               {/* Employment Type */}
               <div className="w-full flex items-center px-4 text-[20px] text-[#2E3A46] font-serif mb-2">
                 <span className="font-semibold">Employment Type:</span>
-                <span className="pl-2 font-medium text-[#3B6064]">
+                <span className="pl-2 font-medium text-[18px] ">
                   {jobStore?.job?.employmentType?.charAt(0).toUpperCase() + jobStore?.job?.employmentType?.slice(1)}
                 </span>
               </div>
@@ -317,7 +317,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
               {/* Experience */}
               <div className="w-full flex items-center px-4 text-[20px] text-[#2E3A46] font-serif mb-2">
                 <span className="font-semibold">Experience:</span>
-                <span className="pl-2 font-medium text-[#3B6064]">
+                <span className="pl-2 font-medium text-[18px]  ">
                   {jobStore?.job?.experienceYear} years
                 </span>
               </div>
@@ -325,13 +325,13 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
               {/* Working Hours */}
               <div className="w-full flex  px-4 text-[20px] text-[#2E3A46] font-serif mb-2">
                 <span className="font-semibold">Working Hours:</span>
-                <span className="pl-2 font-medium text-[#3B6064]">{jobStore?.job?.workingHours}</span>
+                <span className="pl-2 font-medium text-[18px] ">{jobStore?.job?.workingHours}</span>
               </div>
 
               {/* Application Deadline */}
               <div className="w-full flex items-center px-4 text-[20px] text-[#2E3A46] font-serif">
                 <span className="font-semibold">Application Deadline:</span>
-                <span className="pl-2 font-medium text-[#3B6064]">{formatDate(jobStore?.job?.deadline)}</span>
+                <span className="pl-2 font-medium text-[18px] ">{formatDate(jobStore?.job?.deadline)}</span>
               </div>
 
             </div>
@@ -346,13 +346,13 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
               {/* Min Salary */}
               <div className="text-[20px] text-[#2E3A46] flex font-serif px-4 mb-2">
                 <span className="font-semibold">Min Salary:</span>
-                <span className="pl-2 flex font-medium items-center text-[#3B6064]"><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.minSalary}</span>
+                <span className="pl-2 flex font-medium text-[18px]  items-center "><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.minSalary}</span>
               </div>
 
               {/* Max Salary */}
               <div className="text-[20px] flex text-[#2E3A46] font-serif px-4">
                 <span className="font-semibold">Max Salary:</span>
-                <span className="pl-2 font-medium flex items-center text-[#3B6064]"><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.maxSalary}</span>
+                <span className="pl-2 font-medium text-[18px]  flex items-center "><MdOutlineCurrencyRupee className=" text-blue-700  " />{jobStore?.job?.maxSalary}</span>
               </div>
 
             </div>
@@ -366,15 +366,15 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
 
           {/* Company Details Section */}
-          <div className="bg-[#cad8e1] max-w-[900px] w-full h-auto p-10 rounded-lg shadow-md">
+          <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl max-w-[900px] w-full h-auto p-10 shadow-md">
 
             {/* About the Company Title */}
-            <div className="w-full h-12 flex items-center px-4 text-[22px] text-slate-800 font-serif font-semibold">
-              <span>About the Company</span>
+            <div className="w-full h-12 flex items-center px-2 text-[24px]   text-slate-800 font-serif font-bold">
+              <span className="border-b-2 border-blue-500 rounded-b-xl px-6">About the Company</span>
             </div>
 
             {/* Company Description */}
-            <div className="flex flex-col h-auto p-4 text-slate-900 font-serif font-medium text-[18px]">
+            <div className="flex flex-col h-auto p-4 text-slate-900 text-justify font-serif font-medium text-[18px]">
               <span>{jobStore?.job?.business?.description}</span>
             </div>
 

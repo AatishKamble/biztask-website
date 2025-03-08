@@ -29,7 +29,7 @@ const ServiceCard = ({ business, service, provider }) => {
     <div className="flex justify-between items-center px-4 pb-4 mt-auto">
       {/* View Button */}
       <Link to={`/service-detail/${service?._id}`}>
-        <div className="w-[80px] h-[40px]   hover:border border-blue-400 rounded-md transition duration-300 flex justify-center items-center shadow-sm">
+        <div className="w-[80px] h-[40px] bg-cyan-200  hover:border border-blue-400 rounded-md transition duration-300 flex justify-center items-center shadow-sm">
           <span className="text-md font-serif font-semibold text-blue-800 hover:text-blue-900">
             View
           </span>
@@ -37,7 +37,7 @@ const ServiceCard = ({ business, service, provider }) => {
       </Link>
   
       {/* Rating Badge */}
-      <div className="flex items-center  py-1 px-3 rounded-lg border border-yellow-200 shadow-sm">
+      <div className="flex items-center  py-1 px-3 ">
         <span className="text-2xl font-serif text-amber-500">
           <Star star={service?.rating} />
         </span>
