@@ -31,21 +31,21 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
     <>
       <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500  w-full h-[350px] flex justify-between items-center shadow-lg border-t-4 border-blue-900">
 
-        <div className="w-full h-full grid grid-cols-4 gap-5 p-8">
+        <div className="w-full h-full grid grid-cols-4 gap-10 p-8 ">
 
           {/* Logo & Description */}
-          <div className=" relative flex flex-col justify-start items-center">
+          <div className=" relative flex flex-col justify-start items-center  ">
             <div className="h-44 w-[250px] ">
             <img src={logo} alt='logo' className='h-full  w-full object-fit'/>
         
             </div>
         
             <p className=" absolute bottom-20 text-center font-serif text-cyan-200 text-[18px] leading-relaxed px-4">
-              Connecting businesses, workers, and service seekers with ease
+              Connecting businesses, workers and service seekers with ease
             </p>
           </div>
 
-          <div className="p-4 ps-12 border-r-2 border-cyan-200 border-dotted">
+          <div className="p-4  border-r-2 border-cyan-200 border-dotted">
             <span className="text-xl font-serif font-semibold text-cyan-200">
               Quick Links
             </span>
@@ -77,7 +77,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
 
 
           {/* Resources */}
-          <div className="p-4 ps-8 me-10 border-r-2 border-cyan-200 border-dotted">
+          <div className="p-4  border-r-2 border-cyan-200 border-dotted">
             <span className="text-xl font-serif font-semibold text-cyan-200">
               Resources
             </span>
@@ -98,7 +98,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             </ul>
           </div>
 
-          <div className="p-4 ps-8 flex flex-col justify-center items-center">
+          <div className="p-4  flex flex-col justify-center items-center">
             {/* Social Icons */}
             <div className="text-lg font-serif font-light text-cyan-100 flex gap-6 mt-5 justify-evenly">
               <span className="text-cyan-100 text-[35px] cursor-pointer hover:text-cyan-400 hover:scale-110 transition-all duration-300">
