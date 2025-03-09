@@ -3,6 +3,7 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import logo from '../../src/assets/logo-transparent.png';
 const Footer = ({ userDetails, handleLogInButtonClick }) => {
 
   const navigate = useNavigate()
@@ -35,7 +36,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
           {/* Logo & Description */}
           <div className=" relative flex flex-col justify-start items-center">
             <div className="h-44 w-[250px] ">
-            <img src='../../src/assets/logo-transparent.png' alt='logo' className='h-full  w-full object-fit'/>
+            <img src={logo} alt='logo' className='h-full  w-full object-fit'/>
         
             </div>
         

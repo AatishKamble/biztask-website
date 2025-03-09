@@ -7,6 +7,7 @@ import Login from "../Login/Login";
 import SignUP from "../Login/SignUP";
 import { logout } from "../../Redux/Auth/Action.js";
 import { useDispatch } from "react-redux";
+import logo from "../../src/assets/logo-transparent.png";
 
 const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButtonClick, signUp }) => {
 
@@ -89,7 +90,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
 
         <div className='h-44 w-44 bg-inherit p-2 flex items-center'>
 
-          <img src='../../src/assets/logo-transparent.png' alt='logo' className='h-full  w-full object-cover' />
+          <img src={logo} alt='logo' className='h-full  w-full object-cover' />
           {/* <span className="font-bold text-[50px] px-6 align-middle items-center text-cyan-100 drop-shadow-lg">
          <VscAzure /></span> */}
         </div>
