@@ -7,7 +7,7 @@ import Login from "../Login/Login";
 import SignUP from "../Login/SignUP";
 import { logout } from "../../Redux/Auth/Action.js";
 import { useDispatch } from "react-redux";
-import logo from "../../src/assets/logo-transparent.png";
+import logo from "../../assets/logo-transparent.png";
 
 const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButtonClick, signUp }) => {
 

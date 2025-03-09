@@ -3,7 +3,7 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import logo from '../../src/assets/logo-transparent.png';
+import logo from '../../assets/logo-transparent.png';
 const Footer = ({ userDetails, handleLogInButtonClick }) => {
 
   const navigate = useNavigate()
