@@ -43,11 +43,11 @@ const timeAgo = (postedAt) => {
 
     return (
         <>
-<div className="relative w-full max-w-2xl mx-auto p-6 bg-gradient-to-r from-[#e0f2fe] to-[#bfdbfe] rounded-3xl shadow-lg flex flex-col sm:flex-row items-center overflow-hidden">
+<div className="relative w-full max-w-2xl mx-auto p-6 bg-gradient-to-r from-blue-300 to-blue-400 rounded-3xl shadow-lg flex flex-col sm:flex-row items-center overflow-hidden">
 
 {/* Left Section - Larger Circular Logo */}
 <div className="relative w-full sm:w-[35%] flex flex-col items-center">
-  <div className="w-[140px] h-[140px] rounded-full shadow-md overflow-hidden border-[5px] border-blue-800 bg-white">
+  <div className="w-[140px] h-[140px] rounded-full shadow-md overflow-hidden border-[5px] border-cyan-700 bg-white">
     <img src={`${business?.companyLogo?.imageUrl}`} className="w-full h-full object-cover" alt="Company Logo" />
   </div>
 </div>

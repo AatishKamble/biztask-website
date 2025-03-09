@@ -8,7 +8,7 @@ const HeroSection = () => {
     <>
 
       <div className="relative  w-full h-[540px] flex items-center mt-1 xl:h-[100vh] overflow-hidden">
-      
+
         <div className="w-full h-full bg-blue-900 relative">
           <img
             src={heroSection}
@@ -31,26 +31,13 @@ const HeroSection = () => {
           }
         `}
         </style>
-
-        <div className="absolute  mt-10 inset-0 flex flex-col justify-center items-center text-center animate-fadeIn">
-          <span className="font-serif font-extrabold text-[#111346] text-[40px] drop-shadow-md 
-    opacity-0 animate-[fadeInZoom_1.2s_ease-in-out_forwards]">
-            Find the right worker, job or service in your area!
-          </span>
-
-          <span className="font-sans text-gray-300 sm:pt-3 font-semibold text-[24px] drop-shadow-md 
-    opacity-0 animate-[fadeInUp_1.5s_ease-in-out_0.5s_forwards]">
-            Connecting businesses, workers and service seekers with ease
-          </span>
-
-
-
-          <div className="absolute xl:top-[200px]  sm:top-[170px] lg:top-[150px] 2xl:top-[180px] flex gap-12">
+        <div className="absolute top-[50%] flex justify-center items-center flex-col left-[50%] transform -translate-x-1/2 -translate-y-1/2">
+          <div className=" flex gap-12 mb-5">
 
 
             <Link to={"/jobs"}>
               <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-2 border-blue-700 shadow-lg 
-          transition-all duration-500 hover:scale-105 hover:bg-blue-700 hover:shadow-[0_0_15px_4px_rgba(0,119,255,0.8)]">
+transition-all duration-500 hover:scale-105 hover:bg-blue-700 hover:shadow-[0_0_15px_4px_rgba(0,119,255,0.8)]">
                 <span className="font-serif font-bold pe-2 text-xl text-white">
                   Search Jobs
                 </span>
@@ -63,7 +50,7 @@ const HeroSection = () => {
 
             <Link to={"/services"}>
               <div className="relative bg-[#a0afaf] w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-2 border-slate-600 shadow-lg 
-          transition-all duration-500 hover:scale-105 hover:bg-[#8b9c9c] hover:shadow-[0_0_15px_4px_rgba(119,150,150,0.8)]">
+transition-all duration-500 hover:scale-105 hover:bg-[#8b9c9c] hover:shadow-[0_0_15px_4px_rgba(119,150,150,0.8)]">
                 <span className="font-serif font-bold pe-2 text-xl text-slate-800">
                   Explore Services
                 </span>
@@ -72,6 +59,21 @@ const HeroSection = () => {
                 </span>
               </div>
             </Link>
+
+          </div>
+          <div className=" inset-0 flex flex-col justify-center items-center text-center animate-fadeIn">
+            <span className="font-serif font-extrabold text-[#4ed5d3] text-[40px] drop-shadow-md 
+    opacity-0 animate-[fadeInZoom_1.2s_ease-in-out_forwards]">
+              Find the right worker, job and service in your area!
+            </span>
+
+            <span className="font-serif text-cyan-100 sm:pt-3 font-semibold text-[24px] drop-shadow-md 
+    opacity-0 animate-[fadeInUp_1.5s_ease-in-out_0.5s_forwards]">
+              Connecting businesses, workers and service seekers with ease
+            </span>
+
+
+
 
           </div>
         </div>

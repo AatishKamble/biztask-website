@@ -424,7 +424,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                 <div className="pt-16 border-b-[1px] border-dashed border-slate-500 w-full flex justify-center">
-                    <span className=' text-blue-950 font-serif font-semibold text-[30px]  my-4'>Previous Work</span>
+                    <span className=' text-blue-950 font-serif font-semibold text-[30px]  my-4 border-t-2 border-blue-600 px-4 rounded-xl'>Previous Work</span>
 
                 </div>
                 <div className=' w-full h-auto relative    my-10 mt-6 flex flex-col px-5'>

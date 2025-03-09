@@ -32,10 +32,10 @@ const FeaturedJob = () => {
 <div className="w-full bg-gradient-to-b from-white via-slate-100 to-blue-50 h-auto xl:px-10 lg:px-20 sm:px-5 py-12">
   {/* Heading */}
   <div className="w-full flex justify-center items-center mb-6">
-  <span className="relative text-blue-900 font-serif font-bold text-[32px] tracking-wide pb-3">
+  <span className="relative text-blue-900 font-serif font-bold text-[32px] tracking-wide pb border-blue-800 border-y-4 rounded-xl px-4">
     Recently Posted Job Openings
-    {/* Stylish Underline Effect */}
-    <span className="absolute left-0 bottom-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-800 rounded-lg"></span>
+   
+
   </span>
 </div>
 
