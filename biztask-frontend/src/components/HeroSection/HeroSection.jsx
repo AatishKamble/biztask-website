@@ -62,13 +62,13 @@ transition-all duration-500 hover:scale-105 hover:bg-[#8b9c9c] hover:shadow-[0_0
 
           </div>
           <div className=" inset-0 flex flex-col justify-center items-center text-center animate-fadeIn">
-            <span className="font-serif font-extrabold text-[#4ed5d3] text-[40px] drop-shadow-md 
+            <span className="font-serif font-extrabold text-cyan-100 text-[36px] drop-shadow-md 
     opacity-0 animate-[fadeInZoom_1.2s_ease-in-out_forwards]">
               Find the right worker, job and service in your area!
             </span>
 
-            <span className="font-serif text-cyan-100 sm:pt-3 font-semibold text-[24px] drop-shadow-md 
-    opacity-0 animate-[fadeInUp_1.5s_ease-in-out_0.5s_forwards]">
+            <span className="font-serif text-cyan-400 sm:pt-3  text-[24px] drop-shadow-md 
+    opacity-0 animate-[fadeInUp_1.5s_ease-in-out_0.5s_forwards]" style={{fontWeight:"lighter"}}>
               Connecting businesses, workers and service seekers with ease
             </span>
 
