@@ -12,7 +12,7 @@ const HowItWorks = ({ HowItWorks }) => {
   ref={HowItWorks}
   className="w-full xl:h-[600px] sm:h-[530px] px-6 lg:px-20 lg:h-[560px] my-20 flex justify-center"
 >
-  <div className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-800 relative h-full xl:w-[90%] rounded-3xl flex flex-col sm:w-full shadow-xl border border-gray-700">
+  <div className="bg-gradient-to-r from-gray-800 via-blue-900 to-gray-800 relative h-full xl:w-[90%] rounded-3xl flex flex-col sm:w-full shadow-xl border border-gray-700">
 
     {/* Section Title */}
     <div className="w-full flex justify-center items-center h-24 py-10 mt-8">

@@ -86,7 +86,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
 
 
 
-      <div className='bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 w-full h-20 flex justify-between items-center shadow-lg'>
+      <div className='bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 w-full h-20 flex justify-between items-center shadow-lg'>
 
         <div className='h-44 w-44 bg-inherit p-2 flex items-center'>
 
@@ -99,21 +99,21 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
           <div className='h-16 ps-5   bg-inherit flex justify-between items-center '>
             <ul className='text-lg xl:gap-10 2xl:gap-10 sm:gap-8 font-serif font-medium text-cyan-100 flex justify-between tracking-wide'>
               <Link to={"/"}
-                className="group relative text-cyan-100  hover:text-cyan-400 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
+                className="group relative text-cyan-100  hover:text-cyan-300 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
               >
                 <li className=' cursor-pointer  '>Home
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-300 transition-all duration-300 group-hover:w-full"></span>
 
                 </li></Link>
               <Link to={"/about-us"}
-                className="group relative text-cyan-100 hover:text-cyan-400 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
+                className="group relative text-cyan-100 hover:text-cyan-300 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
               >
                 <li className=' cursor-pointer ' >About Us
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-300 transition-all duration-300 group-hover:w-full"></span>
 
                 </li></Link>
               <Link to={"/#how-it-works"}
-                className="group relative text-cyan-100 hover:text-cyan-400 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
+                className="group relative text-cyan-100 hover:text-cyan-300 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
               >
                 <li className=' cursor-pointer ' >How It Works
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-300 transition-all duration-300 group-hover:w-full"></span>
@@ -124,7 +124,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
               <li>
                 <button
                   onClick={handleBusinessRegistration}
-                  className="group relative text-cyan-100 hover:text-cyan-400 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
+                  className="group relative text-cyan-100 hover:text-cyan-300 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
                 >
                   Register Businesses
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-300 transition-all duration-300 group-hover:w-full"></span>
@@ -135,7 +135,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
               <li>
                 <button
                   onClick={handleAppliedJob}
-                  className="group relative text-cyan-100 hover:text-cyan-400 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
+                  className="group relative text-cyan-100 hover:text-cyan-300 transition duration-300 ease-in-out font-medium text-lg tracking-wide"
                 >
                   Applied Job
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-300 transition-all duration-300 group-hover:w-full"></span>
@@ -177,7 +177,8 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
 
               {/* Log In Button */}
               <button
-                className="relative bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 h-10 xl:w-[110px] sm:w-[100px] rounded-xl border border-yellow-700 shadow-lg mx-2 flex justify-center items-center transition-transform duration-300 hover:scale-110 overflow-hidden group"
+                className="relative bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 h-10 xl:w-[110px] sm:w-[100px] rounded-lg 
+                 shadow-lg mx-2 flex justify-center items-center transition-transform duration-300 hover:scale-105 overflow-hidden group"
                 onClick={handleLogInButtonClick}
               >
                 {/* Hover Background Glow Effect */}
@@ -192,14 +193,15 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
 
               {/* Sign Up Button */}
               <button
-                className="relative bg-gradient-to-r from-lime-500 to-lime-600 hover:from-lime-600 hover:to-lime-700 h-10 xl:w-[110px] sm:w-[100px] rounded-xl border border-yellow-700 shadow-lg mx-2 flex justify-center items-center transition-transform duration-300 hover:scale-110 overflow-hidden group"
+                className="relative bg-gradient-to-r from-lime-500 to-lime-600 hover:from-lime-600 hover:to-lime-600 h-10 xl:w-[110px] sm:w-[100px] rounded-lg 
+                shadow-lg mx-2 flex justify-center items-center transition-transform duration-300 hover:scale-105 overflow-hidden group"
                 onClick={handleSignUpButtonClick}
               >
                 {/* Hover Background Glow Effect */}
                 <span className="absolute inset-0 bg-lime-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
 
                 {/* Icon & Text */}
-                <span className="relative text-md font-serif font-medium text-black flex items-center gap-2">
+                <span className="relative text-md font-serif text-white flex items-center gap-2">
                   <FaPlus />
                   Sign Up
                 </span>

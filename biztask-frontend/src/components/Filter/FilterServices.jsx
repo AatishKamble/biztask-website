@@ -36,7 +36,7 @@ const FilterServices = ({
       name="name"
       value={nameInput}
       onChange={handleNameInputChange}
-        placeholder='Find services with name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full   border-slate-600 bg-[#eceef0] ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
+        placeholder='Find services with name' className=' text-[20px] h-12 font-serif outline-none px-4 w-full focus-within:border-[1px]  border-cyan-500 bg-[#eceef0]  rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
         <button onClick={handleNameInputSubmit} className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950  drop-shadow-2xl flex justify-center items-center'>
           <CiSearch />
         </button>
@@ -58,7 +58,7 @@ const FilterServices = ({
         name="location"
         value={locationInput}
         onChange={handleLocationInputChange}
-        placeholder='Find srvice with Location' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#eceef0]  ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
+        placeholder='Find srvice with Location' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-cyan-500 bg-[#eceef0]   rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
         <button onClick={handleLocationInputSubmit} className='  text-[28px] hover:text-blue-950  font-serif font-bold align-middle h-[50px] w-[50px] drop-shadow-2xl flex justify-center items-center'>
         <MdOutlineMyLocation />
         </button>
@@ -79,7 +79,7 @@ const FilterServices = ({
         name="price"
         value={priceInput}
         onChange={handlePriceInputChange}
-        placeholder='Enter Price (Min or Max)' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#eceef0] ring-1 ring-cyan-700 rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
+        placeholder='Enter Price (Min or Max)' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-cyan-500 bg-[#eceef0]  rounded-md focus-within:drop-shadow-md shadow-cyan-300' autoComplete='none' />
         <button onClick={handlePriceInputSubmit} className='  text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950   drop-shadow-2xl flex justify-center items-center  -rotate-90'>
         <LiaSearchDollarSolid />
         </button>
@@ -99,14 +99,14 @@ const FilterServices = ({
             {
               checkBoxOptions.map((item, id) => (
                 <li key={id} className='text-[1.2rem] font-normal font-serif text-slate-950'>
-                  <div className='flex items-center'>
+                  <div className='flex items-center m-2'>
                     <input 
                       type="checkbox" 
                       name={item} 
                       value={item} 
                       checked={selectedCheckbox.includes(item.toString())}
                       onChange={handleCheckboxChange}
-                      className='h-5 w-[18px] me-3 cursor-pointer border-cyan-700  accent-blue-500' 
+                      className='h-5 w-[18px] me-3  cursor-pointer border-cyan-700  accent-blue-500' 
                     />
                     <label htmlFor={item}>
                       <Star star={item} />

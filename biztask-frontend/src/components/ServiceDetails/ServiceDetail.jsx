@@ -550,7 +550,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
             {isLoading == false &&
                <div className='w-full h-auto relative my-10 flex flex-col px-5 bg-gray-50 rounded-xl py-8'>
     <div className='w-full flex flex-col md:flex-row justify-center items-center gap-4 py-5'>
-    <span className='text-blue-950 font-serif font-semibold text-[32px] border-b-2 border-blue-800 pb-1'>Reviews</span>
+    <span className='text-blue-950 font-serif font-semibold text-[32px]  border-blue-800 pb-1'>Reviews</span>
        <button onClick={() => handleSubmitReview()}
        className='flex items-center justify-center h-[40px] text-white font-serif font-semibold text-[18px] w-[140px] px-5 bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all duration-300'>
        

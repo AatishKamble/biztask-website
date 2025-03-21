@@ -111,7 +111,7 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
                 <span className='text-[18px] font-serif text-slate-600 '>Continue with</span>
                         <div className='mb-4 mt-2 h-16 w-full flex flex-col justify-center items-center pb-5'>
 
-                            <div className=' w-auto px-5 hover:border-[1px] bg-gradient-to-br  hover:from-blue-300 hover:to-blue-200 transition duration-300 rounded-xl cursor-pointer'>
+                            <div className=' w-auto px-5 hover:border-[1px] bg-gradient-to-br  hover:from-blue-200 hover:to-blue-300 transition duration-300 rounded-xl cursor-pointer'>
                                 <button onClick={handleGoogle} className='flex items-center py-2 text-[24px] font-serif font-semibold'>
                                     <FcGoogle />
                                     <span className='text-[24px] font-serif font-light ps-2 text-slate-600'>Google</span>
