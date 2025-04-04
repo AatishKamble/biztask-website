@@ -106,6 +106,7 @@ const isLoading = isAuthLoading ;
         <Footer userDetails={auth.user} handleLogInButtonClick={handleLogInButtonClick}/>
        
         }
+
     </>
   )
 }

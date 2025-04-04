@@ -4,7 +4,7 @@ import { getAllJobs } from '../../Redux/Job/Action.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import JobLoader from '../Loader/JobLoader.jsx';
-
+import { HiOutlineBriefcase } from 'react-icons/hi';
 const FeaturedJob = () => {
 
   const dispatch = useDispatch();
@@ -28,14 +28,17 @@ const FeaturedJob = () => {
 
   return (
     <>
-      <div className="w-full bg-gradient-to-b from-white via-blue-50 to-white h-auto xl:px-10 lg:px-20 sm:px-5 py-12">
+      <div className="w-full bg-gradient-to-b from-white via-blue-50 to-white h-auto xl:px-10 lg:px-20 sm:px-5 py-10">
         {/* Heading */}
-        <div className="w-full flex justify-center items-center mb-10">
-          <span className="relative text-blue-900 font-serif font-bold text-3xl lg:text-4xl  tracking-wide pb border-blue-800 border-b-4 rounded-xl px-4 py-2">
-            Recently Posted Job Openings
-          </span>
+        <div className="w-full flex justify-center items-center mb-8">
+          <div className="bg-gradient-to-r from-blue-100 to-blue-50 px-6 py-3 rounded-xl  border border-blue-200 flex items-center gap-3">
+            <HiOutlineBriefcase className="text-blue-700 text-2xl" />
+            <h2 className="text-2xl  font-serif font-bold text-blue-900 tracking-wide text-center">
+              Recently Posted Job Openings
+            </h2>
+          </div>
         </div>
-  
+
         {/* Job Listings Container */}
         <div className="w-full h-auto grid sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 justify-center px-6 py-6 relative">
           {isLoading && (
@@ -43,7 +46,7 @@ const FeaturedJob = () => {
               <JobLoader />
             </div>
           )}
-  
+
           {!isLoading &&
             jobStore?.jobs?.jobs?.slice(0, 10)?.map((job, index) => (
               <div key={index}>
@@ -51,7 +54,7 @@ const FeaturedJob = () => {
               </div>
             ))}
         </div>
-  
+
         {/* View All Button */}
         {!isLoading && (
           <div className="w-full flex justify-center items-center mt-8">

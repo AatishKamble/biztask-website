@@ -5,7 +5,7 @@ import plumbing from "../../assets/Plumbing.jpg";
 import catering from "../../assets/catering.jpg";
 import gardening from "../../assets/Gardening.jpg";
 import motor from "../../assets/motor.jpeg";
-
+import { HiOutlineSparkles } from "react-icons/hi2";
 const PopularServices = () => {
   const services = [
     {
@@ -48,20 +48,19 @@ const PopularServices = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-white via-blue-50 to-white w-full py-12 sm:px-6 lg:px-12 xl:px-24 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 mx-auto">
+      <div className="bg-gradient-to-b from-white via-blue-50 to-white w-full py-12 pb-8 sm:px-6 lg:px-12 xl:px-24 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 mx-auto">
         {/* Left Section: Available Services */}
         <div className="bg-gradient-to-r from-[#6E45E2] to-[#88a2d3] text-white w-full lg:w-[400px] xl:w-[500px] h-[320px] lg:h-[500px] flex flex-col justify-center items-center rounded-3xl shadow-xl p-6 relative overflow-hidden">
-          {/* Title */}
+   
           <h2 className="text-white font-serif font-extrabold text-2xl lg:text-3xl text-center py-2">
             Available Services
           </h2>
 
-          {/* Subtitle */}
-          <p className="text-white font-serif font-medium text-lg lg:text-lg text-center px-4 opacity-90">
-            "Connecting You with Skilled Professionals to Get the Job Done Right."
+          <p className="text-white  text-[16px] text-center px-4 opacity-90">
+            Connecting You with Skilled Professionals to Get the Job Done Right.
           </p>
 
-          {/* Floating Glow Effect */}
+          
           <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-white opacity-20 rounded-full blur-xl"></div>
 
           {/* View All Button */}
@@ -87,42 +86,40 @@ const PopularServices = () => {
         </div>
 
         {/* Right Section: Service Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
-          {services.map((element, ind) => (
-            <Link
-              to={`/services?serviceName=${element.value}`}
-              key={ind}
-              aria-label={`Explore ${element.type}`}
-            >
-              <div
-                className={`relative w-full h-[280px] rounded-3xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] group overflow-hidden bg-gradient-to-r ${element.gradient}`}
-              >
-                {/* Image Section */}
-                <div
-                  className="w-full h-[200px] bg-cover bg-center rounded-t-3xl"
-                  style={{
-                    backgroundImage: `url(${element.image})`,
-                  }}
-                ></div>
+     
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl mx-auto ">
+  {services.map((service, index) => (
+    <Link
+      to={`/services?serviceName=${service.value}`}
+      key={index}
+      aria-label={`Explore ${service.type}`}
+      className="transform hover:-translate-y-2 transition duration-500 group"
+    >
+      <div
+        className={`relative h-[240px] rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 bg-cover bg-center`}
+        style={{ backgroundImage: `url(${service.image})` }}
+      >
+    
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent z-0"></div>
 
-                {/* Text Section */}
-                <div className="absolute bottom-0 left-0 w-full h-[80px] bg-white/90 backdrop-blur-sm flex items-center justify-center rounded-b-3xl">
-                  <span className="text-[#1F2937] font-serif font-semibold text-xl text-center px-4">
-                    {element.type}
-                  </span>
-                </div>
-
-                {/* Hover Effect: Floating Arrow */}
-                <div className={`bg-gradient-to-r from-[#8ea0cf] to-[#7088d7] absolute -right-4 -top-4 w-16 h-16 bg-white/20 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center `}>
-                  <span className={`text-white text-2xl `}>→</span>
-                </div>
-
-                {/* Hover Effect: Overlay */}
-                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-              </div>
-            </Link>
-          ))}
+      
+        <div className="relative z-10 h-full w-full p-5 flex flex-col justify-end">
+          <div className="flex items-center gap-3 mb-2">
+            <div className={`bg-gradient-to-r ${service.gradient} p-2 rounded-full shadow-lg`}>
+              <HiOutlineSparkles className="text-white w-5 h-5" />
+            </div>
+            <h3 className="text-white font-serif text-lg font-semibold tracking-wide">
+              {service.type}
+            </h3>
+          </div>
+          <div className="h-1 w-0 group-hover:w-16 bg-white transition-all duration-500 rounded-full"></div>
         </div>
+      </div>
+    </Link>
+  ))}
+</div>
+
+
       </div>
     </>
   );
