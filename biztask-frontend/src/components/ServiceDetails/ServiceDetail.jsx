@@ -5,7 +5,8 @@ import { MdEmail } from "react-icons/md";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaUserSecret } from "react-icons/fa";
-
+import { BsStars } from "react-icons/bs";
+import { FaCheckCircle } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import React, { useEffect, useRef, useState } from 'react';
 import Review from "../Reviews/Review";
@@ -18,7 +19,7 @@ import JobAdvertise from "../JobTemplate/JobAdvertise.jsx";
 import { removeReview } from "../../Redux/Review/Action.js";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
-
+import { FaArrowDown, FaArrowUp } from "react-icons/fa6";
 import { addReview, getAllReviews } from "../../Redux/Review/Action.js";
 import Star from "../Reviews/Star.jsx";
 import PopUp from "../PopUp/PopUp.jsx";
@@ -48,7 +49,8 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         // new Chnage
         if (files.length === 0) {
             toast.error('Please upload at least one image.');
-            return;}
+            return;
+        }
         for (let file of files) {
             formData.append("previousImages", file);
         }
@@ -142,14 +144,14 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     const handleSubmitReview = () => {
         const formData = new FormData();
 
-        if(input.trim()===""){
-                toast.error('Please enter at least one character.');
-                return;
+        if (input.trim() === "") {
+            toast.error('Please enter at least one character.');
+            return;
         }
-        if(currentValue===0){
+        if (currentValue === 0) {
             toast.error('Rating should be between 1 to 5');
             return;
-    }
+        }
         formData.append("rating", currentValue);
         formData.append("review", input);
         formData.append("serviceId", serviceDetails?._id);
@@ -193,6 +195,9 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     };
 
+    const handleRemoveFile = (index) => {
+        setFiles(prev => prev.filter((_, i) => i !== index));
+    };
 
     const [uploadButtonHover, setUploadButtonHover] = useState(false);
 
@@ -212,7 +217,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         <DetailLoader />
                     </div>
                 )}
-               <div className="2xl:w-[90%] sm:w-full h-auto py-10 bg-white/30 backdrop-blur-lg shadow-lg my-10 flex flex-col lg:flex-row items-center px-10 rounded-2xl border border-gray-300">
+                <div className="2xl:w-[90%] sm:w-full h-auto py-10 bg-white/30 backdrop-blur-lg shadow-lg my-10 flex flex-col lg:flex-row items-center px-10 rounded-2xl border border-gray-300">
 
                     <div className='w-full h-[180px] relative flex items-start flex-col justify-center px-10'>
 
@@ -284,111 +289,137 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                 <div className="2xl:w-[90%] sm:w-full h-auto drop-shadow-lg my-10 mt-5 flex flex-col xl:flex-row gap-10 px-6 sm:px-2">
 
-  {/* Left Section */}
-  <div className="flex flex-col  xl:w-2/3 gap-6">
-    
-    {/* Description Section */}
-    <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl p-6 shadow-lg">
-      <div className="w-full flex items-center text-[24px] text-blue-900 font-serif font-semibold pb-3 border-b-2 border-blue-500">
-        <MdOutlineDescription className="mr-2" /> Description
-      </div>
-      <p  className='flex h-auto text-justify  p-4 justify-between  py-2 text-slate-900 font-serif  text-[16px]'>
-                            
-        {serviceDetails?.Description}
-      </p>
-    </div>
+                    {/* Left Section */}
 
-    {/* Features Section */}
-    <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl p-6 shadow-lg">
-      <div className="w-full flex items-center text-[24px] text-blue-900 font-serif font-semibold pb-3 border-b-2 border-blue-500">
-        Features
-      </div>
-      <ul className='flex flex-col h-auto  p-4 justify-between  py-2 text-slate-900 font-serif font-medium text-[16px]'>
+                    <div className="flex flex-col xl:w-2/3 gap-6">
 
+                        {/* Description Section */}
+                        <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 transition-all font-serif">
+                            <div className="w-full flex items-center text-[20px] text-blue-900 font-semibold pb-3 border-b border-blue-300">
+                                <MdOutlineDescription className="mr-2 text-blue-700 text-[20px]" />
+                                Description
+                            </div>
+                            <p className="text-justify p-4 text-slate-900 text-[16px] leading-relaxed">
+                                {serviceDetails?.Description || "No description provided."}
+                            </p>
+                        </div>
 
-        {serviceDetails?.features?.map((feature, idx) => (
-          <li key={idx} className="flex items-start">
-            <span className="text-blue-600  mr-2">{idx + 1}.</span> {feature}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
+                        {/* Features Section */}
+                        <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 transition-all font-serif">
+                            <div className="w-full flex items-center  text-[20px] text-blue-900 font-semibold pb-3 border-b border-blue-300">
+                                <BsStars className="mr-2 text-blue-700 " />
+                                Features
+                            </div>
+                            <ul className="flex flex-col gap-3 p-4 text-slate-900 text-[16px] font-medium">
+                                {serviceDetails?.features?.length > 0 ? (
+                                    serviceDetails.features.map((feature, idx) => (
+                                        <li
+                                            key={idx}
+                                            className="flex items-start gap-2 "
+                                        >
+                                            <FaCheckCircle className="text-sky-600 mt-1" />
+                                            <span className=" break-words">{feature}</span>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li className="text-gray-500 italic">No features listed.</li>
+                                )}
+                            </ul>
+                        </div>
+                    </div>
+                    {/* Right Section */}
+                    <div className="w-full flex  min-w-[30%] max-w-[40%] flex-col gap-6">
 
-  {/* Right Section */}
-  <div className="w-full flex  min-w-[30%] max-w-[40%] flex-col gap-6">
-    
-    {/* Contact Details */}
-    <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-start">
-      
-      {/* Contact Info */}
-      <div className="flex-1 px-4 space-y-3">
-        <div className="text-[24px] text-blue-900 font-serif font-semibold pb-3">Contact Details</div>
+                        {/* Contact Details */}
+                        <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 w-full flex flex-col sm:flex-row gap-6 items-center sm:items-start">
 
-        {/* Name */}
-        <div className="flex flex-wrap items-center text-[18px] text-slate-800 font-serif ">
-                                    <span className="px-2 text-blue-700 font-medium ">
-                                        <FaUserSecret />
-                                    </span>
-                                    <span className=" break-words font-medium">
-                                        {serviceDetails?.user?.name}
-                                    </span>
-                                </div>
-        {/* Phone */}
-        <div className="flex flex-wrap items-center text-[18px] text-slate-800 font-serif" >
-                                    <span className="px-2 font-medium flex text-blue-700 items-center">
-                                        <FaPhone />
-                                    </span>
-                                    <span className=" break-words  font-medium ">
-                                        {serviceDetails?.user?.mobileNumber}
-                                    </span>
-                                </div>
-
-        {/* Email */}
-        <div className="flex  items-center text-[18px] text-slate-800 font-serif  font-medium">
-                                    <span className="px-2 text-blue-700 font-medium flex items-center">
-                                        <MdEmail />
-                                    </span>
-                                    <span className=" flex flex-wrap  font-medium break-words">
-                                        {serviceDetails?.user?.email}
-                                    </span>
-                                </div>
+                            {/* Profile Image */}
+                            <div className="w-[140px] h-[160px] sm:w-[160px] sm:h-[200px] rounded-xl overflow-hidden border-2 border-blue-300 flex-shrink-0">
+                                <img
+                                    src={serviceDetails?.user?.profileImage?.ImageUrl || "/default-user.png"}
+                                    alt="Owner"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
 
+                            {/* Contact Info */}
+                            <div className="flex flex-col flex-1 text-blue-900 text-[18px] font-serif space-y-5 w-full">
 
-      {/* Profile Image */}
-      <div className="w-[160px] h-[180px] rounded-xl overflow-hidden shadow-md border-2 border-blue-300">
-        <img
-          src={serviceDetails?.user?.profileImage?.ImageUrl}
-          alt="Owner Photo"
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-        />
-      </div>
-    </div>
+                                {/* Heading */}
+                                <div className="text-[20px]  font-semibold border-b border-blue-300 pb-2">
+                                    Contact Information
+                                </div>
 
-    {/* Pricing Details */}
-    <div className="bg-white/30 backdrop-blur-md border border-gray-300 rounded-xl p-6 shadow-lg">
-      <div className="text-[24px] text-blue-900 font-serif font-semibold pb-3 border-b-2 border-blue-500">
-        Pricing Details
-      </div>
+                                {/* Info Boxes */}
+                                <div className="space-y-4 text-[16px]">
 
-      <div className="flex mt-6 items-center text-[18px] font-serif">
-                                    <span className="px-2 font-semibold font-serif">Min Price:</span>
-                                    <span className="px-2  flex items-center">
-                                        <MdOutlineCurrencyRupee className=" text-blue-700  " /> {serviceDetails?.minPrice}
+                                    {/* Name */}
+                                    <div className="flex gap-3 items-start bg-blue-50/60 border border-blue-200 p-3 rounded-xl">
+                                        <FaUserSecret className="text-sky-600 mt-[4px]" />
+                                        <div className="flex-1 break-words break-all font-medium">
+                                            {serviceDetails?.user?.name || "Not Available"}
+                                        </div>
+                                    </div>
+
+                                    {/* Phone */}
+                                    <div className="flex gap-3 items-start bg-blue-50/60 border border-blue-200 p-3 rounded-xl">
+                                        <FaPhone className="text-sky-600 mt-[4px]" />
+                                        <div className="flex-1 break-words break-all font-medium">
+                                            {serviceDetails?.user?.mobileNumber || "Not Available"}
+                                        </div>
+                                    </div>
+
+                                    {/* Email */}
+                                    <div className="flex gap-3 items-start bg-blue-50/60 border border-blue-200 p-3 rounded-xl">
+                                        <MdEmail className="text-sky-600 mt-[4px]" />
+                                        <div className="flex-1 break-words break-all font-medium">
+                                            {serviceDetails?.user?.email || "Not Available"}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {/* Pricing Details */}
+                        <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl  p-6 w-full font-serif">
+
+                            {/* Heading */}
+                            <div className="text-[20px]  text-blue-900 font-semibold pb-3 border-b border-blue-300">
+                                Pricing Details
+                            </div>
+
+                            {/* Pricing Rows */}
+                            <div className="mt-6 space-y-4 text-[16px]">
+
+                                {/* Min Price */}
+                                <div className="flex items-center  justify-between bg-sky-50 border border-blue-200 p-3 rounded-xl text-slate-800 text-[17px] transition-all duration-200  hover:scale-[1.015] cursor-default">
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-blue-200 rounded-full p-2"><FaArrowDown className="text-sky-600" /></span>
+                                        <span className="font-semibold text-blue-800">Min Price:</span>
+                                    </div>
+                                    <span className="flex items-center gap-1 font-medium text-sky-700">
+                                        <MdOutlineCurrencyRupee className="text-sky-600" />
+                                        {serviceDetails?.minPrice || "N/A"}
                                     </span>
                                 </div>
 
-                                {/* Max Price Row */}
-                                <div className="flex items-center text-[18px]  font-serif w-full">
-                                    <span className="px-2 font-semibold font-serif">Max Price:</span>
-                                    <span className="px-2  flex items-center">
-                                        <MdOutlineCurrencyRupee className=" text-blue-700 " /> {serviceDetails?.maxPrice}
+                                {/* Max Price */}
+                                <div className="flex items-center  justify-between bg-sky-50 border border-blue-200 p-3 rounded-xl text-slate-800 text-[17px] transition-all duration-200  hover:scale-[1.015] cursor-default">
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-blue-200 rounded-full p-2"><FaArrowUp className="text-sky-600 " /></span>
+                                        <span className="font-semibold text-blue-800">Max Price:</span>
+                                    </div>
+                                    <span className="flex items-center gap-1 font-medium text-sky-700">
+                                        <MdOutlineCurrencyRupee className="text-sky-600 " />
+                                        {serviceDetails?.maxPrice || "N/A"}
                                     </span>
                                 </div>
-    </div>
-  </div>
-</div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
 
 
@@ -423,10 +454,14 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                 }
 
 
-                <div className="pt-16 border-b-[1px] border-dashed border-slate-500 w-full flex justify-center">
-                    <span className=' text-blue-950 font-serif font-semibold text-[30px]  my-4 border-t-2 border-blue-600 px-4 rounded-xl'>Previous Work</span>
+                <div className="relative w-full flex justify-center items-center py-8">
+                    <div className="w-full border-t border-dashed border-slate-400 absolute top-1/2 transform -translate-y-1/2 z-0" />
 
+                    <span className="relative z-10 bg-gradient-to-r from-white to-blue-100 px-4 py-2  text-blue-900 text-[22px] sm:text-[22px] font-serif font-bold rounded-xl border-2 border-blue-300 shadow-sm tracking-wide">
+                        Previous Work
+                    </span>
                 </div>
+
                 <div className=' w-full h-auto relative    my-10 mt-6 flex flex-col px-5'>
 
                     <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
@@ -448,112 +483,146 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </div>
                     </form>
 
+                    {files.length > 0 && (
+                        <div className="w-full bg-gradient-to-br from-white to-blue-50 z-10 mb-5 h-auto relative grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-6 transition-all duration-300 rounded-xl border border-slate-300 shadow-md">
+                            {files.map((element, idx) => (
+                                <div
+                                    key={idx}
+                                    className="relative group rounded-lg overflow-hidden border border-slate-300 bg-gradient-to-br from-white to-blue-50 shadow-sm"
+                                >
+                                    {/* Image Preview */}
+                                    <img
+                                        src={URL.createObjectURL(element)}
+                                        alt={`preview-${idx}`}
+                                        className="w-full h-[180px] object-fit"
+                                    />
 
-                    {
+                                    {/* Remove Button */}
+                                    <button
+                                        onClick={() => handleRemoveFile(idx)}
+                                        className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-4 w-4"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
-                        files.length > 0 && (
-                            <div className={`w-full bg-slate-100 z-10 mb-5 h-auto relative grid grid-cols-4 gap-10 p-10 transition-all duration-300 `}>
+                    {AllPhotos.length === 0 ? (
+                        <div className="w-full flex items-center justify-center">
+                            <span className="text-[35px] text-[#b0d0d2] font-bold">
+                                No Images Available
+                            </span>
+                        </div>
+                    ) : (
+                        <div className="w-full bg-white border-y border-slate-300 rounded-xl relative p-6">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                                {AllPhotos.slice(0, 15).map((element, index) => (
+                                    <div
+                                        key={index}
+                                        className="relative group cursor-pointer overflow-hidden rounded-lg border-2 border-blue-900  shadow-sm hover:shadow-md transition-all"
+                                        onClick={() => handleModalOpen(index)}
+                                    >
+                                        <img
+                                            src={element.imageUrl}
+                                            alt={`img-${index}`}
+                                            className="w-full h-[200px] object-cover transition-transform  duration-300 group-hover:scale-105"
+                                        />
 
-                                {
-                                    files.map((element, idx) => {
-                                        return (
-                                            <div key={idx} className=" bg-slate-400 h-[200px] border-2 border-slate-600" >
-                                                <img src={URL.createObjectURL(element)} alt="picture" className=" bg-cover w-full h-full" />
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                        )
-
-                    }
-
-
-
-
-
-                        
-                    {
-                    
-                       AllPhotos.length == 0 ?
-                            <div className="w-full  flex items-center justify-center">
-                                <span className="text-[35px]  text-[#b0d0d2]  font-bold">
-                                    No Images Available
-                                </span></div> :
-
-
-                            <div className={`${isModalOpen !== null ? "h-[700px]" : "h-auto"} w-full bg-white  border-y border-slate-500 rounded-xl   relative grid grid-cols-4 gap-10 p-10 transition-all duration-300`}>
-
-
-                                {
-
-                                    AllPhotos.map((element, index) => {
-                                        return (
-                                            <>
-                                                <div key={index} className=" bg-slate-400 h-[200px] border-2 border-slate-600 cursor-pointer" onClick={() => handleModalOpen(index)} >
-                                                    <img src={`${element.imageUrl}`} alt="picture" className=" bg-cover w-full h-full" />
-                                                </div>
-                                                {
-                                                    isModalOpen == index &&
-
-                                                    <div className='w-full z-50 h-[600px] absolute top-10  border-2 border-[#203337]  bg-slate-400'>
-
-                                                        <button className="absolute right-3 top-2 text-[#becbc7] text-[30px] hover:text-slate-700" onClick={handleModalClose}>
-                                                            <IoClose size={40} />
-                                                        </button>
-                                                        <img src={`${element.imageUrl}`} alt="image" className="bg-cover w-full h-full" />
-
-
-
-
-
-                                                    </div>
-
-                                                }
-                                            </>
-                                        )
-                                    })
-                                }
-
-
-
-
-
+                                    </div>
+                                ))}
                             </div>
 
-                    }
+                            {/* Modal */}
+                            {isModalOpen !== null && (
+                                <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center  justify-center">
+                                    <div className="relative w-full max-w-4xl h-[90vh] bg-white rounded-xl border-2  shadow-xl">
+
+                                        <button
+                                            onClick={handleModalClose}
+                                            className="absolute top-3 right-3 text-purple-600 bg-blue-50 hover:bg-blue-300 rounded-full p-2 z-50"
+                                        >
+                                            <IoClose size={30} />
+                                        </button>
+
+                                        <img
+                                            src={AllPhotos[isModalOpen].imageUrl}
+                                            alt="Full view"
+                                            className="w-full h-full object-cover rounded-xl "
+                                        />
+
+
+                                        <button
+                                            className="absolute left-3 top-1/2 -translate-y-1/2 text-white bg-white hover:bg-blue-600 p-2 rounded-2xl"
+                                            onClick={() =>
+                                                setIsModalOpen((prev) => (prev > 0 ? prev - 1 : AllPhotos.length - 1))
+                                            }
+                                        >
+                                            ◀
+                                        </button>
+
+                                        <button
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-white bg-white hover:bg-blue-600 p-2 rounded-2xl"
+                                            onClick={() =>
+                                                setIsModalOpen((prev) => (prev < AllPhotos.length - 1 ? prev + 1 : 0))
+                                            }
+                                        >
+                                            ▶
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+
+
+
                 </div>
 
 
                 {popupwarning && (
-     <div className="fixed inset-0 bg-black/50 backdrop-blur-md z-40 animate-fadeIn"></div>
-    )}
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-md z-40 animate-fadeIn"></div>
+                )}
 
-{popupwarning && (
-    <div className='fixed inset-0 flex items-center justify-center z-50'>
-        <div className='bg-white shadow-xl rounded-lg p-6 w-[400px] flex flex-col items-center'>
-            <h2 className='text-2xl font-bold text-slate-800 mb-2'>Remove Service</h2>
-            <p className='text-slate-600 text-center mb-4'>Are you sure you want to remove this service?</p>
-            <p className='text-slate-500 text-sm italic mb-6'>Service Name: {serviceDetails?.serviceType}</p>
-            <div className='flex gap-4'>
-                <button className='px-4 py-2 rounded-md bg-gray-300 text-slate-700 hover:bg-gray-400 transition' onClick={handlePopupWarningClose}>Cancel</button>
-                <button className='px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition' onClick={handleServiceRemove}>Remove</button>
-            </div>
-        </div>
-    </div>
-)}
+                {popupwarning && (
+                    <div className='fixed inset-0 flex items-center justify-center z-50'>
+                        <div className='bg-white shadow-xl rounded-lg p-6 w-[400px] flex flex-col items-center'>
+                            <h2 className='text-2xl font-bold text-slate-800 mb-2'>Remove Service</h2>
+                            <p className='text-slate-600 text-center mb-4'>Are you sure you want to remove this service?</p>
+                            <p className='text-slate-500 text-sm italic mb-6'>Service Name: {serviceDetails?.serviceType}</p>
+                            <div className='flex gap-4'>
+                                <button className='px-4 py-2 rounded-md bg-gray-300 text-slate-700 hover:bg-gray-400 transition' onClick={handlePopupWarningClose}>Cancel</button>
+                                <button className='px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition' onClick={handleServiceRemove}>Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
 
             </div>
 
 
             {isLoading == false &&
-               <div className='w-full h-auto relative my-10 flex flex-col px-5 bg-gray-50 rounded-xl py-8'>
-    <div className='w-full flex flex-col md:flex-row justify-center items-center gap-4 py-5'>
-    <span className='text-blue-950 font-serif font-semibold text-[32px]  border-blue-800 pb-1'>Reviews</span>
-       <button onClick={() => handleSubmitReview()}
-       className='flex items-center justify-center h-[40px] text-white font-serif font-semibold text-[18px] w-[140px] px-5 bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all duration-300'>
-       
+                <div className='w-full h-auto relative my-10 flex flex-col px-5 bg-gray-50 rounded-xl py-8'>
+                    <div className='w-full flex flex-col md:flex-row justify-center items-center gap-4 py-5'>
+                        <span className='text-blue-950 font-serif font-semibold text-[32px]  border-blue-800 pb-1'>Reviews</span>
+                        <button onClick={() => handleSubmitReview()}
+                            className='flex items-center justify-center h-[40px] text-white font-serif font-semibold text-[18px] w-[140px] px-5 bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all duration-300'>
+
                             <span className="px-2"><IoIosAddCircle /> </span>
                             <span className="ml-2">Add</span>
                         </button>
@@ -577,35 +646,35 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     <div className="w-full flex justify-center flex-col items-center">
                         <textarea name="review" id="review"
-                           placeholder="Share your experience with the service provider..."
-                           className='text-[16px] h-[180px] text-gray-700 font-serif outline-none p-4 w-[90%] md:w-[700px] border border-gray-400 bg-white rounded-lg shadow-md focus:ring-2 focus:ring-blue-400 transition-all duration-200'
-                          
-                           rows={5} 
-                           style={{ resize: 'none' }}
-                           value={input}
+                            placeholder="Share your experience with the service provider..."
+                            className='text-[16px] h-[180px] text-gray-700 font-serif outline-none p-4 w-[90%] md:w-[700px] border border-gray-400 bg-white rounded-lg shadow-md focus:ring-2 focus:ring-blue-400 transition-all duration-200'
+
+                            rows={5}
+                            style={{ resize: 'none' }}
+                            value={input}
                             onChange={handleInputChange}
                         ></textarea>
 
-<p className="font-serif text-gray-500 mt-2">{wordCount} / 20 words</p>
+                        <p className="font-serif text-gray-500 mt-2">{wordCount} / 20 words</p>
                     </div>
                     <div className="w-full grid md:grid-cols-3 gap-4 py-10 px-1">
-    {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (
-        <div key={index} className="p-5 rounded-lg  mx-auto">
-            <Review review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />
-        </div>
-    ))}
-</div>
+                        {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (
+                            <div key={index} className="p-5 rounded-lg  mx-auto">
+                                <Review review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />
+                            </div>
+                        ))}
+                    </div>
 
 
-{visibleReviews < reviewStore?.reviews.length && (
-    <div className='w-full flex justify-center'>
-        <button 
-          
-            className='bg-blue-600 hover:bg-blue-800 text-white px-6 py-2 rounded-lg text-lg font-serif font-medium shadow-md transition-all duration-300'>
-            View All
-        </button>
-    </div>
-)}
+                    {visibleReviews < reviewStore?.reviews.length && (
+                        <div className='w-full flex justify-center'>
+                            <button
+
+                                className='bg-blue-600 hover:bg-blue-800 text-white px-6 py-2 rounded-lg text-lg font-serif font-medium shadow-md transition-all duration-300'>
+                                View All
+                            </button>
+                        </div>
+                    )}
 
                 </div>
 

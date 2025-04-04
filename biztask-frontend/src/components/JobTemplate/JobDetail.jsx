@@ -149,7 +149,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
         </div>
       )}
 
-      <div className="bg-gradient-to-b from-blue-50 to-white relative flex flex-col items-center w-full min-h-screen py-10">
+      <div className="bg-white relative flex flex-col items-center w-full min-h-screen py-10">
         {isLoading && (
           <div className="absolute w-full h-full inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-10">
             <DetailLoader />
@@ -159,14 +159,14 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
         {/* Job Header Card  */}
         <div className="relative w-full max-w-5xl bg-gradient-to-r from-white to-blue-50  shadow-lg  my-6 p-8 rounded-3xl border border-blue-100  ">
           <div className="flex flex-col">
-            <h2 className="text-[34px] font-serif font-bold text-[#2E3A46] mb-2 bg-gradient-to-r from-[#1C4E80] to-[#2E86C1] bg-clip-text text-transparent">
+            <h2 className="text-[28px] font-serif font-bold text-[#2E3A46] mb-2 bg-gradient-to-r from-[#1C4E80] to-[#2E86C1] bg-clip-text text-transparent">
               {jobStore?.job?.jobRole}
             </h2>
 
             {/* Company Name */}
             <div className="flex items-center text-[#1C4E80] px-2 space-x-1 ">
               <HiBuildingOffice2 className="text-xl " />
-              <h3 className="text-[20px] font-serif text-[#3D5060]">
+              <h3 className="text-[18px] font-serif text-[#3D5060]">
                 {jobStore?.job?.business?.companyName}
               </h3>
             </div>
@@ -258,10 +258,10 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
               <div className="bg-gradient-to-br from-white to-blue-50 backdrop-blur-md border border-blue-100 rounded-xl p-6 mb-6 shadow-sm">
 
-                <div className="flex items-center text-[22px] text-[#2E3A46] font-serif font-semibold mb-4 pb-2 border-b border-blue-400">
+                <div className="flex items-center text-[20px] text-[#2E3A46] font-serif font-semibold mb-4 pb-2 border-b border-blue-400">
                   <HiOutlineClipboardList className="text-[#1C4E80] text-2xl me-2" />
 
-                  <span>Responsibilities</span>
+                  <span >Responsibilities</span>
                 </div>
 
                 <ul className="space-y-4 text-gray-800 font-serif text-[17px] leading-relaxed">
@@ -277,7 +277,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
               {/* Skills Required  */}
               <div className="bg-gradient-to-br from-white to-blue-50 backdrop-blur-md border border-blue-100 rounded-xl p-6 shadow-md hover:shadow-blue-100 transition-all duration-300">
-                <div className="text-[20px] text-[#2E3A46] font-serif font-semibold mb-4 pb-2 border-b border-blue-400 uppercase tracking-wide">
+                <div className="text-[20px] text-[#2E3A46] font-serif font-semibold mb-4 pb-2 border-b border-blue-400 first-letter:uppercase tracking-wide">
                   Skills Required
                 </div>
 
@@ -383,13 +383,13 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
             </div>
 
             {/* Salary Details Card */}
-            <div className="bg-gradient-to-br from-white backdrop-blur-md border border-blue-100 rounded-2xl p-6 shadow-lg hover:text-blue-400 transition-all duration-300">
-              <h3 className="text-xl font-bold text-gray-800 mb-5 border-b pb-3  font-serif">
+            <div className="bg-gradient-to-r from-white to-blue-50   backdrop-blur-md border border-blue-100 rounded-2xl p-6 shadow-lg hover:text-blue-400 transition-all duration-300">
+              <h3 className="text-xl font-bold text-gray-800 mb-5  border-b border-blue-400 pb-3  font-serif">
                 Salary Details
               </h3>
 
               <div className="grid gap-6">
-                <div className="flex items-center justify-between bg-blue-50 rounded-xl p-4 hover:scale-[1.02] transition-transform duration-300 shadow-sm">
+                <div className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl p-4 hover:scale-[1.02] transition-transform duration-300 shadow-sm">
                   <div className="flex items-center gap-3">
                     <div className="text-blue-400 bg-blue-100 p-2 rounded-full">
                       <MdOutlineCurrencyRupee className="h-4 w-4 text-blue-400" />
@@ -399,7 +399,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   <span className="text-gray-800 font-semibold font-serif">₹ {jobStore?.job?.minSalary}</span>
                 </div>
 
-                <div className="flex items-center justify-between bg-blue-50 rounded-xl p-4 hover:scale-[1.02] transition-transform duration-300 shadow-sm">
+                <div className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl p-4 hover:scale-[1.02] transition-transform duration-300 shadow-sm">
                   <div className="flex items-center gap-3">
                     <div className="text-blue-400 bg-blue-100 p-2 rounded-full">
                       <MdOutlineCurrencyRupee className="h-4 w-4 text-blue-400" />
