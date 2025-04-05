@@ -15,7 +15,7 @@ const BusinessCard = ({ businessDetails, index, handlePopupWarningOpen }) => {
         <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-blue-700 rounded-3xl opacity-20 blur-sm transition-all duration-300 group-hover:opacity-40"></div>
         
         <div className="relative bg-white/90 backdrop-blur-lg rounded-3xl overflow-hidden shadow-lg border border-blue-100 
-          hover:shadow-2xl hover:-translate-y transition-all duration-300">
+          hover:shadow-xl hover:-translate-y transition-all duration-300">
           
           {/* Header  */}
           <div className="bg-gradient-to-r from-blue-400 to-blue-600 p-6 rounded-t-3xl relative">
@@ -45,7 +45,7 @@ const BusinessCard = ({ businessDetails, index, handlePopupWarningOpen }) => {
           </div>
           <div className="px-4 py-3 bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
             <div className="flex justify-between">
-              <span>ID: {businessDetails?._id?.substring(0, 12)}</span>
+              <span className='font-serif'>ID: {businessDetails?._id}</span>
               <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">
                 Active
               </span>

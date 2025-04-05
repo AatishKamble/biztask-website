@@ -55,9 +55,10 @@ const ProfilePage = ({ userDetails }) => {
   return (
     <>
       {userDetails && (
-        <div className="min-h-screen mt-10  ">
+        <div className="min-h-screen mt-8 
+         ">
           {/* Header Banner */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-800 h-64 relative">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 h-64 relative px-20">
             <div className="absolute inset-0 bg-pattern opacity-10"></div>
             <div className="container mx-auto px-6 h-full flex flex-col justify-end pb-20">
               <h1 className="text-white text-4xl font-bold font-serif">My Profile</h1>
@@ -66,7 +67,7 @@ const ProfilePage = ({ userDetails }) => {
           </div>
 
           {/* Profile Card */}
-          <div className="container mx-auto px-6 -mt-16 relative z-10">
+          <div className="container  px-6 -mt-16 relative z-10 w-[90%] mx-auto">
             <div className="bg-white rounded-xl shadow-xl p-8 mb-8 border border-blue-100">
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <div className="w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-50 to-blue-100">
@@ -126,7 +127,7 @@ const ProfilePage = ({ userDetails }) => {
             </div>
 
             {/* Business Section */}
-            <div ref={businessRegistrationRef} className="bg-white rounded-xl shadow-lg mb-8 overflow-hidden border border-blue-100">
+            <div ref={businessRegistrationRef} className="bg-white rounded-xl  mb-8 overflow-hidden border border-blue-100">
               <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
                 <div className="flex justify-between items-center">
                   <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-3 font-serif">
@@ -171,7 +172,7 @@ const ProfilePage = ({ userDetails }) => {
             </div>
 
             {/* Applied Jobs Section */}
-            <div ref={appliedJobsRef} className="bg-white rounded-xl shadow-lg mb-8 overflow-hidden border border-blue-100">
+            <div ref={appliedJobsRef} className="bg-white rounded-xl  mb-8  overflow-hidden border border-blue-100">
               <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
                 <div className="flex justify-between items-center">
                   <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-3 font-serif">
@@ -188,7 +189,7 @@ const ProfilePage = ({ userDetails }) => {
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-6 pb-10">
                 {userDetails?.appliedJobs?.length > 0 ? (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {userDetails?.appliedJobs?.map((job, index) => (

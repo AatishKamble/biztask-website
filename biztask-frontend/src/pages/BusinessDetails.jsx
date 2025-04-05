@@ -92,7 +92,7 @@ const BusinessDetails = ({ userDetails }) => {
                   </h2>
                 </div>
                 <div className="p-6">
-                  <p className="text-slate-700 text-lg leading-relaxed text-justify">
+                  <p className="text-slate-700 text-base  text-justify">
                     {businessStore.business?.description}  </p>
                 </div>
               </div>
@@ -115,7 +115,7 @@ const BusinessDetails = ({ userDetails }) => {
                     </div>
                     <div>
                       <h3 className="text-base font-semibold text-slate-800">Business ID</h3>
-                      <p className="text-sm text-slate-600 break-all">{businessStore.business?._id}</p>
+                      <p className="text-base text-slate-600 break-all">{businessStore.business?._id}</p>
                     </div>
                   </div>
 
@@ -126,7 +126,7 @@ const BusinessDetails = ({ userDetails }) => {
                     </div>
                     <div>
                       <h3 className="text-base font-semibold text-slate-800">Owner Name</h3>
-                      <p className="text-sm text-slate-600">{userDetails?.name}</p>
+                      <p className="text-base text-slate-600">{userDetails?.name}</p>
                     </div>
                   </div>
                 </div>
