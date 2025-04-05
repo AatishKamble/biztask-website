@@ -101,6 +101,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
   };
 
   const handlePopupWarningClose = () => {
+   
     setPopupWarning(false);
 
   };
@@ -151,7 +152,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
       <div className="bg-white relative flex flex-col items-center w-full min-h-screen py-10">
         {isLoading && (
-          <div className="absolute w-full h-full inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-10">
+          <div className="absolute w-full h-full inset-0 flex items-center justify-center bg-white backdrop-blur-sm z-10">
             <DetailLoader />
           </div>
         )}
@@ -414,11 +415,11 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
           </div>
         </div>
 
-        {popupwarning && (
+        {popupwarning  && (
           <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 animate-fadeIn"></div>
         )}
 
-        {popupwarning && (
+        {popupwarning  && (
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <PopUp
               message="Remove Job Posting"

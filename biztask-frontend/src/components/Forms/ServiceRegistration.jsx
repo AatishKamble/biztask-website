@@ -104,31 +104,31 @@ const ServiceRegistration = ({ userDetails, registration }) => {
             toast.error('Invalid price values');
             return;
         }
-      {/*new Change */} 
-if (formData.serviceType.trim()=="") {
-    toast.error('Service type is required');
-    return;
-}
-if (formData.Description.trim()=="") {
-    toast.error('Description is required');
-    return;
-}
-if (minPriceValue.trim()=="") {
-    toast.error('Minimum price is required');
-    return;
-}
-if (maxPriceValue.trim()=="") {
-    toast.error('Maximum price is required');
-    return;
-}
-if (!locationArray || locationArray.length === 0) {
-    toast.error('Location is required');
-    return;
-}
-if (!featureArray || featureArray.length === 0) {
-    toast.error('Feature is required');
-    return;
-} 
+        {/*new Change */ }
+        if (formData.serviceType.trim() == "") {
+            toast.error('Service type is required');
+            return;
+        }
+        if (formData.Description.trim() == "") {
+            toast.error('Description is required');
+            return;
+        }
+        if (minPriceValue.trim() == "") {
+            toast.error('Minimum price is required');
+            return;
+        }
+        if (maxPriceValue.trim() == "") {
+            toast.error('Maximum price is required');
+            return;
+        }
+        if (!locationArray || locationArray.length === 0) {
+            toast.error('Location is required');
+            return;
+        }
+        if (!featureArray || featureArray.length === 0) {
+            toast.error('Feature is required');
+            return;
+        }
         const formD = new FormData();
         formD.append("serviceType", formData.serviceType);
         formD.append("Description", formData.Description);
@@ -180,7 +180,7 @@ if (!featureArray || featureArray.length === 0) {
     //while updating
     useEffect(() => {
         if (registration === false && serviceStore.service && serviceStore.service._id == id) {
-            
+
             setFormData(
                 {
                     serviceType: serviceStore.service?.serviceType,
@@ -199,25 +199,27 @@ if (!featureArray || featureArray.length === 0) {
 
 
     return (
-        <div className='bg-[#ffffff] py-10 px-10 md:px-20 2xl:px-10 w-full h-auto flex items-center justify-center'>
+        <div className='bg-[#ffffff]  py-12 px-10 md:px-20 2xl:px-10 w-full h-auto flex flex-col items-center justify-center'>
+            <div className='w-full h-[50px] font-semibold flex justify-center pb-10  items-center text-[30px] text-blue-950 font-serif'>
+                <span>{registration == true ? "Register Your Service" : "Update Service"}</span>
+            </div>
+            <div className='2xl:w-[50%] w-full   h-full border border-slate-400 p-10'>
 
-            <div className='2xl:w-[50%] w-full   h-full bg-[#f4faff] p-10'>
 
-                <div className='w-full h-[50px] font-semibold flex justify-center pb-10  items-center text-[26px] text-blue-950 font-serif'>
-                    <span>{registration == true ? "Register Your Service" : "Update Service"}</span>
-                </div>
                 <form onSubmit={handleSubmit}>
                     <div className='w-full  h-[50px] flex py-10  items-center text-black'>
 
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Service Type :</label>
                         <input type="text"
-                            onChange={handleChange} name="serviceType" value={formData.serviceType} placeholder='e.g.Cleaning,event decoration' className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
+                            onChange={handleChange} name="serviceType" value={formData.serviceType} placeholder='Cleaning,Event decoration etc.' className=' text-[18px] w-full h-12 font-serif outline-none px-4  
+                           border-[1px] border-blue-600 rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
                     </div>
 
                     <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Name :</label>
-                        <input type="text" value={businessStore.business?.companyName} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
+                        <input type="text" value={businessStore.business?.companyName} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  border-[1px] border-blue-600
+                         rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
                     </div>
 
 
@@ -229,18 +231,18 @@ if (!featureArray || featureArray.length === 0) {
                     <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Name :</label>
-                        <input type="text" value={userDetails?.name || ""} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
+                        <input type="text" value={userDetails?.name || ""} className=' text-[18px] h-12 font-serif outline-none px-4 w-full border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
                     </div>
                     <div className='w-full h-[50px] flex py-10 items-center text-black'>
 
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium w-[300px] font-serif'> Phone :</label>
-                        <input type="tel" value={userDetails?.mobileNumber || ""} className=' text-[20px] h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md w-full focus-within:drop-shadow-xl' autoComplete='none' disabled />
+                        <input type="tel" value={userDetails?.mobileNumber || ""} className=' text-[18px] h-12 font-serif outline-none px-4  border-[1px] border-blue-600 rounded-md w-full focus-within:drop-shadow-xl' autoComplete='none' disabled />
                     </div>
 
                     <div className='w-full h-[50px] flex py-10  items-center text-black'>
 
                         <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Email :</label>
-                        <input type="email" value={userDetails?.email || ""} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
+                        <input type="email" value={userDetails?.email || ""} className=' text-[18px] h-12 font-serif outline-none px-4 w-full  border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
                     </div>
 
 
@@ -254,8 +256,8 @@ if (!featureArray || featureArray.length === 0) {
                         <textarea name="Description" id="DescriptionBox"
                             value={formData.Description}
                             onChange={handleChange}
-                            placeholder="Description about your Service (maxLength-300 words)"
-                            className=' text-[20px] h-[300px] font-serif outline-none p-4  w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
+                            placeholder="Description about your Service ( Maximum-300 words )"
+                            className='text-[18px] h-[300px] font-serif outline-none p-4  w-full  border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl'
                             rows={5} cols={40}
                             style={{ resize: 'none', overflow: 'hidden' }}
 
@@ -270,7 +272,7 @@ if (!featureArray || featureArray.length === 0) {
                         <input type="text"
                             name="minPrice" value={formData.minPrice}
                             onChange={handleChange}
-                            placeholder='Enter service Starting Price' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                            placeholder='Enter service Starting Price' className=' text-[18px] h-12 font-serif outline-none px-4 w-full  border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
 
                     </div>
                     <div className='w-full h-[50px] flex py-10  items-center text-black'>
@@ -280,7 +282,7 @@ if (!featureArray || featureArray.length === 0) {
                             name="maxPrice"
                             value={formData.maxPrice}
                             onChange={handleChange}
-                            placeholder='Enter ending price of service ' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                            placeholder='Enter ending price of service ' className=' text-[18px] h-12 font-serif outline-none px-4 w-full  border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
 
                     </div>
 
@@ -293,7 +295,7 @@ if (!featureArray || featureArray.length === 0) {
                         <input type="text" value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             placeholder='Enter Locations'
-                            className=' text-[20px] h-[50px] font-serif outline-none px-4 2xl:ms-10  md:ms-4 xl:ms-0 w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
+                            className=' text-[18px] h-[50px] font-serif outline-none px-4 2xl:ms-10  md:ms-4 xl:ms-0 w-[700px] border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl'
                             autoComplete='none' />
                         <div className="w-[100px] h-[50px]">
                             <span className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px] cursor-pointer  drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleLocationAdd}>
@@ -321,7 +323,7 @@ if (!featureArray || featureArray.length === 0) {
                             placeholder='Enter Features'
                             value={featureInput}
                             onChange={(e) => setFeatureInput(e.target.value)}
-                            className=' text-[20px] h-[50px] font-serif outline-none px-4 2xl:px-4 2xl:ms-10  md:ms-4 xl:ms-0  w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
+                            className=' text-[18px] h-[50px] font-serif outline-none px-4 2xl:px-4 2xl:ms-10  md:ms-4 xl:ms-0  w-[700px]  border-[1px] border-blue-600  rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
                         <div className="w-[100px] h-[50px]">
                             <span className=' bg-[#3b65be] text-lg font-serif cursor-pointer font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleFeatureAdd}>
                                 Add
@@ -349,15 +351,22 @@ if (!featureArray || featureArray.length === 0) {
                     </div>
 
 
-                    <div className='flex items-center justify-center my-10 h-[200px]'>
-
-
-                        <button type='submit' className=' bg-blue-900 hover:bg-[#1e52c3] align-middle h-12 w-[130px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' >
-                            <span className='text-lg font-serif font-medium me-1 text-white'><FaSave /></span>
-                            <span className='text-lg font-serif font-medium text-white'>Submit</span>
-
+                    <div className='flex items-center justify-center my-10 h-[200px] gap-4'>
+                        <button
+                            type='button'
+                            onClick={() => navigate(-1)}
+                            className='bg-red-500 hover:bg-gray-600 align-middle h-12 w-[130px] rounded-xl border-gray-700 drop-shadow-2xl mx-3 flex justify-center items-center transition-colors duration-200'
+                        >
+                            <span className='text-lg font-serif font-medium text-white'>Cancel</span>
                         </button>
 
+                        <button
+                            type='submit'
+                            className='bg-blue-900 hover:bg-[#1e52c3] align-middle h-12 w-[130px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center transition-colors duration-200'
+                        >
+                            <span className='text-lg font-serif font-medium me-1 text-white'><FaSave /></span>
+                            <span className='text-lg font-serif font-medium text-white'>Submit</span>
+                        </button>
                     </div>
                 </form>
             </div>
