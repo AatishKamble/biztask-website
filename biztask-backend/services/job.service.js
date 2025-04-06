@@ -195,7 +195,7 @@ const totalJobs=await jobsDetailsModel.countDocuments(query);
 
         const totalPages=Math.ceil(totalJobs/pageSize);
 
-        return {jobs:jobs,currentPage:pageNumber,totalPages};
+        return {jobs:jobs,currentPage:pageNumber,totalPages,totalJobs:totalJobs};
         
     } catch (error) {
         throw new Error(error.message);

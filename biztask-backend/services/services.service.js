@@ -207,7 +207,7 @@ const getAllServices = async (reqQuery) => {
     // Calculate total pages
     const totalPages = Math.ceil(totalService / pageSize);
 
-    return { services: services, currentPage: pageNumber, totalPages };
+    return { services: services, currentPage: pageNumber, totalPages,totalServices:totalService };
 
   } catch (error) {
     throw new Error(error.message);

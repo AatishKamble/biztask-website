@@ -79,7 +79,7 @@ const getAllServices = async (req, res) => {
          
             const allServices = await servicesService.getAllServices(req.query);
 
-            return res.json({ success: true, message: 'All Services', services: allServices.services, totalPages: allServices.totalPages, currentPage: allServices.currentPage });
+            return res.json({ success: true, message: 'All Services', services: allServices.services, totalPages: allServices.totalPages, currentPage: allServices.currentPage,totalServices:allServices.totalServices });
 
         } catch (error) {
 
