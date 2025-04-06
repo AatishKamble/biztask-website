@@ -4,7 +4,7 @@ import { FaUserSecret, FaPhone, FaLock, FaCheck, FaRupeeSign } from 'react-icons
 import { MdEmail, MdPayment } from 'react-icons/md';
 import QRCode from 'react-qr-code';
 
-const ContactInformation = ({ serviceDetails }) => {
+const ContactInformation = ({ serviceDetails, userDetails }) => {
     // States for payment flow
     const [paymentStatus, setPaymentStatus] = useState({
         name: false,
@@ -69,7 +69,7 @@ const ContactInformation = ({ serviceDetails }) => {
         }, 2000);
     };
     const upiID = "XXXX123@oksbi";
-const upiName = "XXXXXXXX XXXXX";
+    const upiName = "XXXXXXXX XXXXX";
 
     return (
         <>
@@ -98,7 +98,7 @@ const upiName = "XXXXXXXX XXXXX";
                     >
                         <FaUserSecret className="text-sky-600 mt-[4px]" />
                         <AnimatePresence>
-                            {paymentStatus.name ? (
+                            {userDetails?._id === serviceDetails?.user?._id || paymentStatus.name ? (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -128,6 +128,7 @@ const upiName = "XXXXXXXX XXXXX";
                         </AnimatePresence>
                     </motion.div>
 
+
                     {/* Phone */}
                     <motion.div
                         className="relative flex gap-3 items-start bg-blue-50/60 border border-blue-200 p-3 rounded-xl overflow-hidden"
@@ -137,7 +138,7 @@ const upiName = "XXXXXXXX XXXXX";
                     >
                         <FaPhone className="text-sky-600 mt-[4px]" />
                         <AnimatePresence>
-                            {paymentStatus.phone ? (
+                            {userDetails?._id === serviceDetails?.user?._id || paymentStatus.phone ? (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -167,6 +168,7 @@ const upiName = "XXXXXXXX XXXXX";
                         </AnimatePresence>
                     </motion.div>
 
+
                     {/* Email */}
                     <motion.div
                         className="relative flex gap-3 items-start bg-blue-50/60 border border-blue-200 p-3 rounded-xl overflow-hidden"
@@ -176,7 +178,7 @@ const upiName = "XXXXXXXX XXXXX";
                     >
                         <MdEmail className="text-sky-600 mt-[4px]" />
                         <AnimatePresence>
-                            {paymentStatus.email ? (
+                            {userDetails?._id === serviceDetails?.user?._id || paymentStatus.email ? (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -205,6 +207,7 @@ const upiName = "XXXXXXXX XXXXX";
                             )}
                         </AnimatePresence>
                     </motion.div>
+
                 </div>
             </motion.div>
 
@@ -243,14 +246,14 @@ const upiName = "XXXXXXXX XXXXX";
                                             size={180}
                                         />
 
-                                
+
 
                                     </div>
                                 </div>
                                 <div className="text-center text-sm text-gray-600 mb-4">
                                     <p>Scan the QR code with any UPI app</p>
                                     <p>or pay to: <span className="font-medium">{upiID}</span></p>
-                         
+
                                 </div>
                             </div>
 

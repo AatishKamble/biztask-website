@@ -354,10 +354,10 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </div>
                     </div>
                     {/* Right Section */}
-                    <div className="w-full flex  min-w-[30%] max-w-[40%] flex-col gap-6">
+                    <div className="w-full flex  min-w-[30%] max-w-[40%] sm:w-full flex-col gap-6">
 
                         {/* Contact Details */}
-                        <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 w-full flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+                        <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 w-full flex flex-col sm:flex-row gap-6 items-center ">
 
                             {/* Profile Image */}
                             <div className="w-[140px] h-[160px] sm:w-[160px] sm:h-[200px] rounded-xl overflow-hidden border-2 border-blue-300 flex-shrink-0">
@@ -369,7 +369,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             </div>
 
                             {/* Contact Info */}
-                           < ContactInformation serviceDetails={serviceDetails}/>
+                           < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails}/>
                         </div>
                         {/* Pricing Details */}
                         <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl  p-6 w-full font-serif">
