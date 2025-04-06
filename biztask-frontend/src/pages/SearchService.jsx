@@ -10,6 +10,7 @@ import { getAllServices } from '../Redux/ServiceR/Action.js';
 import serviceBack from "../assets/service.jpg"
 import JobLoader from '../components/Loader/JobLoader.jsx';
 import HangingBanner from '../components/HangingBanner/HangingBanner.jsx';
+import { motion } from 'framer-motion';
 const SearchService = () => {
 
   const location = useLocation();
@@ -176,13 +177,16 @@ const SearchService = () => {
 
   const isLoading = useSelector(store => store.serviceStore.isLoading);
 
+
   return (
     <>
 
-      <div className=' bg-blue-900 w-full h-[400px] mt-1 relative drop-shadow-xl shadow-blue-200  '>
-        <img src={serviceBack} alt="" className=' w-full h-full object-cover opacity-40 ' />
-<HangingBanner title="Find Services Effectively!"/>
-       </div>
+   
+<div className='relative w-full h-[400px] bg-blue-900 overflow-hidden shadow-xl'>
+      
+        <HangingBanner imgage={serviceBack} title={`Discover Top Services Around You`} subtitle=" Filter what matters and connect with the right service providers easily."/>
+ 
+      </div>
       <div className='  w-full h-full pt-10 pb-10 ps-10 pe-0 flex '>
         <div>
 

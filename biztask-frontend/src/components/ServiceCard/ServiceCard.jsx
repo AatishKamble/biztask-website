@@ -20,7 +20,7 @@ const ServiceCard = ({ business, service, provider }) => {
       <h3 className="text-xl font-serif font-semibold text-blue-700 line-clamp-2 w-full text-center">
         {service?.serviceType}
       </h3>
-      <p className="text-md font-serif font-normal text-gray-600">
+      <p className="text-md font-serif font-medium text-gray-600">
         {provider}
       </p>
     </div>
@@ -37,8 +37,8 @@ const ServiceCard = ({ business, service, provider }) => {
         </Link>
   
       {/* Rating Badge */}
-      <div className="flex items-center py-1 px-3 bg-white/90 backdrop-blur-sm rounded-full shadow-sm">
-          <span className="text-2xl font-serif text-amber-500">
+      <div className="flex items-center py-1 px-3 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200 backdrop-blur-sm rounded-md shadow-sm">
+          <span className="text-2xl font-serif text-yellow-500">
             <Star star={service?.rating} />
           </span>
          

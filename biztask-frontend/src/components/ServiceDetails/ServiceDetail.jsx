@@ -25,8 +25,12 @@ import Star from "../Reviews/Star.jsx";
 import PopUp from "../PopUp/PopUp.jsx";
 import DetailLoader from "../Loader/DetailLoader.jsx";
 import { toast } from "react-toastify";
-const ServiceDetail = ({ serviceDetails, userDetails }) => {
+import { GrCaretPrevious } from "react-icons/gr"; import { GrCaretNext } from "react-icons/gr";
+import ContactInformation from "../ContactInformation/ContactInformation.jsx";
+import { motion } from "framer-motion";
 
+
+const ServiceDetail = ({ serviceDetails, userDetails }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [files, setFiles] = useState([]);
     const jwt = localStorage.getItem("jwt");
@@ -40,6 +44,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         setIsModalOpen(null);
 
     }
+    const fileInputRef = useRef(null);
 
 
     //upload image submit
@@ -58,13 +63,15 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         formData.append("serviceId", serviceDetails._id);
         dispatch(uploadImage(formData, jwt));
         setFiles([]);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ""; 
+        }
         navigate(`/service-detail/${serviceDetails?._id}`)
     }
 
     //upload image filed change
     const handleWorkPicChange = (e) => {
         setFiles(Array.from(e.target.files));
-
     }
 
     const navigate = useNavigate();
@@ -195,13 +202,32 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     };
 
-    const handleRemoveFile = (index) => {
-        setFiles(prev => prev.filter((_, i) => i !== index));
-    };
+    const handleRemoveFile = (indexToRemove) => {
+        const updatedFiles = files.filter((_, i) => i !== indexToRemove);
+        setFiles(updatedFiles);
+      
+       
+        if (fileInputRef.current) {
+          const dataTransfer = new DataTransfer();
+          updatedFiles.forEach((file) => dataTransfer.items.add(file));
+          fileInputRef.current.files = dataTransfer.files;
+        }
+      };
 
     const [uploadButtonHover, setUploadButtonHover] = useState(false);
 
     const isLoading = useSelector(store => store.serviceStore.isLoading);
+
+
+    // Animation Variant
+    const fadeUp = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" },
+        },
+    };
 
     return (
         <>
@@ -229,11 +255,11 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </div>
 
                         <div className='w-full text-[20px] text-slate-600 font-serif pb-2'>
-                            <span className=' font-normal px-2'>{serviceDetails?.bussiness?.companyName}
+                            <span className=' font-medium px-2'>{serviceDetails?.bussiness?.companyName}
                             </span>
 
                         </div>
-                        <div className='w-full px-2 pb-5 flex justify-start items-center  text-[16px] text-blue-950 font-serif'>
+                        <div className='w-full px-2 pb-5 flex justify-start items-center  text-[16px] text-blue-950 font-serif font-medium'>
                             <span>Ratings : </span>
                             <span className="text-[26px] font-serif font-normal px-2  text-yellow-400"><Star star={serviceDetails?.rating} /> </span>
 
@@ -273,13 +299,13 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                             <div>
 
-                                <button className='bg-[#94b6b5]  rounded-md p-2 me-2   hover:bg-[#79bdba] w-auto h-auto text-slate-600 font-serif font-bold text-[16px]' onClick={() => scrollToSection(postedJobs)}> View posted Job</button>
+                                <button className='bg-[#94b6b5]  rounded-md p-2 me-2   hover:bg-[#79bdba] w-auto h-auto text-slate-600 font-serif font-semibold text-[16px]' onClick={() => scrollToSection(postedJobs)}> View posted Job</button>
 
                                 <Link to={`/service-update/${serviceDetails?._id}`}>
-                                    <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-serif font-bold text-[16px]' >Update</button>
+                                    <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-serif font-semibold text-[16px]' >Update</button>
                                 </Link>
 
-                                <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-serif font-bold text-[16px]' onClick={handlePopupWarningOpen}>Remove</button>
+                                <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-serif font-semibold text-[16px]' onClick={handlePopupWarningOpen}>Remove</button>
                             </div>
 
                         }
@@ -294,12 +320,12 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     <div className="flex flex-col xl:w-2/3 gap-6">
 
                         {/* Description Section */}
-                        <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 transition-all font-serif">
+                        <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 transition-all font-serif ">
                             <div className="w-full flex items-center text-[20px] text-blue-900 font-semibold pb-3 border-b border-blue-300">
                                 <MdOutlineDescription className="mr-2 text-blue-700 text-[20px]" />
                                 Description
                             </div>
-                            <p className="text-justify p-4 text-slate-900 text-[16px] leading-relaxed">
+                            <p className="text-justify p-4 text-slate-900 text-[16px] font-medium leading-relaxed">
                                 {serviceDetails?.Description || "No description provided."}
                             </p>
                         </div>
@@ -343,42 +369,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             </div>
 
                             {/* Contact Info */}
-                            <div className="flex flex-col flex-1 text-blue-900 text-[18px] font-serif space-y-5 w-full">
-
-                                {/* Heading */}
-                                <div className="text-[20px]  font-semibold border-b border-blue-300 pb-2">
-                                    Contact Information
-                                </div>
-
-                                {/* Info Boxes */}
-                                <div className="space-y-4 text-[16px]">
-
-                                    {/* Name */}
-                                    <div className="flex gap-3 items-start bg-blue-50/60 border border-blue-200 p-3 rounded-xl">
-                                        <FaUserSecret className="text-sky-600 mt-[4px]" />
-                                        <div className="flex-1 break-words break-all font-medium">
-                                            {serviceDetails?.user?.name || "Not Available"}
-                                        </div>
-                                    </div>
-
-                                    {/* Phone */}
-                                    <div className="flex gap-3 items-start bg-blue-50/60 border border-blue-200 p-3 rounded-xl">
-                                        <FaPhone className="text-sky-600 mt-[4px]" />
-                                        <div className="flex-1 break-words break-all font-medium">
-                                            {serviceDetails?.user?.mobileNumber || "Not Available"}
-                                        </div>
-                                    </div>
-
-                                    {/* Email */}
-                                    <div className="flex gap-3 items-start bg-blue-50/60 border border-blue-200 p-3 rounded-xl">
-                                        <MdEmail className="text-sky-600 mt-[4px]" />
-                                        <div className="flex-1 break-words break-all font-medium">
-                                            {serviceDetails?.user?.email || "Not Available"}
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                           < ContactInformation serviceDetails={serviceDetails}/>
                         </div>
                         {/* Pricing Details */}
                         <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl  p-6 w-full font-serif">
@@ -454,34 +445,83 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                 }
 
 
-                <div className="relative w-full flex justify-center items-center py-8">
-                    <div className="w-full border-t border-dashed border-slate-400 absolute top-1/2 transform -translate-y-1/2 z-0" />
 
-                    <span className="relative z-10 bg-gradient-to-r from-white to-blue-100 px-4 py-2  text-blue-900 text-[22px] sm:text-[22px] font-serif font-bold rounded-xl border-2 border-blue-300 shadow-sm tracking-wide">
+
+
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="w-full flex flex-col items-center py-10 px-4 md:px-10  rounded-2xl "
+                >
+
+                    <motion.h2
+                        initial={{ opacity: 0, y: -20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2, duration: 0.6 }}
+                        className="text-4xl font-serif font-bold text-transparent bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 bg-clip-text mb-2"
+                    >
                         Previous Work
-                    </span>
-                </div>
+                    </motion.h2>
 
-                <div className=' w-full h-auto relative    my-10 mt-6 flex flex-col px-5'>
+                    <motion.div
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4, duration: 0.5 }}
+                        className="h-[4px] w-28 origin-left bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-0 rounded-full "
+                    />
 
-                    <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
-                        <div className="flex items-center justify-center py-5 mb-5 space-x-4">
-                            <input
+
+                    {/* Subtitle */}
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6 }}
+                        className="text-gray-600 text-center  mt-4 mb-6 font-serif text-base max-w-xl"
+                    >
+                        Upload your previous projects or designs to showcase your creativity and build trust with clients.
+                    </motion.p>
+
+                    {/* Upload Form */}
+                    <motion.form
+                        onSubmit={handleSubmit}
+                        className="w-full  mt-6  max-w-xl "
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.8 }}
+                    >
+                        <div className="flex flex-col  sm:flex-row items-center justify-center gap-4">
+                            {/* File Input */}
+                            <motion.input
+                              ref={fileInputRef}
+                                whileFocus={{ scale: 1.03 }}
                                 type="file"
                                 multiple
                                 onChange={handleWorkPicChange}
-                                className="w-64 p-3 bg-slate-100 border border-gray-300 rounded-md text-gray-800 font-serif  focus:outline-none focus:ring-2 "
+                                className="w-full sm:w-[65%] p-3 bg-slate-100 border border-gray-300 rounded-md text-gray-800 font-serif shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
                             />
-                            <div className="w-[20%] flex">
-                                <button type="submit" className=' text-blue-950 font-serif font-semibold text-[30px]  ps-10 cursor-pointer'  ><IoCloudUploadSharp onMouseEnter={() => setUploadButtonHover(!uploadButtonHover)} onMouseLeave={() => setUploadButtonHover(!uploadButtonHover)} /></button>
-                                {
-                                    uploadButtonHover && <div className="bg-white border-black border px-4 rounded-xl rounded-bl-none  text-[16px] h-10 flex items-center justify-center w-[80px] ms-2  font-serif">
-                                        upload
-                                    </div>
 
-                                }</div>
+                            {/* Upload Button */}
+                            <motion.button
+                                type="submit"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
+                            >
+                                <IoCloudUploadSharp size={24} />
+                                <span>Upload</span>
+                            </motion.button>
                         </div>
-                    </form>
+                    </motion.form>
+                </motion.div>
+
+                <div className=' w-full h-auto relative    my-10  mt-4 flex flex-col px-5'>
+
 
                     {files.length > 0 && (
                         <div className="w-full bg-gradient-to-br from-white to-blue-50 z-10 mb-5 h-auto relative grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-6 transition-all duration-300 rounded-xl border border-slate-300 shadow-md">
@@ -566,21 +606,21 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                                         <button
-                                            className="absolute left-3 top-1/2 -translate-y-1/2 text-white bg-white hover:bg-blue-600 p-2 rounded-2xl"
+                                            className="absolute left-3 top-1/2 -translate-y-1/2 text-xl w-10 text-grey-600 bg-blue-300 hover:bg-blue-200  p-2 rounded-2xl"
                                             onClick={() =>
                                                 setIsModalOpen((prev) => (prev > 0 ? prev - 1 : AllPhotos.length - 1))
                                             }
                                         >
-                                            ◀
+                                            <GrCaretPrevious />
                                         </button>
 
                                         <button
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-white bg-white hover:bg-blue-600 p-2 rounded-2xl"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-xl w-10 text-grey-600 bg-blue-300 hover:bg-blue-200 p-2 rounded-2xl"
                                             onClick={() =>
                                                 setIsModalOpen((prev) => (prev < AllPhotos.length - 1 ? prev + 1 : 0))
                                             }
                                         >
-                                            ▶
+                                            <GrCaretNext />
                                         </button>
                                     </div>
                                 </div>
@@ -617,46 +657,79 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
             {isLoading == false &&
-                <div className='w-full h-auto relative my-10 flex flex-col px-5 bg-gray-50 rounded-xl py-8'>
-                    <div className='w-full flex flex-col md:flex-row justify-center items-center gap-4 py-5'>
-                        <span className='text-blue-950 font-serif font-semibold text-[32px]  border-blue-800 pb-1'>Reviews</span>
-                        <button onClick={() => handleSubmitReview()}
-                            className='flex items-center justify-center h-[40px] text-white font-serif font-semibold text-[18px] w-[140px] px-5 bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all duration-300'>
+                <div className='w-full h-auto relative my-10 mt-0 flex flex-col px-5 bg-white rounded-xl py-8 pt-0'>
 
-                            <span className="px-2"><IoIosAddCircle /> </span>
-                            <span className="ml-2">Add</span>
-                        </button>
+                    <motion.div
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        className="w-full flex flex-col items-center gap-8 py-10  px-4 md:px-10"
+                    >
+                        {/* Heading */}
+                        <div className="text-center mb-2">
+                            <h2 className="text-blue-950 font-serif font-bold text-4xl inline-block  border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+                                Add a Review
+                            </h2>
+                            <div className="h-[3px] w-24 mx-auto  bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
+                            <p className="text-gray-600 text-base font-serif mt-2">
+                                Share your experience and help others make informed choices.
+                            </p>
+                        </div>
 
-                        <div className="flex gap-1">
 
-                            {stars.map((_, index) => {
-                                return (
-                                    <FaStar key={index} size={24}
-                                        style={{ marginRight: 10, cursor: "pointer" }}
-                                        className={`${(hoverValue || currentValue) > index ? 'text-yellow-500 drop-shadow-md' : "text-gray-400"} transition-all duration-200`}
+                        {/* Star Rating */}
+                        <div className="flex flex-col items-center gap-2">
+                            <label htmlFor="star-rating" className="text-lg font-serif font-medium text-gray-700">
+                                Rate the Service
+                            </label>
+                            <div id="star-rating" className="flex gap-1">
+                                {stars.map((_, index) => (
+                                    <FaStar
+                                        key={index}
+                                        size={24}
+                                        className={`transition-all duration-200 cursor-pointer ${(hoverValue || currentValue) > index
+                                            ? "text-yellow-500 drop-shadow-md"
+                                            : "text-gray-300"
+                                            }`}
                                         onClick={() => handleClick(index + 1)}
                                         onMouseOver={() => handleMouseHover(index + 1)}
                                         onMouseLeave={() => handleMouseLeave(index + 1)}
                                     />
-                                )
-                            })}
+                                ))}
+                            </div>
                         </div>
 
-                    </div>
+                        {/* Review Textarea */}
+                        <div className="w-full flex justify-center flex-col items-center gap-2">
+                            <label htmlFor="review" className="text-lg font-serif font-medium text-gray-700">
+                                Your Feedback
+                            </label>
+                            <textarea
+                                name="review"
+                                id="review"
+                                placeholder="Share your experience with the service provider..."
+                                className="text-[16px] h-[180px] text-gray-700 font-serif outline-none p-4 w-[90%] md:w-[700px] border border-gray-300 bg-white rounded-lg shadow-md focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                                style={{ resize: "none" }}
+                                rows={5}
+                                value={input}
+                                onChange={handleInputChange}
+                            ></textarea>
+                            <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
+                        </div>
 
-                    <div className="w-full flex justify-center flex-col items-center">
-                        <textarea name="review" id="review"
-                            placeholder="Share your experience with the service provider..."
-                            className='text-[16px] h-[180px] text-gray-700 font-serif outline-none p-4 w-[90%] md:w-[700px] border border-gray-400 bg-white rounded-lg shadow-md focus:ring-2 focus:ring-blue-400 transition-all duration-200'
+                        {/* Submit Button */}
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleSubmitReview}
+                            className="flex items-center justify-center gap-2 h-11 w-36 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-lg transition-all duration-300"
+                        >
+                            <IoIosAddCircle size={22} />
+                            <span>Submit</span>
+                        </motion.button>
+                    </motion.div>
 
-                            rows={5}
-                            style={{ resize: 'none' }}
-                            value={input}
-                            onChange={handleInputChange}
-                        ></textarea>
-
-                        <p className="font-serif text-gray-500 mt-2">{wordCount} / 20 words</p>
-                    </div>
                     <div className="w-full grid md:grid-cols-3 gap-4 py-10 px-1">
                         {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (
                             <div key={index} className="p-5 rounded-lg  mx-auto">
@@ -676,7 +749,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </div>
                     )}
 
-                </div>
+                </div >
 
 
             }

@@ -1,62 +1,64 @@
 import { MdOutlineAccessTime } from "react-icons/md";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 import { API_BASE_URL } from "../../configApi/ConfigApi";
 import timeAgo from "../timeCalculate.js";
 import Star from "./Star.jsx";
-import { MdOutlineUpdate } from "react-icons/md";
-import { RiDeleteBin2Fill } from "react-icons/ri";
-import { useDispatch } from "react-redux";
 
-
-const Review = ({ review,userDetails,handleReviewDelete}) => {
-
-    
-  
+const Review = ({ review, userDetails, handleReviewDelete }) => {
     return (
-        <>
+        <div className="relative w-[450px] min-h-[380px] bg-gradient-to-br from-[#1e3a8a] to-[#1e40af] text-white rounded-3xl border-[3px] border-blue-800 shadow-2xl p-6 mt-6 transition-all duration-500 hover:scale-105 hover:shadow-blue-600/40 group">
 
-<div className="relative bg-[#283c6a] text-[#e2e8f0] mt-5 w-[450px] min-h-[360px] p-6 rounded-[30px] border-[3px] border-[#1e3a8a] shadow-2xl transform transition-all duration-500 hover:scale-105 hover:border-[#2563eb] hover:shadow-[#7333ea]/50">
+            {/* Floating Profile Image */}
+            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] rounded-full border-4 border-blue-500 overflow-hidden shadow-lg rotate-[6deg] group-hover:rotate-0 transition-all duration-300">
+                <img
+                    src={review?.user?.profileImage?.ImageUrl}
+                    alt="User"
+                    className="w-full h-full object-cover"
+                />
+            </div>
 
-{/* Floating Hexagonal Profile Image */}
-<div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] bg-[#1e3a8a] rounded-md overflow-hidden border-[4px] border-[#2563eb] shadow-md rotate-[6deg]">
-    <img src={`${review?.user?.profileImage?.ImageUrl}`} alt="User" className="w-full h-full object-cover" />
-</div>
+            {/* Review Content */}
+            <div className="mt-16 px-4 text-center font-serif">
+                {/* Message */}
+                <p className="text-[17px] italic font-medium leading-relaxed bg-white/10 p-4 rounded-xl border border-white/20 shadow-inner">
+                    "{review?.ReviewMessage}"
+                </p>
 
-{/* Review Content */}
-<div className="mt-16 px-4 font-serif text-center">
+                {/* Star */}
+                <div className="flex justify-center items-center mt-4">
+                    <Star star={review?.rating} />
+                </div>
 
-    {/* Review Message */}
-    <p className="text-lg font-medium leading-relaxed italic bg-white bg-opacity-10 p-4 rounded-lg border border-white/20 shadow-md">
-        "{review?.ReviewMessage}"
-    </p>
+                {/* Footer */}
+                <div className="flex justify-between items-center mt-6 text-sm text-gray-300">
+                    <span className="flex items-center gap-1">
+                        <MdOutlineAccessTime className="text-blue-200" />
+                        {timeAgo(review?.postedAt)}
+                    </span>
+                    <div className="flex items-center gap-2">
+                        <p className="text-lg font-semibold text-gray-100">{review?.user?.name}</p>
+                        {review?.user?._id === userDetails?._id  && (
+                            <span className="bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-md shadow-sm uppercase tracking-wide">
+                               User
+                            </span>
+                        )}
+                    </div>
 
-    {/* Star Rating */}
-    <div className="flex justify-center items-center gap-2 mt-4">
-        <Star star={review?.rating} />
-    </div>
+                </div>
+            </div>
 
-    {/* Footer (Time & User Name) */}
-    <div className="flex justify-between items-center text-sm text-gray-300 mt-6">
-        <span className="flex items-center gap-1">
-            <MdOutlineAccessTime className="text-[#d7dbe4]" />
-            {timeAgo(review?.postedAt)}
-        </span>
-        <p className="text-lg font-semibold text-[#cad0db]">{review?.user?.name}</p>
-    </div>
-</div>
+            {/* Delete Button */}
+            {review?.user?._id === userDetails?._id && (
+                <button
+                    onClick={() => handleReviewDelete(review?._id)}
+                    className="absolute bottom-4 right-4 text-red-400 hover:text-red-600 transition duration-300"
+                    title="Delete Review"
+                >
+                    <RiDeleteBin2Fill size={28} />
+                </button>
+            )}
+        </div>
+    );
+};
 
-{/* Delete Icon (only for the user) */}
-{review?.user?._id === userDetails?._id && (
-    <div className="absolute bottom-3 right-4">
-        <span className="p-2 rounded-full  text-white hover:text-red-700 cursor-pointer transition duration-300"
-              onClick={() => handleReviewDelete(review?._id)}>
-            <RiDeleteBin2Fill size={30} />
-        </span>
-    </div>
-)}
-</div>
-
-        </>
-    )
-}
-
-export default Review
+export default Review;

@@ -1,4 +1,3 @@
-
 import Modal from 'react-modal';
 import { MdOutlineMail } from "react-icons/md";
 import { GoLock } from "react-icons/go";
@@ -12,68 +11,62 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const auth = useSelector(store => store.auth);
+    
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
+    const [confPass, setConfPass] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
 
-    const navigate=useNavigate();
-    //modal style
+    // Modal style with improved aesthetics
     const customStyles = {
-
+        overlay: {
+            zIndex: 999,
+            backgroundColor: 'rgba(0, 0, 0, 0.75)'
+        },
         content: {
-
-
             top: '50%',
             left: '50%',
             right: 'auto',
             bottom: 'auto',
             marginRight: '-50%',
-            border: "1px solid #eff6ff",
             transform: 'translate(-50%, -50%)',
-            width: "500px",
-            height: "680px",
-            backgroundColor: '#f0f9ff',
+            width: "450px",
+            maxHeight: "95vh",
+            overflow: "auto",
+            padding: 0,
+            border: "none",
+            borderRadius: "16px",
+            backgroundColor: 'transparent',
             zIndex: '1000'
         },
     };
 
-
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    });
-
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [confPass, setConfPass] = useState('');//forsignUp
-    const dispatch = useDispatch();
-    const auth = useSelector(store => store.auth);
-
-
-    function confPassHandle(e) {
-        setConfPass(e.target.value);
-    }//for signup
-
     function handleChange(e) {
-
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
         });
-
     }
 
-
+    function confPassHandle(e) {
+        setConfPass(e.target.value);
+    }
 
     const handleFormData = (e) => {
         e.preventDefault();
-        if (type == "login") {
+        if (type === "login") {
             dispatch(login(formData));
             handleButtonClick();
-        
         }
-        else if (type == "signup") {
-
-            if (formData.password == confPass) {
+        else if (type === "signup") {
+            if (formData.password === confPass) {
                 dispatch(register(formData));
-             
-            handleButtonClick();
+                handleButtonClick();
             }
             else {
                 setFormData({
@@ -81,123 +74,153 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
                     password: ''
                 });
                 setConfPass('');
-            setErrorMessage("Password and confirm Password should be same");
+                setErrorMessage("Password and confirm password don't match");
             }
         }
-
     }
 
-
     const handleGoogle = () => {
-        window.location.href = `${API_BASE_URL}/auth/google`; // Redirect to Google authentication URL
+        window.location.href = `${API_BASE_URL}/auth/google`;
     };
 
-
     return (
-        <>
-            <Modal
-                isOpen={openState}//change
-                style={customStyles}
-                onRequestClose={() => handleButtonClick()}//change 
-                className="relative bg-gradient-to-br from-blue-100 to-cyan-200 shadow-2xl rounded-3xl p-8 border border-blue-300 backdrop-blur-2xl"
-  
-               
-            >
-                <div className='  w-full h-20 flex text-[35px] font-extrabold justify-center items-center font-serif text-blue-900'>
-                    {type == "login" ? <span className="text-4xl font-bold text-blue-900 tracking-wide drop-shadow-lg">Login</span> : <span className="text-4xl font-bold text-blue-900 tracking-wide drop-shadow-lg">Sign Up</span>}
-
+        <Modal
+            isOpen={openState}
+            style={customStyles}
+            onRequestClose={handleButtonClick}
+            contentLabel={type === "login" ? "Login Form" : "Sign Up Form"}
+            ariaHideApp={false}
+        >
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                {/* Header */}
+                <div className="bg-gradient-to-r from-blue-600 to-blue-800 py-6 px-8 text-center">
+                    <h2 className="text-3xl font-bold text-white">
+                        {type === "login" ? "Welcome Back" : "Create Account"}
+                    </h2>
+                    <p className="text-blue-100 mt-2">
+                        {type === "login" ? "Sign in to continue" : "Join our community today"}
+                    </p>
                 </div>
-                <div className='flex  w-full flex-col h-auto justify-center items-center'>
-                <span className='text-[18px] font-serif text-slate-600 '>Continue with</span>
-                        <div className='mb-4 mt-2 h-16 w-full flex flex-col justify-center items-center pb-5'>
 
-                            <div className=' w-auto px-5 hover:border-[1px] bg-gradient-to-br  hover:from-blue-200 hover:to-blue-300 transition duration-300 rounded-xl cursor-pointer'>
-                                <button onClick={handleGoogle} className='flex items-center py-2 text-[24px] font-serif font-semibold'>
-                                    <FcGoogle />
-                                    <span className='text-[24px] font-serif font-light ps-2 text-slate-600'>Google</span>
+                <div className="p-8">
+                    {/* Google Sign-in Button */}
+                    <div className="mb-6">
+                        <button 
+                            onClick={handleGoogle}
+                            className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg p-3 hover:bg-gray-50 transition duration-200"
+                        >
+                            <FcGoogle className="text-xl" />
+                            <span className="font-medium text-gray-700">Continue with Google</span>
+                        </button>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="flex items-center my-4">
+                        <div className="flex-grow h-px bg-gray-200"></div>
+                        <span className="px-3 text-gray-500 text-sm">or</span>
+                        <div className="flex-grow h-px bg-gray-200"></div>
+                    </div>
+
+                    {/* Form */}
+                    <form onSubmit={handleFormData} className="space-y-4">
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                                <MdOutlineMail className="text-lg" />
+                            </div>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                value={formData.email} 
+                                onChange={handleChange} 
+                                placeholder="Email address" 
+                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
+                                required
+                            />
+                        </div>
+
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                                <GoLock className="text-lg" />
+                            </div>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                value={formData.password} 
+                                onChange={handleChange} 
+                                placeholder="Password" 
+                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
+                                required
+                                autoComplete="new-password"
+                            />
+                        </div>
+
+                        {type === "signup" && (
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                                    <GoLock className="text-lg" />
+                                </div>
+                                <input 
+                                    type="password" 
+                                    name="confPass" 
+                                    value={confPass} 
+                                    onChange={confPassHandle} 
+                                    placeholder="Confirm password" 
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
+                                    required
+                                    autoComplete="new-password"
+                                />
+                            </div>
+                        )}
+
+                        {type === "login" && (
+                            <div className="flex justify-end">
+                                <button 
+                                    type="button" 
+                                    className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1"
+                                    onClick={() => {
+                                        handleButtonClick();
+                                        navigate("/forgot-password");
+                                    }}
+                                >
+                                    <RiLockPasswordFill className="text-sm" />
+                                    Forgot password?
                                 </button>
                             </div>
-                        </div></div>
-                <form onSubmit={handleFormData}>
-                    <div className=' bg-inherit w-full h-auto my-2 flex justify-center items-center flex-col px-5' style={type === "login" ? { marginTop: "50px" } : {}}>
-                        
+                        )}
 
-
-                        <div className='bg-white  h-14 w-full flex justify-center items-center text-slate-600 rounded-md' style={type === "login" ? { marginBottom: "10px" } : {}}>
-                            <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
-                                <MdOutlineMail />
+                        {errorMessage && (
+                            <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+                                {errorMessage}
                             </div>
-                            <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Enter Email' className='w-full p-2 me-4 h-10 text-[20px] align-middle font-sans font-medium outline-none bg-inherit ' />
-                        </div>
+                        )}
 
+                        <button 
+                            type="submit" 
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition duration-200"
+                        >
+                            {type === "login" ? "Sign In" : "Create Account"}
+                        </button>
+                    </form>
 
-                        <div className='bg-white rounded-md mt-5 h-14 w-full flex justify-center items-center text-slate-600'>
-                            <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
-                                <GoLock />
-                            </div>
-                            <input type="password" name='password' value={formData.password} onChange={handleChange} placeholder='password' className='w-full p-2 me-4 h-12 text-[20px] align-middle font-sans font-medium outline-none bg-inherit' autoComplete='false' />
-                        </div>
-
-                        {type == "signup" && <div className='bg-white rounded-md my-5 h-14 w-full flex justify-center items-center text-slate-600'>
-                            <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
-                                <GoLock />
-                            </div>
-                            {/* diff */}
-                            <input type="password" name='conPass' value={confPass} onChange={confPassHandle} placeholder='Confirm password' className='w-full p-2 me-4 h-12 text-[20px] align-middle font-sans font-medium outline-none bg-inherit' autoComplete='false' />
-                        </div>
-                        }
-
-
-                        <div className='bg-blue-900 hover:bg-[#1e52c3] cursor-pointer rounded-sm my-5 h-16 w-full flex justify-center items-center text-slate-100 hover:text-slate-500' style={type === "login" ? { marginTop: "50px" } : {}}>
-                            {/* //diff */}
-                            <button type='submit' className='text-[24px] font-serif font-semibold'> {type == "login" ? "Login" : "SignUp"}</button>
-                        </div>
-
-
-                        <div className='w-full flex justify-center items-center text-red-700'>
-                            {errorMessage && <span id='error'>{errorMessage}</span>}
-                        </div>
-
-                        {/* some diff */}
-                        <div className=' rounded-sm mt-2 h-14 w-full flex justify-center items-center text-black '>
-                            <span className='text-[18px] font-serif font-normal px-2'>{type == "login" ? "New User ?" : "Already have account ?"}</span>
-                            <span className='text-[18px]  font-serif font-normal cursor-pointer text-blue-900 underline hover:text-[#1e52c3]' onClick={() => {
-                                if (type == "login") {
+                    {/* Switch between login/signup */}
+                    <div className="text-center mt-6">
+                        <p className="text-gray-600">
+                            {type === "login" ? "Don't have an account?" : "Already have an account?"}
+                            <button
+                                className="ml-2 text-blue-600 hover:text-blue-800 font-medium"
+                                onClick={() => {
                                     handleButtonClick();
                                     handleButtonClick2();
-                                }
-                                else if (type == 'signup') {
-                                    handleButtonClick();
-                                    handleButtonClick2();
-                                }
-                                //    change
-                            }}>{type === "login" ? "Sign Up" : "Log In"}</span>
-
-                        </div>
-
-                       { 
-                        type==="login" &&
-                        <div className='flex justify-center items-center'>
-                            <span className='text-blue-950 text-[20px]'><RiLockPasswordFill /></span>
-                        
-                            <span className='text-[18px] cursor-pointer text-blue-900 hover:text-[#1e52c3] font-serif font-normal px-2' onClick={()=>{
-                                 handleButtonClick();
-                                 navigate("/forgot-password")
-                            }}>Forgot Password ?</span>
-                 
-                        </div>}
-
+                                }}
+                            >
+                                {type === "login" ? "Sign Up" : "Sign In"}
+                            </button>
+                        </p>
                     </div>
-                </form>
+                </div>
+            </div>
+        </Modal>
+    );
+};
 
-
-
-
-            </Modal>
-
-
-        </>
-    )
-}
-
-export default FormUI
+export default FormUI;

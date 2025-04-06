@@ -1,61 +1,77 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MdOutlineMail } from "react-icons/md";
 import { useDispatch } from 'react-redux';
-import {forgotPassword} from "../../Redux/Auth/Action.js";
+import { forgotPassword } from "../../Redux/Auth/Action.js";
 import { Link } from 'react-router-dom';
+
 const ForgotPassword = () => {
+  const [emailInput, setEmailInput] = useState("");
+  const dispatch = useDispatch();
 
-    const [emailInput,setEmailInput]=useState("");
-const dispatch=useDispatch();
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-       
-const formData={
-    email:emailInput
-}
-       dispatch(forgotPassword(formData));
-       setEmailInput("");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = { email: emailInput };
+    dispatch(forgotPassword(formData));
+    setEmailInput("");
+  };
+
   return (
-    <>
-    
- 
-                    <div className=' bg-inherit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full  h-auto flex justify-center items-center flex-col px-5' >
-                        
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-blue-600 to-blue-800 py-6 px-8 text-center">
+          <h2 className="text-3xl font-bold text-white">Forgot Password</h2>
+          <p className="text-blue-100 mt-2">
+            Enter your email to get a reset link
+          </p>
+        </div>
 
-<form onSubmit={handleSubmit} className='w-[40%] bg-slate-100 px-20 py-10' >
+        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+              <MdOutlineMail className="text-xl" />
+            </div>
+            <input
+              type="email"
+              name="email"
+              value={emailInput}
+              onChange={(e) => setEmailInput(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-gray-700"
+            />
+          </div>
 
-<div className='  h-20 w-full flex flex-col justify-center items-center my-10  rounded-md' >
-                            
-                            <span className='text-[28px] font-serif font-semibold text-blue-900'>Forgot password</span>
-                            <span className='text-[20px] font-serif text-center py-5 text-blue-400'>Enter Email address to get link to reset your password</span>
-                             </div>
-                        <div className='bg-[#c5c8cd] h-14 w-full flex justify-center items-center text-slate-600 rounded-md' >
-                            <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
-                                <MdOutlineMail />
-                            </div>
-                            <input type="text" name='email' value={emailInput} onChange={(e)=>{setEmailInput(e.target.value)}}  placeholder='Enter Email' className='w-full p-2 me-4 h-10 text-[20px] align-middle font-sans font-medium outline-none bg-inherit' />
-                        </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition duration-200 text-lg"
+          >
+            Send Email
+          </button>
 
+          <div className="text-center">
+  <Link
+    to="/"
+    className="inline-flex items-center gap-2 mt-4 bg-gray-100 text-blue-800 hover:bg-blue-100 border border-blue-300 font-semibold py-2 px-6 rounded-full transition-all duration-200 shadow-sm"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.8}
+      stroke="currentColor"
+      className="w-5 h-5"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 9.75L12 4.5l9 5.25M4.5 10.5V19.5a1.5 1.5 0 001.5 1.5h3v-6h6v6h3a1.5 1.5 0 001.5-1.5V10.5" />
+    </svg>
+    Go to Home
+  </Link>
+</div>
 
+        </form>
+      </div>
+    </div>
+  );
+};
 
-                        <div className='bg-blue-900 hover:bg-[#1e52c3] cursor-pointer rounded-sm my-5 h-16 w-full flex justify-center items-center text-slate-100 hover:text-slate-500' >
-                       
-                            <button type='submit' className='text-[24px] font-serif font-semibold'>Send Email</button>
-                        </div>
-
-<div className='w-full flex justify-center'>
-                        <Link to="/" className='my-5 bg-[#2d76a7]  hover:bg-[#105d70] flex justify-center items-center font-serif w-[200px] h-[50px] text-[#c4d5e3] font-bold rounded-xl'>
-                            <span > Go to Home</span>
-                            </Link>
-                            </div>
-                        </form>
-                    </div>
-            
-    
-    </>
-  )
-}
-
-export default ForgotPassword
+export default ForgotPassword;

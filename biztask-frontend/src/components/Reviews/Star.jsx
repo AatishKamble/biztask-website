@@ -9,7 +9,7 @@ const Star = ({star}) => {
 let number=index+0.5;
 
         return(
-            <span key={index} className='text-yellow-700'>
+            <span key={index} className='text-yellow-600'>
             {
 star>=index+1?(<FaStar size={20}/>):
 star>=number?(<FaStarHalfStroke size={20}/>):

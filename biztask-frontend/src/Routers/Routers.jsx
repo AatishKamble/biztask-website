@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home.jsx";
+import Support from "../pages/Support.jsx";
 import Navbar from '../components/Navbar/Navbar.jsx'
 import React, { useRef } from 'react';
 import Footer from '../components/Footer/Footer.jsx'
@@ -23,6 +24,7 @@ import { toast } from "react-toastify";
 import ForgotPassword from "../components/Login/ForgotPassword.jsx";
 import ResetPassword from "../components/Login/ResetPassword.jsx";
 import Loader from "../components/Loader/Loader.jsx";
+import BusinessRegistration from "../components/Forms/BusinessRegistration.jsx";
 const Routers = () => {
   
   const auth = useSelector((store )=> store.auth);
@@ -98,7 +100,8 @@ const isLoading = isAuthLoading ;
     <Route path="/forgot-password" element={<ForgotPassword />}/>
     
     <Route path="/reset-password/:id/:token" element={<ResetPassword />}/>
-  
+    <Route path="/support" element={ <Support/>}/>
+ 
         </Routes>
         {
            (!location.pathname.startsWith("/reset-password")&& !location.pathname.startsWith("/forgot-password"))&&

@@ -9,6 +9,7 @@ import jobBack from "../assets/jobsbackground.jpg";
 import jobLoader from "../components/Loader/JobLoader.jsx"
 import JobLoader from '../components/Loader/JobLoader.jsx';
 import HangingBanner from '../components/HangingBanner/HangingBanner.jsx';
+
 const SearchJobs = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -171,15 +172,16 @@ const SearchJobs = () => {
 
   const isLoading = useSelector(store => store.jobStore.isLoading);
 
+
   return (
     <>
+<div className='relative w-full h-[400px] bg-blue-900 overflow-hidden shadow-xl'>
+ <HangingBanner imgage={jobBack} title={`Find Your Dream Job Today`} subtitle="Explore top opportunities, filter what matters, and land where you belong."/>
+ 
+</div>
 
-      <div className=' bg-blue-950 w-full h-[400px] mt-1  relative drop-shadow-xl shadow-blue-200  '>
-        <img src={jobBack} alt="" className=' w-full h-full object-cover opacity-40 ' />
 
-        <HangingBanner title="Discover Jobs with Ease!"/>
 
-      </div>
       <div className='  w-full h-full p-10 flex '>
         <div >
 

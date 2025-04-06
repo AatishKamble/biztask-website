@@ -55,14 +55,14 @@ const ProfilePage = ({ userDetails }) => {
   return (
     <>
       {userDetails && (
-        <div className="min-h-screen mt-8 
+        <div className="min-h-screen mt-10
          ">
           {/* Header Banner */}
           <div className="bg-gradient-to-r from-blue-600 to-blue-800 h-64 relative px-20">
             <div className="absolute inset-0 bg-pattern opacity-10"></div>
             <div className="container mx-auto px-6 h-full flex flex-col justify-end pb-20">
               <h1 className="text-white text-4xl font-bold font-serif">My Profile</h1>
-              <p className="text-blue-100 mt-2 text-xl">Manage your information, businesses and job applications</p>
+              <p className="text-blue-100 font-normal mt-2 text-xl">Manage your information, businesses and job applications</p>
             </div>
           </div>
 
@@ -81,7 +81,7 @@ const ProfilePage = ({ userDetails }) => {
 
                 <div className="flex-1 text-center md:text-left">
                   <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-3 font-serif">
+                    <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 font-serif">
                       <IoPersonCircleOutline className="text-blue-600 text-3xl" />
                       {userDetails.name}
                     </h2>
@@ -94,12 +94,12 @@ const ProfilePage = ({ userDetails }) => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3 text-gray-700 text-xl">
+                    <div className="flex items-center gap-3 font-normal text-gray-700 text-xl">
                       <MdEmail className="text-blue-600 text-2xl" />
                       <span>{userDetails.email}</span>
                     </div>
 
-                    <div className="flex items-center gap-3 text-gray-700 text-xl">
+                    <div className="flex items-center font-normal gap-3 text-gray-700 text-xl">
                       <FaPhone className="text-blue-600 text-2xl" />
                       <span>{userDetails.mobileNumber}</span>
                     </div>
@@ -112,14 +112,14 @@ const ProfilePage = ({ userDetails }) => {
             <div className="flex overflow-x-auto mb-8 bg-white rounded-lg shadow-md p-2 border border-blue-100">
               <a
                 href="#bussiness-registration"
-                className="flex-1 py-4 px-6 text-center font-medium text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
+                className="flex-1 py-4 px-6 text-center font-semibold text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
               >
                 <IoBusinessOutline className="text-2xl" />
                 <span>My Businesses</span>
               </a>
               <a
                 href="#applied-jobs"
-                className="flex-1 py-4 px-6 text-center font-medium text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
+                className="flex-1 py-4 px-6 text-center font-semibold text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
               >
                 <MdOutlineWorkOutline className="text-2xl" />
                 <span>Applied Jobs</span>
@@ -130,13 +130,13 @@ const ProfilePage = ({ userDetails }) => {
             <div ref={businessRegistrationRef} className="bg-white rounded-xl  mb-8 overflow-hidden border border-blue-100">
               <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-3 font-serif">
+                  <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 font-serif">
                     <IoBusinessOutline className="text-blue-600 text-3xl" />
                     <span>My Businesses</span>
                   </h2>
 
                   <Link to="/bussiness-registration">
-                    <button className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-medium flex items-center gap-3 text-lg">
+                    <button className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-semibold flex items-center gap-3 text-lg">
                       <FaAddressCard />
                       <span>Register New</span>
                     </button>
@@ -175,13 +175,13 @@ const ProfilePage = ({ userDetails }) => {
             <div ref={appliedJobsRef} className="bg-white rounded-xl  mb-8  overflow-hidden border border-blue-100">
               <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-3 font-serif">
+                  <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 font-serif">
                     <MdOutlineWorkOutline className="text-blue-600 text-3xl" />
                     <span>Applied Jobs</span>
                   </h2>
 
                   <Link to="/jobs">
-                    <button className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-medium flex items-center gap-3 text-lg">
+                    <button className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-semibold flex items-center gap-3 text-lg">
                       <FaExternalLinkAlt />
                       <span>Browse Jobs</span>
                     </button>
@@ -202,12 +202,12 @@ const ProfilePage = ({ userDetails }) => {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-12 bg-blue-50 rounded-lg border border-blue-100">
+                  <div className="text-center py-12  bg-blue-50 rounded-lg border border-blue-100">
                     <MdOutlineWorkOutline className="mx-auto text-6xl text-blue-300 mb-4" />
                     <p className="text-blue-600 text-xl mb-2">You haven't applied to any jobs yet</p>
                     <p className="text-blue-400 text-lg mb-4">Find and apply to jobs that match your skills</p>
                     <Link to="/jobs">
-                      <button className="mt-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-medium text-lg">
+                      <button className="mt-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-semibold text-lg">
                         Browse Available Jobs
                       </button>
                     </Link>

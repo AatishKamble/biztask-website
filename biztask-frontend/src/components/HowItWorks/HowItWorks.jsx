@@ -1,79 +1,183 @@
 import { TiBusinessCard } from "react-icons/ti";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdMiscellaneousServices } from "react-icons/md";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useLocation } from "react-router-dom";
-const HowItWorks = ({ HowItWorks }) => {
+import { motion } from "framer-motion";
 
+const HowItWorks = ({ HowItWorks }) => {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const titleVariants = {
+    hidden: { y: -50, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { 
+        type: "spring", 
+        stiffness: 100, 
+        damping: 10,
+        duration: 0.8 
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { x: -30, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { 
+        type: "spring", 
+        stiffness: 100,
+        damping: 10
+      }
+    },
+    hover: { 
+      y: -10,
+      scale: 1.03,
+      transition: { 
+        type: "spring", 
+        stiffness: 400, 
+        damping: 10 
+      }
+    }
+  };
+
+  // Step counter for horizontal connector line
+  const steps = [
+    { 
+      icon: <TiBusinessCard />, 
+      title: "For Businesses",
+      steps: [
+        "Register your profile & showcase your business",
+        "Add your range of professional services",
+        "Post jobs and connect with top talent"
+      ],
+      color: "from-blue-600 to-blue-800"
+    },
+    { 
+      icon: <FaPeopleGroup />, 
+      title: "For Workers",
+      steps: [
+        "Create your professional profile",
+        "Find relevant job opportunities",
+        "Start providing valuable services"
+      ],
+      color: "from-purple-600 to-purple-800"
+    },
+    { 
+      icon: <MdMiscellaneousServices />, 
+      title: "For Service Seekers",
+      steps: [
+        "Search services through an intuitive interface",
+        "Filter by location, price, and ratings",
+        "Connect directly with service providers"
+      ],
+      color: "from-emerald-600 to-emerald-800"
+    }
+  ];
 
   return (
-    <>
-     <div
-  ref={HowItWorks}
-  className="w-full xl:h-[600px] sm:h-[530px] px-6 lg:px-20 lg:h-[560px] my-20 flex justify-center"
->
-  <div className="bg-gradient-to-r from-gray-800 via-blue-900 to-gray-800 relative h-full xl:w-[90%] rounded-3xl flex flex-col sm:w-full shadow-xl border border-gray-700">
-
-    {/* Section Title */}
-    <div className="w-full flex justify-center items-center h-24 py-10 mt-8">
-      <span className="font-serif font-bold text-white text-[42px] tracking-wide drop-shadow-lg">
-        How It Works
-      </span>
-    </div>
-
-    {/* Steps Section */}
-    <div className="w-full flex justify-between px-16 items-center h-[400px] sm:h-auto sm:grid sm:grid-cols-3 sm:px-6 gap-10 py-6">
-
-      {/* Business Section */}
-      <div className="relative flex flex-col justify-center items-center bg-blue-700 bg-opacity-30 p-6 rounded-[20px] hover:scale-105 transition-all duration-300 shadow-lg border border-blue-500 hover:shadow-blue-500/50">
-        <div className="text-[50px] w-[90px] h-[90px] rounded-full bg-yellow-500 flex justify-center items-center font-serif font-bold text-white shadow-lg">
-          <TiBusinessCard />
+    <motion.div
+      ref={HowItWorks}
+      className="w-full py-20 px-6 lg:px-20"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants}
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Section Title */}
+        <motion.div 
+          className="text-center mb-16"
+          variants={titleVariants}
+        >
+          <motion.span 
+            className="text-md font-semibold tracking-wider text-blue-600 uppercase"
+          >
+            Simple Process
+          </motion.span>
+          <motion.h2 
+            className="text-4xl md:text-5xl font-bold mt-2 text-gray-700 "
+          >
+            How It Works
+          </motion.h2>
+          <motion.div 
+            className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-4 rounded-full"
+          />
+        </motion.div>
+        
+        {/* Process Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          {/* Connecting line */}
+          <div className="hidden md:block absolute top-28 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 z-0" />
+          
+          {steps.map((step, index) => (
+            <motion.div 
+              key={index}
+              className="z-10"
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 h-full">
+                {/* Card header */}
+                <div className={`bg-gradient-to-r ${step.color} px-6 py-6 flex justify-between items-center`}>
+                  <h3 className="text-xl font-bold text-white">
+                    {step.title}
+                  </h3>
+                  <motion.div 
+                    className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg"
+                    whileHover={{ rotate: 360, transition: { duration: 0.8 } }}
+                  >
+                    <span className="text-3xl text-blue-600">
+                      {step.icon}
+                    </span>
+                  </motion.div>
+                </div>
+                
+                {/* Card body */}
+                <div className="p-6">
+                  <ol className="space-y-4">
+                    {step.steps.map((item, i) => (
+                      <motion.li 
+                        key={i}
+                        className="flex items-start"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.2 }}
+                        viewport={{ once: true }}
+                      >
+                        <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-800 font-semibold text-sm mr-3 mt-0.5">
+                          {i+1}
+                        </span>
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {item}
+                        </span>
+                      </motion.li>
+                    ))}
+                  </ol>
+                </div>
+                
+                {/* Call to action */}
+               
+              </div>
+            </motion.div>
+          ))}
         </div>
-        <span className="text-white font-serif font-bold text-[22px] pt-4">
-          For Businesses
-        </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[17px] pt-2 w-[200px]">
-          <li>Register Your Business.</li>
-          <li>Add Your Services.</li>
-          <li>Post Job Openings.</li>
-        </ol>
       </div>
+    </motion.div>
+  );
+};
 
-      {/* Workers Section */}
-      <div className="relative flex flex-col justify-center items-center bg-blue-700 bg-opacity-30 p-6 rounded-[20px] hover:scale-105 transition-all duration-300 shadow-lg border border-blue-500 hover:shadow-blue-500/50">
-        <div className="text-[50px] w-[90px] h-[90px] rounded-full bg-yellow-500 flex justify-center items-center font-serif font-bold text-white shadow-lg">
-          <FaPeopleGroup />
-        </div>
-        <span className="text-white font-serif font-bold text-[22px] pt-4">
-          For Workers
-        </span>
-        <ol className="text-gray-300 font-serif font-normal list-disc text-[17px] pt-2 w-[200px]">
-          <li>Find Job Opportunities.</li>
-          <li>Start Providing Services.</li>
-        </ol>
-      </div>
-
-      {/* Service Seekers Section */}
-      <div className="relative flex flex-col justify-center items-center bg-blue-700 bg-opacity-30 p-8 rounded-[20px] hover:scale-105 transition-all duration-300 shadow-lg border border-blue-500 hover:shadow-blue-500/50">
-        <div className="text-[50px] w-[90px] h-[90px] rounded-full bg-yellow-500 flex justify-center items-center font-serif font-bold text-white shadow-lg">
-          <MdMiscellaneousServices />
-        </div>
-        <span className="text-white font-serif font-bold text-[22px] pt-4">
-          For Service Seekers
-        </span>
-        <ol className="text-gray-300  font-serif font-normal list-disc text-[17px] pt-2  mx-auto">
-          <li>Search Services Easily.</li>
-          <li>Flexible for Your Location.</li>
-          <li>Apply filters.</li>
-        </ol>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-    </>
-  )
-}
-
-export default HowItWorks
+export default HowItWorks;

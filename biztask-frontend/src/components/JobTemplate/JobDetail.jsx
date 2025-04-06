@@ -130,7 +130,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
           <div className="flex justify-center flex-col font-serif items-center p-6">
             <p className="text-[19px] text-blue-700 font-medium mb-3">Before proceeding, take a moment to ensure that your profile details are accurate.</p>
-            <p className="text-[17px] text-slate-600">If something needs updating, make the necessary changes to avoid any issues while applying.</p>
+            <p className="text-[17px] text-slate-700">If something needs updating, make the necessary changes to avoid any issues while applying.</p>
           </div>
 
           <div className="flex justify-center p-5 gap-x-6">
@@ -160,21 +160,21 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
         {/* Job Header Card  */}
         <div className="relative w-full max-w-5xl bg-gradient-to-r from-white to-blue-50  shadow-lg  my-6 p-8 rounded-3xl border border-blue-100  ">
           <div className="flex flex-col">
-            <h2 className="text-[28px] font-serif font-bold text-[#2E3A46] mb-2 bg-gradient-to-r from-[#1C4E80] to-[#2E86C1] bg-clip-text text-transparent">
+            <h2 className="text-[28px] font-serif font-semibold text-[#2E3A46] mb-2 bg-gradient-to-r from-[#1C4E80] to-[#2E86C1] bg-clip-text text-transparent">
               {jobStore?.job?.jobRole}
             </h2>
 
             {/* Company Name */}
             <div className="flex items-center text-[#1C4E80] px-2 space-x-1 ">
               <HiBuildingOffice2 className="text-xl " />
-              <h3 className="text-[18px] font-serif text-[#3D5060]">
+              <h3 className="text-[18px] font-serif font-semibold text-[#3D5060]">
                 {jobStore?.job?.business?.companyName}
               </h3>
             </div>
             {/* Job Location */}
-            <div className="flex items-center text-[#1C4E80] px-1 space-x-1 mt-2">
+            <div className="flex items-center  text-[#1C4E80] px-1 space-x-1 mt-2">
               <IoLocationSharp className="text-2xl " />
-              <span className=" font-serif text-[18px]">
+              <span className=" font-serif font-medium text-[18px]">
                 {jobStore?.job?.jobLocations?.slice(0, 8).map((location, ind) => {
                   let formattedLocation = location.charAt(0).toUpperCase() + location.slice(1);
                   if (ind !== jobStore?.job?.jobLocations?.length - 1) {
@@ -207,7 +207,8 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   </button>
                 </Link>
                 <Link to={`/job-update/${jobStore?.job?._id}`}>
-                  <button className="px-5 py-2 bg-gradient-to-r from-[#0F3057] to-[#1C4E80] text-white rounded-full shadow-lg border border-[#082D3C] hover:from-[#082D3C] hover:to-[#164B77] font-serif text-[18px] flex items-center justify-center gap-2">
+                  <button className="px-5 py-2 bg-gradient-to-r from-[#0F3057] to-[#1C4E80] text-white rounded-full shadow-lg border border-[#082D3C] hover:from-[#082D3C] hover:to-[#164B77] 
+                  font-serif text-[18px] flex items-center font-semibold justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -216,7 +217,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   </button>
                 </Link>
                 <button
-                  className="px-5 py-2 bg-gradient-to-r from-[#C0392B] to-[#E74C3C] text-white rounded-full shadow-lg border border-[#A52A2A] hover:from-[#A52A2A] hover:to-[#CB4335] font-serif text-[18px] flex items-center justify-center gap-2"
+                  className="px-5 py-2 font-semibold bg-gradient-to-r from-[#C0392B]  to-[#E74C3C] text-white rounded-full shadow-lg border border-[#A52A2A] hover:from-[#A52A2A] hover:to-[#CB4335] font-serif text-[18px] flex items-center justify-center gap-2"
                   onClick={handlePopupWarningOpen}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -235,7 +236,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
               </button>
             ) : (
               <button
-                className="px-6 py-2 bg-gradient-to-r from-[#2E86C1] to-[#3498DB] text-white rounded-xl shadow-lg border border-[#1C4E80] hover:from-[#1C4E80] hover:to-[#2874A6] font-serif text-[18px] "
+                className="px-6 py-2 font-semibold bg-gradient-to-r from-[#2E86C1] to-[#3498DB] text-white rounded-xl shadow-lg border border-[#1C4E80] hover:from-[#1C4E80] hover:to-[#2874A6] font-serif text-[18px] "
                 onClick={() => setPopUp(true)}
               >
                 Apply Now
@@ -265,7 +266,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   <span >Responsibilities</span>
                 </div>
 
-                <ul className="space-y-4 text-gray-800 font-serif text-[17px] leading-relaxed">
+                <ul className="space-y-4 text-gray-800 font-serif text-[17px] font-medium leading-relaxed">
                   {jobStore?.job?.responsibility?.map((resp, ind) => (
                     <li key={ind} className="flex items-start gap-3">
                       <MdTaskAlt className="text-blue-500 text-[20px] mt-1.5" />
@@ -294,11 +295,11 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
             {/* Company Details  */}
             <div className="bg-gradient-to-br from-white to-blue-50 backdrop-blur-md border border-blue-100 rounded-xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-blue-400 inline-block font-serif">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b  border-blue-400 inline-block font-serif">
                 About the Company
               </h3>
 
-              <div className="text-gray-700 mb-6 font-serif  text-[16px] text-justify leading-relaxed">
+              <div className="text-gray-700 mb-6 font-serif  font-medium text-[16px] text-justify leading-relaxed">
                 <p >{jobStore?.job?.business?.description}</p>
               </div>
 
@@ -331,14 +332,14 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
               </h3>
 
               <div className="space-y-5">
-                <div className="flex items-start group hover:translate-x-1 transition-all duration-300">
+                <div className="flex items-start group hover:translate-x-1 transition-all duration-300 ">
                   <div className="bg-blue-100 p-2.5 rounded-lg mr-3 group-hover:bg-blue-200 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 font-serif">Employment Type</p>
+                    <p className="text-sm text-gray-500 font-semibold font-serif">Employment Type</p>
                     <p className="font-medium text-gray-800 font-serif">
                       {jobStore?.job?.employmentType?.charAt(0).toUpperCase() + jobStore?.job?.employmentType?.slice(1)}
                     </p>
@@ -352,7 +353,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 font-serif">Working Hours</p>
+                    <p className="text-sm text-gray-500 font-serif font-semibold">Working Hours</p>
                     <p className="font-medium text-gray-800 font-serif">{jobStore?.job?.workingHours}</p>
                   </div>
                 </div>
@@ -364,7 +365,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 font-serif">Experience Required</p>
+                    <p className="text-sm text-gray-500 font-serif font-semibold">Experience Required</p>
                     <p className="font-medium text-gray-800 font-serif">{jobStore?.job?.experienceYear} years</p>
                   </div>
                 </div>
@@ -376,7 +377,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 font-serif">Application Deadline</p>
+                    <p className="text-sm text-gray-500 font-serif font-semibold">Application Deadline</p>
                     <p className="font-medium text-gray-800 font-serif">{formatDate(jobStore?.job?.deadline)}</p>
                   </div>
                 </div>
@@ -385,27 +386,27 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
             {/* Salary Details Card */}
             <div className="bg-gradient-to-r from-white to-blue-50   backdrop-blur-md border border-blue-100 rounded-2xl p-6 shadow-lg hover:text-blue-400 transition-all duration-300">
-              <h3 className="text-xl font-bold text-gray-800 mb-5  border-b border-blue-400 pb-3  font-serif">
+              <h3 className="text-xl font-semibold text-gray-800 mb-5  border-b border-blue-400 pb-3  font-serif">
                 Salary Details
               </h3>
 
               <div className="grid gap-6">
                 <div className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl p-4 hover:scale-[1.02] transition-transform duration-300 shadow-sm">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 font-semibold ">
                     <div className="text-blue-400 bg-blue-100 p-2 rounded-full">
                       <MdOutlineCurrencyRupee className="h-4 w-4 text-blue-400" />
                     </div>
-                    <p className="text-gray-600 font-medium font-serif">Min Salary</p>
+                    <p className="text-gray-600 font-serif">Min Salary</p>
                   </div>
                   <span className="text-gray-800 font-semibold font-serif">₹ {jobStore?.job?.minSalary}</span>
                 </div>
 
                 <div className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl p-4 hover:scale-[1.02] transition-transform duration-300 shadow-sm">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 font-semibold">
                     <div className="text-blue-400 bg-blue-100 p-2 rounded-full">
                       <MdOutlineCurrencyRupee className="h-4 w-4 text-blue-400" />
                     </div>
-                    <p className="text-gray-600 font-medium font-serif">Max Salary</p>
+                    <p className="text-gray-600  font-serif">Max Salary</p>
                   </div>
                   <span className="text-gray-800 font-semibold font-serif">₹ {jobStore?.job?.maxSalary}</span>
                 </div>

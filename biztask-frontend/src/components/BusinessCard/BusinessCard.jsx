@@ -36,7 +36,7 @@ const BusinessCard = ({ businessDetails, index, handlePopupWarningOpen }) => {
                 <h3 className="text-xl md:text-2xl font-serif font-semibold text-white line-clamp-2 break-words">
                   {businessDetails?.companyName}
                 </h3>
-                <div className="flex items-center mt-1">
+                <div className="flex items-center font-medium mt-1">
                   <span className="inline-block h-2 w-2 rounded-full bg-green-400 mr-2"></span>
                   <span className="text-blue-100 text-xs">Verified Business</span>
                 </div>
@@ -45,7 +45,7 @@ const BusinessCard = ({ businessDetails, index, handlePopupWarningOpen }) => {
           </div>
           <div className="px-4 py-3 bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
             <div className="flex justify-between">
-              <span className='font-serif'>ID: {businessDetails?._id}</span>
+              <span className='font-serif font-medium'>ID: {businessDetails?._id}</span>
               <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">
                 Active
               </span>

@@ -2,234 +2,266 @@
 import { FaSave } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import React, { useRef, useState } from 'react';
-import { useDispatch,useSelector } from "react-redux";
-import { useNavigate,useParams, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import AddedBox from "./AddedBox";
-import { businessRegister,getBusinessById,updateBusiness } from "../../Redux/Business/Action.js";
+import { businessRegister, getBusinessById, updateBusiness } from "../../Redux/Business/Action.js";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import dummyPhoto from "../../assets/uploadPhoto.jpg"
 
-const BusinessRegistration = ({ userDetails,registration }) => {
+const BusinessRegistration = ({ userDetails, registration }) => {
 
-    const profilePic = useRef(null);
-    const [image, setImage] = useState(null);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const jwt = localStorage.getItem("jwt");
+  const profilePic = useRef(null);
+  const [image, setImage] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const jwt = localStorage.getItem("jwt");
 
-    const [formData, setFormData] = useState({
-        companyName: "",
-        description: "",
+  const [formData, setFormData] = useState({
+    companyName: "",
+    description: "",
+  });
+
+  const { id } = useParams();
+
+
+  function handleChange(e) {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
 
-    const { id } = useParams();   
+
+  }
+
+  const businessStore = useSelector(store => store.businessStore)
+
+  useEffect(() => {
+    if (id) {
+
+      dispatch(getBusinessById(id));
+    }
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if (businessStore.business && businessStore.business._id === id) {
+
+      setFormData({
+        companyName: businessStore.business.companyName,
+        description: businessStore.business.description,
+      });
+    }
+  }, [businessStore.business, id]);
+
   
-
-    function handleChange(e) {
-
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-
-
-    }
-
-const businessStore=useSelector(store=>store.businessStore)
-
-   useEffect(() => {
-        if (id) {
-         
-            dispatch(getBusinessById(id)); 
-        }
-    }, [id, dispatch]);
+  const handleProfileChange = (event) => {
+    const file = event.target.files[0];
   
-    useEffect(() => {
-        if (businessStore.business && businessStore.business._id === id) {
-           
-            setFormData({
-                companyName: businessStore.business.companyName,
-                description: businessStore.business.description,
-            });
-        }
-    }, [businessStore.business, id]);
-
-    const handleProfileChange = (event) => {
-
-        setImage(event.target.files[0]);
-    }
-
-    const handlePhotoUpload = () => {
-        profilePic.current.click();
-
-    }
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        const formD = new FormData();
-        {/*new Change */}
-        if (formData.companyName.trim()=="") {
-            toast.error('company name is required');
-            return;
-        }
-        if (formData.description.trim()=="") {
-          toast.error('company description is required');
-          return;
+    if (file) {
+      const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      const maxSize = 2 * 1024 * 1024; // 2MB
+  
+      if (!validTypes.includes(file.type)) {
+        toast.error("Only JPEG, PNG, and WebP files are allowed!");
+        return;
       }
-        formD.append("companyName", formData.companyName);
-        formD.append("description", formData.description);
+  
+      if (file.size > maxSize) {
+        toast.error("File size must be under 2MB!");
+        return;
+      }
+  
+      setImage(file);
+    }
+  };
+  
+  const handlePhotoUpload = () => {
+    profilePic.current.click();
 
-        if(image){
-            
-        }
-        formD.append("companyLogo", image);
-      
+  }
 
-        if(registration==true){
-        dispatch(businessRegister(formD,jwt));     
-        }
-        else{
-            dispatch(updateBusiness(jwt, formD, id))
-        }
-       
-        navigate("/profile");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formD = new FormData();
+    {/*new Change */ }
+    if (formData.companyName.trim() == "") {
+      toast.error('company name is required');
+      return;
+    }
+    if (formData.description.trim() == "") {
+      toast.error('company description is required');
+      return;
+    }
+    formD.append("companyName", formData.companyName);
+    formD.append("description", formData.description);
+
+    if (image) {
+
+    }
+    formD.append("companyLogo", image);
+
+
+    if (registration == true) {
+      dispatch(businessRegister(formD, jwt));
+    }
+    else {
+      dispatch(updateBusiness(jwt, formD, id))
     }
 
-    return (
-        <div className="bg-white py-10 w-full h-auto flex items-center justify-center">
-          <div className="w-[50%] bg-blue-50 p-10 rounded-lg shadow-lg">
-            <div className="w-full h-12 flex justify-center items-center pb-5 text-2xl text-slate-600 font-serif font-bold">
-              <span>{registration ? "Register Your Business" : "Update Business"}</span>
-            </div>
-      
-            <form onSubmit={handleSubmit}>
-              {/* Contact Details Header */}
-              <div className="w-full flex justify-center items-center py-4 text-lg text-blue-900 font-serif font-semibold">
-                <span>Contact Details (Provider)</span>
-              </div>
-      
-              {/* Name Field */}
-              <div className="w-full flex items-center py-3 text-black">
-                <label htmlFor="Name" className="text-lg px-4 font-medium font-serif w-40">
-                  Name:
-                </label>
-                <input
-                  type="text"
-                  value={userDetails?.name || ""}
-                  className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
-                  autoComplete="off"
-                  disabled
-                />
-              </div>
-      
-              {/* Phone Field */}
-              <div className="w-full flex items-center py-3 text-black">
-                <label htmlFor="mono" className="text-lg px-4 font-medium font-serif w-40">
-                  Phone:
-                </label>
-                <input
-                  type="tel"
-                  name="mono"
-                  value={userDetails?.mobileNumber || ""}
-                  className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
-                  autoComplete="off"
-                  disabled
-                />
-              </div>
-      
-              {/* Email Field */}
-              <div className="w-full flex items-center py-3 text-black">
-                <label htmlFor="email" className="text-lg px-4 font-medium font-serif w-40">
-                  Email:
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={userDetails?.email || ""}
-                  className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
-                  autoComplete="off"
-                  disabled
-                />
-              </div>
-      
-              {/* Business Details Header */}
-              <div className="w-full flex justify-center items-center py-4 text-lg text-blue-900 font-serif font-semibold">
-                <span>Business Details</span>
-              </div>
-      
-              {/* Company Name Field */}
-              <div className="w-full flex items-center py-3 text-black">
-                <label htmlFor="companyName" className="text-lg px-4 font-medium font-serif w-40">
-                  Company Name:
-                </label>
-                <input
-                  type="text"
-                  name="companyName"
-                  value={formData.companyName}
-                  onChange={handleChange}
-                  placeholder="Enter Your Company Name"
-                  className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
-                  autoComplete="off"
-                />
-              </div>
-      
-              {/* Company Description */}
-              <div className="w-full flex items-start py-3 text-black">
-                <label htmlFor="description" className="text-lg px-4 font-medium font-serif w-40">
-                  Company Description:
-                </label>
-                <textarea
-                  name="description"
-                  id="DescriptionBox"
-                  value={formData.description}
-                  onChange={handleChange}
-                  placeholder="Description about your Business (maxLength-300 words)"
-                  className="text-lg h-32 font-serif outline-none p-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500 resize-none"
-                  rows={5}
-                  cols={40}
-                  style={{ overflow: "hidden" }}
-                ></textarea>
-              </div>
-      
-              {/* Company Logo */}
-              <div className="w-full flex items-center py-5 text-black">
-                <label htmlFor="companyLogo" className="text-lg px-4 font-medium font-serif w-40">
-                  Company Logo:
-                </label>
-                <div
-                  className="w-48 h-48 bg-gray-700 cursor-pointer border border-gray-300 rounded-lg shadow-md overflow-hidden"
-                  onClick={handlePhotoUpload}
-                >
-                  <img
-                    src={image ? URL.createObjectURL(image) : dummyPhoto}
-                    alt="Company Logo"
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <input type="file" className="hidden" ref={profilePic} onChange={handleProfileChange} />
-              </div>
-      
-              {/* Submit Button */}
-              <div className="flex items-center justify-center my-8">
-                <button
-                  type="submit"
-                  className="bg-blue-900 hover:bg-blue-800 h-12 w-32 rounded-xl shadow-lg mx-3 flex justify-center items-center"
-                >
-                  <span className="text-lg font-serif font-medium mr-2 text-white">
-                    <FaSave />
-                  </span>
-                  <span className="text-lg font-serif font-medium text-white">Submit</span>
-                </button>
-              </div>
-            </form>
+    navigate("/profile");
+  }
+
+  return (
+    <div className="bg-white py-10 w-full h-auto flex flex-col items-center justify-center">
+      <div className="text-center mb-10 ">
+        <h1 className="text-3xl md:text-4xl font-bold text-blue-800">
+          {registration ? "Register Your Business" : "Update Business"}
+        </h1>
+        <div className="mt-3 h-1 w-24 bg-blue-600 mx-auto rounded-full"></div>
+      </div>
+      <div className="w-[50%] border border-blue-900 p-10 rounded-lg shadow-lg">
+
+
+        <form onSubmit={handleSubmit}>
+          {/* Contact Details Header */}
+          <div className="flex items-center mb-6">
+                            <div className="h-px flex-1 bg-gray-200"></div>
+                            <h2 className="px-4 text-lg font-semibold text-blue-800">Contact Details</h2>
+                            <div className="h-px flex-1 bg-gray-200"></div>
+                        </div>
+
+          {/* Name Field */}
+          <div className="w-full flex items-center py-3 text-black">
+            <label htmlFor="Name" className="text-lg px-4 font-medium font-serif w-40">
+              Name:
+            </label>
+            <input
+              type="text"
+              value={userDetails?.name || ""}
+              className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
+              autoComplete="off"
+              disabled
+            />
           </div>
-        </div>
-      );
-      
-      
+
+          {/* Phone Field */}
+          <div className="w-full flex items-center py-3 text-black">
+            <label htmlFor="mono" className="text-lg px-4 font-medium font-serif w-40">
+              Phone:
+            </label>
+            <input
+              type="tel"
+              name="mono"
+              value={userDetails?.mobileNumber || ""}
+              className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
+              autoComplete="off"
+              disabled
+            />
+          </div>
+
+          {/* Email Field */}
+          <div className="w-full flex items-center py-3 text-black">
+            <label htmlFor="email" className="text-lg px-4 font-medium font-serif w-40">
+              Email:
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={userDetails?.email || ""}
+              className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
+              autoComplete="off"
+              disabled
+            />
+          </div>
+
+          {/* Business Details Header */}
+          <div className="flex items-center mb-6 ">
+                            <div className="h-px flex-1 bg-gray-200 "></div>
+                            <h2 className="px-4 text-xl font-semibold text-blue-800 mt-2">Business Details</h2>
+                            <div className="h-px flex-1 bg-gray-200"></div>
+                        </div>
+
+          {/* Company Name Field */}
+          <div className="w-full flex items-center py-3 text-black">
+            <label htmlFor="companyName" className="text-lg px-4 font-medium font-serif w-40">
+              Company Name:
+            </label>
+            <input
+              type="text"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleChange}
+              placeholder="Enter Your Company Name"
+              className="text-lg h-12 font-serif outline-none px-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500"
+              autoComplete="off"
+            />
+          </div>
+
+          {/* Company Description */}
+          <div className="w-full flex items-start py-3 text-black">
+            <label htmlFor="description" className="text-lg px-4 font-medium font-serif w-40">
+              Company Description:
+            </label>
+            <textarea
+              name="description"
+              id="DescriptionBox"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Description about your Business (maxLength-300 words)"
+              className="text-lg h-32 font-serif outline-none p-4 w-full border border-gray-300 bg-gray-50 rounded-md focus:ring-2 focus:ring-teal-500 resize-none"
+              rows={5}
+              cols={40}
+              style={{ overflow: "hidden" }}
+            ></textarea>
+          </div>
+
+          {/* Company Logo */}
+          <div className="w-full flex items-center py-5 text-black">
+            <label htmlFor="companyLogo" className="text-lg px-4 font-medium font-serif w-40">
+              Company Logo:
+            </label>
+            <div
+              className="w-48 h-48 bg-gray-700 cursor-pointer border border-gray-300 rounded-lg shadow-md overflow-hidden"
+              onClick={handlePhotoUpload}
+            >
+              <img
+                src={image ? URL.createObjectURL(image) : dummyPhoto}
+                alt="Company Logo"
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <input type="file" className="hidden" ref={profilePic} onChange={handleProfileChange} />
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex items-center justify-center my-8">
+          <button
+                            type='button'
+                            onClick={() => navigate(-1)}
+                            className='bg-red-500 hover:bg-gray-600 align-middle h-12 w-[130px] rounded-xl border-gray-700 drop-shadow-2xl mx-3 flex justify-center items-center transition-colors duration-200'
+                        >
+                            <span className='text-lg font-serif font-medium text-white'>Cancel</span>
+                        </button>
+            <button
+              type="submit"
+              className="bg-blue-900 hover:bg-blue-800 h-12 w-32 rounded-xl shadow-lg mx-3 flex justify-center items-center"
+            >
+              <span className="text-lg font-serif font-medium mr-2 text-white">
+                <FaSave />
+              </span>
+              <span className="text-lg font-serif font-medium text-white">Submit</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+
+
 }
 
 export default BusinessRegistration

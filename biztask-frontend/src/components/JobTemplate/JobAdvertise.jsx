@@ -59,7 +59,7 @@ const timeAgo = (postedAt) => {
   </div>
 
   {/* Company Name Below Logo */}
-  <p className="text-blue-900 font-serif font-medium text-lg mt-3 text-center truncate">
+  <p className="text-blue-900 font-serif font-bold text-lg mt-3 text-center truncate">
     {business?.companyName}
   </p>
 </div>
@@ -67,7 +67,7 @@ const timeAgo = (postedAt) => {
         <div className="w-full sm:w-[70%] px-6 py-4">
           {/* Job Role & Company Name */}
           <div className="mb-4">
-            <p className="text-blue-900 font-serif font-bold text-2xl leading-tight break-words">
+            <p className="text-blue-900 font-serif font-semibold text-2xl leading-tight break-words">
               {job?.jobRole}
             </p>
          

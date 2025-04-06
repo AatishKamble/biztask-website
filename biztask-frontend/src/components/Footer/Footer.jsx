@@ -49,7 +49,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             <span className="text-xl font-serif font-semibold text-cyan-200">
               Quick Links
             </span>
-            <ul className="text-lg font-serif font-light text-cyan-100 flex flex-col gap-3 mt-3">
+            <ul className="text-lg font-serif  text-cyan-100 flex flex-col font-semibold gap-3 mt-3">
               <Link to={"/jobs"}>
                 <li className="cursor-pointer hover:text-cyan-400 hover:translate-x-1 transition-all duration-300">
                   Jobs
@@ -81,15 +81,16 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             <span className="text-xl font-serif font-semibold text-cyan-200">
               Resources
             </span>
-            <ul className="text-lg font-serif font-light text-cyan-100 flex flex-col gap-2 mt-4">
+            <ul className="text-lg font-serif  text-cyan-100 flex font-semibold flex-col gap-2 mt-4">
               <Link to={"/#how-it-works"}>
                 <li className="cursor-pointer hover:text-cyan-400 transition-all duration-300">
                   How It Works
                 </li>
               </Link>
+              <Link to={"/support"}>
               <li className="cursor-pointer hover:text-cyan-400 transition-all duration-300">
-                Support
-              </li>
+                Support 
+              </li> </Link>
               <Link to={"/about-us"}>
                 <li className="cursor-pointer hover:text-cyan-400 transition-all duration-300">
                   Developers

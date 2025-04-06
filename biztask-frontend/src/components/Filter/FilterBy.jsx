@@ -23,7 +23,7 @@ const FilterBy = ({
             value={nameInput}
             onChange={handleNameInputChange}
             placeholder='Find job with name'
-            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  border-slate-600 bg-[#eceef0] rounded-md focus-within:drop-shadow-md'
+            className='text-[18px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  border-slate-600  rounded-md focus-within:drop-shadow-md'
           />
           <button className='text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950 drop-shadow-2xl flex justify-center items-center' onClick={handleNameInputSubmit}>
             <CiSearch />
@@ -42,7 +42,7 @@ const FilterBy = ({
             value={locationInput}
             onChange={handleLocationInputChange}
             placeholder='Find job with Location'
-            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  border-slate-600 bg-[#eceef0] rounded-md focus-within:drop-shadow-md'
+            className='text-[18px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  border-slate-600  rounded-md focus-within:drop-shadow-md'
           />
           <button className='text-[28px] hover:text-blue-950 font-serif font-bold align-middle h-[50px] w-[50px] drop-shadow-2xl flex justify-center items-center' onClick={handleLocationInputSubmit}>
             <MdOutlineMyLocation />
@@ -60,8 +60,8 @@ const FilterBy = ({
             name="salary"
             value={priceInput}
             onChange={handlePriceInputChange}
-            placeholder='Enter Salary (Min,Max)'
-            className='text-[20px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  bg-[#eceef0] rounded-md focus-within:drop-shadow-md'
+            placeholder='Enter Salary ( min,max )'
+            className='text-[18px] h-12 font-serif outline-none px-4 w-full focus:ring-2 ring-blue-400  rounded-md focus-within:drop-shadow-md'
           />
           <button className='text-[28px] font-serif font-bold align-middle h-[50px] w-[50px] hover:text-blue-950 drop-shadow-2xl flex justify-center items-center -rotate-90' onClick={handlePriceInputSubmit}>
             <LiaSearchDollarSolid />
@@ -77,7 +77,7 @@ const FilterBy = ({
           <ul className='list-none'>
             {
               checkBoxOptions.map((item, id) => (
-                <li key={id} className='text-[1.2rem] font-normal font-serif text-slate-950'>
+                <li key={id} className='text-[18px] font-medium font-serif text-slate-950'>
                   <div className='flex items-center'>
                     <input 
                       type="checkbox" 

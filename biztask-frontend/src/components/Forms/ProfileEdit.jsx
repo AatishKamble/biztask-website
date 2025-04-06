@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import dummyPhoto from "../../assets/uploadPhoto.jpg";
 import { GoUpload } from "react-icons/go";
+import { toast } from 'react-toastify';
 const ProfileEdit = ({ userDetails }) => {
 
     const dispatch = useDispatch();
@@ -50,18 +51,39 @@ const ProfileEdit = ({ userDetails }) => {
 
     }
 
+    const validateInputs = () => {
+        if (!formData.name.trim()) {
+            toast.error("Name is required");
+            return false;
+        }
+        if (!/^[A-Za-z ]{3,}$/.test(formData.name)) {
+            toast.error("Name should contain only letters and be at least 3 characters long");
+            return false;
+        }
+        if (!formData.mobileNumber.trim()) {
+            toast.error("Mobile number is required");
+            return false;
+        }
+        if (!/^\d{10}$/.test(formData.mobileNumber)) {
+            toast.error("Mobile number must be exactly 10 digits");
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!validateInputs()) return;
 
         const formD = new FormData();
         formD.append("name", formData.name);
         formD.append("mobileNumber", formData.mobileNumber);
-        formD.append("profileImage", image);
+        if (image) formD.append("profileImage", image);
 
         dispatch(updateUserProfile(jwt, formD));
         navigate("/profile");
-    }
-
+    };
 
 
     return (
@@ -69,15 +91,13 @@ const ProfileEdit = ({ userDetails }) => {
             <div className="min-h-screen bg-gradient-to-br from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-2xl mx-auto bg-[#f4faff] rounded-2xl shadow-lg overflow-hidden">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-[#3d7c9c] to-blue-300 px-8 py-6">
-                        <h2 className="text-2xl font-serif text-white font-semibold text-center">
-                            Edit Profile
-                        </h2>
+                    <div className="bg-gradient-to-r from-blue-700 to-blue-500 px-8 py-6">
+                        <h2 className="text-3xl font-semibold text-white text-center font-serif">Edit Your Profile</h2>
                     </div>
 
                     <form onSubmit={handleSubmit} className="p-8 space-y-8">
-                           {/* Profile Image */}
-                           <div className="flex flex-col items-center space-y-4">
+                        {/* Profile Image */}
+                        <div className="flex flex-col items-center space-y-4">
                             <div
                                 onClick={handlePhotoUpload}
                                 className="relative group cursor-pointer"
@@ -148,10 +168,11 @@ const ProfileEdit = ({ userDetails }) => {
                             />
                         </div>
 
-                     
+
 
                         {/* Submit Button */}
-                        <div className="pt-6">
+                        <div className="pt-6 space-y-4">
+                        
                             <button
                                 type="submit"
                                 className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
@@ -159,6 +180,13 @@ const ProfileEdit = ({ userDetails }) => {
                                 <FaSave className="w-5 h-5" />
                                 <span className="text-lg font-medium font-serif">Save Changes</span>
                             </button>
+                            <button
+                            type='button'
+                            onClick={() => navigate(-1)}
+                            className='bg-red-500 hover:bg-gray-600 align-middle h-12 w-full rounded-xl border-gray-700 drop-shadow-2xl  flex justify-center items-center transition-colors duration-200'
+                        >
+                            <span className='text-lg font-serif font-medium text-white'>Cancel</span>
+                        </button>
                         </div>
                     </form>
                 </div>
