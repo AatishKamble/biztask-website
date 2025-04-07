@@ -82,15 +82,17 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                 >
                     Contact Information
                 </motion.div>
-                { !hasPaid &&
-                <button
-                    className="bg-blue-600 h-12 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center justify-center gap-1 text-base transition-colors duration-200"
-                    onClick={handlePaymentInitiation}
-                >
+                {userDetails?._id !== serviceDetails?.user?._id && !hasPaid && (
+                    <button
+                        className="bg-blue-600 h-12 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center justify-center gap-1 text-base transition-colors duration-200"
+                        onClick={handlePaymentInitiation}
+                    >
+                        <span className='flex items-center justify-center '>
+                            Unlock All for <FaRupeeSign className='ms-2' /> 2
+                        </span>
+                    </button>
+                )}
 
-                    <span className='flex items-center justify-center '>Unlock All for <FaRupeeSign  className='ms-2'/> 2</span>
-                </button>
-}
                 {/* Info Boxes */}
                 <div className="space-y-4 text-[16px]">
                     {/* Name */}
@@ -154,7 +156,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                                         <FaLock className="text-orange-500 mr-2" />
                                         <span className="text-gray-600">Phone number is hidden</span>
                                     </div>
-                                    
+
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -188,7 +190,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                                         <FaLock className="text-orange-500 mr-2" />
                                         <span className="text-gray-600">Email address is hidden</span>
                                     </div>
-                                   
+
 
                                 </motion.div>
                             )}
