@@ -84,7 +84,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                 </motion.div>
                 {userDetails?._id !== serviceDetails?.user?._id && !hasPaid && (
                     <button
-                        className="bg-blue-600 h-12 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center justify-center gap-1 text-base transition-colors duration-200"
+                        className="bg-amber-500 hover:bg-amber-600 text-white h-12 px-3 py-1 rounded-lg flex items-center justify-center gap-1 text-base transition-colors duration-200"
                         onClick={handlePaymentInitiation}
                     >
                         <span className='flex items-center justify-center '>
@@ -204,7 +204,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
             <AnimatePresence>
                 {showPaymentModal && (
                     <motion.div
-                        className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+                        className="fixed inset-0 h-[100vh] bg-black/50 flex items-center justify-center z-50 p-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

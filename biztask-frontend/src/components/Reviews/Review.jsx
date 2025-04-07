@@ -1,64 +1,79 @@
 import { MdOutlineAccessTime } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
-import { API_BASE_URL } from "../../configApi/ConfigApi";
+import { FaCheckCircle } from "react-icons/fa";
 import timeAgo from "../timeCalculate.js";
 import Star from "./Star.jsx";
 
-const Review = ({ review, userDetails, handleReviewDelete }) => {
-    return (
-        <div className="relative w-[450px] min-h-[380px] bg-gradient-to-br from-[#1e3a8a] to-[#1e40af] text-white rounded-3xl border-[3px] border-blue-800 shadow-2xl p-6 mt-6 transition-all duration-500 hover:scale-105 hover:shadow-blue-600/40 group">
-
-            {/* Floating Profile Image */}
-            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] rounded-full border-4 border-blue-500 overflow-hidden shadow-lg rotate-[6deg] group-hover:rotate-0 transition-all duration-300">
-                <img
-                    src={review?.user?.profileImage?.ImageUrl}
-                    alt="User"
-                    className="w-full h-full object-cover"
-                />
-            </div>
-
-            {/* Review Content */}
-            <div className="mt-16 px-4 text-center font-serif">
-                {/* Message */}
-                <p className="text-[17px] italic font-medium leading-relaxed bg-white/10 p-4 rounded-xl border border-white/20 shadow-inner">
-                    "{review?.ReviewMessage}"
-                </p>
-
-                {/* Star */}
-                <div className="flex justify-center items-center mt-4">
-                    <Star star={review?.rating} />
-                </div>
-
-                {/* Footer */}
-                <div className="flex justify-between items-center mt-6 text-sm text-gray-300">
-                    <span className="flex items-center gap-1">
-                        <MdOutlineAccessTime className="text-blue-200" />
-                        {timeAgo(review?.postedAt)}
-                    </span>
-                    <div className="flex items-center gap-2">
-                        <p className="text-lg font-semibold text-gray-100">{review?.user?.name}</p>
-                        {review?.user?._id === userDetails?._id  && (
-                            <span className="bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-md shadow-sm uppercase tracking-wide">
-                               User
-                            </span>
-                        )}
-                    </div>
-
-                </div>
-            </div>
-
-            {/* Delete Button */}
-            {review?.user?._id === userDetails?._id && (
-                <button
-                    onClick={() => handleReviewDelete(review?._id)}
-                    className="absolute bottom-4 right-4 text-red-400 hover:text-red-600 transition duration-300"
-                    title="Delete Review"
-                >
-                    <RiDeleteBin2Fill size={28} />
-                </button>
-            )}
+const ServiceReview = ({ review, userDetails, handleReviewDelete }) => {
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-white to-blue-50  rounded-lg shadow-md p-6 mb-4 border border-blue-200 hover:shadow-lg transition-shadow duration-200">
+      <div className="flex items-start">
+        {/* User Profile Section */}
+        <div className="mr-4 flex flex-col justify-center items-center gap-2">
+          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-500">
+            <img
+              src={review?.user?.profileImage?.ImageUrl}
+              alt={review?.user?.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          {review?.user?._id === userDetails?._id  && (
+                  <span className=" bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium">
+                    You
+                  </span>
+                )}
         </div>
-    );
+
+        {/* Review Content */}
+        <div className="flex-1">
+          {/* Header with name and rating */}
+          <div className="flex justify-between items-center mb-2">
+            <div>
+              <div className="flex items-center">
+                <h4 className="font-medium text-gray-800">{review?.user?.name}</h4>
+               
+                <div className="ml-2 flex items-center text-green-600 text-xs">
+                  <FaCheckCircle className="mr-1" />
+                  <span>Verified User</span>
+                </div>
+              </div>
+              <div className="flex items-center text-gray-500 text-xs mt-1">
+                <MdOutlineAccessTime className="mr-1" />
+                <span>{timeAgo(review?.postedAt)}</span>
+              </div>
+            </div>
+            <div className="flex flex-col items-end">
+              <Star star={review?.rating} />
+              {review?.user?._id === userDetails?._id  && (
+                <button
+                  onClick={() => handleReviewDelete(review?._id)}
+                  className="mt-2 text-gray-400 hover:text-red-500 transition duration-200"
+                  title="Delete Review"
+                >
+                  <RiDeleteBin2Fill size={18} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Review Message */}
+          <div className="mt-2">
+            <p className="text-sm  font-normal  leading-relaxed  p-4 rounded-xl  ">{review?.ReviewMessage}</p>
+          </div>
+
+          {/* Service Tags/Context */}
+          <div className="mt-4 flex flex-wrap gap-2 font-medium">
+            <span className="bg-gray-100 text-gray-600 text-xs px-4 py-1 rounded-full">
+              Service Used
+            </span>
+            <span className="bg-gray-100 text-gray-600 text-xs px-4 py-1 rounded-full">
+              Recommended
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default Review;
+export default ServiceReview;

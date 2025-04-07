@@ -725,9 +725,9 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </motion.button>
                     </motion.div>
 
-                    <div className="w-full grid md:grid-cols-3 gap-4 py-10 px-1">
+                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 py-10 px-1">
                         {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (
-                            <div key={index} className="p-5 rounded-lg  mx-auto">
+                            <div key={index} className="p-5 rounded-lg  ">
                                 <Review review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />
                             </div>
                         ))}
