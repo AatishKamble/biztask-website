@@ -3,18 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaUserSecret, FaPhone, FaLock, FaCheck, FaRupeeSign } from 'react-icons/fa';
 import { MdEmail, MdPayment } from 'react-icons/md';
 import QRCode from 'react-qr-code';
-
+import uploadPhoto from "../../assets/uploadPhoto.jpg"
 const ContactInformation = ({ serviceDetails, userDetails }) => {
     // States for payment flow
-    const [paymentStatus, setPaymentStatus] = useState({
-        name: false,
-        phone: false,
-        email: false
-    });
+    const [hasPaid, setHasPaid] = useState(false);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
-    const [currentItem, setCurrentItem] = useState(null);
     const [transactionId, setTransactionId] = useState('');
     const [isVerifying, setIsVerifying] = useState(false);
+
 
     // Animation variants
     const containerVariants = {
@@ -38,10 +34,10 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
     };
 
     // Function to handle payment initiation
-    const handlePaymentInitiation = (item) => {
-        setCurrentItem(item);
+    const handlePaymentInitiation = () => {
         setShowPaymentModal(true);
     };
+
 
     // Function to verify payment
     const verifyPayment = () => {
@@ -51,28 +47,28 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
         }
 
         setIsVerifying(true);
-
-        // Simulate verification process
         setTimeout(() => {
             setIsVerifying(false);
             setShowPaymentModal(false);
             setTransactionId('');
-
-            // Update payment status for the specific item
-            setPaymentStatus(prev => ({
-                ...prev,
-                [currentItem]: true
-            }));
-
-            // Success notification
-            alert("Payment verified successfully! Contact details unlocked.");
+            setHasPaid(true);
+            alert("Payment verified successfully! All contact details unlocked.");
         }, 2000);
     };
+
     const upiID = "XXXX123@oksbi";
     const upiName = "XXXXXXXX XXXXX";
 
     return (
         <>
+            {userDetails?._id === serviceDetails?.user?._id || hasPaid &&
+                <div className="w-[140px] h-[160px] sm:w-[160px] sm:h-[200px] rounded-xl overflow-hidden border-2 border-blue-300 flex-shrink-0">
+                    <img
+                        src={serviceDetails?.user?.profileImage?.ImageUrl || uploadPhoto}
+                        alt="Owner"
+                        className="w-full h-full object-cover"
+                    />
+                </div>}
             <motion.div
                 className="flex flex-col flex-1 text-blue-900 text-[18px] font-serif space-y-5 w-full"
                 variants={containerVariants}
@@ -86,7 +82,15 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                 >
                     Contact Information
                 </motion.div>
+                { !hasPaid &&
+                <button
+                    className="bg-blue-600 h-12 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center justify-center gap-1 text-base transition-colors duration-200"
+                    onClick={handlePaymentInitiation}
+                >
 
+                    <span className='flex items-center justify-center '>Unlock All for <FaRupeeSign  className='ms-2'/> 2</span>
+                </button>
+}
                 {/* Info Boxes */}
                 <div className="space-y-4 text-[16px]">
                     {/* Name */}
@@ -98,7 +102,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                     >
                         <FaUserSecret className="text-sky-600 mt-[4px]" />
                         <AnimatePresence>
-                            {userDetails?._id === serviceDetails?.user?._id || paymentStatus.name ? (
+                            {userDetails?._id === serviceDetails?.user?._id || hasPaid ? (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -116,13 +120,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                                         <FaLock className="text-orange-500 mr-2" />
                                         <span className="text-gray-600">Contact name is hidden</span>
                                     </div>
-                                    <button
-                                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center gap-1 text-sm transition-colors duration-200"
-                                        onClick={() => handlePaymentInitiation('name')}
-                                    >
-                                        <FaRupeeSign />
-                                        <span>2 to unlock</span>
-                                    </button>
+
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -138,7 +136,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                     >
                         <FaPhone className="text-sky-600 mt-[4px]" />
                         <AnimatePresence>
-                            {userDetails?._id === serviceDetails?.user?._id || paymentStatus.phone ? (
+                            {userDetails?._id === serviceDetails?.user?._id || hasPaid ? (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -156,13 +154,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                                         <FaLock className="text-orange-500 mr-2" />
                                         <span className="text-gray-600">Phone number is hidden</span>
                                     </div>
-                                    <button
-                                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center gap-1 text-sm transition-colors duration-200"
-                                        onClick={() => handlePaymentInitiation('phone')}
-                                    >
-                                        <FaRupeeSign />
-                                        <span>2 to unlock</span>
-                                    </button>
+                                    
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -178,7 +170,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                     >
                         <MdEmail className="text-sky-600 mt-[4px]" />
                         <AnimatePresence>
-                            {userDetails?._id === serviceDetails?.user?._id || paymentStatus.email ? (
+                            {userDetails?._id === serviceDetails?.user?._id || hasPaid ? (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -196,13 +188,8 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                                         <FaLock className="text-orange-500 mr-2" />
                                         <span className="text-gray-600">Email address is hidden</span>
                                     </div>
-                                    <button
-                                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center gap-1 text-sm transition-colors duration-200"
-                                        onClick={() => handlePaymentInitiation('email')}
-                                    >
-                                        <FaRupeeSign />
-                                        <span>2 to unlock</span>
-                                    </button>
+                                   
+
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -234,7 +221,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900">Payment Required</h3>
                                 <p className="text-gray-500 mt-1">
-                                    Pay ₹2 to unlock {currentItem === 'name' ? 'contact name' : currentItem === 'phone' ? 'phone number' : 'email address'}
+                                    Pay ₹2 to unlock
                                 </p>
                             </div>
 

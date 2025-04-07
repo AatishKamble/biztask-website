@@ -43,7 +43,7 @@ const BusinessDetails = ({ userDetails }) => {
     <>
       <div className="min-h-screen  mt-10">
         {isLoading && (
-          <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-90 z-50">
+          <div className=" absolute w-full h-[100%] inset-0 flex items-center justify-center bg-[#ffffff]  opacity-100 z-40">
             <DetailLoader />
           </div>
         )}
