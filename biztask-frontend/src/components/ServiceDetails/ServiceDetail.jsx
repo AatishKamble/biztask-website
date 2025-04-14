@@ -366,42 +366,64 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} />
                             </div>
                             {/* Pricing Details */}
-                            <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl  p-6 w-full font-serif">
-
-                                {/* Heading */}
-                                <div className="text-[20px]  text-blue-900 font-semibold pb-3 border-b border-blue-300">
-                                    Pricing Details
-                                </div>
-
-                                {/* Pricing Rows */}
-                                <div className="mt-6 space-y-4 text-[16px]">
-
-                                    {/* Min Price */}
-                                    <div className="flex items-center  justify-between bg-sky-50 border border-blue-200 p-3 rounded-xl text-slate-800 text-[17px] transition-all duration-200  hover:scale-[1.015] cursor-default">
-                                        <div className="flex items-center gap-2">
-                                            <span className="bg-blue-200 rounded-full p-2"><FaArrowDown className="text-sky-600" /></span>
-                                            <span className="font-semibold text-blue-800">Min Price:</span>
-                                        </div>
-                                        <span className="flex items-center gap-1 font-medium text-sky-700">
-                                            <MdOutlineCurrencyRupee className="text-sky-600" />
-                                            {serviceDetails?.minPrice || "N/A"}
-                                        </span>
-                                    </div>
-
-                                    {/* Max Price */}
-                                    <div className="flex items-center  justify-between bg-sky-50 border border-blue-200 p-3 rounded-xl text-slate-800 text-[17px] transition-all duration-200  hover:scale-[1.015] cursor-default">
-                                        <div className="flex items-center gap-2">
-                                            <span className="bg-blue-200 rounded-full p-2"><FaArrowUp className="text-sky-600 " /></span>
-                                            <span className="font-semibold text-blue-800">Max Price:</span>
-                                        </div>
-                                        <span className="flex items-center gap-1 font-medium text-sky-700">
-                                            <MdOutlineCurrencyRupee className="text-sky-600 " />
-                                            {serviceDetails?.maxPrice || "N/A"}
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
+                            <div className="relative bg-white rounded-2xl font-serif shadow-lg overflow-hidden border border-blue-200">
+    {/*  background element */}
+    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full -mr-10 -mt-10 opacity-60"></div>
+   
+   
+    <div className="bg-gradient-to-br from-white to-blue-50 px-6 py-4">
+        <h3 className="text-xl text-blue-900 font-semibold flex items-center">
+            <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path>
+            </svg>
+            Pricing Details
+        </h3>
+    </div>
+    
+    <div className="p-6">
+       
+        
+        {/* Price  */}
+        <div className="grid grid-cols-2 gap-4 mt-6">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+                <div className="text-blue-500 mb-2">
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
+                        <FaArrowDown className="text-blue-600" />
+                    </div>
+                </div>
+                <div className="text-sm text-blue-700 font-medium">Starting From</div>
+                <div className="flex items-center justify-center text-xl font-bold text-blue-800 mt-1">
+                    <MdOutlineCurrencyRupee />
+                    <span>{serviceDetails?.minPrice || "N/A"}</span>
+                </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+                <div className="text-blue-500 mb-2">
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
+                        <FaArrowUp className="text-blue-600" />
+                    </div>
+                </div>
+                <div className="text-sm text-blue-700 font-medium">Up To</div>
+                <div className="flex items-center justify-center text-xl font-bold text-blue-800 mt-1">
+                    <MdOutlineCurrencyRupee />
+                    <span>{serviceDetails?.maxPrice || "N/A"}</span>
+                </div>
+            </div>
+        </div>
+        
+        {/* Additional info */}
+        <div className="mt-6 text-sm text-gray-600 flex items-center rounded-lg p-3 bg-gray-50">
+            <svg className="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
+            </svg>
+            <span>Prices may vary based on service complexity and requirements</span>
+        </div>
+    </div>
+    
+  
+   
+</div>
 
                         </div>
                     </div>
@@ -600,7 +622,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                                             <button
-                                                className="absolute left-3 top-1/2 -translate-y-1/2 text-xl w-10 text-grey-600 bg-blue-300 hover:bg-blue-200  p-2 rounded-2xl"
+                                                className="absolute left-3 top-1/2 -translate-y-1/2 text-xl w-10 h-10 text-grey-600 bg-blue-300 hover:bg-blue-200  p-2 rounded-2xl"
                                                 onClick={() =>
                                                     setIsModalOpen((prev) => (prev > 0 ? prev - 1 : AllPhotos.length - 1))
                                                 }
@@ -609,7 +631,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             </button>
 
                                             <button
-                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-xl w-10 text-grey-600 bg-blue-300 hover:bg-blue-200 p-2 rounded-2xl"
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-xl w-10 h-10 text-grey-600 bg-blue-300 hover:bg-blue-200 p-2 ps-3 rounded-2xl text-center"
                                                 onClick={() =>
                                                     setIsModalOpen((prev) => (prev < AllPhotos.length - 1 ? prev + 1 : 0))
                                                 }
@@ -632,18 +654,18 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         <div className="fixed inset-0 bg-black/50 backdrop-blur-md z-40 animate-fadeIn"></div>
                     )}
 
-                    {popupwarning  && (
+                    {popupwarning && (
                         <div className='fixed inset-0 flex items-center justify-center z-50'>
-                            
+
                             <PopUp
-                  message="Remove Service"
-                  submessage="Are you sure you want to remove this service?"
-                  button1="Cancel"
-                  button2="Remove"
-                  submessage2={`Job Role: ${serviceDetails?.serviceType}`}
-                  closeButton={handlePopupWarningClose}
-                  handleRemove={handleServiceRemove}
-                />
+                                message="Remove Service"
+                                submessage="Are you sure you want to remove this service?"
+                                button1="Cancel"
+                                button2="Remove"
+                                submessage2={`Job Role: ${serviceDetails?.serviceType}`}
+                                closeButton={handlePopupWarningClose}
+                                handleRemove={handleServiceRemove}
+                            />
                         </div>
                     )}
 
@@ -652,101 +674,230 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
             {isLoading == false &&
-                <div className='w-full h-auto relative my-10 mt-0 flex flex-col px-5 bg-white rounded-xl py-8 pt-0'>
-
-                    <motion.div
-                        variants={fadeUp}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        className="w-full flex flex-col items-center gap-8 py-10  px-4 md:px-10"
-                    >
-                        {/* Heading */}
-                        <div className="text-center mb-2">
-                            <h2 className="text-blue-950 font-serif font-bold text-4xl inline-block  border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
-                                Add a Review
-                            </h2>
-                            <div className="h-[3px] w-24 mx-auto  bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
-                            <p className="text-gray-600 text-base font-serif mt-2">
-                                Share your experience and help others make informed choices.
-                            </p>
-                        </div>
+                <div className='w-full h-auto relative my-10 mt-0 flex flex-col bg-white rounded-xl py-8'>
 
 
-                        {/* Star Rating */}
-                        <div className="flex flex-col items-center gap-2">
-                            <label htmlFor="star-rating" className="text-lg font-serif font-medium text-gray-700">
-                                Rate the Service
-                            </label>
-                            <div id="star-rating" className="flex gap-1">
-                                {stars.map((_, index) => (
-                                    <FaStar
-                                        key={index}
-                                        size={24}
-                                        className={`transition-all duration-200 cursor-pointer ${(hoverValue || currentValue) > index
-                                            ? "text-yellow-500 drop-shadow-md"
-                                            : "text-gray-300"
-                                            }`}
-                                        onClick={() => handleClick(index + 1)}
-                                        onMouseOver={() => handleMouseHover(index + 1)}
-                                        onMouseLeave={() => handleMouseLeave(index + 1)}
-                                    />
-                                ))}
+
+
+
+                    <div className="w-full px-6 py-8 mb-6">
+                        <div className="max-w-6xl   mx-auto flex flex-col md:flex-row justify-between items-center ">
+                            <div className="text-blue-800 mb-6 md:mb-0 text-center md:text-left">
+                                <h2 className="font-serif font-bold text-3xl md:text-4xl mb-2">
+                                    Client Reviews
+                                </h2>
+
+                                <p className="text-blue-600 text-base font-serif mb-4">
+                                    Trusted by customers across the country
+                                </p>
+                                {/* Rating stats */}
+                                {reviewStore?.reviews.length > 0 ? (
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <span className="font-serif font-bold text-3xl">
+                                                {(reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)}
+                                            </span>
+                                            <div className="flex flex-col items-start">
+                                                <div className="flex">
+                                                    {[1, 2, 3, 4, 5].map((star) => (
+                                                        <FaStar
+                                                            key={star}
+                                                            size={18}
+                                                            className={`${star <= (reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)
+                                                                ? "text-blue-500"
+                                                                : "text-blue-200"
+                                                                }`}
+                                                        />
+                                                    ))}
+                                                </div>
+                                                <span className="text-blue-400 text-sm">
+                                                    ({reviewStore.reviews.length} {reviewStore.reviews.length === 1 ? "review" : "reviews"})
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center">
+                                        <div className="flex">
+                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                <FaStar key={star} size={18} className="text-blue-200" />
+                                            ))}
+                                        </div>
+                                        <span className="ml-2 text-blue-400 text-sm">No reviews yet</span>
+                                    </div>
+                                )}
                             </div>
+
+
+                            <motion.div
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="bg-gradient-to-r from-blue-500 to-blue-600 border border-slate-400 p-4 rounded-lg shadow-lg max-w-md text-center"
+                            >
+                                <h3 className="text-white font-serif font-semibold text-lg mb-1">
+                                    Had an experience with this service?
+                                </h3>
+                                <p className="text-blue-100 text-sm mb-2">
+                                    Your feedback helps others make better choices
+                                </p>
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="flex items-center justify-center gap-2 mx-auto h-11 w-36 bg-white   font-serif font-semibold rounded-lg shadow-md transition-all duration-300"
+                                    onClick={() => document.getElementById('review-form').scrollIntoView({ behavior: 'smooth' })}
+                                >
+                                    <IoIosAddCircle size={20} />
+                                    <span>Add Review</span>
+                                </motion.button>
+                            </motion.div>
                         </div>
-
-                        {/* Review Textarea */}
-                        <div className="w-full flex justify-center flex-col items-center gap-2">
-                            <label htmlFor="review" className="text-lg font-serif font-medium text-gray-700">
-                                Your Feedback
-                            </label>
-                            <textarea
-                                name="review"
-                                id="review"
-                                placeholder="Share your experience with the service provider..."
-                                className="text-[16px] h-[180px] text-gray-700 font-serif outline-none p-4 w-[90%] md:w-[700px] border border-gray-300 bg-white rounded-lg shadow-md focus:ring-2 focus:ring-blue-400 transition-all duration-200"
-                                style={{ resize: "none" }}
-                                rows={5}
-                                value={input}
-                                onChange={handleInputChange}
-                            ></textarea>
-                            <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
-                        </div>
-
-                        {/* Submit Button */}
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={handleSubmitReview}
-                            className="flex items-center justify-center gap-2 h-11 w-36 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-lg transition-all duration-300"
-                        >
-                            <IoIosAddCircle size={22} />
-                            <span>Submit</span>
-                        </motion.button>
-                    </motion.div>
-
-                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 py-10 px-1">
-                        {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (
-                            <div key={index} className="p-5 rounded-lg  ">
-                                <Review review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />
-                            </div>
-                        ))}
                     </div>
 
+                  
+                    <div className="w-full px-6 mb-8">
+                        <div className="max-w-6xl mx-auto">
+                            {/* Filter tabs would go here - example UI */}
+                            <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-6">
+                                <button className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-serif">
+                                    All Reviews ({reviewStore?.reviews.length})
+                                </button>
 
-                    {visibleReviews < reviewStore?.reviews.length && (
-                        <div className='w-full flex justify-center'>
-                            <button
+                                <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full text-sm font-serif">
+                                    Most Recent
+                                </button>
+                            </div>
 
-                                className='bg-blue-600 hover:bg-blue-800 text-white px-6 py-2 rounded-lg text-lg font-serif font-medium shadow-md transition-all duration-300'>
-                                View All
-                            </button>
+                            {/* Reviews grid */}
+                            {reviewStore?.reviews.length > 0 ? (
+                                <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
+                                    {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (
+                                        <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, y: 30 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                                            viewport={{ once: true }}
+                                            className="bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+                                        >
+                                            <Review review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.8 }}
+                                    className="text-center p-10 bg-gray-50 rounded-lg shadow-sm"
+                                >
+                                    <div className="text-gray-400 mb-4">
+                                        <svg className="w-20 h-20 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clipRule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                    <h3 className="text-xl font-serif font-medium text-gray-700 mb-2">No reviews yet</h3>
+                                    <p className="text-gray-500 font-serif mb-4">Be the first to share your experience with this service provider!</p>
+                                    <button
+                                        onClick={() => document.getElementById('review-form').scrollIntoView({ behavior: 'smooth' })}
+                                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-base font-serif transition-colors duration-300"
+                                    >
+                                        <IoIosAddCircle size={20} />
+                                        <span>Write a Review</span>
+                                    </button>
+                                </motion.div>
+                            )}
+
+                            {/* Load more button */}
+                            {visibleReviews < reviewStore?.reviews.length && (
+                                <div className='w-full flex justify-center mt-8'>
+                                    <button className='bg-white border border-blue-600 text-blue-700 hover:bg-blue-50 px-6 py-2 rounded-lg text-lg font-serif font-medium shadow-sm transition-all duration-300'>
+                                        View All Reviews
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                    )}
+                    </div>
 
-                </div >
+                    {/* Review form  */}
+                    <div id="review-form" className="w-full px-6 pt-4 border-t border-gray-100">
+                        <motion.div
+                            variants={fadeUp}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            className="max-w-2xl mx-auto flex flex-col items-center gap-6 py-8"
+                        >
+                          
+                            <div className="text-center mb-2">
+                                <h2 className="text-blue-950 font-serif font-bold text-2xl md:text-3xl inline-block border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+                                    Share Your Experience
+                                </h2>
+                                <div className="h-[3px] w-20 mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
+                            </div>
 
+                            {/* Rating input */}
+                            <div className="flex flex-col items-center gap-2 w-full">
+                                <label htmlFor="star-rating" className="text-lg font-serif font-medium text-gray-700">
+                                    How would you rate this service?
+                                </label>
+                                <div className="flex items-center gap-4">
+                                    <div id="star-rating" className="flex gap-1">
+                                        {stars.map((_, index) => (
+                                            <FaStar
+                                                key={index}
+                                                size={28}
+                                                className={`transition-all duration-200 cursor-pointer ${(hoverValue || currentValue) > index
+                                                    ? "text-yellow-500 drop-shadow-md"
+                                                    : "text-gray-300"
+                                                    }`}
+                                                onClick={() => handleClick(index + 1)}
+                                                onMouseOver={() => handleMouseHover(index + 1)}
+                                                onMouseLeave={() => handleMouseLeave(index + 1)}
+                                            />
+                                        ))}
+                                    </div>
+                                    <div className="ml-2 flex items-center justify-center min-w-8 h-8 px-2 bg-blue-100 rounded-full">
+                                        <span className="font-serif font-bold text-blue-700">
+                                            {currentValue ? currentValue : "-"}
+                                        </span>
+                                    </div>
+                                </div>
+                               
+                                    <p className="text-orange-500 text-sm font-serif mt-1"> {currentValue===0 ? "Please select a rating" : `Thank you for rating ${currentValue}`}</p>
+                               
+                            </div>
 
+                            {/* Review input */}
+                            <div className="w-full flex flex-col items-center gap-2">
+                                <label htmlFor="review" className="text-lg font-serif font-medium text-gray-700">
+                                    Your Review
+                                </label>
+                                <textarea
+                                    name="review"
+                                    id="review"
+                                    placeholder="What did you like or dislike? What was your experience with this service provider?"
+                                    className="text-[16px] h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                                    style={{ resize: "none" }}
+                                    rows={5}
+                                    value={input}
+                                    onChange={handleInputChange}
+                                ></textarea>
+                                <div className="w-full flex justify-between items-center px-2">
+                                    <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={handleSubmitReview}
+                                        className="flex items-center justify-center gap-2 h-11 px-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
+                                    >
+                                        <IoIosAddCircle size={22} />
+                                        <span>Submit Review</span>
+                                    </motion.button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
             }
         </>
     )

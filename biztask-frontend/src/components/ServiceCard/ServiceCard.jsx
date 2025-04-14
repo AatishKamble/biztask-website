@@ -37,7 +37,7 @@ const ServiceCard = ({ business, service, provider }) => {
         </Link>
   
       {/* Rating Badge */}
-      <div className="flex items-center py-1 px-3 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200 backdrop-blur-sm rounded-md shadow-sm">
+      <div className="flex items-center py-1 px-3 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200 backdrop-blur-sm rounded-md shadow-sm">
           <span className="text-2xl font-serif text-yellow-500">
             <Star star={service?.rating} />
           </span>
