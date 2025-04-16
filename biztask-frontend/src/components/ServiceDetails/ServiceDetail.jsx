@@ -433,7 +433,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     {/* job */}
                     {
-                        userDetails?._id === serviceDetails?.user?._id || true &&
+                        userDetails?._id === serviceDetails?.user?._id  &&
                         <div ref={postedJobs} className=' w-[95%] h-auto  mb-10 mx-200'>
 
 
