@@ -61,14 +61,20 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
 
     return (
         <>
-            {userDetails?._id === serviceDetails?.user?._id || hasPaid &&
-                <div className="w-[140px] h-[160px] sm:w-[160px] sm:h-[200px] rounded-xl overflow-hidden border-2 border-blue-300 flex-shrink-0">
+            {userDetails?._id === serviceDetails?.user?._id || hasPaid ?
+               ( <div className="w-[140px] h-[160px] sm:w-[160px] sm:h-[200px] rounded-xl overflow-hidden border-2 border-blue-300 flex-shrink-0">
                     <img
-                        src={serviceDetails?.user?.profileImage?.ImageUrl || uploadPhoto}
+                        src={serviceDetails?.user?.profileImage?.ImageUrl }
                         alt="Owner"
                         className="w-full h-full object-cover"
                     />
-                </div>}
+                </div>):(<div className="w-[140px] h-[160px] sm:w-[160px] sm:h-[200px] rounded-xl overflow-hidden border-2 border-blue-300 flex-shrink-0">
+                    <img
+                        src={uploadPhoto}
+                        alt="Owner"
+                        className="w-full h-full object-cover"
+                    />
+                </div>)}
             <motion.div
                 className="flex flex-col flex-1 text-blue-900 text-[18px] font-serif space-y-5 w-full"
                 variants={containerVariants}
