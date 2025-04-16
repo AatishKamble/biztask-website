@@ -204,7 +204,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
             <AnimatePresence>
                 {showPaymentModal && (
                     <motion.div
-                        className="fixed inset-0 h-[100vh] bg-black/50 flex items-center justify-center z-50 p-4"
+                        className=" inset-0 h-[100vh] bg-black/50 flex items-center justify-center z-50 p-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
