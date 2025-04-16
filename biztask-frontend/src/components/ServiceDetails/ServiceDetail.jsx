@@ -19,7 +19,7 @@ import JobAdvertise from "../JobTemplate/JobAdvertise.jsx";
 import { removeReview } from "../../Redux/Review/Action.js";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
-import { FaArrowDown, FaArrowUp,FaStarHalfStroke } from "react-icons/fa6";
+import { FaArrowDown, FaArrowUp, FaStarHalfStroke } from "react-icons/fa6";
 import { addReview, getAllReviews } from "../../Redux/Review/Action.js";
 import Star from "../Reviews/Star.jsx";
 import PopUp from "../PopUp/PopUp.jsx";
@@ -222,12 +222,12 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     // Animation Variant
     const fadeUp = {
         hidden: { opacity: 0, y: 50 },
-        visible: { 
-          opacity: 1, 
-          y: 0,
-          transition: { duration: 0.6 } 
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6 }
         }
-      };
+    };
 
 
     return (
@@ -368,63 +368,63 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             </div>
                             {/* Pricing Details */}
                             <div className="relative bg-white rounded-2xl font-serif shadow-lg overflow-hidden border border-blue-200">
-    {/*  background element */}
-    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full -mr-10 -mt-10 opacity-60"></div>
-   
-   
-    <div className="bg-gradient-to-br from-white to-blue-50 px-6 py-4">
-        <h3 className="text-xl text-blue-900 font-semibold flex items-center">
-            <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path>
-            </svg>
-            Pricing Details
-        </h3>
-    </div>
-    
-    <div className="p-6">
-       
-        
-        {/* Price  */}
-        <div className="grid grid-cols-2 gap-4 mt-6">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-                <div className="text-blue-500 mb-2">
-                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
-                        <FaArrowDown className="text-blue-600" />
-                    </div>
-                </div>
-                <div className="text-sm text-blue-700 font-medium">Starting From</div>
-                <div className="flex items-center justify-center text-xl font-bold text-blue-800 mt-1">
-                    <MdOutlineCurrencyRupee />
-                    <span>{serviceDetails?.minPrice || "N/A"}</span>
-                </div>
-            </div>
-            
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-                <div className="text-blue-500 mb-2">
-                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
-                        <FaArrowUp className="text-blue-600" />
-                    </div>
-                </div>
-                <div className="text-sm text-blue-700 font-medium">Up To</div>
-                <div className="flex items-center justify-center text-xl font-bold text-blue-800 mt-1">
-                    <MdOutlineCurrencyRupee />
-                    <span>{serviceDetails?.maxPrice || "N/A"}</span>
-                </div>
-            </div>
-        </div>
-        
-        {/* Additional info */}
-        <div className="mt-6 text-sm text-gray-600 flex items-center rounded-lg p-3 bg-gray-50">
-            <svg className="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
-            </svg>
-            <span>Prices may vary based on service complexity and requirements</span>
-        </div>
-    </div>
-    
-  
-   
-</div>
+                                {/*  background element */}
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full -mr-10 -mt-10 opacity-60"></div>
+
+
+                                <div className="bg-gradient-to-br from-white to-blue-50 px-6 py-4">
+                                    <h3 className="text-xl text-blue-900 font-semibold flex items-center">
+                                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path>
+                                        </svg>
+                                        Pricing Details
+                                    </h3>
+                                </div>
+
+                                <div className="p-6">
+
+
+                                    {/* Price  */}
+                                    <div className="grid grid-cols-2 gap-4 mt-6">
+                                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+                                            <div className="text-blue-500 mb-2">
+                                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
+                                                    <FaArrowDown className="text-blue-600" />
+                                                </div>
+                                            </div>
+                                            <div className="text-sm text-blue-700 font-medium">Starting From</div>
+                                            <div className="flex items-center justify-center text-xl font-bold text-blue-800 mt-1">
+                                                <MdOutlineCurrencyRupee />
+                                                <span>{serviceDetails?.minPrice || "N/A"}</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+                                            <div className="text-blue-500 mb-2">
+                                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
+                                                    <FaArrowUp className="text-blue-600" />
+                                                </div>
+                                            </div>
+                                            <div className="text-sm text-blue-700 font-medium">Up To</div>
+                                            <div className="flex items-center justify-center text-xl font-bold text-blue-800 mt-1">
+                                                <MdOutlineCurrencyRupee />
+                                                <span>{serviceDetails?.maxPrice || "N/A"}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Additional info */}
+                                    <div className="mt-6 text-sm text-gray-600 flex items-center rounded-lg p-3 bg-gray-50">
+                                        <svg className="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
+                                        </svg>
+                                        <span>Prices may vary based on service complexity and requirements</span>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
 
                         </div>
                     </div>
@@ -433,18 +433,50 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     {/* job */}
                     {
-                        userDetails?._id === serviceDetails?.user?._id &&
-                        <div ref={postedJobs} className=' w-full h-auto  mb-10 mx-200'>
+                        userDetails?._id === serviceDetails?.user?._id || true &&
+                        <div ref={postedJobs} className=' w-[95%] h-auto  mb-10 mx-200'>
 
 
                             <div className='w-full  font-semibold p-2 h-auto text-[26px] flex text-slate-800 font-serif'>
-                                <div className='w-full text-[26px] text-slate-600  font-serif pb-2'>
-                                    <span className='border-b-[2px]'>Posted Jobs</span>
-                                </div>
-                                <Link to={`/job-post`}>
-                                    <button className=' flex rounded-md hover:text-[#3543be] border-[1px] hover:bg-slate-100 w-[180px] p-2  items-center justify-center h-auto text-slate-600 font-serif font-semibold text-[24px]'><FaAddressCard /><span className='text-[16px] px-4'> Post Job</span></button>
-                                </Link>
 
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    transition={{ duration: 0.8, ease: "easeOut" }}
+                                    className="w-full flex flex-col items-center py-10 px-4 md:px-10  rounded-2xl "
+                                >
+
+                                    <motion.h2
+                                        initial={{ opacity: 0, y: -20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.2, duration: 0.6 }}
+                                        className="text-4xl font-serif font-bold text-transparent bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 bg-clip-text mb-2"
+                                    >
+                                        Posted Jobs
+                                    </motion.h2>
+
+                                   
+                                    <motion.div
+                                        initial={{ scaleX: 0 }}
+                                        whileInView={{ scaleX: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.4, duration: 0.5 }}
+                                        className="h-[4px] w-28 origin-left bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-0 rounded-full "
+                                    />
+                                    </motion.div>
+
+                                    <Link to={`/job-post`}>
+                                    <motion.button
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className=" relative top-12 right-[400px] flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 h-10 w-[200px] text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
+                                >
+                                   <FaAddressCard  size={24} />
+                                    <span className=" text-base">Post Job</span>
+                                </motion.button>
+                                            </Link>
                             </div>
 
                             <div className=' w-full grid xl:grid-cols-2 sm:grid-cols-1 md:px-16 lg:px-20 xl:p-2   p-2 gap-5 my-10'>
@@ -700,8 +732,8 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             </span>
                                             <div className="flex flex-col items-start">
                                                 <div className="flex">
-                                               
-                                                    <Star star={(reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)}/>
+
+                                                    <Star star={(reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)} />
                                                 </div>
                                                 <span className="text-gray-600 text-sm">
                                                     ({reviewStore.reviews.length} {reviewStore.reviews.length === 1 ? "review" : "reviews"})
@@ -746,7 +778,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </div>
                     </div>
 
-                  
+
                     <div className="w-full px-6 mb-8">
                         <div className="max-w-6xl mx-auto">
                             {/* Filter tabs would go here - example UI */}
@@ -813,111 +845,111 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     {/* Review form  */}
                     <div id="review-form" className="w-full px-6 pt-4 border-t border-gray-100">
-    <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="max-w-2xl mx-auto flex flex-col items-center gap-6 py-8"
-    >
-        <div className="text-center mb-2">
-            <h2 className="text-blue-950 font-serif font-bold text-2xl md:text-3xl inline-block border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
-                Share Your Experience
-            </h2>
-            <div className="h-[3px] w-20 mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
-        </div>
+                        <motion.div
+                            variants={fadeUp}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            className="max-w-2xl mx-auto flex flex-col items-center gap-6 py-8"
+                        >
+                            <div className="text-center mb-2">
+                                <h2 className="text-blue-950 font-serif font-bold text-2xl md:text-3xl inline-block border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+                                    Share Your Experience
+                                </h2>
+                                <div className="h-[3px] w-20 mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
+                            </div>
 
-        {/* Rating input with half-star capability */}
-        <div className="flex flex-col items-center gap-2 w-full">
-            <label htmlFor="star-rating" className="text-lg font-serif font-medium text-gray-700">
-                How would you rate this service?
-            </label>
-            <div className="flex items-center gap-4">
-                <div id="star-rating" className="flex gap-1 relative">
-                    {[...Array(5)].map((_, index) => (
-                        <div key={index} className="relative">
-                            {/* Full star base (gray background) */}
-                            <FaStar 
-                                size={28} 
-                                className="text-gray-300"
-                            />
-                            
-                            {/* Left half clickable area */}
-                            <div 
-                                className="absolute top-0 left-0 w-1/2 h-full cursor-pointer z-10"
-                                onClick={() => handleClick(index + 0.5)}
-                                onMouseOver={() => handleMouseHover(index + 0.5)}
-                                onMouseLeave={handleMouseLeave}
-                            />
-                            
-                            {/* Right half clickable area */}
-                            <div 
-                                className="absolute top-0 right-0 w-1/2 h-full cursor-pointer z-10"
-                                onClick={() => handleClick(index + 1)}
-                                onMouseOver={() => handleMouseHover(index + 1)}
-                                onMouseLeave={handleMouseLeave}
-                            />
-                            
-                            {/* Colored overlay for half star */}
-                            {(hoverValue || currentValue) >= index + 0.5 && (hoverValue || currentValue) < index + 1 && (
-                                <FaStarHalfStroke 
-                                    size={28} 
-                                    className="absolute top-0 left-0 text-yellow-500 drop-shadow-md" 
-                                />
-                            )}
-                            
-                            {/* Colored overlay for full star */}
-                            {(hoverValue || currentValue) >= index + 1 && (
-                                <FaStar 
-                                    size={28} 
-                                    className="absolute top-0 left-0 text-yellow-500 drop-shadow-md" 
-                                />
-                            )}
-                        </div>
-                    ))}
-                </div>
-                <div className="ml-2 flex items-center justify-center min-w-12 h-8 px-2 bg-blue-100 rounded-full">
-                    <span className="font-serif font-bold text-blue-700">
-                        {currentValue ? currentValue.toFixed(1) : "-"}
-                    </span>
-                </div>
-            </div>
-            
-            <p className="text-orange-500 text-sm font-serif mt-1">
-                {currentValue === 0 ? "Please select a rating" : `Thank you for rating ${currentValue.toFixed(1)}`}
-            </p>
-        </div>
+                            {/* Rating input with half-star capability */}
+                            <div className="flex flex-col items-center gap-2 w-full">
+                                <label htmlFor="star-rating" className="text-lg font-serif font-medium text-gray-700">
+                                    How would you rate this service?
+                                </label>
+                                <div className="flex items-center gap-4">
+                                    <div id="star-rating" className="flex gap-1 relative">
+                                        {[...Array(5)].map((_, index) => (
+                                            <div key={index} className="relative">
+                                                {/* Full star base (gray background) */}
+                                                <FaStar
+                                                    size={28}
+                                                    className="text-gray-300"
+                                                />
 
-        {/* Review input */}
-        <div className="w-full flex flex-col items-center gap-2">
-            <label htmlFor="review" className="text-lg font-serif font-medium text-gray-700">
-                Your Review
-            </label>
-            <textarea
-                name="review"
-                id="review"
-                placeholder="What did you like or dislike? What was your experience with this service provider?"
-                className="text-[16px] h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
-                style={{ resize: "none" }}
-                rows={5}
-                value={input}
-                onChange={handleInputChange}
-            ></textarea>
-            <div className="w-full flex justify-between items-center px-2">
-                <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleSubmitReview}
-                    className="flex items-center justify-center gap-2 h-11 px-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
-                >
-                    <IoIosAddCircle size={22} />
-                    <span>Submit Review</span>
-                </motion.button>
-            </div>
-        </div>
-    </motion.div>
-</div>
+                                                {/* Left half clickable area */}
+                                                <div
+                                                    className="absolute top-0 left-0 w-1/2 h-full cursor-pointer z-10"
+                                                    onClick={() => handleClick(index + 0.5)}
+                                                    onMouseOver={() => handleMouseHover(index + 0.5)}
+                                                    onMouseLeave={handleMouseLeave}
+                                                />
+
+                                                {/* Right half clickable area */}
+                                                <div
+                                                    className="absolute top-0 right-0 w-1/2 h-full cursor-pointer z-10"
+                                                    onClick={() => handleClick(index + 1)}
+                                                    onMouseOver={() => handleMouseHover(index + 1)}
+                                                    onMouseLeave={handleMouseLeave}
+                                                />
+
+                                                {/* Colored overlay for half star */}
+                                                {(hoverValue || currentValue) >= index + 0.5 && (hoverValue || currentValue) < index + 1 && (
+                                                    <FaStarHalfStroke
+                                                        size={28}
+                                                        className="absolute top-0 left-0 text-yellow-500 drop-shadow-md"
+                                                    />
+                                                )}
+
+                                                {/* Colored overlay for full star */}
+                                                {(hoverValue || currentValue) >= index + 1 && (
+                                                    <FaStar
+                                                        size={28}
+                                                        className="absolute top-0 left-0 text-yellow-500 drop-shadow-md"
+                                                    />
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="ml-2 flex items-center justify-center min-w-12 h-8 px-2 bg-blue-100 rounded-full">
+                                        <span className="font-serif font-bold text-blue-700">
+                                            {currentValue ? currentValue.toFixed(1) : "-"}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <p className="text-orange-500 text-sm font-serif mt-1">
+                                    {currentValue === 0 ? "Please select a rating" : `Thank you for rating ${currentValue.toFixed(1)}`}
+                                </p>
+                            </div>
+
+                            {/* Review input */}
+                            <div className="w-full flex flex-col items-center gap-2">
+                                <label htmlFor="review" className="text-lg font-serif font-medium text-gray-700">
+                                    Your Review
+                                </label>
+                                <textarea
+                                    name="review"
+                                    id="review"
+                                    placeholder="What did you like or dislike? What was your experience with this service provider?"
+                                    className="text-[16px] h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                                    style={{ resize: "none" }}
+                                    rows={5}
+                                    value={input}
+                                    onChange={handleInputChange}
+                                ></textarea>
+                                <div className="w-full flex justify-between items-center px-2">
+                                    <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={handleSubmitReview}
+                                        className="flex items-center justify-center gap-2 h-11 px-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
+                                    >
+                                        <IoIosAddCircle size={22} />
+                                        <span>Submit Review</span>
+                                    </motion.button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             }
         </>

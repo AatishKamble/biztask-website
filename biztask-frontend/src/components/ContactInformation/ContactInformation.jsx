@@ -64,7 +64,7 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
             {(userDetails?._id === serviceDetails?.user?._id || hasPaid) &&
                 <div className="w-[140px] h-[160px] sm:w-[160px] sm:h-[200px] rounded-xl overflow-hidden border-2 border-blue-300 flex-shrink-0">
                     <img
-                        src={serviceDetails?.user?.profileImage?.ImageUrl}
+                        src={serviceDetails?.user?.profileImage?.ImageUrl || uploadPhoto}
                         alt="Owner"
                         className="w-full h-full object-cover"
                     />
@@ -202,9 +202,9 @@ const ContactInformation = ({ serviceDetails, userDetails }) => {
 
             {/* Payment Modal */}
             <AnimatePresence>
-                {showPaymentModal && (
+                {showPaymentModal  && (
                     <motion.div
-                        className=" inset-0 h-[100vh] bg-black/50 flex items-center justify-center z-50 p-4"
+                    className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
