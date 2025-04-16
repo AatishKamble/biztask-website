@@ -1,32 +1,56 @@
-import React from 'react'
-
+import React from 'react';
+import { motion } from 'framer-motion';
 import { FaStarHalfStroke } from "react-icons/fa6";
 import { AiOutlineStar } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
-const Star = ({star}) => {
 
-    const reatingArray=Array.from({length:5},(el,index)=>{
-let number=index+0.5;
-
-        return(
-            <span key={index} className='text-yellow-600'>
-            {
-star>=index+1?(<FaStar size={20}/>):
-star>=number?(<FaStarHalfStroke size={20}/>):
-(<AiOutlineStar size={20}/>)
-            }
-            </span>
-        )
-
-    })
+const Star = ({ star }) => {
+ 
+  const rating = Number(star);
+  
+  const ratingArray = Array.from({ length: 5 }, (_, index) => {
+   
+    return (
+      <motion.span 
+        key={index} 
+        className='text-yellow-600'
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          duration: 0.3,
+          delay: index * 0.1,
+          ease: "easeOut"
+        }}
+        whileHover={{ 
+          scale: 1.2,
+          transition: { duration: 0.2 } 
+        }}
+      >
+        {
+          // Full star if rating is at least this position + 1
+          rating >= index + 1 ? (
+            <FaStar size={20} />
+          ) : 
+          // Half star if rating is between this position and the next
+          rating > index && rating < index + 1 ? (
+            <FaStarHalfStroke size={20} />
+          ) : 
+          // Empty star otherwise
+          (
+            <AiOutlineStar size={20} />
+          )
+        }
+      </motion.span>
+    );
+  });
 
   return (
-<>
-<div className='flex'>
-    {reatingArray}
-</div>
-</>
-  )
-}
+    <>
+      <div className='flex gap-1'>
+        {ratingArray}
+      </div>
+    </>
+  );
+};
 
-export default Star
+export default Star;

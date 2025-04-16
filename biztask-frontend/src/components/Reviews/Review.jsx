@@ -6,7 +6,7 @@ import Star from "./Star.jsx";
 
 const ServiceReview = ({ review, userDetails, handleReviewDelete }) => {
   return (
-    <div className="w-full h-full bg-gradient-to-br from-white to-blue-50  rounded-lg shadow-md p-6 mb-4 border border-blue-200 hover:shadow-lg transition-shadow duration-200">
+    <div className=" font-serif  w-full h-full bg-gradient-to-br from-white to-blue-50  rounded-lg shadow-md p-6 mb-4 border border-blue-200 hover:shadow-lg transition-shadow duration-200">
       <div className="flex items-start">
         {/* User Profile Section */}
         <div className="mr-4 flex flex-col justify-center items-center gap-2">
@@ -58,7 +58,7 @@ const ServiceReview = ({ review, userDetails, handleReviewDelete }) => {
 
           {/* Review Message */}
           <div className="mt-2">
-            <p className="text-sm  font-normal  leading-relaxed  p-4 rounded-xl  ">{review?.ReviewMessage}</p>
+            <p className="text-sm  font-normal  leading-relaxed  p-4 rounded-xl font-serif  ">{review?.ReviewMessage}</p>
           </div>
 
           {/* Service Tags/Context */}

@@ -19,7 +19,7 @@ import JobAdvertise from "../JobTemplate/JobAdvertise.jsx";
 import { removeReview } from "../../Redux/Review/Action.js";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa6";
+import { FaArrowDown, FaArrowUp,FaStarHalfStroke } from "react-icons/fa6";
 import { addReview, getAllReviews } from "../../Redux/Review/Action.js";
 import Star from "../Reviews/Star.jsx";
 import PopUp from "../PopUp/PopUp.jsx";
@@ -221,13 +221,14 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     // Animation Variant
     const fadeUp = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.5, ease: "easeOut" },
-        },
-    };
+        hidden: { opacity: 0, y: 50 },
+        visible: { 
+          opacity: 1, 
+          y: 0,
+          transition: { duration: 0.6 } 
+        }
+      };
+
 
     return (
         <>
@@ -687,7 +688,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     Client Reviews
                                 </h2>
 
-                                <p className="text-blue-600 text-base font-serif mb-4">
+                                <p className="text-gray-600 text-base font-serif mb-4">
                                     Trusted by customers across the country
                                 </p>
                                 {/* Rating stats */}
@@ -699,18 +700,10 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             </span>
                                             <div className="flex flex-col items-start">
                                                 <div className="flex">
-                                                    {[1, 2, 3, 4, 5].map((star) => (
-                                                        <FaStar
-                                                            key={star}
-                                                            size={18}
-                                                            className={`${star <= (reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)
-                                                                ? "text-blue-500"
-                                                                : "text-blue-200"
-                                                                }`}
-                                                        />
-                                                    ))}
+                                               
+                                                    <Star star={(reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)}/>
                                                 </div>
-                                                <span className="text-blue-400 text-sm">
+                                                <span className="text-gray-600 text-sm">
                                                     ({reviewStore.reviews.length} {reviewStore.reviews.length === 1 ? "review" : "reviews"})
                                                 </span>
                                             </div>
@@ -820,83 +813,111 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     {/* Review form  */}
                     <div id="review-form" className="w-full px-6 pt-4 border-t border-gray-100">
-                        <motion.div
-                            variants={fadeUp}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            className="max-w-2xl mx-auto flex flex-col items-center gap-6 py-8"
-                        >
-                          
-                            <div className="text-center mb-2">
-                                <h2 className="text-blue-950 font-serif font-bold text-2xl md:text-3xl inline-block border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
-                                    Share Your Experience
-                                </h2>
-                                <div className="h-[3px] w-20 mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
-                            </div>
+    <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="max-w-2xl mx-auto flex flex-col items-center gap-6 py-8"
+    >
+        <div className="text-center mb-2">
+            <h2 className="text-blue-950 font-serif font-bold text-2xl md:text-3xl inline-block border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+                Share Your Experience
+            </h2>
+            <div className="h-[3px] w-20 mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
+        </div>
 
-                            {/* Rating input */}
-                            <div className="flex flex-col items-center gap-2 w-full">
-                                <label htmlFor="star-rating" className="text-lg font-serif font-medium text-gray-700">
-                                    How would you rate this service?
-                                </label>
-                                <div className="flex items-center gap-4">
-                                    <div id="star-rating" className="flex gap-1">
-                                        {stars.map((_, index) => (
-                                            <FaStar
-                                                key={index}
-                                                size={28}
-                                                className={`transition-all duration-200 cursor-pointer ${(hoverValue || currentValue) > index
-                                                    ? "text-yellow-500 drop-shadow-md"
-                                                    : "text-gray-300"
-                                                    }`}
-                                                onClick={() => handleClick(index + 1)}
-                                                onMouseOver={() => handleMouseHover(index + 1)}
-                                                onMouseLeave={() => handleMouseLeave(index + 1)}
-                                            />
-                                        ))}
-                                    </div>
-                                    <div className="ml-2 flex items-center justify-center min-w-8 h-8 px-2 bg-blue-100 rounded-full">
-                                        <span className="font-serif font-bold text-blue-700">
-                                            {currentValue ? currentValue : "-"}
-                                        </span>
-                                    </div>
-                                </div>
-                               
-                                    <p className="text-orange-500 text-sm font-serif mt-1"> {currentValue===0 ? "Please select a rating" : `Thank you for rating ${currentValue}`}</p>
-                               
-                            </div>
+        {/* Rating input with half-star capability */}
+        <div className="flex flex-col items-center gap-2 w-full">
+            <label htmlFor="star-rating" className="text-lg font-serif font-medium text-gray-700">
+                How would you rate this service?
+            </label>
+            <div className="flex items-center gap-4">
+                <div id="star-rating" className="flex gap-1 relative">
+                    {[...Array(5)].map((_, index) => (
+                        <div key={index} className="relative">
+                            {/* Full star base (gray background) */}
+                            <FaStar 
+                                size={28} 
+                                className="text-gray-300"
+                            />
+                            
+                            {/* Left half clickable area */}
+                            <div 
+                                className="absolute top-0 left-0 w-1/2 h-full cursor-pointer z-10"
+                                onClick={() => handleClick(index + 0.5)}
+                                onMouseOver={() => handleMouseHover(index + 0.5)}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                            
+                            {/* Right half clickable area */}
+                            <div 
+                                className="absolute top-0 right-0 w-1/2 h-full cursor-pointer z-10"
+                                onClick={() => handleClick(index + 1)}
+                                onMouseOver={() => handleMouseHover(index + 1)}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                            
+                            {/* Colored overlay for half star */}
+                            {(hoverValue || currentValue) >= index + 0.5 && (hoverValue || currentValue) < index + 1 && (
+                                <FaStarHalfStroke 
+                                    size={28} 
+                                    className="absolute top-0 left-0 text-yellow-500 drop-shadow-md" 
+                                />
+                            )}
+                            
+                            {/* Colored overlay for full star */}
+                            {(hoverValue || currentValue) >= index + 1 && (
+                                <FaStar 
+                                    size={28} 
+                                    className="absolute top-0 left-0 text-yellow-500 drop-shadow-md" 
+                                />
+                            )}
+                        </div>
+                    ))}
+                </div>
+                <div className="ml-2 flex items-center justify-center min-w-12 h-8 px-2 bg-blue-100 rounded-full">
+                    <span className="font-serif font-bold text-blue-700">
+                        {currentValue ? currentValue.toFixed(1) : "-"}
+                    </span>
+                </div>
+            </div>
+            
+            <p className="text-orange-500 text-sm font-serif mt-1">
+                {currentValue === 0 ? "Please select a rating" : `Thank you for rating ${currentValue.toFixed(1)}`}
+            </p>
+        </div>
 
-                            {/* Review input */}
-                            <div className="w-full flex flex-col items-center gap-2">
-                                <label htmlFor="review" className="text-lg font-serif font-medium text-gray-700">
-                                    Your Review
-                                </label>
-                                <textarea
-                                    name="review"
-                                    id="review"
-                                    placeholder="What did you like or dislike? What was your experience with this service provider?"
-                                    className="text-[16px] h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
-                                    style={{ resize: "none" }}
-                                    rows={5}
-                                    value={input}
-                                    onChange={handleInputChange}
-                                ></textarea>
-                                <div className="w-full flex justify-between items-center px-2">
-                                    <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={handleSubmitReview}
-                                        className="flex items-center justify-center gap-2 h-11 px-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
-                                    >
-                                        <IoIosAddCircle size={22} />
-                                        <span>Submit Review</span>
-                                    </motion.button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
+        {/* Review input */}
+        <div className="w-full flex flex-col items-center gap-2">
+            <label htmlFor="review" className="text-lg font-serif font-medium text-gray-700">
+                Your Review
+            </label>
+            <textarea
+                name="review"
+                id="review"
+                placeholder="What did you like or dislike? What was your experience with this service provider?"
+                className="text-[16px] h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                style={{ resize: "none" }}
+                rows={5}
+                value={input}
+                onChange={handleInputChange}
+            ></textarea>
+            <div className="w-full flex justify-between items-center px-2">
+                <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleSubmitReview}
+                    className="flex items-center justify-center gap-2 h-11 px-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
+                >
+                    <IoIosAddCircle size={22} />
+                    <span>Submit Review</span>
+                </motion.button>
+            </div>
+        </div>
+    </motion.div>
+</div>
                 </div>
             }
         </>
