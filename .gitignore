@@ -19,6 +19,8 @@ dist-ssr
 .DS_Store
 .env
 biztask-backend/.env
+biztask-backend/uploads/
+
 *.suo
 *.ntvs*
 *.njsproj
