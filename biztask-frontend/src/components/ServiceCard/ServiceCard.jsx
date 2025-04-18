@@ -30,14 +30,14 @@ const ServiceCard = ({ business, service, provider }) => {
       {/* View Button */}
       <Link to={`/service-detail/${service?._id}`}>
           <div className="w-[80px] h-[40px] bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-md transition duration-300 flex justify-center items-center shadow-md hover:shadow-lg">
-            <span className="text-md font-serif font-semibold text-white">
-              View
+            <span className="text-lg font-serif font-semibold text-white">
+              Book
             </span>
           </div>
         </Link>
   
       {/* Rating Badge */}
-      <div className="flex items-center py-1 px-3 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200 backdrop-blur-sm rounded-md shadow-sm">
+      <div className="flex items-center py-1 px-3   rounded-md ">
           <span className="text-2xl font-serif text-yellow-500">
             <Star star={service?.rating} />
           </span>

@@ -91,7 +91,7 @@ const HowItWorks = ({ HowItWorks }) => {
   return (
     <motion.div
       ref={HowItWorks}
-      className="w-full py-20 px-6 lg:px-20"
+      className="w-full py-10 pb-20 px-6 lg:px-20"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
