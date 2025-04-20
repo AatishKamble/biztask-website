@@ -99,14 +99,14 @@ const FeaturedJob = () => {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="transform hover:-translate-y-1 rounded-full  hover:shadow-xl transition-all duration-300"
+                className="transform hover:-translate-y-1  transition-all duration-300"
               >
                 <JobAdvertise typeText="Apply" job={job} business={job?.business} />
               </motion.div>
             ))}
             {!isLoading && jobStore?.jobs?.jobs?.length > 0 && (
               <motion.div
-                className="w-full flex justify-center items-center border rounded-xl border-blue-200"
+                className="w-full flex justify-center items-center xl:border mt-5 xl:mt-0 rounded-xl border-blue-200"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

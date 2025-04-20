@@ -34,13 +34,13 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
         <div className="w-full h-full grid grid-cols-4 gap-10 p-8 ">
 
           {/* Logo & Description */}
-          <div className=" relative flex flex-col justify-start items-center  ">
+          <div className="  flex flex-col justify-start items-center  ">
             <div className="h-44 w-[250px] ">
-            <img src={logo} alt='logo' className='h-full  w-full object-fit'/>
+            <img src={logo} alt='logo' className='h-full  w-full object-cover'/>
         
             </div>
         
-            <p className=" absolute bottom-20 text-center font-serif text-cyan-200 text-[18px] leading-relaxed px-4">
+            <p className="  text-center font-serif text-cyan-200 text-[18px] leading-relaxed px-4">
               Connecting businesses, workers and service seekers with ease
             </p>
           </div>
