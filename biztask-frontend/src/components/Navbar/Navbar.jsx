@@ -88,14 +88,16 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
       {login && <Login openState={login} type="login" handleButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick} />}
       {signUp && <SignUP openState={signUp} type="signup" handleButtonClick={handleSignUpButtonClick} handleLogInButtonClick={handleLogInButtonClick} />}
 
-      <div className='bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 w-full h-20 flex justify-between items-center shadow-lg drop-shadow-2xl backdrop-blur-sm '>
-        <div className='flex items-center justify-between w-full px-4 md:px-6'>
+      <div className='bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 w-full h-20 flex items-center shadow-lg drop-shadow-2xl backdrop-blur-sm'>
+        <div className='w-full px-4 md:px-6 flex items-center justify-between'>
+          {/* Logo Section */}
           <Link to="/" className='h-44 w-44 bg-inherit p-2 flex items-center'>
             <img src={logo} alt='logo' className='h-full w-full object-contain' />
           </Link>
 
-          <div className='hidden lg:flex items-center justify-center flex-1'>
-            <ul className='text-lg gap-6 xl:gap-10 font-serif font-medium text-cyan-100 flex justify-between tracking-wide'>
+          {/* Navigation Links */}
+          <div className='hidden lg:flex absolute left-1/2 transform -translate-x-1/2'>
+            <ul className='text-lg gap-6 xl:gap-10 font-serif font-medium text-cyan-100 flex tracking-wide'>
               <Link to={"/"} className="group relative text-cyan-100 hover:text-cyan-300 transition duration-300 ease-in-out font-semibold text-lg tracking-wide">
                 <li className='cursor-pointer'>Home
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-300 transition-all duration-300 group-hover:w-full"></span>
@@ -124,6 +126,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
             </ul>
           </div>
 
+          {/* User Actions Section */}
           <div className="flex items-center space-x-2">
             {userDetails ? (
               <div 
@@ -235,7 +238,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
         ></div>
       )}
 
-      {/* User Dropdown */}
+     
       {isDropdownOpen  && (
         <div 
           ref={menuRef} 
