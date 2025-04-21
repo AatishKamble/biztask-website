@@ -180,10 +180,10 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
         </div>
       </div>
 
-      {/* Sidebar for mobile */}
-      <div className={`lg:hidden fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-blue-700 to-blue-900 z-50 transform transition-transform duration-300 ease-in-out shadow-2xl ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`} ref={sidebarRef}>
+      {/* Sidebar for mobile  */}
+      <div className={`lg:hidden fixed top-0 right-0 h-full w-[300px] sm:w-[350px] md:w-[400px] bg-gradient-to-b from-blue-700 to-blue-900 z-50 transform transition-transform duration-300 ease-in-out shadow-2xl ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`} ref={sidebarRef}>
         <div className="flex justify-between items-center p-4 border-b border-blue-600">
-          <h2 className="text-cyan-100 font-serif font-medium text-lg">Menu</h2>
+          <h2 className="text-cyan-100 font-serif font-medium text-base sm:text-lg">Menu</h2>
           <button onClick={toggleSidebar} className="text-cyan-100 text-2xl">
             <FaTimes />
           </button>
@@ -191,19 +191,19 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
         
         <ul className="text-cyan-100 font-serif flex flex-col mt-6">
           <Link to="/" className="py-3 px-6 hover:bg-blue-800 transition-colors duration-200 border-b border-blue-600/30">
-            <li className="font-medium text-lg">Home</li>
+            <li className="font-medium text-base sm:text-lg">Home</li>
           </Link>
           <Link to="/about-us" className="py-3 px-6 hover:bg-blue-800 transition-colors duration-200 border-b border-blue-600/30">
-            <li className="font-medium text-lg">About Us</li>
+            <li className="font-medium text-base sm:text-lg">About Us</li>
           </Link>
           <Link to="/#how-it-works" className="py-3 px-6 hover:bg-blue-800 transition-colors duration-200 border-b border-blue-600/30">
-            <li className="font-medium text-lg">How It Works</li>
+            <li className="font-medium text-base sm:text-lg">How It Works</li>
           </Link>
           <button onClick={handleBusinessRegistration} className="py-3 px-6 hover:bg-blue-800 transition-colors duration-200 text-left w-full border-b border-blue-600/30">
-            <li className="font-medium text-lg">Register Businesses</li>
+            <li className="font-medium text-base sm:text-lg">Register Businesses</li>
           </button>
           <button onClick={handleAppliedJob} className="py-3 px-6 hover:bg-blue-800 transition-colors duration-200 text-left w-full border-b border-blue-600/30">
-            <li className="font-medium text-lg">Applied Job</li>
+            <li className="font-medium text-base sm:text-lg">Applied Job</li>
           </button>
         </ul>
         
@@ -214,16 +214,16 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
                 className="button-shine relative bg-gradient-to-r from-cyan-500 to-cyan-600 py-3 rounded-lg flex justify-center items-center gap-2 transition-all duration-200 hover:from-cyan-600 hover:to-cyan-700 shadow-md"
                 onClick={handleLoginFromSidebar}
               >
-                <IoMdLogIn className="text-white" />
-                <span className="text-white font-serif font-medium">Log In</span>
+                <IoMdLogIn className="text-white text-lg sm:text-xl" />
+                <span className="text-white font-serif font-medium text-sm sm:text-base">Log In</span>
               </button>
               
               <button
                 className="button-shine relative bg-gradient-to-r from-lime-500 to-lime-600 py-3 rounded-lg flex justify-center items-center gap-2 transition-all duration-200 hover:from-lime-600 hover:to-lime-700 shadow-md"
                 onClick={handleSignUpFromSidebar}
               >
-                <FaPlus className="text-white" />
-                <span className="text-white font-serif font-medium">Sign Up</span>
+                <FaPlus className="text-white text-lg sm:text-xl" />
+                <span className="text-white font-serif font-medium text-sm sm:text-base">Sign Up</span>
               </button>
             </div>
           </div>
@@ -242,16 +242,16 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
       {isDropdownOpen  && (
         <div 
           ref={menuRef} 
-          className='bg-cyan-500 font-serif text-white drop-shadow-xl shadow-lg w-[150px] absolute rounded-md z-50 right-4 md:right-6 mt-1 overflow-hidden'
+          className='bg-cyan-500 font-serif text-white drop-shadow-xl shadow-lg w-[130px] sm:w-[150px] absolute rounded-md z-50 right-4 md:right-6 mt-1 overflow-hidden'
           style={{ top: '80px' }}
         >
           <div className="cursor-pointer py-3 w-full flex justify-center items-center hover:bg-blue-500 hover:text-white transition border-blue-900 border-b">
             <Link to="/profile" className="w-full text-center">
-              <span className="text-lg font-medium">Profile</span>
+              <span className="text-base sm:text-lg font-medium">Profile</span>
             </Link>
           </div>
           <div className="py-3 w-full flex justify-center cursor-pointer items-center hover:bg-blue-500 hover:text-white transition rounded-b-md" onClick={handleLogout}>
-            <span className="text-lg font-medium">Logout</span>
+            <span className="text-base sm:text-lg font-medium">Logout</span>
           </div>
         </div>
       )}

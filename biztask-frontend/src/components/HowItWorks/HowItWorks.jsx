@@ -104,12 +104,12 @@ const HowItWorks = ({ HowItWorks }) => {
           variants={titleVariants}
         >
           <motion.span 
-            className="text-md font-semibold tracking-wider text-blue-600 uppercase"
+            className="text-md font-semibold  font-seriftracking-wider text-blue-600 uppercase"
           >
             Simple Process
           </motion.span>
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold mt-2 text-gray-700 "
+            className="text-4xl font-serif md:text-5xl font-bold mt-2 text-gray-700 "
           >
             How It Works
           </motion.h2>
@@ -133,7 +133,7 @@ const HowItWorks = ({ HowItWorks }) => {
               <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 h-full">
                 {/* Card header */}
                 <div className={`bg-gradient-to-r ${step.color} px-6 py-6 flex justify-between items-center`}>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold font-serif text-white">
                     {step.title}
                   </h3>
                   <motion.div 
@@ -161,7 +161,7 @@ const HowItWorks = ({ HowItWorks }) => {
                         <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-800 font-semibold text-sm mr-3 mt-0.5">
                           {i+1}
                         </span>
-                        <span className="text-gray-700 dark:text-gray-300">
+                        <span className="text-gray-700 font-serif dark:text-gray-300">
                           {item}
                         </span>
                       </motion.li>

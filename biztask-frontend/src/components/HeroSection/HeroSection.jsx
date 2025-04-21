@@ -7,7 +7,6 @@ import heroSection from "../../assets/hero.jpg";
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [imageLoaded, setImageLoaded] = useState(false);
   
   // Function to handle scroll events
   useEffect(() => {
@@ -24,28 +23,15 @@ const HeroSection = () => {
     return () => window.removeEventListener("scroll", handleScroll); 
   }, []);
 
-  // Handle image load completion
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
-
   return (
-    <div className="relative w-full h-[540px] flex items-center  xl:h-[100vh] overflow-hidden">
-      {/* Background Image with Loading State */}
+    <div className="relative w-full h-[540px] sm:h-[600px] md:h-[700px] xl:h-[100vh] flex items-center overflow-hidden">
+      {/* Background Image  */}
       <div className="w-full h-full bg-gradient-to-r from-blue-900 to-slate-900 relative">
-        
-        <div className={`absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 transition-opacity duration-1000 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        </div>
-        
         <img
           src={heroSection}
           alt="Hero Section"
-          className={`w-full h-full object-cover transition-opacity duration-1000 ${imageLoaded ? 'opacity-40' : 'opacity-0'}`}
-          loading="eager" 
-          onLoad={handleImageLoad}
+          className="w-full h-full object-cover opacity-40"
+          loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900 opacity-50"></div>
       </div>
@@ -123,11 +109,11 @@ const HeroSection = () => {
         `}
       </style>
 
-  
       <div 
-        className={`absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center transition-opacity duration-1000 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-        style={{ zIndex: imageLoaded ? 10 : -1 }}
+        className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center px-4"
+        style={{ zIndex: 10 }}
       >
+      
         <div className="flex flex-col sm:flex-row gap-10 mb-8 justify-center ">
           <Link to="/jobs" aria-label="Search Jobs">
             <div
@@ -158,25 +144,22 @@ const HeroSection = () => {
           </Link>
         </div>
 
-        
-        <div className="inset-0 flex flex-col justify-center items-center text-center">
+        <div className="inset-0 flex flex-col justify-center items-center text-center px-4">
           <h1
-            className="font-serif font-bold text-cyan-100 text-[36px] md:text-[40px] lg:text-[42px]  opacity-0 animate-[fadeInZoom_1.2s_ease-in-out_forwards] tracking-wide"
+            className="font-serif font-bold text-cyan-100 text-[28px] xs:text-[32px] sm:text-[36px] md:text-[40px] lg:text-[42px] opacity-0 animate-[fadeInZoom_1.2s_ease-in-out_forwards] tracking-wide leading-tight"
           >
             Find the right<span className="text-cyan-300"> Worker, Job and Service </span>in your Area
           </h1>
 
           <p
-            className="font-serif font-medium text-cyan-100/80 sm:pt-3 text-lg sm:text-xl md:text-[20px] drop-shadow-lg max-w-2xl mx-auto opacity-0 animate-[fadeInUp_1.5s_ease-in-out_0.3s_forwards] "
+            className="font-serif font-medium text-cyan-100/80 pt-2 sm:pt-6 text-base sm:text-lg md:text-[20px] drop-shadow-lg max-w-xl sm:max-w-2xl mx-auto opacity-0 animate-[fadeInUp_1.5s_ease-in-out_0.3s_forwards]"
           >
              Your one-stop platform for local talent and opportunities
           </p>
-          
-       
-          
         </div>
-     {/*Scroll Down Arrow */}
-     {isVisible && (
+        
+        {/*Scroll Down Arrow */}
+        {isVisible && (
           <div
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-opacity duration-500"
             style={{ opacity: isVisible ? 1 : 0 }}
@@ -189,7 +172,6 @@ const HeroSection = () => {
         )}
       </div>
 
-      
       {/* Background Overlay Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-slate-900/40 to-transparent"></div>
