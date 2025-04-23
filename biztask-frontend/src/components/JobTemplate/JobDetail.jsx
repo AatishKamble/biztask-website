@@ -132,13 +132,14 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
         </div>
       )}
 
-      <div className="bg-gradient-to-br from-blue-50 to-white relative flex flex-col items-center w-full min-h-screen py-10 px-4">
+      
+      <div className="bg-white relative flex flex-col items-center w-full min-h-screen py-10 px-4 font-serif">
         {isLoading ? (
           <JobDetailSkeleton />
         ) : (
           <>
             {/* Local Service Banner */}
-            <div className="w-full max-w-6xl mb-6">
+            <div className="w-full max-w-7xl mb-6 font-serif">
               <div className="bg-gradient-to-r from-amber-50 to-amber-100 border-l-4 border-amber-500 rounded-lg p-3 flex items-center shadow-sm">
                 <div className="bg-amber-100 p-2 rounded-full mr-3">
                   <FaMapMarkerAlt className="text-amber-600" />
@@ -150,7 +151,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
             </div>
 
             {/* Job Header Card */}
-            <div className="relative w-full max-w-5xl bg-white shadow-lg my-2 p-8 rounded-3xl border border-blue-100">
+            <div className="relative w-full max-w-6xl bg-white shadow-lg my-2 p-8 rounded-3xl border border-blue-100">
               <div className="flex flex-col">
                 <h2 className="text-[32px] font-serif font-bold text-[#2E3A46] mb-2">
                   {jobStore?.job?.jobRole}
@@ -162,7 +163,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   <h3 className="text-[20px] font-serif font-semibold text-[#3D5060]">
                     {jobStore?.job?.business?.companyName}
                   </h3>
-                  <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium">Verified Service Provider</span>
+                  <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-bold">Verified Service Provider</span>
                 </div>
 
                 {/* Job Location */}
@@ -191,7 +192,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                 </div>
 
                 {/* Quick highlights */}
-                <div className="mt-4 flex font-serif font-medium flex-wrap gap-3">
+                <div className="mt-4 flex font-serif font-medium flex-wrap gap-3 ">
                   <div className="bg-blue-50 px-3 py-1 rounded-full text-blue-700 text-sm flex items-center">
                     <FaBriefcase className="mr-1" />
                     {jobStore?.job?.employmentType?.charAt(0).toUpperCase() + jobStore?.job?.employmentType?.slice(1)}
@@ -212,7 +213,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-6 flex flex-wrap items-center gap-4 justify-end">
+              <div className="mt-6 flex flex-wrap items-center font-serif gap-4 justify-end">
                 {userDetails?._id === jobStore?.job?.user?._id? (
                   <>
                     <Link to={`/job-detail/people-applied/${jobStore?.job?._id}`}>
@@ -272,7 +273,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
             </div>
 
             {/* Job Content */}
-            <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 mt-6">
+            <div className="w-full max-w-6xl font-serif grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 mt-6">
               {/* Left Column - Job Overview */}
               <div className="lg:col-span-2">
                 <div className="mb-6">
@@ -284,7 +285,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   </div>
 
                   {/* Responsibilities */}
-                  <div className="bg-white border border-blue-100 rounded-xl p-6 mb-6 shadow-md hover:shadow-blue-100 transition-all duration-300">
+                  <div className=" bg-white border border-blue-100 rounded-xl p-6 mb-6 shadow-md hover:shadow-blue-100 transition-all duration-300">
                     <div className="flex items-center text-[20px] text-[#2E3A46] font-serif font-semibold mb-4 pb-2 border-b border-blue-200">
                       <div className="bg-blue-50 p-2 rounded-full mr-3">
                         <HiOutlineClipboardList className="text-blue-600" />
@@ -303,7 +304,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   </div>
 
                   {/* Skills Required */}
-                  <div className="bg-white border border-blue-100 rounded-xl p-6 shadow-md hover:shadow-blue-100 transition-all duration-300">
+                  <div className="bg-white border border-blue-100 rounded-xl p-6 shadow-md hover:shadow-blue-100 transition-all duration-300 font-serif">
                     <div className="flex items-center text-[20px] text-[#2E3A46] font-serif font-semibold mb-4 pb-2 border-b border-blue-200">
                       <div className="bg-blue-50 p-2 rounded-full mr-3">
                         <FaTools className="text-blue-600" />
@@ -324,8 +325,8 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   </div>
                 </div>
 
-                {/* Community Impact Section  */}
-                <div className="bg-gradient-to-br from-green-50 to-blue-50 border border-green-100 rounded-xl p-6 mb-6 shadow-md">
+                {/* Community Impact Section */}
+                <div className="bg-[#f0fdf4] border border-green-100 rounded-xl p-6 mb-6 shadow-md">
                   <h3 className="text-xl font-semibold text-green-800 mb-4 pb-2 border-b border-green-200 font-serif flex items-center">
                     <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -342,7 +343,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                       <svg className="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                       </svg>
-                      <span className="font-medium text-green-800">Local Economic Support</span>
+                      <span className="font-semibold text-green-800">Local Economic Support</span>
                     </div>
                     <p className="text-sm text-gray-600 pl-7">Jobs in the service sector strengthen local communities by providing essential services and creating economic opportunities.</p>
                   </div>

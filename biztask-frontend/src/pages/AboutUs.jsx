@@ -8,7 +8,7 @@ import handShake from "../assets/handShake.png";
 import {  useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllServices } from '../Redux/ServiceR/Action.js';
-
+import heroSection from "../assets/hero.jpg";
 import { getAllJobs } from '../Redux/Job/Action.js';
 // ScrollReveal component for animations on scroll
 const ScrollReveal = ({ children, threshold = 0.1 }) => {

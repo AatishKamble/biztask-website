@@ -1,8 +1,17 @@
 import React from "react";
 
 const JobDetailSkeleton = () => {
-  return (
-    <div className="w-full max-w-5xl mx-auto">
+  return (<>
+    <div className="w-full max-w-7xl mb-6 font-serif">
+                  <div className="bg-gradient-to-r from-amber-50 to-amber-100 border-l-4 border-amber-500 rounded-lg p-3 flex items-center shadow-sm">
+                    <div className="bg-amber-100 p-2 rounded-full mr-3">
+                      
+                    </div>
+                    <p className="text-amber-800 font-medium font-serif">
+                          </p>
+                  </div>
+                </div>
+    <div className="w-full max-w-6xl mx-auto">
       {/* Job Header Card Skeleton */}
       <div className="w-full bg-white shadow-lg my-2 p-8 rounded-3xl border border-blue-100 animate-pulse">
         <div className="h-8 bg-gray-200 rounded-md w-3/4 mb-2"></div>
@@ -192,7 +201,7 @@ const JobDetailSkeleton = () => {
         </div>
       </div>
     </div>
-  );
+    </> );
 };
 
 export default JobDetailSkeleton;
