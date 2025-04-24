@@ -137,10 +137,10 @@ const jobStore = useSelector(store => store.jobStore);
           style={{ y: parallaxY }}
         />
         
-        <div className="absolute inset-0 bg-black/40 z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10 font-serif" />
         
         <motion.div 
-          className="z-20 text-center px-4 max-w-4xl"
+          className="z-20 text-center px-4 max-w-4xl "
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -196,7 +196,7 @@ const jobStore = useSelector(store => store.jobStore);
 
       {/* Statistics Section */}
       <ScrollReveal>
-        <div className="bg-white py-16 shadow-md">
+        <div className="bg-white py-16 shadow-md font-serif">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {stats.map((stat, i) => (
@@ -233,7 +233,7 @@ const jobStore = useSelector(store => store.jobStore);
                 viewport={{ once: true, amount: 0.3 }}
                 variants={cardVariants}
               >
-                <div className="text-center">
+                <div className=" font-serif text-center">
                   <h2 className="text-3xl font-bold text-white inline-block border-b-2 border-teal-400 pb-2 mb-8">Our Mission</h2>
                   <p className="text-xl text-teal-300 font-medium mb-3">Bridging Gaps in the Service Industry</p>
                   <p className="text-gray-200 text-lg max-w-3xl mx-auto leading-relaxed">
@@ -242,7 +242,7 @@ const jobStore = useSelector(store => store.jobStore);
                     creating economic opportunities and solving everyday problems.
                   </p>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 ">
                     <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl hover:bg-white/20 transition-all">
                       <h3 className="text-white text-xl font-semibold mb-2">Connect</h3>
                       <p className="text-gray-200">Bringing together service providers and clients in one seamless platform</p>
@@ -268,7 +268,7 @@ const jobStore = useSelector(store => store.jobStore);
         <div className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <div className="flex flex-col md:flex-row items-center gap-12">
+              <div className=" font-serif flex flex-col md:flex-row items-center gap-12">
                 <motion.div 
                   className="w-full md:w-1/2"
                   initial={{ x: -50, opacity: 0 }}
@@ -285,7 +285,7 @@ const jobStore = useSelector(store => store.jobStore);
                     Whether you're a tradesperson looking for work, a business seeking talent, or an individual in need of services, 
                     BizTask streamlines the entire process from search to completion.
                   </p>
-                  <ul className="text-gray-700 space-y-2 mb-6">
+                  <ul className="text-gray-700 space-y-2 mb-6 font-serif">
                     <li className="flex items-center">
                       <span className="text-teal-500 mr-2">✓</span> Verified service providers
                     </li>
@@ -306,7 +306,7 @@ const jobStore = useSelector(store => store.jobStore);
                   transition={{ duration: 0.8 }}
                 >
                   <motion.div 
-                    className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white"
+                    className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-blue-300"
                     whileHover={{ scale: 1.03 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
@@ -317,7 +317,7 @@ const jobStore = useSelector(store => store.jobStore);
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent flex items-end">
                       <div className="p-6 text-white">
-                        <p className="text-xl font-semibold">Connecting Talent With Opportunity</p>
+                        <p className="text-xl font-semibold font-serif">Connecting Talent With Opportunity</p>
                       </div>
                     </div>
                   </motion.div>
@@ -333,8 +333,8 @@ const jobStore = useSelector(store => store.jobStore);
         <div className="py-16 bg-gray-100">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-blue-800 inline-block   pb-2">Meet the Developer</h2>
-            </div>
+              <h2 className="text-3xl font-bold text-blue-800 inline-block font-serif   pb-2">Meet the Developer </h2>
+              </div>
             
             <motion.div 
               className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
@@ -344,7 +344,7 @@ const jobStore = useSelector(store => store.jobStore);
               variants={cardVariants}
             >
               <div className="grid grid-cols-1 md:grid-cols-5">
-                <div className="md:col-span-2 bg-gradient-to-br from-blue-900 to-slate-800 p-8 flex flex-col items-center justify-center">
+                <div className=" md:col-span-2 bg-gradient-to-br from-blue-900 to-slate-800 p-8 flex flex-col items-center justify-center">
                   <motion.div 
                     className="w-64 h-80 rounded-sm overflow-hidden border-4 border-teal-400 shadow-lg relative mb-6"
                     whileHover={{ scale: 1.05 }}
@@ -367,12 +367,12 @@ const jobStore = useSelector(store => store.jobStore);
                       transition={{ duration: 2, repeat: Infinity }}
                     />
                   </motion.div>
-                  <h2 className="text-3xl font-bold text-white text-center mb-1">Aatish Kamble</h2>
-                  <p className="text-teal-300 text-xl mb-6">Full Stack Developer</p>
+                  <h2 className="text-3xl font-bold font-serif text-white text-center mb-1">Aatish Kamble</h2>
+                  <p className="text-teal-300 text-xl mb-6 font-serif">Full Stack Developer</p>
                 </div>
                 
                 <div className="md:col-span-3 p-8">
-                  <div className="mb-8">
+                  <div className="mb-8 font-serif">
                     <h3 className="text-2xl font-semibold text-gray-800 mb-4">About Me</h3>
                     <p className="text-gray-600 font-medium mb-4">
                       I'm a passionate Full Stack Developer specializing in creating intuitive and 
@@ -385,7 +385,7 @@ const jobStore = useSelector(store => store.jobStore);
                     </p>
                   </div>
                   
-                  <div className="border-t border-gray-200 pt-6">
+                  <div className="border-t font-serif border-gray-200 pt-6">
                     <h3 className="text-xl  text-gray-800 mb-4 font-medium">Contact Details</h3>
                     <div className="space-y-4">
                       <motion.div 

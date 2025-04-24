@@ -32,7 +32,7 @@ const ServiceDetailSkeleton = () => {
 
         <div className="flex flex-col w-[600px] items-center justify-center">
           {/* Profile Image Skeleton */}
-          <div className='w-[190px] h-[180px] shadow-lg shadow-white border-cyan-600 border-4 rounded-full m-5 bg-gray-200 animate-pulse'></div>
+          <div className='w-[190px] h-[180px] shadow-lg shadow-white rounded-full m-5 bg-gray-200 animate-pulse'></div>
 
           {/* Button Skeletons */}
           <div>
