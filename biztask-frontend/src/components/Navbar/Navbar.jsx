@@ -9,11 +9,14 @@ import SignUP from "../Login/SignUP";
 import { logout } from "../../Redux/Auth/Action.js";
 import { useDispatch } from "react-redux";
 import logo from "../../assets/logo-transparent.png";
+import ForgotPassword from "../Login/ForgotPassword.jsx";
 
 const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButtonClick, signUp }) => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [forgotPassword, setForgotPassword] = useState(false);
+  
   
   const dispatch = useDispatch();
   const location = useLocation();
@@ -83,10 +86,23 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
     setIsSidebarOpen(false);
   };
 
+
+
+  // Handle forgot password modal
+  const handleForgotPasswordClick = () => {
+    setForgotPassword(!forgotPassword);
+    // Close login modal if it's open
+    if (login) handleLogInButtonClick();
+  };
+  const handleBackToLogin=()=>{
+    if(forgotPassword) setForgotPassword(false);
+    handleLogInButtonClick();
+  }
   return (
     <>
-      {login && <Login openState={login} type="login" handleButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick} />}
+      {login && <Login openState={login} type="login" handleButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick} handleForgotPasswordClick={handleForgotPasswordClick}  />}
       {signUp && <SignUP openState={signUp} type="signup" handleButtonClick={handleSignUpButtonClick} handleLogInButtonClick={handleLogInButtonClick} />}
+      {forgotPassword && <ForgotPassword openState={forgotPassword} handleButtonClick={handleForgotPasswordClick} handleBackToLogin={handleBackToLogin} />}
 
       <div className='bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 w-full h-20 flex items-center shadow-lg drop-shadow-2xl backdrop-blur-sm'>
         <div className='w-full px-4 md:px-6 flex items-center justify-between'>

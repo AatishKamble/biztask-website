@@ -27,8 +27,9 @@ import DetailLoader from "../Loader/DetailLoader.jsx";
 import { toast } from "react-toastify";
 import { GrCaretPrevious } from "react-icons/gr"; import { GrCaretNext } from "react-icons/gr";
 import ContactInformation from "../ContactInformation/ContactInformation.jsx";
-import { motion } from "framer-motion";
+import { motion,AnimatePresence} from "framer-motion";
 import ServiceDetailSkeleton from "./ServiceDetailSkeleton.jsx"
+import PaymentModal from "../ContactInformation/PaymentModal.jsx";
 
 const ServiceDetail = ({ serviceDetails, userDetails }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -230,6 +231,39 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     };
 
 
+     // States for payment flow
+    const [activeTab, setActiveTab] = useState('description');
+
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [isVerifying, setIsVerifying] = useState(false);
+    const [transactionId, setTransactionId] = useState('');
+    const [hasPaid, setHasPaid] = useState(false);
+    
+   
+   const handlePaymentInitiation = () => {
+          setShowPaymentModal(true);
+      };
+  
+  
+      // Function to verify payment
+      const verifyPayment = () => {
+          if (!transactionId.trim()) {
+              alert("Please enter transaction ID");
+              return;
+          }
+  
+          setIsVerifying(true);
+          setTimeout(() => {
+              setIsVerifying(false);
+              setShowPaymentModal(false);
+              setTransactionId('');
+              setHasPaid(true);
+              alert("Payment verified successfully! All contact details unlocked.");
+          }, 2000);
+      };
+      const upiID = "XXXX123@oksbi";
+      const upiName = "XXXXXXXX XXXXX";
+  
     return (
         <>
 
@@ -317,114 +351,175 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                         {/* Left Section */}
 
-                        <div className="flex flex-col xl:w-2/3 gap-6">
+                        <div className="flex flex-col xl:w-2/3 gap-6 font-serif">
+      {/* Tab Navigation */}
+      <div className="flex border-b border-gray-300">
+        <button 
+          className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${
+            activeTab === 'description' 
+              ? 'border-blue-700 text-blue-900 font-semibold' 
+              : 'border-transparent text-gray-600 hover:text-blue-800'
+          }`}
+          onClick={() => setActiveTab('description')}
+        >
+             About
+        </button>
+        <button 
+          className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${
+            activeTab === 'features' 
+              ? 'border-blue-700 text-blue-900 font-semibold' 
+              : 'border-transparent text-gray-600 hover:text-blue-800'
+          }`}
+          onClick={() => setActiveTab('features')}
+        >
+              Features
+        </button>
+        <button 
+          className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${
+            activeTab === 'pricing' 
+              ? 'border-blue-700 text-blue-900 font-semibold' 
+              : 'border-transparent text-gray-600 hover:text-blue-800'
+          }`}
+          onClick={() => setActiveTab('pricing')}
+        >
+                 Pricing Details
+        </button>
+      </div>
+      
+      {/* Tab Content */}
+     
+      <div className={` ${
+  activeTab === 'pricing' 
+    ? 'p-0' 
+    : 'p-6 bg-white border border-blue-200 rounded-2xl '
+}`}>
+  <div 
+    className={`transition-all duration-500 transform ${
+      activeTab === 'description' 
+        ? 'opacity-100 max-h-screen translate-y-0 scale-100'
+        : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
+    }`}
+  >
+    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
+      <MdOutlineDescription className="mr-2 text-emerald-600 text-xl" />
+      Description
+    </div>
+    <p className="text-justify p-4 text-slate-800 text-base font-medium leading-relaxed bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg mt-2">
+      {serviceDetails?.Description || "No description provided."}
+    </p>
+  </div>
 
-                            {/* Description Section */}
-                            <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 transition-all font-serif ">
-                                <div className="w-full flex items-center text-[20px] text-blue-900 font-semibold pb-3 border-b border-blue-300">
-                                    <MdOutlineDescription className="mr-2 text-blue-700 text-[20px]" />
-                                    Description
-                                </div>
-                                <p className="text-justify p-4 text-slate-900 text-[16px] font-medium leading-relaxed">
-                                    {serviceDetails?.Description || "No description provided."}
-                                </p>
-                            </div>
+  <div 
+    className={`transition-all duration-500 transform ${
+      activeTab === 'features' 
+        ? 'opacity-100 max-h-screen translate-y-0 scale-100' 
+        : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
+    }`}
+  >
+    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
+      <BsStars className="mr-2 text-emerald-600" />
+      Features
+    </div>
+    <ul className="flex flex-col gap-3 p-4 text-slate-800 text-base font-medium">
+      {serviceDetails?.features?.length > 0 ? (
+        serviceDetails.features.map((feature, idx) => (
+          <li key={idx} className="flex items-start gap-2 animate-fadeIn bg-gradient-to-r from-emerald-50 to-emerald-50 p-2 rounded-lg" style={{animationDelay: `${idx * 100}ms`}}>
+            <FaCheckCircle className="text-emerald-500 mt-1 flex-shrink-0" />
+            <span className="break-words">{feature}</span>
+          </li>
+        ))
+      ) : (
+        <li className="text-gray-500 italic">No features listed.</li>
+      )}
+    </ul>
+  </div>
 
-                            {/* Features Section */}
-                            <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 transition-all font-serif">
-                                <div className="w-full flex items-center  text-[20px] text-blue-900 font-semibold pb-3 border-b border-blue-300">
-                                    <BsStars className="mr-2 text-blue-700 " />
-                                    Features
-                                </div>
-                                <ul className="flex flex-col gap-3 p-4 text-slate-900 text-[16px] font-medium">
-                                    {serviceDetails?.features?.length > 0 ? (
-                                        serviceDetails.features.map((feature, idx) => (
-                                            <li
-                                                key={idx}
-                                                className="flex items-start gap-2 "
-                                            >
-                                                <FaCheckCircle className="text-sky-600 mt-1" />
-                                                <span className=" break-words">{feature}</span>
-                                            </li>
-                                        ))
-                                    ) : (
-                                        <li className="text-gray-500 italic">No features listed.</li>
-                                    )}
-                                </ul>
-                            </div>
-                        </div>
+  <div 
+    className={`transition-all duration-500 transform ${
+      activeTab === 'pricing' 
+        ? 'opacity-100 max-h-screen translate-y-0 scale-100' 
+        : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
+    }`}
+  >
+    <motion.div
+      whileHover={{ y: -5 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ 
+        opacity: activeTab === 'pricing' ? 1 : 0,
+        y: activeTab === 'pricing' ? 0 : 20
+      }}
+      transition={{ type: "spring", stiffness: 300 }}
+      className="bg-white font-serif rounded-xl shadow-md overflow-hidden"
+    >
+      <div className="bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-4 text-white">
+        <h3 className="text-lg font-semibold flex items-center gap-2">
+          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+              clipRule="evenodd"></path> </svg>
+          Pricing Details
+        </h3>
+      </div>
+
+      <div className="p-6">
+        <div className="flex justify-between items-center mb-6">
+          <div className="text-center">
+            <span className="block text-sm text-gray-500 mb-1">Starting From</span>
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-2xl font-bold text-gray-800 flex items-center justify-center"
+            >
+              <MdOutlineCurrencyRupee />
+              <span>{serviceDetails?.minPrice || "N/A"}</span>
+            </motion.div>
+          </div>
+
+          <div className="h-12 border-r-2 border-gray-300"></div>
+
+          <div className="text-center">
+            <span className="block text-sm text-gray-500 mb-1">Up To</span>
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="text-2xl font-bold text-gray-800 flex items-center justify-center"
+            >
+              <MdOutlineCurrencyRupee />
+              <span>{serviceDetails?.maxPrice || "N/A"}</span>
+            </motion.div>
+          </div>
+        </div>
+
+        <div className="mt-4 text-sm text-gray-600 bg-green-50 rounded-lg p-3 flex items-start gap-2">
+          <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
+          </svg>
+          <span>Prices may vary based on service complexity and specific requirements.</span>
+        </div>
+      </div>
+    </motion.div>
+  </div>
+</div>
+        
+        
+      
+     
+    </div>
                         {/* Right Section */}
 
-                        <div className="flex md:w-[45%] sm:flex-col gap-6">
+                        <div className="flex md:w-[45%] ">
 
                             {/* Contact Details */}
-                            <div className="bg-gradient-to-br from-white to-blue-50 border border-blue-200 rounded-2xl p-6 w-full flex flex-col sm:flex-row gap-6 items-center ">
+                            <div className="bg-white border border-blue-200 rounded-2xl p-6 w-full flex flex-col sm:flex-row gap-6 items-center ">
 
 
 
 
                                 {/* Contact Info */}
-                                < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} />
+                                < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} handlePaymentInitiation={handlePaymentInitiation} hasPaid={hasPaid}/>
                             </div>
-                            {/* Pricing Details */}
-                            <div className="relative bg-white rounded-2xl font-serif shadow-lg overflow-hidden border border-blue-200">
-                                {/*  background element */}
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full -mr-10 -mt-10 opacity-60"></div>
 
-
-                                <div className="bg-gradient-to-br from-white to-blue-50 px-6 py-4">
-                                    <h3 className="text-xl text-blue-900 font-semibold flex items-center">
-                                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path>
-                                        </svg>
-                                        Pricing Details
-                                    </h3>
-                                </div>
-
-                                <div className="p-6">
-
-
-                                    {/* Price  */}
-                                    <div className="grid grid-cols-2 gap-4 mt-6">
-                                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-                                            <div className="text-blue-500 mb-2">
-                                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
-                                                    <FaArrowDown className="text-blue-600" />
-                                                </div>
-                                            </div>
-                                            <div className="text-sm text-blue-700 font-medium">Starting From</div>
-                                            <div className="flex items-center justify-center text-xl font-bold text-blue-800 mt-1">
-                                                <MdOutlineCurrencyRupee />
-                                                <span>{serviceDetails?.minPrice || "N/A"}</span>
-                                            </div>
-                                        </div>
-
-                                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-                                            <div className="text-blue-500 mb-2">
-                                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
-                                                    <FaArrowUp className="text-blue-600" />
-                                                </div>
-                                            </div>
-                                            <div className="text-sm text-blue-700 font-medium">Up To</div>
-                                            <div className="flex items-center justify-center text-xl font-bold text-blue-800 mt-1">
-                                                <MdOutlineCurrencyRupee />
-                                                <span>{serviceDetails?.maxPrice || "N/A"}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Additional info */}
-                                    <div className="mt-6 text-sm text-gray-600 flex items-center rounded-lg p-3 bg-gray-50">
-                                        <svg className="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Prices may vary based on service complexity and requirements</span>
-                                    </div>
-                                </div>
-
-
-
-                            </div>
 
                         </div>
                     </div>
@@ -433,7 +528,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     {/* job */}
                     {
-                        userDetails?._id === serviceDetails?.user?._id  &&
+                        userDetails?._id === serviceDetails?.user?._id &&
                         <div ref={postedJobs} className=' w-[95%] h-auto  mb-10 mx-200'>
 
 
@@ -457,7 +552,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                         Posted Jobs
                                     </motion.h2>
 
-                                   
+
                                     <motion.div
                                         initial={{ scaleX: 0 }}
                                         whileInView={{ scaleX: 1 }}
@@ -465,18 +560,18 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                         transition={{ delay: 0.4, duration: 0.5 }}
                                         className="h-[4px] w-28 origin-left bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-0 rounded-full "
                                     />
-                                    </motion.div>
+                                </motion.div>
 
-                                    <Link to={`/job-post`}>
+                                <Link to={`/job-post`}>
                                     <motion.button
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className=" relative top-12 right-[400px] flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 h-10 w-[200px] text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
-                                >
-                                   <FaAddressCard  size={24} />
-                                    <span className=" text-base">Post Job</span>
-                                </motion.button>
-                                            </Link>
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className=" relative top-12 right-[400px] flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 h-10 w-[200px] text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
+                                    >
+                                        <FaAddressCard size={24} />
+                                        <span className=" text-base">Post Job</span>
+                                    </motion.button>
+                                </Link>
                             </div>
 
                             <div className=' w-full grid xl:grid-cols-2 sm:grid-cols-1 md:px-16 lg:px-20 xl:p-2   p-2 gap-5 my-10'>
@@ -802,7 +897,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             whileInView={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.5, delay: index * 0.1 }}
                                             viewport={{ once: true }}
-                                            className="bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+                                            className="bg-gray-50 rounded-lg "
                                         >
                                             <Review review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />
                                         </motion.div>
@@ -952,6 +1047,21 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     </div>
                 </div>
             }
+
+<AnimatePresence>
+                {showPaymentModal && (
+                    <PaymentModal
+                        showPaymentModal={showPaymentModal}
+                        setShowPaymentModal={setShowPaymentModal}
+                        transactionId={transactionId}
+                        setTransactionId={setTransactionId}
+                        isVerifying={isVerifying}
+                        verifyPayment={verifyPayment}
+                        upiID={upiID}
+                        upiName={upiName}
+                    />
+                )}
+            </AnimatePresence>
         </>
     )
 }

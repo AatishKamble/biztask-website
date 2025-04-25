@@ -16,7 +16,7 @@ const Login = (props) => {
   return (
     <>
 
-      <FormUI type={props.type} openState={props.openState} handleButtonClick={props.handleButtonClick} handleButtonClick2={props.handleSignUpButtonClick} />
+      <FormUI type={props.type} openState={props.openState} handleButtonClick={props.handleButtonClick} handleButtonClick2={props.handleSignUpButtonClick} handleForgotPasswordClick={props.handleForgotPasswordClick} />
 
     </>
   )

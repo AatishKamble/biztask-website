@@ -97,8 +97,7 @@ const isLoading = isAuthLoading ;
           <Route path="/auth/google/callback" element={<Home />} />
           <Route path="/service-registration/:id" element={<ServiceRegistration userDetails={auth.user} registration={true} />} />
           <Route path="/service-update/:id" element={<ServiceRegistration userDetails={auth.user} registration={false}/>} />
-    <Route path="/forgot-password" element={<ForgotPassword />}/>
-    
+   
     <Route path="/reset-password/:id/:token" element={<ResetPassword />}/>
     <Route path="/support" element={ <Support/>}/>
  

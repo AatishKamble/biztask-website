@@ -70,7 +70,7 @@ const BusinessDetails = ({ userDetails }) => {
               </div>
               <div className="text-center md:text-left">
                 <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                  <h1 className="text-3xl font-bold">{businessStore.business?.companyName}</h1>
+                  <h1 className="text-3xl font-bold font-serif">{businessStore.business?.companyName}</h1>
                   <MdVerified className="text-green-300 text-2xl" />
                 </div>
                 <p className="text-xl text-blue-100">{userDetails?.name}</p>
@@ -89,9 +89,9 @@ const BusinessDetails = ({ userDetails }) => {
           </div>
         </motion.div>
 
-        <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="max-w-7xl mx-auto px-6 py-12 font-serif">
           <div className="flex border-b-2 border-slate-200 mb-8">
-            <div className="text-blue-700 border-b-4 border-blue-700 px-8 py-4 font-bold text-xl">Overview</div>
+            <div className="text-blue-700 border-b-4 border-blue-700 font-serif px-8 py-4 font-semibold text-xl">Overview</div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">

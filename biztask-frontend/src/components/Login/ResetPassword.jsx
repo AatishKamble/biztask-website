@@ -4,96 +4,198 @@ import { GoLock } from "react-icons/go";
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { resetPassword } from '../../Redux/Auth/Action';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { GiSwordman } from "react-icons/gi";
+
 const ResetPassword = () => {
-
-
-    const [formData,setFormData]=useState({
-        password:"",
-        confPassword:""
+    const [formData, setFormData] = useState({
+        password: "",
+        confPassword: ""
     });
 
-    const dispatch=useDispatch()
-    const handleInputChange=(e)=>{
-        const value=e.target.value;
-        const name=e.target.name;
+    const dispatch = useDispatch();
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        const name = e.target.name;
         setFormData({
             ...formData,
-            [name]:value
+            [name]: value
         });
     }
 
-    const authStore=useSelector(store=>store.auth);
+    const authStore = useSelector(store => store.auth);
+    const { id, token } = useParams();
 
-const {id,token}=useParams();
-
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (formData.password == formData.confPassword) {
-            
-           dispatch(resetPassword({password:formData.password},id,token))
+        if (formData.password === formData.confPassword) {
+            dispatch(resetPassword({ password: formData.password }, id, token))
         }
         else {
             setFormData({
-                password:"",
-                confPassword:""
+                password: "",
+                confPassword: ""
             });
-        
-        toast.error("Password and confirm Password should be same");
+            toast.error("Password and confirm Password should be same");
         }
     }
-  return (
-    <>
-   
-                    <div className=' bg-inherit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-auto flex justify-center items-center flex-col px-5' >
-                    {
-                        authStore.message?<div className='w-[40%]  bg-slate-100 flex flex-col justify-center items-center p-10 text-center'>
-                            <span className='text-[28px] font-serif font-semibold text-blue-900'>{authStore.message}</span>
-                            <Link to="/" className='my-10 bg-[#2534a5] hover:bg-[#283069] flex justify-center items-center font-serif w-[200px] h-[50px] text-[#c4d5e3] font-bold rounded-xl'>
-                            <span > Go to Home</span>
-                            </Link>
-                        </div>:
-                       
-                    <form onSubmit={handleSubmit} className='w-[40%] bg-slate-100 px-10 pb-10'>
-                       
-                        
-                    <div className='  h-14 w-full flex flex-col justify-center items-center my-10  rounded-md' >
+
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                when: "beforeChildren",
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: { type: "spring", stiffness: 300, damping: 24 }
+        }
+    };
+
+  
+    return (
+        <>
+            <div className='bg-inherit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-auto flex justify-center items-center flex-col px-5'>
+                {authStore.message ? (
+                    <motion.div
+                        className='w-[40%] bg-slate-100 flex flex-col justify-center items-center p-10 text-center rounded-2xl shadow-2xl'
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                    >
+                        <motion.span
+                            className='text-[28px] font-serif font-semibold text-blue-900'
+                            initial={{ y: -20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.3 }}
+                        >
+                            {authStore.message}
+                        </motion.span>
+                        <motion.div
+                            whileHover="hover"
+                            whileTap="tap"
                             
-                            <span className='text-[28px] font-serif font-semibold text-blue-900'>Reset Password</span>
-                            <span className='text-[18px] text-blue-900 font-serif'>to continue with bizTask</span>
+                        >
+                            <Link to="/" className='my-10 hover:scale-105 transition-transform bg-gradient-to-br from-indigo-700 to-blue-900 flex justify-center items-center font-serif w-[200px] h-[50px] text-white font-bold rounded-xl'>
+                                <span>Go to Home</span>
+                            </Link>
+                        </motion.div>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        className='w-[40%] rounded-2xl shadow-2xl overflow-hidden'
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                    >
+                        <motion.div
+                            className="bg-gradient-to-br from-indigo-700 to-blue-900 pt-8 pb-10 px-8 text-center relative overflow-hidden"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            <motion.div
+                                className="absolute -bottom-8 right-0 left-0 h-16 bg-white rounded-t-full opacity-10"
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                transition={{ delay: 0.5, duration: 0.8 }}
+                            />
+
+                            <motion.div
+                                className="flex justify-center mb-4"
+                                animate={{ rotate: [0, -5, 5, -5, 0] }}
+                                transition={{ delay: 0.8, duration: 1, ease: "easeInOut" }}
+                            >
+                                <GiSwordman className="text-4xl text-white" />
+                            </motion.div>
+
+                            <motion.h2
+                                className="text-3xl font-bold text-white font-serif"
+                                initial={{ y: -20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.3 }}
+                            >
+                                Reset Password
+                            </motion.h2>
+
+                            <motion.p
+                                className="text-blue-100 mt-2 font-serif"
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.4 }}
+                            >
+                                to continue with bizTask
+                            </motion.p>
+                        </motion.div>
+
+                        <motion.form
+                            onSubmit={handleSubmit}
+                            className='bg-white px-8 py-8'
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            <motion.div
+                                className='relative my-5'
+                                variants={itemVariants}
+                            >
+                                <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-600'>
+                                    <GoLock className="text-lg" />
                                 </div>
-                        <div className='bg-[#c5c8cd] rounded-md mt-5 h-14 w-full flex justify-center items-center text-slate-600'>
-                            <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
-                                <GoLock />
-                            </div>
-                            <input type="password" name='password' value={formData.password} onChange={handleInputChange}  placeholder='password' className='w-full p-2 me-4 h-12 text-[20px] align-middle font-sans font-medium outline-none bg-inherit' autoComplete='false' />
-                        </div>
+                                <input
+                                    type="password"
+                                    name='password'
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                    placeholder='Password'
+                                    className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none font-serif'
+                                    autoComplete='false'
+                                />
+                            </motion.div>
 
-                       <div className='bg-[#c5c8cd] rounded-md my-5 h-14 w-full flex justify-center items-center text-slate-600'>
-                            <div className='w-[4rem] h-10 bg-inherit flex justify-center items-center text-[24px] '>
-                                <GoLock />
-                            </div>
-                       
-                            <input type="password" name='confPassword' value={formData.confPassword} onChange={handleInputChange}  placeholder='Confirm password' className='w-full p-2 me-4 h-12 text-[20px] align-middle font-sans font-medium outline-none bg-inherit' autoComplete='false' />
-                        </div>
-                        
+                            <motion.div
+                                className='relative my-5'
+                                variants={itemVariants}
+                            >
+                                <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-600'>
+                                    <GoLock className="text-lg" />
+                                </div>
+                                <input
+                                    type="password"
+                                    name='confPassword'
+                                    value={formData.confPassword}
+                                    onChange={handleInputChange}
+                                    placeholder='Confirm password'
+                                    className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none font-serif'
+                                    autoComplete='false'
+                                />
+                            </motion.div>
 
-
-                        <div className='bg-blue-900 hover:bg-[#1e52c3] cursor-pointer rounded-sm my-5 h-16 w-full flex justify-center items-center text-slate-100 hover:text-slate-500' >
-                            {/* //diff */}
-                            <button type='submit' className='text-[24px] font-serif font-semibold'>Reset</button>
-                        </div>
-
-
-                      
- </form>
-}
-                    </div>
-               
-    
-    </>
-  )
+                            <motion.button
+                                type='submit'
+                                className='w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-lg transition duration-200 font-serif text-xl mt-6'
+                                variants={itemVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                            >
+                                Reset Password
+                            </motion.button>
+                        </motion.form>
+                    </motion.div>
+                )}
+            </div>
+        </>
+    )
 }
 
 export default ResetPassword;

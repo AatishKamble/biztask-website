@@ -50,7 +50,7 @@ const SearchService = () => {
   const [locationInput, setLocationInput] = useState('');
   const [priceInput, setPriceInput] = useState('');
   const [selectedCheckbox, setSelectedCheckbox] = useState([]);
-  const checkBoxOptions = [1, 2, 3, 4, 5];
+  const checkBoxOptions = [0,1, 2, 3,3.5, 4, 5];
 
 
   //for seting from url
@@ -178,22 +178,57 @@ const SearchService = () => {
   const isLoading = useSelector(store => store.serviceStore.isLoading);
 
 
+  // Clear specific filter
+  const clearFilter = (sectionId) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.delete(sectionId);
+    navigate({ search: searchParams.toString() });
+
+    // Update local state
+    if (sectionId === "serviceName") {
+      setNameInput("");
+    } else if (sectionId === "serviceLocation") {
+      setLocationInput("");
+    } else if (sectionId === "minPrice" || sectionId === "maxPrice") {
+      setPriceInput("");
+      searchParams.delete("minPrice");
+      searchParams.delete("maxPrice");
+      navigate({ search: searchParams.toString() });
+    } else if (sectionId === "rating") {
+      setSelectedCheckbox([]);
+    }
+  }
+
+  //clear All filter
+  const clearAllFilters = () => {
+    const searchParams = new URLSearchParams();
+    searchParams.set("page", 1);
+    navigate({ search: searchParams.toString() });
+
+    // Reset all state
+    setNameInput("");
+    setLocationInput("");
+    setPriceInput("");
+    setSelectedCheckbox([]);
+  };
   return (
     <>
 
-   
-<div className='relative w-full h-[400px] bg-blue-900 overflow-hidden shadow-xl'>
-      
-        <HangingBanner imgage={serviceBack} title={`Discover Top Services Around You`} subtitle=" Filter what matters and connect with the right service providers easily."/>
- 
+
+      <div className='relative w-full h-[400px] bg-blue-900 overflow-hidden shadow-xl'>
+
+        <HangingBanner imgage={serviceBack} title={`Discover Top Services Around You`} subtitle=" Filter what matters and connect with the right service providers easily." />
+
       </div>
-      <div className='  w-full h-full pt-10 pb-10 ps-10 pe-0 flex '>
+      <div className='  w-full h-full pt-10 pb-10 ps-14 pe-0 flex '>
         <div>
 
 
-          <div className='ps-4 mb-5 w-[300px]  text-[35px] py-2 '>
-            <span className='w-fullflex justify-start items-center text-blue-800 font-serif font-semibold '>Services</span>
+          <div className="mb-6 mx-auto w-full">
+            <h1 className="text-3xl font-serif font-bold text-blue-900 flex items-center">
 
+              Find Your Perfect Service
+            </h1>
           </div>
 
 
@@ -202,33 +237,42 @@ const SearchService = () => {
             nameInput={nameInput}
             handleNameInputChange={(e) => setNameInput(e.target.value)}
             handleNameInputSubmit={handleNameInputSubmit}
+            clearNameFilter={() => clearFilter("serviceName")}
 
             locationInput={locationInput}
             handleLocationInputChange={(e) => setLocationInput(e.target.value)}
             handleLocationInputSubmit={handleLocationInputSubmit}
+            clearLocationFilter={() => clearFilter("serviceLocation")}
 
             priceInput={priceInput}
             handlePriceInputChange={(e) => setPriceInput(e.target.value)}
             handlePriceInputSubmit={handlePriceInputSubmit}
+            clearPriceFilter={() => clearFilter("minPrice")}
 
             selectedCheckbox={selectedCheckbox}
             handleCheckboxChange={handleCheckboxChange}
             checkBoxOptions={checkBoxOptions}
+            clearRatingFilter={() => clearFilter("rating")}
 
+            clearAllFilters={clearAllFilters}
           />
         </div>
 
-        <div className=' w-full h-auto  grid grid-cols-3  gap-10 ps-10 pe-2 mt-10 relative '>
+        <div className=' w-full h-auto  grid xl:grid-cols-3 gap-y-10 ps-10 pe-2 mt-14 relative mx-3 '>
 
           {isLoading == true && (
-            <div className="absolute w-full h-[800px] inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
+            <div className="absolute px-10 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
 
               <JobLoader />
 
             </div>
           )}
           {
-            isLoading == false && serviceStore.services?.services?.map((service, index) => (<ServiceCard business={service?.bussiness} service={service} provider={service?.bussiness?.companyName} />))
+            isLoading == false && serviceStore.services?.services?.map((service, index) => (
+              <div key={index} className='flex justify-center '>
+            <ServiceCard business={service?.bussiness} service={service} provider={service?.bussiness?.companyName} />
+            </div>
+          ))
           }
 
 
@@ -245,7 +289,7 @@ const SearchService = () => {
 
 
       </div>
-      <div className=' w-full h-20 flex ps-[150px] justify-center items-center py-5 mb-5'>
+      <div className=' w-full h-20 flex ps-[500px] justify-center items-center py-5 mb-5'>
         <Pagination
           count={serviceStore.services?.totalPages || 0}
           variant="outlined"

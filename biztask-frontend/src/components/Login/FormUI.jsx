@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { GiSwordman } from "react-icons/gi";
 import { toast } from 'react-toastify';
-const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
+const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2,handleForgotPasswordClick }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const auth = useSelector(store => store.auth);
@@ -274,8 +274,7 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2 }) => {
                                     className="text-sm text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1 font-serif"
                                     whileHover={{ scale: 1.05 }}
                                     onClick={() => {
-                                        handleButtonClick();
-                                        navigate("/forgot-password");
+                                       handleForgotPasswordClick();
                                     }}
                                 >
                                     <RiLockPasswordFill className="text-sm" />
