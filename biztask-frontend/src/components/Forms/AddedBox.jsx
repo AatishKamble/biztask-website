@@ -2,12 +2,12 @@ import { MdDelete } from "react-icons/md";
 const AddedBox = ({Index,Name,handleRemove}) => {
 
   return (
-    <div  className='w-full h-auto flex  py-2 items-center me-4 text-black justify-end'>
-                    <div className=' text-[16px] flexflex-col h-auto h-min-[40px] font-serif   w-[450px] me-2  bg-[#dfe1e3] rounded-sm' >
-                        <div className="  h-auto relative w-full p-2 flex items-center justify-between  ">
+    <div  className='  w-full h-auto flex  py-2 items-center me-4 text-black justify-end'>
+                    <div className=' text-[16px] flexflex-col h-auto h-min-[40px] font-serif   w-[450px] me-2  border border-teal-200  rounded-xl' >
+                        <div className=" font-serif   h-auto relative w-full p-2 flex items-center justify-between  ro ">
 
-                            <span className="pe-5">{Name}</span>
-                            <span className=" text-[20px] hover:bg-[#9c9d9e] hover:text-red-500" onClick={()=>handleRemove(Index)}><MdDelete /></span>
+                            <span className="pe-5 text-[18px]">{Name}</span>
+                            <span className=" text-[20px]  hover:text-red-500 cursor-pointer" onClick={()=>handleRemove(Index)}><MdDelete /></span>
                         </div>
                     </div>
 

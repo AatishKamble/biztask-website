@@ -1,7 +1,6 @@
-
-import { FaSave } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import React, { useEffect, useRef, useState } from 'react'
+import { FaSave, FaBuilding, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
+import { MdDelete, MdDescription, MdOutlineAttachMoney, MdOutlineLocationCity, MdOutlineFeaturedPlayList } from "react-icons/md";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import AddedBox from "./AddedBox";
@@ -9,10 +8,18 @@ import { API_BASE_URL } from "../../configApi/ConfigApi";
 import { serviceRegister, updateService, getServiceById } from "../../Redux/ServiceR/Action.js";
 import { toast } from "react-toastify";
 import { getBusinessById } from "../../Redux/Business/Action.js";
-// import { getBusinessById } from "../../Redux/Business/Action";
-import dummyPhoto from "../../assets/uploadPhoto.jpg"
-const ServiceRegistration = ({ userDetails, registration }) => {
+import dummyPhoto from "../../assets/uploadPhoto.jpg";
+import { IoArrowBack } from "react-icons/io5";
+import { HiPlus } from "react-icons/hi";
+import { BiCategoryAlt } from "react-icons/bi";
+import { RiPriceTag3Line } from "react-icons/ri";
+import { TbMapPin } from "react-icons/tb";
+import { GoChecklist } from "react-icons/go";
+import { FaIndianRupeeSign } from "react-icons/fa6";
+import { MdPersonAddAlt } from "react-icons/md";
 
+
+const ServiceRegistration = ({ userDetails, registration }) => {
     const navigate = useNavigate();
     const jwt = localStorage.getItem("jwt");
     const [formData, setFormData] = useState({
@@ -20,30 +27,24 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         Description: "",
         minPrice: "",
         maxPrice: ""
-
     });
 
-
     const { id } = useParams();
-
     const dispatch = useDispatch();
-    const businessStore = useSelector(store => store.businessStore)
-    //handle location
+    const businessStore = useSelector(store => store.businessStore);
 
+    // Handle location
     const [location, setLocation] = useState('');
     const [locationArray, setLocationArray] = useState([]);
+    
     const handleLocationAdd = () => {
-
         if (location.trim() !== "") {
-
             const isExists = locationArray.some(l => l.toLowerCase() === location.toLowerCase());
             if (!isExists) {
                 setLocationArray([...locationArray, location]);
             }
-
             setLocation('');
         }
-
     }
 
     const handleLocationRemove = (indexRemove) => {
@@ -51,24 +52,18 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         setLocationArray(newLocation);
     }
 
-
-
-    //handle feature
-
+    // Handle feature
     const [featureInput, setFeatureInput] = useState('');
     const [featureArray, setFeatureArray] = useState([]);
+    
     const handleFeatureAdd = () => {
-
         if (featureInput.trim() !== "") {
-
             const isExists = featureArray.some(l => l.toLowerCase() === featureInput.toLowerCase());
             if (!isExists) {
                 setFeatureArray([...featureArray, featureInput]);
             }
-
             setFeatureInput('');
         }
-
     }
 
     const handleFeatureRemove = (indexRemove) => {
@@ -76,48 +71,39 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         setFeatureArray(newFeature);
     }
 
-
-    //form data handle
-
+    // Form data handle
     function handleChange(e) {
-
-
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
         });
-
-
     }
 
-
-    //form submission
+    // Form submission
     const handleSubmit = (e) => {
         e.preventDefault();
 
-
         const minPriceValue = Number(formData.minPrice);
         const maxPriceValue = Number(formData.maxPrice);
-
 
         if (isNaN(minPriceValue) || isNaN(maxPriceValue)) {
             toast.error('Invalid price values');
             return;
         }
-        {/*new Change */ }
-        if (formData.serviceType.trim() == "") {
+        
+        if (formData.serviceType.trim() === "") {
             toast.error('Service type is required');
             return;
         }
-        if (formData.Description.trim() == "") {
+        if (formData.Description.trim() === "") {
             toast.error('Description is required');
             return;
         }
-        if (minPriceValue.trim() == "") {
+        if (formData.minPrice.trim() === "") {
             toast.error('Minimum price is required');
             return;
         }
-        if (maxPriceValue.trim() == "") {
+        if (formData.maxPrice.trim() === "") {
             toast.error('Maximum price is required');
             return;
         }
@@ -129,6 +115,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
             toast.error('Feature is required');
             return;
         }
+        
         const formD = new FormData();
         formD.append("serviceType", formData.serviceType);
         formD.append("Description", formData.Description);
@@ -137,241 +124,351 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         formD.append("locations", JSON.stringify(locationArray));
         formD.append("features", JSON.stringify(featureArray));
 
-        if (registration == true) {
+        if (registration === true) {
             formD.append("businessId", businessStore.business?._id);
             dispatch(serviceRegister(formD, jwt));
-
-            navigate(`/bussiness/details/${businessStore.business?._id}`)
-        }
-        else {
-            dispatch(updateService(jwt, formD, id));//service id
+            navigate(`/bussiness/details/${businessStore.business?._id}`);
+        } else {
+            dispatch(updateService(jwt, formD, id)); // service id
             navigate(`/service-detail/${serviceStore.service?._id}`);
         }
 
-
-        setFormData(
-            {
-                serviceType: "",
-                Description: "",
-                minPrice: "",
-                maxPrice: ""
-
-            });
+        setFormData({
+            serviceType: "",
+            Description: "",
+            minPrice: "",
+            maxPrice: ""
+        });
         setFeatureArray([]);
         setLocationArray([]);
-
-
     }
-
-
 
     useEffect(() => {
         if (registration === false && id) {
-
             dispatch(getServiceById(id));
-        }
-        else {
+        } else {
             dispatch(getBusinessById(id));
         }
     }, [id, registration, dispatch]);
 
     const serviceStore = useSelector(store => store.serviceStore);
 
-    //while updating
+    // While updating
     useEffect(() => {
-        if (registration === false && serviceStore.service && serviceStore.service._id == id) {
-
-            setFormData(
-                {
-                    serviceType: serviceStore.service?.serviceType,
-                    Description: serviceStore.service?.Description,
-                    minPrice: serviceStore.service?.minPrice,
-                    maxPrice: serviceStore.service?.maxPrice
-
-                });
+        if (registration === false && serviceStore.service && serviceStore.service._id === id) {
+            setFormData({
+                serviceType: serviceStore.service?.serviceType,
+                Description: serviceStore.service?.Description,
+                minPrice: serviceStore.service?.minPrice,
+                maxPrice: serviceStore.service?.maxPrice
+            });
 
             setLocationArray([...serviceStore.service?.locations || []]);
             setFeatureArray([...serviceStore.service?.features || []]);
-
         }
     }, [serviceStore.service, registration, id]);
 
-
-
     return (
-        <div className='bg-[#ffffff]  py-12 px-10 md:px-20 2xl:px-10 w-full h-auto flex flex-col items-center justify-center'>
-            <div className='w-full h-[50px] font-semibold flex justify-center pb-10  items-center text-[30px] text-blue-950 font-serif'>
-                <span>{registration == true ? "Register Your Service" : "Update Service"}</span>
+        <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-12">
+            <div className="max-w-5xl mx-auto">
+                {/* Back navigation */}
+                <div className="mb-6">
+                    <button 
+                        onClick={() => navigate(-1)} 
+                        className="flex items-center text-teal-700 hover:text-teal-900 transition-colors font-serif"
+                    >
+                        <IoArrowBack className="mr-2" />
+                        <span>Go Back</span>
+                    </button>
+                </div>
+                
+                <div className="bg-white rounded-xl shadow-xl overflow-hidden mb-10 border border-teal-100">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-blue-700 to-indigo-800 px-8 py-8">
+                        <h1 className="text-3xl font-semibold text-white text-center font-serif">
+                            {registration ? "Create Your Local Service" : "Update Your Service"}
+                        </h1>
+                        <p className="text-teal-100 text-center mt-2 font-serif">Connect with your community by offering your specialized services</p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="p-6 lg:p-8">
+                        {/* Service Type and Company Name */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div className="space-y-2">
+                                <label className="flex items-center text-teal-800 font-medium font-serif">
+                                    <BiCategoryAlt className="text-teal-600 mr-2 text-xl" />
+                                    Service Type
+                                </label>
+                                <div className="relative">
+                                    <input 
+                                        type="text"
+                                        name="serviceType"
+                                        value={formData.serviceType}
+                                        onChange={handleChange}
+                                        placeholder="Cleaning, Event decoration etc."
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="space-y-2">
+                                <label className="flex items-center text-teal-800 font-medium font-serif">
+                                    <FaBuilding className="text-teal-600 mr-2 text-xl" />
+                                    Company Name
+                                </label>
+                                <input 
+                                    type="text"
+                                    value={businessStore.business?.companyName}
+                                    className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
+                                    disabled
+                                />
+                            </div>
+                        </div>
+                        
+                        {/* Section: Contact Details */}
+                        <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl p-6 mb-8 border border-teal-100 shadow-sm">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
+                                <FaUser className="mr-2 text-teal-700" />
+                                Contact Details (Provider)
+                            </h2>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <MdPersonAddAlt className="text-teal-600 mr-2" />
+                                        Name
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        value={userDetails?.name || ""}
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-white/80 cursor-not-allowed shadow-sm"
+                                        disabled
+                                    />
+                                </div>
+                                
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <FaPhone className="text-teal-600 mr-2" />
+                                        Phone
+                                    </label>
+                                    <input 
+                                        type="tel"
+                                        value={userDetails?.mobileNumber || ""}
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-white/80 cursor-not-allowed shadow-sm"
+                                        disabled
+                                    />
+                                </div>
+                                
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <FaEnvelope className="text-teal-600 mr-2" />
+                                        Email
+                                    </label>
+                                    <input 
+                                        type="email"
+                                        value={userDetails?.email || ""}
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-white/80 cursor-not-allowed shadow-sm"
+                                        disabled
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Section: Service Details */}
+                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 flex items-center">
+                                <MdDescription className="mr-2 text-teal-700" />
+                                Service Details
+                            </h2>
+                            
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
+                                        
+                                        Description
+                                    </label>
+                                    <textarea 
+                                        name="Description"
+                                        id="DescriptionBox"
+                                        value={formData.Description}
+                                        onChange={handleChange}
+                                        placeholder="Tell potential customers about your service expertise, quality guarantees, and what makes your service special... "
+                                        className="w-full h-60 px-4 py-3 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-inner"
+                                        style={{ resize: 'none' }}
+                                    ></textarea>
+                                </div>
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
+                                            <RiPriceTag3Line className="text-teal-600 mr-2 text-xl" />
+                                            Min Price
+                                        </label>
+                                        <input 
+                                            type="text"
+                                            name="minPrice"
+                                            value={formData.minPrice}
+                                            onChange={handleChange}
+                                            placeholder="Enter service Starting Price"
+                                            className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        />
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
+                                            <FaIndianRupeeSign className="text-teal-600 mr-2 text-xl" />
+                                            Max Price
+                                        </label>
+                                        <input 
+                                            type="text"
+                                            name="maxPrice"
+                                            value={formData.maxPrice}
+                                            onChange={handleChange}
+                                            placeholder="Enter ending price of service"
+                                            className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Section: Locations */}
+                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
+                                <TbMapPin className="mr-2 text-teal-700 text-xl" />
+                                Service Locations
+                            </h2>
+                            
+                            <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                                <div className="flex-grow">
+                                    <div className="relative">
+                                        <input 
+                                            type="text"
+                                            value={location}
+                                            onChange={(e) => setLocation(e.target.value)}
+                                            placeholder="Enter neighborhood, area or city you serve"
+                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        />
+                                        <FaMapMarkerAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
+                                    </div>
+                                </div>
+                                
+                                <button 
+                                    type="button" 
+                                    onClick={handleLocationAdd}
+                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                >
+                                    <HiPlus className="mr-2" />
+                                    <span className="font-serif">Add Location</span>
+                                </button>
+                            </div>
+                            
+                            {locationArray.length > 0 && (
+                                <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
+                                    <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
+                                        <FaCheckCircle className="text-teal-500 mr-2" />
+                                        Areas You Serve:
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {locationArray.map((l, index) => (
+                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {/* Section: Features */}
+                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
+                                <GoChecklist className="mr-2 text-teal-700 text-xl" />
+                                Service Features
+                            </h2>
+                            
+                            <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                                <div className="flex-grow">
+                                    <div className="relative">
+                                        <input 
+                                            type="text"
+                                            value={featureInput}
+                                            onChange={(e) => setFeatureInput(e.target.value)}
+                                            placeholder="Add key service benefits or special features"
+                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        />
+                                        <MdOutlineFeaturedPlayList className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
+                                    </div>
+                                </div>
+                                
+                                <button 
+                                    type="button" 
+                                    onClick={handleFeatureAdd}
+                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                >
+                                    <HiPlus className="mr-2" />
+                                    <span className="font-serif">Add Feature</span>
+                                </button>
+                            </div>
+                            
+                            {featureArray.length > 0 && (
+                                <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
+                                    <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
+                                        <FaCheckCircle className="text-teal-500 mr-2" />
+                                        Your Service Features:
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {featureArray.map((l, index) => (
+                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleFeatureRemove} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {/* Company Logo */}
+                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
+                                <FaBuilding className="mr-2 text-teal-700" />
+                                Company Branding
+                            </h2>
+                            
+                            <div className="flex flex-col md:flex-row items-center gap-6">
+                                <div className="w-36 h-36 rounded-xl overflow-hidden border-2 border-teal-100 shadow-lg">
+                                    <img 
+                                        src={businessStore.business?.companyLogo ? `${businessStore.business?.companyLogo?.imageUrl}` : dummyPhoto} 
+                                        alt="Company Logo" 
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div className="text-teal-700 font-serif">
+                                    <p>This is your company logo displayed to local customers.</p>
+                                    <p className="text-sm mt-2 text-teal-600">To update your logo, please edit your business profile.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Action Buttons */}
+                        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                            <button
+                                type='button'
+                                onClick={() => navigate(-1)}
+                                className='bg-white border border-teal-300 hover:bg-teal-50 text-teal-700 font-serif font-medium py-3 px-8 rounded-lg shadow-sm transition-colors duration-200 flex items-center justify-center'
+                            >
+                                Cancel
+                            </button>
+                            
+                            <button
+                                type='submit'
+                                className='bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center'
+                            >
+                                <FaSave className="mr-2" />
+                                {registration ? "Launch My Service" : "Update My Service"}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div className='2xl:w-[50%] w-full   h-full border border-slate-400 p-10'>
-
-
-                <form onSubmit={handleSubmit}>
-                    <div className='w-full  h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Service Type :</label>
-                        <input type="text"
-                            onChange={handleChange} name="serviceType" value={formData.serviceType} placeholder='Cleaning,Event decoration etc.' className=' text-[18px] w-full h-12 font-serif outline-none px-4  
-                           border-[1px] border-blue-600 rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Name :</label>
-                        <input type="text" value={businessStore.business?.companyName} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  border-[1px] border-blue-600
-                         rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
-                    </div>
-
-
-                    <div className='w-full h-[50px]  flex  py-10 justify-center  items-center text-[20px] text-blue-900 font-serif'>
-                        <span className="ps-20">Contact Details (Provider)</span>
-                    </div>
-
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Name :</label>
-                        <input type="text" value={userDetails?.name || ""} className=' text-[18px] h-12 font-serif outline-none px-4 w-full border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
-                    </div>
-                    <div className='w-full h-[50px] flex py-10 items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium w-[300px] font-serif'> Phone :</label>
-                        <input type="tel" value={userDetails?.mobileNumber || ""} className=' text-[18px] h-12 font-serif outline-none px-4  border-[1px] border-blue-600 rounded-md w-full focus-within:drop-shadow-xl' autoComplete='none' disabled />
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Email :</label>
-                        <input type="email" value={userDetails?.email || ""} className=' text-[18px] h-12 font-serif outline-none px-4 w-full  border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
-                    </div>
-
-
-                    <div className='w-full h-[50px]  flex  py-10 justify-center  items-center text-[20px] text-blue-900 font-serif'>
-                        <span>Service Details</span>
-                    </div>
-                    <div className='w-full h-[300px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Description :</label>
-
-                        <textarea name="Description" id="DescriptionBox"
-                            value={formData.Description}
-                            onChange={handleChange}
-                            placeholder="Description about your Service ( Maximum-300 words )"
-                            className='text-[18px] h-[300px] font-serif outline-none p-4  w-full  border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl'
-                            rows={5} cols={40}
-                            style={{ resize: 'none', overflow: 'hidden' }}
-
-                        ></textarea>
-
-                    </div>
-
-
-                    <div className='w-full h-[40px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="MinPrice" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Min Price :</label>
-                        <input type="text"
-                            name="minPrice" value={formData.minPrice}
-                            onChange={handleChange}
-                            placeholder='Enter service Starting Price' className=' text-[18px] h-12 font-serif outline-none px-4 w-full  border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-
-                    </div>
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="MaxPrice" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Max Price :</label>
-                        <input type="text"
-                            name="maxPrice"
-                            value={formData.maxPrice}
-                            onChange={handleChange}
-                            placeholder='Enter ending price of service ' className=' text-[18px] h-12 font-serif outline-none px-4 w-full  border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-
-                    </div>
-
-
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Locations" className=' text-[20px] md:px-4 2xl:px-4 font-medium font-serif w-[300px] lg:w-[250px] xl:w-[240px] 2xl:w-[300px]'> Locations :</label>
-
-                        <input type="text" value={location}
-                            onChange={(e) => setLocation(e.target.value)}
-                            placeholder='Enter Locations'
-                            className=' text-[18px] h-[50px] font-serif outline-none px-4 2xl:ms-10  md:ms-4 xl:ms-0 w-[700px] border-[1px] border-blue-600 rounded-md focus-within:drop-shadow-xl'
-                            autoComplete='none' />
-                        <div className="w-[100px] h-[50px]">
-                            <span className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px] cursor-pointer  drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleLocationAdd}>
-                                Add
-                            </span>
-                        </div>
-
-                    </div>
-
-                    <div className='w-full h-auto flex flex-col pb-10 pt-5  ms-8  items-center text-black'>
-                        {
-                            locationArray.map((l, index) => (
-                                <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />
-                            ))
-                        }
-
-
-
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10 md:py-2  items-center text-black'>
-
-                        <label htmlFor="Features" className=' text-[20px] md:px-4 2xl:px-4 font-medium font-serif w-[300px] lg:w-[270px] xl:w-[240px] 2xl:w-[300px]'> Features :</label>
-                        <input type="text"
-                            placeholder='Enter Features'
-                            value={featureInput}
-                            onChange={(e) => setFeatureInput(e.target.value)}
-                            className=' text-[18px] h-[50px] font-serif outline-none px-4 2xl:px-4 2xl:ms-10  md:ms-4 xl:ms-0  w-[700px]  border-[1px] border-blue-600  rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                        <div className="w-[100px] h-[50px]">
-                            <span className=' bg-[#3b65be] text-lg font-serif cursor-pointer font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleFeatureAdd}>
-                                Add
-                            </span>
-                        </div>
-
-                    </div>
-                    <div className='w-full h-auto flex flex-col py-10  ms-8  items-center text-black'>
-                        {
-                            featureArray.map((l, index) => (
-                                <AddedBox key={index} Index={index} Name={l} handleRemove={handleFeatureRemove} />
-                            ))
-                        }
-
-                    </div>
-                    <div className='w-full h-auto flex my-10 items-center  text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Logo:</label>
-                        <div className='w-[200px] h-[200px] bg-slate-700  border-[2px]  border-slate-400  rounded-xl shadow-blue-700' >
-
-                            <img src={businessStore.business?.companyLogo ? `${businessStore.business?.companyLogo?.imageUrl}` : dummyPhoto} alt="photo" className='bg-cover rounded-xl  border-[2px] bg-center w-full h-full' />
-
-
-                        </div>
-                    </div>
-
-
-                    <div className='flex items-center justify-center my-10 h-[200px] gap-4'>
-                        <button
-                            type='button'
-                            onClick={() => navigate(-1)}
-                            className='bg-red-500 hover:bg-gray-600 align-middle h-12 w-[130px] rounded-xl border-gray-700 drop-shadow-2xl mx-3 flex justify-center items-center transition-colors duration-200'
-                        >
-                            <span className='text-lg font-serif font-medium text-white'>Cancel</span>
-                        </button>
-
-                        <button
-                            type='submit'
-                            className='bg-blue-900 hover:bg-[#1e52c3] align-middle h-12 w-[130px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center transition-colors duration-200'
-                        >
-                            <span className='text-lg font-serif font-medium me-1 text-white'><FaSave /></span>
-                            <span className='text-lg font-serif font-medium text-white'>Submit</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div >
-    )
+        </div>
+    );
 }
 
-export default ServiceRegistration
+export default ServiceRegistration;

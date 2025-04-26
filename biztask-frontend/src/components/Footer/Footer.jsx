@@ -24,9 +24,9 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
   };
 
   return (
-    <footer className="relative">
+    <footer className="relative pt-12">
       {/* Wave overlay at the top of footer */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden -mt-10 h-10">
+      <div className="absolute top-0 left-0 w-full overflow-hidden mt-2 h-10">
       <svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 1440 74" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0,64 C240,32 480,0 720,0 C960,0 1200,32 1440,64 L1440,74 L0,74 L0,64 Z" fill="#3B82F6" />
         </svg>
