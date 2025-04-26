@@ -115,7 +115,7 @@ const HeroSection = () => {
       >
       
         <div className="flex flex-col sm:flex-row gap-10 mb-8 justify-center ">
-          <Link to="/jobs" aria-label="Search Jobs">
+          <Link to="/jobs" >
             <div
               className="button-shine relative bg-gradient-to-r from-blue-600 to-blue-800 w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-2 border-blue-700 shadow-lg transition-all duration-500 hover:scale-105 hover:bg-blue-700 hover:shadow-[0_0_15px_4px_rgba(0,119,255,0.8)]"
               style={{animationDelay: "0s"}}
@@ -129,7 +129,7 @@ const HeroSection = () => {
             </div>
           </Link>
 
-          <Link to="/services" aria-label="Explore Services">
+          <Link to="/services" >
             <div
               className="button-shine relative bg-gradient-to-r from-teal-600 to-teal-800 w-[250px] opacity-95 cursor-pointer h-14 rounded-xl flex justify-center items-center text-lg border-2 border-teal-700 shadow-lg transition-all duration-500 hover:scale-105 hover:bg-teal-700 hover:shadow-[0_0_15px_4px_rgba(0,128,128,0.8)] "
               style={{animationDelay: "0.5s"}}

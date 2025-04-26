@@ -72,10 +72,11 @@ const FeaturedJob = () => {
               Explore Recently Posted Jobs
             </h2>
           </div>
-          <div className="h-1.5 w-48 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mx-auto rounded-full mt-3"></div>
-          <p className="text-gray-600 text-base mt-4 max-w-2xl mx-auto">
+          <div className="h-[4px] w-48 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mx-auto rounded-full "></div>
+          <p  className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto font-serif">
             Discover the latest opportunities that match your skills and career goals
           </p>
+        
         </motion.div>
         {/* Loader Overlay */}
         {isLoading?  (

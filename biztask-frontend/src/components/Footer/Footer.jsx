@@ -1,131 +1,163 @@
 import { VscAzure } from "react-icons/vsc";
-import { FaInstagram } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa6";
-import { FaFacebookSquare } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaFacebookSquare, FaTwitter, FaPhoneAlt } from "react-icons/fa";
+import { MdEmail, MdLocationOn } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../../assets/logo-transparent.png';
-const Footer = ({ userDetails, handleLogInButtonClick }) => {
 
-  const navigate = useNavigate()
+const Footer = ({ userDetails, handleLogInButtonClick }) => {
+  const navigate = useNavigate();
+  
   const handleBusinessRegistration = () => {
     if (userDetails) {
-      // If user is logged in, navigate to business registration
       navigate("/profile#bussiness-registration");
     } else {
-      // If user is not logged in, open the login modal
       handleLogInButtonClick();
     }
   };
 
   const handleAppliedJob = () => {
     if (userDetails) {
-      // If user is logged in, navigate to business registration
       navigate("/profile#applied-jobs");
     } else {
-      // If user is not logged in, open the login modal
       handleLogInButtonClick();
     }
   };
 
   return (
-    <>
-      <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500  w-full h-[350px] flex justify-between items-center shadow-lg border-t-4 border-blue-900">
-
-        <div className="w-full h-full grid grid-cols-4 gap-10 p-8 ">
-
-          {/* Logo & Description */}
-          <div className="  flex flex-col justify-start items-center  ">
-            <div className="h-44 w-[250px] ">
+    <footer className="relative">
+      {/* Wave overlay at the top of footer */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden -mt-10 h-10">
+      <svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 1440 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,64 C240,32 480,0 720,0 C960,0 1200,32 1440,64 L1440,74 L0,74 L0,64 Z" fill="#3B82F6" />
+        </svg>
+      </div>
+      
+      {/* Main Footer Content */}
+      <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 w-full pt-12 pb-6 shadow-lg border-t-4 border-blue-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+          <div className=" flex flex-col justify-start items-center md:border-r md:border-cyan-200 md:border-dotted ">
+            <div className="h-36 w-[200px] ">
             <img src={logo} alt='logo' className='h-full  w-full object-cover'/>
         
             </div>
         
-            <p className="  text-center font-serif text-cyan-200 text-[18px] leading-relaxed px-4">
+            <p className="  text-center font-serif text-cyan-100 hover:text-cyan-300 text-[18px] leading-relaxed italic ">
               Connecting businesses, workers and service seekers with ease
             </p>
           </div>
 
-          <div className="p-4  border-r-2 border-cyan-200 border-dotted">
-            <span className="text-xl font-serif font-semibold text-cyan-200">
-              Quick Links
-            </span>
-            <ul className="text-lg font-serif  text-cyan-100 flex flex-col font-semibold gap-3 mt-3">
-              <Link to={"/jobs"}>
-                <li className="cursor-pointer hover:text-cyan-400 hover:translate-x-1 transition-all duration-300">
-                  Jobs
-                </li>
-              </Link>
-              <Link to={"/services"}>
-                <li className="cursor-pointer hover:text-cyan-400 hover:translate-x-1 transition-all duration-300">
-                  Services
-                </li>
-              </Link>
-              <li
-                className="cursor-pointer hover:text-cyan-400 hover:translate-x-1 transition-all duration-300"
-                onClick={handleBusinessRegistration}
-              >
-                Register Businesses
-              </li>
-              <li
-                className="cursor-pointer hover:text-cyan-400 hover:translate-x-1 transition-all duration-300"
-                onClick={handleAppliedJob}
-              >
-                Applied Job
-              </li>
-            </ul>
-          </div>
-
-
-          {/* Resources */}
-          <div className="p-4  border-r-2 border-cyan-200 border-dotted">
-            <span className="text-xl font-serif font-semibold text-cyan-200">
-              Resources
-            </span>
-            <ul className="text-lg font-serif  text-cyan-100 flex font-semibold flex-col gap-2 mt-4">
-              <Link to={"/#how-it-works"}>
-                <li className="cursor-pointer hover:text-cyan-400 transition-all duration-300">
-                  How It Works
-                </li>
-              </Link>
-              <Link to={"/support"}>
-              <li className="cursor-pointer hover:text-cyan-400 transition-all duration-300">
-                Support 
-              </li> </Link>
-              <Link to={"/about-us"}>
-                <li className="cursor-pointer hover:text-cyan-400 transition-all duration-300">
-                  Developers
-                </li>
-              </Link>
-            </ul>
-          </div>
-
-          <div className="p-4  flex flex-col justify-center items-center">
-            {/* Social Icons */}
-            <div className="text-lg font-serif font-light text-cyan-100 flex gap-6 mt-5 justify-evenly">
-              <span className="text-cyan-100 text-[35px] cursor-pointer hover:text-cyan-400 hover:scale-110 transition-all duration-300">
-                <FaInstagram />
-              </span>
-              <span className="text-cyan-100 text-[35px] cursor-pointer hover:text-cyan-400 hover:scale-110 transition-all duration-300">
-                <FaLinkedin />
-              </span>
-              <span className="text-cyan-100 text-[35px] cursor-pointer hover:text-cyan-400 hover:scale-110 transition-all duration-300">
-                <FaFacebookSquare />
-              </span>
+            {/* Quick Links */}
+            <div className="md:border-r md:border-cyan-200 md:border-dotted">
+              <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4  pb-2">
+                Quick Links
+              </h3>
+              <ul className="text-lg font-serif text-cyan-100 flex flex-col gap-3">
+                <Link to="/jobs" className="group flex items-center">
+                  <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  <li className="cursor-pointer hover:text-cyan-300 transition-all duration-300">
+                    Jobs
+                  </li>
+                </Link>
+                <Link to="/services" className="group flex items-center">
+                  <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  <li className="cursor-pointer hover:text-cyan-300 transition-all duration-300">
+                    Services
+                  </li>
+                </Link>
+                <div onClick={handleBusinessRegistration} className="group flex items-center cursor-pointer">
+                  <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  <li className="hover:text-cyan-300 transition-all duration-300">
+                    Register Business
+                  </li>
+                </div>
+                <div onClick={handleAppliedJob} className="group flex items-center cursor-pointer">
+                  <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  <li className="hover:text-cyan-300 transition-all duration-300">
+                    Applied Jobs
+                  </li>
+                </div>
+              </ul>
             </div>
 
-            <span className="text-xl font-serif font-semibold text-cyan-200 mt-8">
-              Contact Us
-            </span>
+            {/* Resources */}
+            <div className="md:border-r md:border-cyan-200 md:border-dotted">
+              <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4  pb-2">
+                Resources
+              </h3>
+              <ul className="text-lg font-serif text-cyan-100 flex flex-col gap-3">
+                <Link to="/#how-it-works" className="group flex items-center">
+                  <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  <li className="cursor-pointer hover:text-cyan-300 transition-all duration-300">
+                    How It Works
+                  </li>
+                </Link>
+                <Link to="/support" className="group flex items-center">
+                  <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  <li className="cursor-pointer hover:text-cyan-300 transition-all duration-300">
+                    Support
+                  </li>
+                </Link>
+                <Link to="/about-us" className="group flex items-center">
+                  <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  <li className="cursor-pointer hover:text-cyan-300 transition-all duration-300">
+                    Developers
+                  </li>
+                </Link>
+               
+              </ul>
+            </div>
+
+            {/* Contact Us */}
+            <div>
+              <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4  pb-2">
+                Contact Us
+              </h3>
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <MdLocationOn className="text-cyan-300 text-xl" />
+                  <span className="text-cyan-100 font-serif">Pimpri Chinchwad, Pune</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MdEmail className="text-cyan-300 text-xl" />
+                  <span className="text-cyan-100 font-serif">AtishKambleXXXX@gmail.com</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaPhoneAlt className="text-cyan-300 text-xl" />
+                  <span className="text-cyan-100 font-serif">(+91) XXXXXXXX54</span>
+                </div>
+                
+                {/* Social Icons */}
+                <div className="mt-4">
+                  <h4 className="text-lg font-serif text-cyan-200 mb-2">Connect With Us</h4>
+                  <div className="flex gap-4">
+                    <a href="#" className="h-10 w-10 rounded-full bg-blue-700 hover:bg-blue-800 flex items-center justify-center transition-all duration-300">
+                      <FaFacebookSquare className="text-white text-xl" />
+                    </a>
+                    <a href="#" className="h-10 w-10 rounded-full bg-blue-700 hover:bg-blue-800 flex items-center justify-center transition-all duration-300">
+                      <FaInstagram className="text-white text-xl" />
+                    </a>
+                    <a href="#" className="h-10 w-10 rounded-full bg-blue-700 hover:bg-blue-800 flex items-center justify-center transition-all duration-300">
+                      <FaLinkedin className="text-white text-xl" />
+                    </a>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-
-
+          
+          {/* Copyright Section */}
+          <div className="mt-12 pt-6 border-t border-cyan-300 text-center">
+            <p className="text-cyan-100 font-serif">
+              © {new Date().getFullYear()} Local Service Platform. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
+    </footer>
+  );
+};
 
-
-    </>
-  )
-}
-
-export default Footer
+export default Footer;
