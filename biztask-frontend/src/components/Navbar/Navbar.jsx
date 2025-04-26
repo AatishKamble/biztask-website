@@ -107,9 +107,9 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
       <div className='bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 w-full h-20 flex items-center shadow-lg drop-shadow-2xl backdrop-blur-sm'>
         <div className='w-full px-4 md:px-6 flex items-center justify-between'>
           {/* Logo Section */}
-          <Link to="/" className='h-44 w-44 bg-inherit p-2 flex items-center'>
+          <div  className='h-44 w-44 bg-inherit p-2 flex items-center'>
             <img src={logo} alt='logo' className='h-full w-full object-contain' />
-          </Link>
+          </div>
 
           {/* Navigation Links */}
           <div className='hidden lg:flex absolute left-1/2 transform -translate-x-1/2'>

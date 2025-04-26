@@ -1,31 +1,35 @@
+import { FaSave, FaBuilding, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
+import { MdDelete, MdDescription, MdOutlineAttachMoney, MdOutlineLocationCity, MdOutlineFeaturedPlayList } from "react-icons/md";
+import { IoArrowBack } from "react-icons/io5";
+import { HiPlus } from "react-icons/hi";
+import { BiCategoryAlt } from "react-icons/bi";
+import { RiPriceTag3Line } from "react-icons/ri";
+import { TbMapPin } from "react-icons/tb";
+import { GoChecklist } from "react-icons/go";
+import { FaIndianRupeeSign } from "react-icons/fa6";
+import { BsBriefcase, BsCalendarDate, BsClockHistory } from "react-icons/bs";
+import { GiSkills } from "react-icons/gi";
+import { MdOutlineDateRange, MdTask } from "react-icons/md";
 
-import { FaSave } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import AddedBox from "./AddedBox";
 import { useDispatch, useSelector } from "react-redux";
 import { getServiceById } from "../../Redux/ServiceR/Action.js";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { jobRegister,updateJob,getJobById } from "../../Redux/Job/Action.js";
+import { jobRegister, updateJob, getJobById } from "../../Redux/Job/Action.js";
 
-const JobListingForm = ({registration}) => {
-
+const JobListingForm = ({ registration }) => {
     const dispatch = useDispatch();
     const { id } = useParams();
-   
-
-    //get job
     
+    // Get job
     useEffect(() => {
         if (id) {
             dispatch(getJobById(id));
         }
     }, [id, dispatch]);
 
- 
-
     const serviceStore = useSelector(store => store.serviceStore);
-   
     const navigate = useNavigate();
     const jwt = localStorage.getItem("jwt");
   
@@ -39,42 +43,37 @@ const JobListingForm = ({registration}) => {
         deadline: ""
     });
 
-    //locations
+    // Locations
     const [location, setLocation] = useState('');
     const [locationArray, setLocationArray] = useState([]);
+    
     const handleLocationAdd = () => {
-
         if (location.trim() !== "") {
-
             const isExists = locationArray.some(l => l.toLowerCase() === location.toLowerCase());
             if (!isExists) {
                 setLocationArray([...locationArray, location]);
             }
-
             setLocation('');
         }
-
     }
 
     const handleLocationRemove = (indexRemove) => {
         const newLocation = locationArray.filter((_, ind) => ind !== indexRemove);
         setLocationArray(newLocation);
     }
-    //responsibility
+    
+    // Responsibility
     const [responsibilityInput, setResponsibilityInput] = useState('');
     const [responsibilityArray, setResponsibilityArray] = useState([]);
+    
     const handleResponsibilityAdd = () => {
-
         if (responsibilityInput.trim() !== "") {
-
             const isExists = responsibilityArray.some(l => l.toLowerCase() === responsibilityInput.toLowerCase());
             if (!isExists) {
                 setResponsibilityArray([...responsibilityArray, responsibilityInput]);
             }
-
             setResponsibilityInput('');
         }
-
     }
 
     const handleResponsibilityRemove = (indexRemove) => {
@@ -82,47 +81,37 @@ const JobListingForm = ({registration}) => {
         setResponsibilityArray(newResponsibility);
     }
 
-    //skillsRequired
+    // Skills Required
     const [skillsRequiredInput, setSkillsRequiredInput] = useState('');
     const [skillsRequiredArray, setSkillsRequiredArray] = useState([]);
+    
     const handleSkillsRequiredAdd = () => {
-
         if (skillsRequiredInput.trim() !== "") {
-
             const isExists = skillsRequiredArray.some(l => l.toLowerCase() === skillsRequiredInput.toLowerCase());
             if (!isExists) {
                 setSkillsRequiredArray([...skillsRequiredArray, skillsRequiredInput]);
             }
-
             setSkillsRequiredInput('');
         }
-
     }
-
 
     const handleSkillsRequiredRemove = (indexRemove) => {
         const newSkillsRequired = skillsRequiredArray.filter((_, ind) => ind !== indexRemove);
         setSkillsRequiredArray(newSkillsRequired);
     }
 
-
-    //on input change
+    // On input change
     function handleChange(e) {
-
-       
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
         });
-
-
     }
-//jobs
-    const jobStore=useSelector(store=>store.jobStore);
-   
-  
-    //handle form submit
-
+    
+    // Jobs
+    const jobStore = useSelector(store => store.jobStore);
+    
+    // Handle form submit
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -138,16 +127,14 @@ const JobListingForm = ({registration}) => {
         formD.append("responsibilities", JSON.stringify(responsibilityArray));
         formD.append("skillsRequired", JSON.stringify(skillsRequiredArray));
 
-        if(registration==true){
-            formD.append("serviceId",serviceStore?.service?._id);
-            dispatch(jobRegister(formD,jwt)); 
+        if (registration === true) {
+            formD.append("serviceId", serviceStore?.service?._id);
+            dispatch(jobRegister(formD, jwt)); 
             navigate(`/service-detail/${serviceStore?.service?._id}`); 
-            }
-            else{
-                dispatch(updateJob(jwt, formD, id));
-                  navigate(`/job-detail/${id}`);
-            }
-
+        } else {
+            dispatch(updateJob(jwt, formD, id));
+            navigate(`/job-detail/${id}`);
+        }
 
         setFormData({
             jobRole: "",
@@ -161,15 +148,11 @@ const JobListingForm = ({registration}) => {
         setSkillsRequiredArray([]);
         setLocationArray([]);
         setResponsibilityArray([]);
-      
-
     }
 
-
-
-      //while updation of job
-      useEffect(() => {
-        if (jobStore.job && jobStore.job._id === id && registration==false) {
+    // While updating job
+    useEffect(() => {
+        if (jobStore.job && jobStore.job._id === id && registration === false) {
             setFormData({
                 jobRole: jobStore.job?.jobRole || "",
                 employmentType: jobStore.job?.employmentType || "",
@@ -180,218 +163,380 @@ const JobListingForm = ({registration}) => {
                 deadline: jobStore.job?.deadline || ""  
             });
     
-    
             setLocationArray(jobStore.job?.jobLocations || []);
             setResponsibilityArray(jobStore.job?.responsibility || []);
             setSkillsRequiredArray(jobStore.job?.skillsRequired || []);
         }
     }, [jobStore.job, id, registration]);
     
-
-
     return (
-        <div className='bg-[#ffffff] py-10 w-full h-auto flex items-center justify-center'>
-
-            <div className='w-[50%] h-full bg-[#f4faff] p-10'>
-
-                <div className='w-full h-[50px] font-semibold flex justify-center pb-10  items-center text-[26px] text-blue-950 font-serif'>
-                    <span>{registration==true?"Post Job":"Update Job"}</span>
+        <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-12">
+            <div className="max-w-5xl mx-auto">
+                {/* Back navigation */}
+                <div className="mb-6">
+                    <button 
+                        onClick={() => navigate(-1)} 
+                        className="flex items-center text-teal-700 hover:text-teal-900 transition-colors font-serif"
+                    >
+                        <IoArrowBack className="mr-2" />
+                        <span>Go Back</span>
+                    </button>
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <div className='w-full h-[50px]  flex  py-10 justify-center  items-center text-[20px] text-blue-900 font-serif'>
-                        <span>Job Details</span>
-                    </div>
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="role" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Job Role :</label>
-                        <input type="text" name='jobRole'
-                            onChange={handleChange} value={formData.jobRole}
-                            placeholder='Enter Job Role' className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' />
+                
+                <div className="bg-white rounded-xl shadow-xl overflow-hidden mb-10 border border-teal-100">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-blue-700 to-indigo-800 px-8 py-8">
+                        <h1 className="text-3xl font-semibold text-white text-center font-serif">
+                            {registration ? "Post New Job Opportunity" : "Update Job Listing"}
+                        </h1>
+                        <p className="text-teal-100 text-center mt-2 font-serif">Connect with qualified candidates for your business needs</p>
                     </div>
 
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="eType" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Employment Type :</label>
-                        <input type="text" name='employmentType'
-                            onChange={handleChange} value={formData.employmentType}
-                            placeholder=' ex.Full time, Part time' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="experience" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Years of Experience:</label>
-                        <input type="text" name='experienceYear'
-                            onChange={handleChange} value={formData.experienceYear}
-                            placeholder='e.g. 0 ,2 ' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="workingHours" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Working Hours:</label>
-                        <input type="text" name='workingHours'
-                            onChange={handleChange} value={formData.workingHours}
-                            placeholder="e.g., 9 AM - 5 PM or Flexible" className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                    </div>
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="startSal" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Minimum Salary:</label>
-                        <input type="text" name='minSalary'
-                            onChange={handleChange} value={formData.minSalary}
-                            placeholder="Minimum Salary" className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                    </div>
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="endSal" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Maximum Salary:</label>
-                        <input type="text" name='maxSalary'
-                            onChange={handleChange} value={formData.maxSalary}
-                            placeholder="Maximum Salary " className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                    </div>
-
-
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="deadline" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Application Deadline:</label>
-                        <input type="date" name='deadline' onChange={handleChange} value={formData.deadline}
-                            placeholder="select Date" className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                    </div>
-
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Locations" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Job Locations :</label>
-
-                        <input type="text" name='Locations'
-                            onChange={(e) => setLocation(e.target.value)} value={location}
-                            placeholder='Enter Locations' className=' text-[20px] h-[50px] font-serif outline-none px-4 ms-8 w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                        <div className="w-[100px] h-[50px]">
-                            <span className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] cursor-pointer rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleLocationAdd}>
-                                Add
-                            </span>
+                    <form onSubmit={handleSubmit} className="p-6 lg:p-8">
+                        {/* Job Basic Details */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div className="space-y-2">
+                                <label className="flex items-center text-teal-800 font-medium font-serif">
+                                    <BsBriefcase className="text-teal-600 mr-2 text-xl" />
+                                    Job Role
+                                </label>
+                                <div className="relative">
+                                    <input 
+                                        type="text"
+                                        name="jobRole"
+                                        value={formData.jobRole}
+                                        onChange={handleChange}
+                                        placeholder="Enter Job Role"
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="space-y-2">
+                                <label className="flex items-center text-teal-800 font-medium font-serif">
+                                    <BiCategoryAlt className="text-teal-600 mr-2 text-xl" />
+                                    Employment Type
+                                </label>
+                                <input 
+                                    type="text"
+                                    name="employmentType"
+                                    value={formData.employmentType}
+                                    onChange={handleChange}
+                                    placeholder="Full time, Part time, Temporary, etc."
+                                    className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                />
+                            </div>
                         </div>
-
-                    </div>
-                    <div className='w-full h-auto flex flex-col pb-10   items-center text-black'>
-                        {
-                            locationArray.map((l, index) => (
-                                <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />
-                            ))
-                        }
-
-
-
-                    </div>
-
-
-                    <div className='w-full h-[50px]  flex  py-10 justify-center  items-center text-[20px] text-blue-900 font-serif'>
-                        <span>Job Overview</span>
-                    </div>
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="responsibility" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Responsibilities:</label>
-
-                        <input type="text" name='responsibilityInput'
-
-                            onChange={(e) => setResponsibilityInput(e.target.value)} value={responsibilityInput}
-                            placeholder='Job Responsibilities :' className=' text-[20px] h-[50px] font-serif outline-none px-4 ms-8 w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                        <div className="w-[100px] h-[50px]">
-                            <span className=' bg-[#3b65be] text-lg font-serif font-medium hover:bg-[#678bd8] cursor-pointer rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleResponsibilityAdd}>
-                                Add
-                            </span>
+                        
+                        {/* Section: Job Requirements */}
+                        <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl p-6 mb-8 border border-teal-100 shadow-sm">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
+                                <GiSkills className="mr-2 text-teal-700" />
+                                Job Requirements
+                            </h2>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <BsClockHistory className="text-teal-600 mr-2" />
+                                        Working Hours
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        name="workingHours"
+                                        value={formData.workingHours}
+                                        onChange={handleChange}
+                                        placeholder="e.g., 9 AM - 5 PM or Flexible"
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                    />
+                                </div>
+                                
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <MdTask className="text-teal-600 mr-2" />
+                                        Years of Experience
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        name="experienceYear"
+                                        value={formData.experienceYear}
+                                        onChange={handleChange}
+                                        placeholder="e.g. 0, 2, 5+"
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <RiPriceTag3Line className="text-teal-600 mr-2" />
+                                        Minimum Salary
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        name="minSalary"
+                                        value={formData.minSalary}
+                                        onChange={handleChange}
+                                        placeholder="Enter minimum salary"
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                    />
+                                </div>
+                                
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <FaIndianRupeeSign className="text-teal-600 mr-2" />
+                                        Maximum Salary
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        name="maxSalary"
+                                        value={formData.maxSalary}
+                                        onChange={handleChange}
+                                        placeholder="Enter maximum salary"
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="mt-6">
+                                <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
+                                    <BsCalendarDate className="text-teal-600 mr-2" />
+                                    Application Deadline
+                                </label>
+                                <input 
+                                    type="date"
+                                    name="deadline"
+                                    value={formData.deadline}
+                                    onChange={handleChange}
+                                    className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                />
+                            </div>
                         </div>
-
-                    </div>
-                    <div className='w-full h-auto flex flex-col pb-10 pt-5  items-center text-black'>
-                        {
-                            responsibilityArray.map((r, index) => (
-                                <AddedBox key={index} Index={index} Name={r} handleRemove={handleResponsibilityRemove} />
-                            ))
-                        }
-
-
-
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="requirement" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Skill Required :</label>
-
-                        <input type="text" name='requirement'
-
-                            onChange={(e) => setSkillsRequiredInput(e.target.value)} value={skillsRequiredInput}
-                            placeholder='Skills Requirement' className=' text-[20px] h-[50px] font-serif outline-none px-4 ms-8 w-[700px]  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' />
-                        <div className="w-[100px] h-[50px]">
-                            <span className=' bg-[#3b65be] cursor-pointer text-lg font-serif font-medium hover:bg-[#678bd8] rounded-full align-middle h-[50px] w-[50px]   drop-shadow-2xl ms-2 flex justify-center items-center' onClick={handleSkillsRequiredAdd}>
-                                Add
-                            </span>
+                        
+                        {/* Section: Job Locations */}
+                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
+                                <TbMapPin className="mr-2 text-teal-700 text-xl" />
+                                Job Locations
+                            </h2>
+                            
+                            <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                                <div className="flex-grow">
+                                    <div className="relative">
+                                        <input 
+                                            type="text"
+                                            value={location}
+                                            onChange={(e) => setLocation(e.target.value)}
+                                            placeholder="Enter neighborhood, area or city for job location"
+                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        />
+                                        <FaMapMarkerAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
+                                    </div>
+                                </div>
+                                
+                                <button 
+                                    type="button" 
+                                    onClick={handleLocationAdd}
+                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                >
+                                    <HiPlus className="mr-2" />
+                                    <span className="font-serif">Add Location</span>
+                                </button>
+                            </div>
+                            
+                            {locationArray.length > 0 && (
+                                <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
+                                    <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
+                                        <FaCheckCircle className="text-teal-500 mr-2" />
+                                        Job Locations:
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {locationArray.map((l, index) => (
+                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
-
-                    </div>
-                    <div className='w-full h-auto flex flex-col pb-10 pt-5  items-center text-black'>
-                        {
-                            skillsRequiredArray.map((s, index) => (
-                                <AddedBox key={index} Index={index} Name={s} handleRemove={handleSkillsRequiredRemove} />
-                            ))
-                        }
-
-
-
-                    </div>
-
-
-
-
-                    <div className='w-full h-[50px]  flex  py-10 justify-center  items-center text-[20px] text-blue-900 font-serif'>
-                        <span>other Details </span>
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Service Type :</label>
-                        <input type="text" value={serviceStore.service?.serviceType || ""} className=' text-[20px] w-full h-12 font-serif outline-none px-4  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md  focus-within:drop-shadow-xl' autoComplete='none' disabled />
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Company Name :</label>
-                        <input type="text" value={serviceStore.service?.bussiness?.companyName || ""} className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
-                    </div>
-
-                    <div className='w-full h-[50px] flex py-10  items-center text-black'>
-
-                        <label htmlFor="email" className=' text-[20px] px-4 font-medium font-serif w-[300px]'> Email :</label>
-                        <input type="email" value={serviceStore.service?.user?.email || ""} name='email' className=' text-[20px] h-12 font-serif outline-none px-4 w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl' autoComplete='none' disabled />
-                    </div>
-
-
-                    <div className='w-full h-auto flex py-10  items-center text-black'>
-
-                        <label htmlFor="Name" className=' text-[20px] px-4 font-medium font-serif w-[300px]'>Company description :</label>
-
-                        <textarea name="Description" id="DescriptionBox"
-                            value={serviceStore.service?.bussiness?.description || ""}
-                            className=' text-[20px] h-auto font-serif outline-none p-4  w-full  focus-within:border-[1px] border-slate-600 bg-[#dfe1e3] rounded-md focus-within:drop-shadow-xl'
-                           rows={10}
-                            disabled
-                        ></textarea>
-
-                    </div>
-
-
-
-                    <div className='flex items-center justify-center my-10 h-[200px]'>
-
-
-                        <button className=' bg-blue-900 hover:bg-[#1e52c3] align-middle h-12 w-[130px] rounded-xl border-blue-950 drop-shadow-2xl mx-3 flex justify-center items-center' >
-                            <span className='text-lg font-serif font-medium me-1 text-white'><FaSave /></span>
-                            <span className='text-lg font-serif font-medium text-white'>Post</span>
-
-                        </button>
-                    </div>
-                </form>
+                        
+                        {/* Section: Responsibilities */}
+                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
+                                <GoChecklist className="mr-2 text-teal-700 text-xl" />
+                                Job Responsibilities
+                            </h2>
+                            
+                            <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                                <div className="flex-grow">
+                                    <div className="relative">
+                                        <input 
+                                            type="text"
+                                            value={responsibilityInput}
+                                            onChange={(e) => setResponsibilityInput(e.target.value)}
+                                            placeholder="Add key job responsibilities"
+                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        />
+                                        <MdTask className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
+                                    </div>
+                                </div>
+                                
+                                <button 
+                                    type="button" 
+                                    onClick={handleResponsibilityAdd}
+                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                >
+                                    <HiPlus className="mr-2" />
+                                    <span className="font-serif">Add Responsibility</span>
+                                </button>
+                            </div>
+                            
+                            {responsibilityArray.length > 0 && (
+                                <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
+                                    <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
+                                        <FaCheckCircle className="text-teal-500 mr-2" />
+                                        Job Responsibilities:
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {responsibilityArray.map((r, index) => (
+                                            <AddedBox key={index} Index={index} Name={r} handleRemove={handleResponsibilityRemove} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {/* Section: Skills Required */}
+                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
+                                <GiSkills className="mr-2 text-teal-700 text-xl" />
+                                Skills Required
+                            </h2>
+                            
+                            <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                                <div className="flex-grow">
+                                    <div className="relative">
+                                        <input 
+                                            type="text"
+                                            value={skillsRequiredInput}
+                                            onChange={(e) => setSkillsRequiredInput(e.target.value)}
+                                            placeholder="Add required skills for this position"
+                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        />
+                                        <MdOutlineFeaturedPlayList className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
+                                    </div>
+                                </div>
+                                
+                                <button 
+                                    type="button" 
+                                    onClick={handleSkillsRequiredAdd}
+                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                >
+                                    <HiPlus className="mr-2" />
+                                    <span className="font-serif">Add Skill</span>
+                                </button>
+                            </div>
+                            
+                            {skillsRequiredArray.length > 0 && (
+                                <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
+                                    <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
+                                        <FaCheckCircle className="text-teal-500 mr-2" />
+                                        Required Skills:
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {skillsRequiredArray.map((s, index) => (
+                                            <AddedBox key={index} Index={index} Name={s} handleRemove={handleSkillsRequiredRemove} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {/* Section: Company Information */}
+                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 ">
+                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 flex items-center">
+                                <FaBuilding className="mr-2 text-teal-700" />
+                                Company Information
+                            </h2>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <BiCategoryAlt className="text-teal-600 mr-2" />
+                                        Service Type
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        value={serviceStore.service?.serviceType || ""}
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
+                                        disabled
+                                    />
+                                </div>
+                                
+                                <div className="space-y-2">
+                                    <label className="flex items-center text-teal-700 font-medium font-serif">
+                                        <FaBuilding className="text-teal-600 mr-2" />
+                                        Company Name
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        value={serviceStore.service?.bussiness?.companyName || ""}
+                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
+                                        disabled
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="mb-6">
+                                <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
+                                    <FaEnvelope className="text-teal-600 mr-2" />
+                                    Contact Email
+                                </label>
+                                <input 
+                                    type="email"
+                                    value={serviceStore.service?.user?.email || ""}
+                                    className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
+                                    disabled
+                                />
+                            </div>
+                            
+                            <div>
+                                <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
+                                    <MdDescription className="text-teal-600 mr-2" />
+                                    Company Description
+                                </label>
+                                <textarea 
+                                    value={serviceStore.service?.bussiness?.description || ""}
+                                    rows="10"
+                                    className="w-full px-4 py-3 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-inner"
+                                    disabled
+                                ></textarea>
+                            </div>
+                        </div>
+                        
+                        {/* Action Buttons */}
+                        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                            <button
+                                type="button"
+                                onClick={() => navigate(-1)}
+                                className="bg-white border border-teal-300 hover:bg-teal-50 text-teal-700 font-serif font-medium py-3 px-8 rounded-lg shadow-sm transition-colors duration-200 flex items-center justify-center"
+                            >
+                                Cancel
+                            </button>
+                            
+                            <button
+                                type="submit"
+                                className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center"
+                            >
+                                <FaSave className="mr-2" />
+                                {registration ? "Post Job" : "Update Job"}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div >
-    )
+        </div>
+    );
 }
 
 export default JobListingForm;

@@ -120,7 +120,7 @@ const ProfileEdit = ({ userDetails }) => {
                                 </h3>
                                 <div className="w-32 h-32 rounded-full overflow-hidden ring-2 ring-gray-200 mx-auto">
                                     <img
-                                        src={userDetails?.profileImage || dummyPhoto}
+                                        src={userDetails?.profileImage?.ImageUrl || dummyPhoto}
                                         alt="Current Profile"
                                         className="w-full h-full object-cover"
                                     />
