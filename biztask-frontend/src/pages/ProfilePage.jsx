@@ -16,25 +16,14 @@ import { removeBusiness } from '../Redux/Business/Action.js';
 import { IoBusinessOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { motion } from 'framer-motion'; 
-import { getUserProfile } from '../Redux/Auth/Action.js';
-const ProfilePage = () => {
+
+const ProfilePage = ({ userDetails }) => {
   const dispatch = useDispatch();
   const appliedJobsRef = useRef(null);
   const businessRegistrationRef = useRef(null);
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
   const navigate = useNavigate();
-
-  const auth = useSelector((store )=> store.auth);
-
-  useEffect(() => {
-    if (jwt) {
-      console.log("called")
-        dispatch(getUserProfile(jwt)); 
-    }
-}, [jwt, dispatch]);
-
-const userDetails=auth?.user || {};
 
   // Animation variants
   const containerVariants = {
