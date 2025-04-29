@@ -77,7 +77,7 @@ const isLoading = isAuthLoading ;
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<ProfilePage userDetails={auth.user}/>} />
+          <Route path="/profile" element={<ProfilePage />} />
           
           <Route path="/profile-edit" element={<ProfileEdit userDetails={auth.user}/>} />
           <Route path="/bussiness-registration" element={<RegistrationPage userDetails={auth.user} registration={true} />} />

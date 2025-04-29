@@ -96,7 +96,7 @@ const businessRegister = (businessData, jwt) => async (dispatch) => {
         if (newBusiness.success == true) {
             // window.location.reload();
             dispatch(registerBusinessSuccess(newBusiness.business));
-            dispatch(getUserProfile(jwt));
+           
             toast.success(newBusiness.message);
         }
         else {

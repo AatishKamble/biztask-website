@@ -128,7 +128,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
       dispatch(updateBusiness(jwt, formD, id))
     }
 
-    navigate("/profile");
+  navigate("/profile");
   }
 
 
@@ -271,7 +271,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
                   </h3>
                   <div className="w-32 h-32 rounded-full overflow-hidden ring-2 ring-gray-200 mx-auto">
                     <img
-                      src={businessStore?.business?.companyLogo?.imageUrl || dummyPhoto}
+                      src={registration ? dummyPhoto:businessStore?.business?.companyLogo?.imageUrl }
                       alt="Current Logo"
                       className="w-full h-full object-scale-down"
                     />

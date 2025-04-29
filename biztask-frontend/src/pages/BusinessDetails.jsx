@@ -266,12 +266,12 @@ const BusinessDetails = ({ userDetails }) => {
         >
           <div className="max-w-7xl mx-auto px-6 py-16">
             <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="w-40 h-40 rounded-full bg-white p-2 shadow-2xl flex-shrink-0">
+              <div className="w-40 h-40 rounded-full border-2 border-blue-600 bg-white p-2 shadow-2xl flex-shrink-0">
                 <div className="w-full text-center   h-full rounded-full overflow-hidden">
                   <img
                     src={businessStore.business.companyLogo?.imageUrl}
                     alt="Company Logo"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               </div>

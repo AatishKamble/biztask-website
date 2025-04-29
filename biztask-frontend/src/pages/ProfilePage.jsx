@@ -17,13 +17,24 @@ import { IoBusinessOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { motion } from 'framer-motion'; 
 
-const ProfilePage = ({ userDetails }) => {
+const ProfilePage = () => {
   const dispatch = useDispatch();
   const appliedJobsRef = useRef(null);
   const businessRegistrationRef = useRef(null);
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
   const navigate = useNavigate();
+
+  const auth = useSelector((store )=> store.auth);
+
+  useEffect(() => {
+    if (jwt) {
+      console.log("called")
+        dispatch(getUserProfile(jwt)); 
+    }
+}, [jwt, dispatch]);
+
+const userDetails=auth?.user || {};
 
   // Animation variants
   const containerVariants = {
@@ -116,7 +127,7 @@ const ProfilePage = ({ userDetails }) => {
                   <img
                     src={`${userDetails?.profileImage?.ImageUrl}`}
                     alt="Profile"
-                    className="w-full h-full  object-scale-down"
+                    className="w-full h-full  object-cover"
                    
                   />
                 </motion.div>
