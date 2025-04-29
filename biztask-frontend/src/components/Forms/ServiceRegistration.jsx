@@ -112,10 +112,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
             toast.error('Description is required');
             return;
         }
-        if (!/^[A-Za-z\s]+$/.test(formData.Description)) {
-            toast.error('Description must only contain alphabets and spaces');
-            return;
-        }
+       
 
         const words = formData.Description.trim().split(/\s+/);  
         const wordCount = words.filter(word => word).length;
@@ -467,7 +464,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                     <img
                                         src={businessStore.business?.companyLogo ? `${businessStore.business?.companyLogo?.imageUrl}` : dummyPhoto}
                                         alt="Company Logo"
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-scale-down"
                                     />
                                 </div>
                                 <div className="text-teal-700 font-serif">

@@ -94,11 +94,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
       toast.error('company Description is required');
       return;
     }
-    if (!/^[A-Za-z\s]+$/.test(formData.description)) {
-      toast.error('Description must only contain alphabets and spaces');
-      return;
-    }
-
+   
     const words = formData.description.trim().split(/\s+/);
     const wordCount = words.filter(word => word).length;
 
@@ -277,7 +273,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
                     <img
                       src={businessStore?.business?.companyLogo?.imageUrl || dummyPhoto}
                       alt="Current Logo"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-scale-down"
                     />
                   </div>
                 </div>
@@ -301,7 +297,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
                       <img
                         src={image ? URL.createObjectURL(image) : dummyPhoto}
                         alt="New Logo"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-scale-down"
                       />
                     </div>
                     <div className="absolute inset-0 bg-blue-700/50 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center">

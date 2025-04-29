@@ -122,7 +122,7 @@ const ProfileEdit = ({ userDetails }) => {
                                     <img
                                         src={userDetails?.profileImage?.ImageUrl || dummyPhoto}
                                         alt="Current Profile"
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-scale-down"
                                     />
                                 </div>
                             </div>
@@ -146,7 +146,7 @@ const ProfileEdit = ({ userDetails }) => {
                                         <img
                                             src={image ? URL.createObjectURL(image) : dummyPhoto}
                                             alt="New Profile"
-                                            className="w-full h-full object-cover"
+                                            className="w-full h-full object-scale-down"
                                         />
                                     </div>
                                     <div className="absolute inset-0 bg-blue-700/50 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center">

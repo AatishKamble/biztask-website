@@ -116,7 +116,7 @@ const ProfilePage = ({ userDetails }) => {
                   <img
                     src={`${userDetails?.profileImage?.ImageUrl}`}
                     alt="Profile"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full  object-scale-down"
                    
                   />
                 </motion.div>
