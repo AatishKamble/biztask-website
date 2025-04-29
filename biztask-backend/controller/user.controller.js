@@ -84,23 +84,40 @@ try {
 }
 
 
-const applyJob=async(req,res)=>{
-try {
-  
-    const userId = req.user._id;
-    const jobId = req.body.jobId;
+const applyJob = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const obj = JSON.parse(JSON.stringify(req.body));
 
-        const user=await userService.applyJob(userId,jobId);
+        let imageUrl = null;
+        let imagePublicID = null;
 
-return res.json({success:true,message:"Successfully Applied",user:user});
-    
-} catch (error) {
-    return res.json({
-        success:false,
-        message:error.message
-    });
-}
-}
+        if (req.file?.path) {
+            const imageUploadResult = await uploadOnCloudinary(req.file.path);
+            if (!imageUploadResult) {
+                throw new Error("Image upload failed");
+            }
+            imageUrl = imageUploadResult.secure_url;
+            imagePublicID = imageUploadResult.public_id;
+        }
+        if (obj.availability) {
+            obj.availability = JSON.parse(obj.availability);
+        }
+        const application = await userService.applyJob(userId, obj, imageUrl, imagePublicID);
+
+        return res.json({
+            success: true,
+            message: "Successfully Applied",
+            user: application
+        });
+    } catch (error) {
+        return res.json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 
 const forgotpassword=async(req,res)=>{
     try {

@@ -7,7 +7,9 @@ userRouter.post('/signUp',userController.registerUser);
 userRouter.post('/signIn',userController.loginUser);
 userRouter.get('/profile',userController.getUserProfile);
 userRouter.patch('/profile-update',authenticate,upload.single("profileImage"),userController.updateUserProfile);
-userRouter.patch('/apply',authenticate,upload.none(),userController.applyJob);
+
+userRouter.patch('/apply', authenticate, upload.single("profileImage"), userController.applyJob);
+
 userRouter.post('/forgot-password',userController.forgotpassword);//forgotpassword
 userRouter.post('/reset-password/:id/:token',userController.resetpassword);
 

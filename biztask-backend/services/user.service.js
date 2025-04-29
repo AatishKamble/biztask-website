@@ -1,4 +1,5 @@
 import userModel from "../models/user.model.js";
+import userApplicationModel from "../models/userJobApplication.model.js"
 import validator from "validator";
 import jwtProvider from "../config/jwtProvider.js";
 import jobsDetailsModel from "../models/jobsDetails.model.js";
@@ -136,32 +137,56 @@ const updateUserProfile = async (userId, userData, imageUrl, imagePublicID) => {
 
 }
 
-const applyJob = async (userId, jobId) => {
+const applyJob = async (userId, applicationData, imageUrl = null, imagePublicID = null) => {
+    const {
+        jobId, fullName, email, phone, profession,
+        experience, availability, address, zipCode, skills, hasTools
+    } = applicationData;
+   
     try {
-
-        const user = await getUserById(userId);
-        if (user.appliedJobs.includes(jobId)) {
+        const existingApplication = await userApplicationModel.findOne({ userId, jobId });
+        if (existingApplication) {
             throw new Error("You have already applied for this job");
         }
-        const updatedUser = await userModel.findByIdAndUpdate(
+
+        const newApplication = await userApplicationModel.create({
             userId,
-            { $push: { appliedJobs: jobId } },
+            jobId,
+            fullName,
+            email,
+            phone,
+            profession,
+            experience,
+            availability,
+            address,
+            zipCode,
+            skills,
+            hasTools,
+            profileImage: {
+                imageUrl: imageUrl || "",
+                publicId: imagePublicID || ""
+            },
+            appliedAt:new Date()
+        });
+
+        const updatedUser= await userModel.findByIdAndUpdate(
+            userId,
+            { $addToSet: { appliedJobs: jobId } }, 
             { new: true }
         );
-
 
         await jobsDetailsModel.findByIdAndUpdate(
             jobId,
-            { $push: { peopleApplied: userId } },
+            { $addToSet: { peopleApplied: userId } },
             { new: true }
         );
-
 
         return updatedUser;
     } catch (error) {
         throw new Error(error.message);
     }
-}
+};
+
 
 
 const forgotpassword = async (email) => {
