@@ -79,10 +79,11 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         });
     }
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     // Form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        setIsButtonDisabled(true);
         const minPriceValue = Number(formData.minPrice);
         const maxPriceValue = Number(formData.maxPrice);
 
@@ -155,12 +156,9 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         if (registration === true) {
             formD.append("businessId", businessStore.business?._id);
             dispatch(serviceRegister(formD, jwt));
-            navigate(`/bussiness/details/${businessStore.business?._id}`);
-        } else {
-            dispatch(updateService(jwt, formD, id)); // service id
-            navigate(`/service-detail/${serviceStore.service?._id}`);
-        }
-
+            setTimeout(()=>{
+                toast.success("Registered successfully ! want to add more.");
+                setIsButtonDisabled(false)
         setFormData({
             serviceType: "",
             Description: "",
@@ -169,6 +167,28 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         });
         setFeatureArray([]);
         setLocationArray([]);
+               },2000);
+            
+        } else {
+            dispatch(updateService(jwt, formD, id)); // service id
+             setTimeout(()=>{
+                
+                setIsButtonDisabled(false)
+                navigate(`/service-detail/${serviceStore.service?._id}`);
+            
+        setFormData({
+            serviceType: "",
+            Description: "",
+            minPrice: "",
+            maxPrice: ""
+        });
+        setFeatureArray([]);
+        setLocationArray([]);
+               },2000);
+           
+      
+        }
+
     }
 
     useEffect(() => {
@@ -486,8 +506,10 @@ const ServiceRegistration = ({ userDetails, registration }) => {
 
                             <button
                                 type='submit'
-                                className='bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center'
-                            >
+                                disabled={isButtonDisabled}
+                                className={`bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center ${
+                                    isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
+                                  }`}  >
                                 <FaSave className="mr-2" />
                                 {registration ? "Launch My Service" : "Update My Service"}
                             </button>
