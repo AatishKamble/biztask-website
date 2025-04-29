@@ -94,7 +94,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
       toast.error('company Description is required');
       return;
     }
-   
+    
     const words = formData.description.trim().split(/\s+/);
     const wordCount = words.filter(word => word).length;
 
