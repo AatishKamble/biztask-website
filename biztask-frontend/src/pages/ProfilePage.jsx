@@ -213,15 +213,13 @@ const ProfilePage = ({ userDetails }) => {
 
               <div className="p-6">
                 {userDetails?.businesses?.length > 0 ? (
-                  <motion.div 
+                  <div 
                     className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 py-9 gap-6"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
+                    
                     
                   >
                     {userDetails?.businesses?.map((business, index) => (
-                      <motion.div key={index} variants={itemVariants}>
+                      <motion.div key={index} >
                         <BusinessCard
                           businessDetails={business}
                           handlePopupWarningOpen={handlePopupWarningOpen}
@@ -229,7 +227,7 @@ const ProfilePage = ({ userDetails }) => {
                       </motion.div>
                     ))}
                    
-                  </motion.div>
+                  </div>
                 ) : (
                   <motion.div 
                     className="text-center py-12 bg-blue-50 rounded-lg border border-blue-100"
