@@ -6,11 +6,11 @@ const ServiceCard = ({ business, service, provider }) => {
   return (
     <div className="w-[300px] h-[420px] bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-md hover:shadow-2xl transition duration-300 flex flex-col border border-blue-200">
     {/* Image Section */}
-    <div className="h-[280px] p-4 overflow-hidden relative group rounded-t-lg">
+    <div className="h-[280px] w-full p-4 overflow-hidden relative group rounded-t-lg">
       <img 
         src={business?.companyLogo?.imageUrl} 
         alt={service?.serviceType} 
-        className="w-full h-full object-contain rounded-lg shadow-sm transform transition duration-500 group-hover:scale-105"
+        className="w-full h-full object-fill rounded-lg shadow-sm transform transition duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
     </div>

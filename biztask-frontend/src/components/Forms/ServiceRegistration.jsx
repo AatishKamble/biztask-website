@@ -84,6 +84,14 @@ const ServiceRegistration = ({ userDetails, registration }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
        
+        if (formData.minPrice.trim() === "") {
+            toast.error('Minimum price is required');
+            return;
+        }
+        if (formData.maxPrice.trim() === "") {
+            toast.error('Maximum price is required');
+            return;
+        }
         const minPriceValue = Number(formData.minPrice);
         const maxPriceValue = Number(formData.maxPrice);
 
@@ -128,14 +136,6 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         }
 
 
-        if (formData.minPrice.trim() === "") {
-            toast.error('Minimum price is required');
-            return;
-        }
-        if (formData.maxPrice.trim() === "") {
-            toast.error('Maximum price is required');
-            return;
-        }
         if (!locationArray || locationArray.length === 0) {
             toast.error('Location is required');
             return;

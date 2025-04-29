@@ -323,9 +323,9 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </div>
 
                         <div className="flex flex-col w-[600px] items-center justify-center">
-                            <div className='w-[190px] h-[180px] shadow-lg shadow-white border-cyan-600 border-4   rounded-full m-5'>
+                            <div className='w-[190px] h-[190px] shadow-lg shadow-white border-cyan-600 border-4   rounded-full m-5'>
 
-                                <img src={`${serviceDetails?.bussiness?.companyLogo?.imageUrl}`} alt="profile picture" className='bg-cover w-full h-full rounded-full' />
+                                <img src={`${serviceDetails?.bussiness?.companyLogo?.imageUrl}`} alt="profile picture" className='  w-full h-full rounded-full object-contain' />
                             </div>
 
                             {
