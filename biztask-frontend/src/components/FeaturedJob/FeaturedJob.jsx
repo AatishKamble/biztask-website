@@ -52,7 +52,7 @@ const FeaturedJob = () => {
 
 
   return (
-    <section className="w-full  py-16 xl:px-10 lg:px-20 sm:px-5">
+    <section className="w-full  py-16 pb-4 xl:px-10 lg:px-20 sm:px-5">
       {/* Decorative elements */}
       <div className="absolute left-0 top-1/4 w-32 h-32 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
       <div className="absolute right-0 bottom-1/4 w-32 h-32 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
@@ -105,9 +105,11 @@ const FeaturedJob = () => {
                 <JobAdvertise typeText="Apply" job={job} business={job?.business} />
               </motion.div>
             ))}
-            {!isLoading && jobStore?.jobs?.jobs?.length > 0 && (
+           
+          </div>
+          {!isLoading && jobStore?.jobs?.jobs?.length > 0 && (
               <motion.div
-                className="w-full flex justify-center items-center xl:border mt-5 xl:mt-0 rounded-xl border-blue-200"
+                className="w-full flex justify-center items-center  mt-10 xl:mt-20 rounded-xl "
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -119,7 +121,7 @@ const FeaturedJob = () => {
 
                   {/* Button */}
                   <motion.button
-                    className="relative z-10 bg-white text-blue-700 px-8 py-3.5 rounded-full text-lg font-semibold font-serif flex items-center gap-3 shadow-md hover:shadow-xl transition-all duration-300 border border-blue-200 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white w-full justify-center md:w-auto min-w-[240px]"
+                    className="relative z-10 bg-white text-blue-700 px-8 py-3.5 rounded-full text-lg font-semibold font-serif flex items-center gap-3 shadow-md hover:shadow-xl transition-all duration-300  group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white w-full justify-center md:w-auto min-w-[240px]"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -129,8 +131,6 @@ const FeaturedJob = () => {
                 </Link>
               </motion.div>
             )}
-          </div>
-
           {/* No Jobs Found Message */}
           {!isLoading && jobStore?.jobs?.jobs?.length === 0 && (
             <motion.div

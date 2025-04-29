@@ -52,14 +52,14 @@ const timeAgo = (postedAt) => {
     <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden border-4 border-white">
       <img
         src={`${business?.companyLogo?.imageUrl}`}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
         alt="Company Logo"
       />
     </div>
   </div>
 
   {/* Company Name Below Logo */}
-  <p className="text-blue-900 font-serif font-bold text-lg mt-3 text-center truncate">
+  <p className="text-blue-900 font-serif font-bold text-lg mt-3 text-center ">
     {business?.companyName}
   </p>
 </div>

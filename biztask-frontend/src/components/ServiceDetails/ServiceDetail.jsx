@@ -556,7 +556,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, amount: 0.3 }}
                                     transition={{ duration: 0.8, ease: "easeOut" }}
-                                    className="w-full flex flex-col items-center py-10 px-4 md:px-10  rounded-2xl "
+                                    className="w-full flex flex-col items-center py-10 pb-2 px-4 md:px-10  rounded-2xl "
                                 >
 
                                     <motion.h2
@@ -568,7 +568,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     >
                                         Posted Jobs
                                     </motion.h2>
-
+                                  
 
                                     <motion.div
                                         initial={{ scaleX: 0 }}
@@ -577,6 +577,15 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                         transition={{ delay: 0.4, duration: 0.5 }}
                                         className="h-[4px] w-28 origin-left bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-0 rounded-full "
                                     />
+                                      <motion.p
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.6 }}
+                            className="text-gray-600 text-center font-normal mt-4  font-serif text-base max-w-xl"
+                        >
+                           Jobs listing under this Service.
+                        </motion.p>
                                 </motion.div>
 
                                 
