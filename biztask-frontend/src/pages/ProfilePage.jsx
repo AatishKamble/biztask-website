@@ -16,7 +16,7 @@ import { removeBusiness } from '../Redux/Business/Action.js';
 import { IoBusinessOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { motion } from 'framer-motion'; 
-
+import { getUserProfile } from '../Redux/Auth/Action.js';
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const appliedJobsRef = useRef(null);
