@@ -36,7 +36,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
     // Handle location
     const [location, setLocation] = useState('');
     const [locationArray, setLocationArray] = useState([]);
-    
+
     const handleLocationAdd = () => {
         if (location.trim() !== "") {
             const isExists = locationArray.some(l => l.toLowerCase() === location.toLowerCase());
@@ -55,7 +55,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
     // Handle feature
     const [featureInput, setFeatureInput] = useState('');
     const [featureArray, setFeatureArray] = useState([]);
-    
+
     const handleFeatureAdd = () => {
         if (featureInput.trim() !== "") {
             const isExists = featureArray.some(l => l.toLowerCase() === featureInput.toLowerCase());
@@ -90,15 +90,46 @@ const ServiceRegistration = ({ userDetails, registration }) => {
             toast.error('Invalid price values');
             return;
         }
-        
+        if (minPriceValue < 0 || maxPriceValue < 0) {
+            toast.error('Prices cannot be negative');
+            return;
+        }
+        if (minPriceValue >= maxPriceValue) {
+            toast.error('Minimum price must be less than Maximum price');
+            return;
+        }
+
         if (formData.serviceType.trim() === "") {
             toast.error('Service type is required');
             return;
         }
+        if (!/^[A-Za-z\s]+$/.test(formData.serviceType)) {
+            toast.error('Service type must only contain alphabets and spaces');
+            return;
+        }
+
         if (formData.Description.trim() === "") {
             toast.error('Description is required');
             return;
         }
+        if (!/^[A-Za-z\s]+$/.test(formData.Description)) {
+            toast.error('Description must only contain alphabets and spaces');
+            return;
+        }
+
+        const words = formData.Description.trim().split(/\s+/);  
+        const wordCount = words.filter(word => word).length;
+
+        if (wordCount < 100 ) {
+            toast.error('Description cannot be smaller than 100 words');
+            return;
+        }
+        if (wordCount > 500 ) {
+            toast.error('Description cannot be longer than 500 words');
+            return;
+        }
+
+
         if (formData.minPrice.trim() === "") {
             toast.error('Minimum price is required');
             return;
@@ -115,7 +146,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
             toast.error('Feature is required');
             return;
         }
-        
+
         const formD = new FormData();
         formD.append("serviceType", formData.serviceType);
         formD.append("Description", formData.Description);
@@ -173,15 +204,15 @@ const ServiceRegistration = ({ userDetails, registration }) => {
             <div className="max-w-5xl mx-auto">
                 {/* Back navigation */}
                 <div className="mb-6">
-                    <button 
-                        onClick={() => navigate(-1)} 
+                    <button
+                        onClick={() => navigate(-1)}
                         className="flex items-center text-teal-700 hover:text-teal-900 transition-colors font-serif"
                     >
                         <IoArrowBack className="mr-2" />
                         <span>Go Back</span>
                     </button>
                 </div>
-                
+
                 <div className="bg-white rounded-xl shadow-xl overflow-hidden mb-10 border border-teal-100">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-blue-700 to-indigo-800 px-8 py-8">
@@ -200,7 +231,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                     Service Type
                                 </label>
                                 <div className="relative">
-                                    <input 
+                                    <input
                                         type="text"
                                         name="serviceType"
                                         value={formData.serviceType}
@@ -210,13 +241,13 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                     />
                                 </div>
                             </div>
-                            
+
                             <div className="space-y-2">
                                 <label className="flex items-center text-teal-800 font-medium font-serif">
                                     <FaBuilding className="text-teal-600 mr-2 text-xl" />
                                     Company Name
                                 </label>
-                                <input 
+                                <input
                                     type="text"
                                     value={businessStore.business?.companyName}
                                     className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
@@ -224,47 +255,47 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 />
                             </div>
                         </div>
-                        
+
                         {/* Section: Contact Details */}
                         <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl p-6 mb-8 border border-teal-100 shadow-sm">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <FaUser className="mr-2 text-teal-700" />
                                 Contact Details (Provider)
                             </h2>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <MdPersonAddAlt className="text-teal-600 mr-2" />
                                         Name
                                     </label>
-                                    <input 
+                                    <input
                                         type="text"
                                         value={userDetails?.name || ""}
                                         className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-white/80 cursor-not-allowed shadow-sm"
                                         disabled
                                     />
                                 </div>
-                                
+
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <FaPhone className="text-teal-600 mr-2" />
                                         Phone
                                     </label>
-                                    <input 
+                                    <input
                                         type="tel"
                                         value={userDetails?.mobileNumber || ""}
                                         className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-white/80 cursor-not-allowed shadow-sm"
                                         disabled
                                     />
                                 </div>
-                                
+
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <FaEnvelope className="text-teal-600 mr-2" />
                                         Email
                                     </label>
-                                    <input 
+                                    <input
                                         type="email"
                                         value={userDetails?.email || ""}
                                         className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-white/80 cursor-not-allowed shadow-sm"
@@ -273,21 +304,21 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         {/* Section: Service Details */}
                         <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 flex items-center">
                                 <MdDescription className="mr-2 text-teal-700" />
                                 Service Details
                             </h2>
-                            
+
                             <div className="space-y-6">
                                 <div>
                                     <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
-                                        
+
                                         Description
                                     </label>
-                                    <textarea 
+                                    <textarea
                                         name="Description"
                                         id="DescriptionBox"
                                         value={formData.Description}
@@ -297,14 +328,14 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                         style={{ resize: 'none' }}
                                     ></textarea>
                                 </div>
-                                
+
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
                                             <RiPriceTag3Line className="text-teal-600 mr-2 text-xl" />
                                             Min Price
                                         </label>
-                                        <input 
+                                        <input
                                             type="text"
                                             name="minPrice"
                                             value={formData.minPrice}
@@ -313,13 +344,13 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                             className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
                                         />
                                     </div>
-                                    
+
                                     <div>
                                         <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
                                             <FaIndianRupeeSign className="text-teal-600 mr-2 text-xl" />
                                             Max Price
                                         </label>
-                                        <input 
+                                        <input
                                             type="text"
                                             name="maxPrice"
                                             value={formData.maxPrice}
@@ -331,18 +362,18 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         {/* Section: Locations */}
                         <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <TbMapPin className="mr-2 text-teal-700 text-xl" />
                                 Service Locations
                             </h2>
-                            
+
                             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                                 <div className="flex-grow">
                                     <div className="relative">
-                                        <input 
+                                        <input
                                             type="text"
                                             value={location}
                                             onChange={(e) => setLocation(e.target.value)}
@@ -352,9 +383,9 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                         <FaMapMarkerAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
                                     </div>
                                 </div>
-                                
-                                <button 
-                                    type="button" 
+
+                                <button
+                                    type="button"
                                     onClick={handleLocationAdd}
                                     className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
                                 >
@@ -362,7 +393,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                     <span className="font-serif">Add Location</span>
                                 </button>
                             </div>
-                            
+
                             {locationArray.length > 0 && (
                                 <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
                                     <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
@@ -377,18 +408,18 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 </div>
                             )}
                         </div>
-                        
+
                         {/* Section: Features */}
                         <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <GoChecklist className="mr-2 text-teal-700 text-xl" />
                                 Service Features
                             </h2>
-                            
+
                             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                                 <div className="flex-grow">
                                     <div className="relative">
-                                        <input 
+                                        <input
                                             type="text"
                                             value={featureInput}
                                             onChange={(e) => setFeatureInput(e.target.value)}
@@ -398,9 +429,9 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                         <MdOutlineFeaturedPlayList className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
                                     </div>
                                 </div>
-                                
-                                <button 
-                                    type="button" 
+
+                                <button
+                                    type="button"
                                     onClick={handleFeatureAdd}
                                     className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
                                 >
@@ -408,7 +439,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                     <span className="font-serif">Add Feature</span>
                                 </button>
                             </div>
-                            
+
                             {featureArray.length > 0 && (
                                 <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
                                     <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
@@ -423,19 +454,19 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 </div>
                             )}
                         </div>
-                        
+
                         {/* Company Logo */}
                         <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <FaBuilding className="mr-2 text-teal-700" />
                                 Company Branding
                             </h2>
-                            
+
                             <div className="flex flex-col md:flex-row items-center gap-6">
                                 <div className="w-36 h-36 rounded-xl overflow-hidden border-2 border-teal-100 shadow-lg">
-                                    <img 
-                                        src={businessStore.business?.companyLogo ? `${businessStore.business?.companyLogo?.imageUrl}` : dummyPhoto} 
-                                        alt="Company Logo" 
+                                    <img
+                                        src={businessStore.business?.companyLogo ? `${businessStore.business?.companyLogo?.imageUrl}` : dummyPhoto}
+                                        alt="Company Logo"
                                         className="w-full h-full object-cover"
                                     />
                                 </div>
@@ -445,7 +476,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         {/* Action Buttons */}
                         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
                             <button
@@ -455,7 +486,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                             >
                                 Cancel
                             </button>
-                            
+
                             <button
                                 type='submit'
                                 className='bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center'

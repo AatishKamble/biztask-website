@@ -117,7 +117,7 @@ const ProfilePage = ({ userDetails }) => {
                     src={`${userDetails?.profileImage?.ImageUrl}`}
                     alt="Profile"
                     className="w-full h-full object-cover"
-                    onError={(e) => { e.target.src = 'https://via.placeholder.com/160?text=Profile' }}
+                   
                   />
                 </motion.div>
 
@@ -130,7 +130,7 @@ const ProfilePage = ({ userDetails }) => {
                   <div className="flex flex-col md:flex-row justify-between items-center mb-6">
                     <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 font-serif">
                       <IoPersonCircleOutline className="text-blue-600 text-3xl" />
-                      {userDetails?.name}
+                      {userDetails ? userDetails?.name:"N/A"}
                     </h2>
 
                     <Link to="/profile-edit">

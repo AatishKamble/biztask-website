@@ -80,15 +80,38 @@ const BusinessRegistration = ({ userDetails, registration }) => {
     e.preventDefault();
 
     const formD = new FormData();
-    {/*new Change */ }
+
     if (formData.companyName.trim() == "") {
       toast.error('company name is required');
       return;
     }
-    if (formData.description.trim() == "") {
-      toast.error('company description is required');
+    if (!/^[A-Za-z\s]+$/.test(formData.companyName)) {
+      toast.error('Company Name must only contain alphabets and spaces');
       return;
     }
+
+    if (formData.description.trim() === "") {
+      toast.error('company Description is required');
+      return;
+    }
+    if (!/^[A-Za-z\s]+$/.test(formData.description)) {
+      toast.error('Description must only contain alphabets and spaces');
+      return;
+    }
+
+    const words = formData.description.trim().split(/\s+/);
+    const wordCount = words.filter(word => word).length;
+
+    if (wordCount < 100) {
+      toast.error('Description cannot be smaller than 100 words');
+      return;
+    }
+    if (wordCount > 500) {
+      toast.error('Description cannot be longer than 500 words');
+      return;
+    }
+
+
     if (image === null) {
       toast.error("Image Required!. Please Upload Profile image");
       return;
@@ -112,7 +135,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
     navigate("/profile");
   }
 
- 
+
   return (
     <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-12">
       <div className="max-w-5xl mx-auto">
@@ -212,9 +235,9 @@ const BusinessRegistration = ({ userDetails, registration }) => {
             </div>
 
             {/* Section: Business Details */}
-            <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
-              <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 flex items-center">
-                <MdDescription className="mr-2 text-teal-700" />
+            <div className="bg-white p-6 mb-8  ">
+              <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 border-b border-blue-200 pb-2 flex items-center">
+                
                 Company Description
               </h2>
 

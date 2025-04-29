@@ -27,7 +27,7 @@ import DetailLoader from "../Loader/DetailLoader.jsx";
 import { toast } from "react-toastify";
 import { GrCaretPrevious } from "react-icons/gr"; import { GrCaretNext } from "react-icons/gr";
 import ContactInformation from "../ContactInformation/ContactInformation.jsx";
-import { motion,AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ServiceDetailSkeleton from "./ServiceDetailSkeleton.jsx"
 import PaymentModal from "../ContactInformation/PaymentModal.jsx";
 
@@ -231,39 +231,39 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     };
 
 
-     // States for payment flow
+    // States for payment flow
     const [activeTab, setActiveTab] = useState('description');
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [isVerifying, setIsVerifying] = useState(false);
     const [transactionId, setTransactionId] = useState('');
     const [hasPaid, setHasPaid] = useState(false);
-    
-   
-   const handlePaymentInitiation = () => {
-          setShowPaymentModal(true);
-      };
-  
-  
-      // Function to verify payment
-      const verifyPayment = () => {
-          if (!transactionId.trim()) {
-              alert("Please enter transaction ID");
-              return;
-          }
-  
-          setIsVerifying(true);
-          setTimeout(() => {
-              setIsVerifying(false);
-              setShowPaymentModal(false);
-              setTransactionId('');
-              setHasPaid(true);
-              alert("Payment verified successfully! All contact details unlocked.");
-          }, 2000);
-      };
-      const upiID = "XXXX123@oksbi";
-      const upiName = "XXXXXXXX XXXXX";
-  
+
+
+    const handlePaymentInitiation = () => {
+        setShowPaymentModal(true);
+    };
+
+
+    // Function to verify payment
+    const verifyPayment = () => {
+        if (!transactionId.trim()) {
+            alert("Please enter transaction ID");
+            return;
+        }
+
+        setIsVerifying(true);
+        setTimeout(() => {
+            setIsVerifying(false);
+            setShowPaymentModal(false);
+            setTransactionId('');
+            setHasPaid(true);
+            alert("Payment verified successfully! All contact details unlocked.");
+        }, 2000);
+    };
+    const upiID = "XXXX123@oksbi";
+    const upiName = "XXXXXXXX XXXXX";
+
     return (
         <>
 
@@ -329,17 +329,46 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             </div>
 
                             {
-                                userDetails?._id == serviceDetails?.user?._id &&
+                                userDetails?._id == serviceDetails?.user?._id  &&
 
-                                <div>
+                                <div className="mt-6 grid grid-cols-2  items-center font-serif gap-2 justify-end">
 
-                                    <button className='bg-[#94b6b5]  rounded-md p-2 me-2   hover:bg-[#79bdba] w-auto h-auto text-slate-600 font-serif font-semibold text-[16px]' onClick={() => scrollToSection(postedJobs)}> View posted Job</button>
+                                    <button className="px-5 py-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white rounded-xl shadow-lg font-serif text-[18px] hover:shadow-green-200 flex items-center justify-center gap-2 w-full"
+                                        onClick={() => scrollToSection(postedJobs)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                        </svg>Posted Job</button>
 
                                     <Link to={`/service-update/${serviceDetails?._id}`}>
-                                        <button className='bg-[#69a5b6]  rounded-md p-[7px]  hover:bg-[#4492a7] w-auto h-auto text-slate-600  font-serif font-semibold text-[16px]' >Update</button>
+                                        <button className="px-5 py-2 bg-gradient-to-r w-full from-blue-700 to-blue-500 text-white rounded-xl shadow-lg font-serif text-[18px] flex items-center font-semibold justify-center gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg>Update</button>
                                     </Link>
+                                    <Link to={`/job-post`}>
+                                          
+                                    <button
+                                       
+                                        className="px-5 py-2 bg-gradient-to-r w-full from-blue-700 to-blue-500 text-white rounded-xl shadow-lg font-serif text-[18px] flex items-center font-semibold justify-center gap-2"
+                                          >
+                                        <FaAddressCard size={24} />
+                                        <span className=" text-base">Post Job</span>
+                                    </button>
+                                </Link>
 
-                                    <button className='bg-[#d28d8d]  rounded-md p-2 ms-2  hover:bg-[#996767]   w-auto h-auto text-slate-600  font-serif font-semibold text-[16px]' onClick={handlePopupWarningOpen}>Remove</button>
+                                    <button
+                                        className="px-5 py-2 font-semibold w-full bg-gradient-to-r from-red-700 to-red-500 text-white rounded-xl shadow-lg font-serif text-[18px] flex items-center justify-center gap-2"
+
+                                        onClick={handlePopupWarningOpen}>  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M3 6h18"></path>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                                            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>Remove</button>
                                 </div>
 
                             }
@@ -352,160 +381,148 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         {/* Left Section */}
 
                         <div className="flex flex-col xl:w-2/3 gap-6 font-serif">
-      {/* Tab Navigation */}
-      <div className="flex border-b border-gray-300">
-        <button 
-          className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${
-            activeTab === 'description' 
-              ? 'border-blue-700 text-blue-900 font-semibold' 
-              : 'border-transparent text-gray-600 hover:text-blue-800'
-          }`}
-          onClick={() => setActiveTab('description')}
-        >
-             About
-        </button>
-        <button 
-          className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${
-            activeTab === 'features' 
-              ? 'border-blue-700 text-blue-900 font-semibold' 
-              : 'border-transparent text-gray-600 hover:text-blue-800'
-          }`}
-          onClick={() => setActiveTab('features')}
-        >
-              Features
-        </button>
-        <button 
-          className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${
-            activeTab === 'pricing' 
-              ? 'border-blue-700 text-blue-900 font-semibold' 
-              : 'border-transparent text-gray-600 hover:text-blue-800'
-          }`}
-          onClick={() => setActiveTab('pricing')}
-        >
-                 Pricing Details
-        </button>
-      </div>
-      
-      {/* Tab Content */}
-     
-      <div className={` ${
-  activeTab === 'pricing' 
-    ? 'p-0' 
-    : 'p-6 bg-white border border-blue-200 rounded-2xl '
-}`}>
-  <div 
-    className={`transition-all duration-500 transform ${
-      activeTab === 'description' 
-        ? 'opacity-100 max-h-screen translate-y-0 scale-100'
-        : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
-    }`}
-  >
-    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
-      <MdOutlineDescription className="mr-2 text-emerald-600 text-xl" />
-      Description
-    </div>
-    <p className="text-justify p-4 text-slate-800 text-base font-medium leading-relaxed bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg mt-2">
-      {serviceDetails?.Description || "No description provided."}
-    </p>
-  </div>
+                            {/* Tab Navigation */}
+                            <div className="flex border-b font-semibold border-gray-300">
+                                <button
+                                    className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${activeTab === 'description'
+                                            ? 'border-blue-700 text-blue-900 '
+                                            : 'border-transparent text-gray-600 hover:text-blue-800'
+                                        }`}
+                                    onClick={() => setActiveTab('description')}
+                                >
+                                    About
+                                </button>
+                                <button
+                                    className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${activeTab === 'features'
+                                            ? 'border-blue-700 text-blue-900 '
+                                            : 'border-transparent text-gray-600 hover:text-blue-800'
+                                        }`}
+                                    onClick={() => setActiveTab('features')}
+                                >
+                                    Features
+                                </button>
+                                <button
+                                    className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${activeTab === 'pricing'
+                                            ? 'border-blue-700 text-blue-900 '
+                                            : 'border-transparent text-gray-600 hover:text-blue-800'
+                                        }`}
+                                    onClick={() => setActiveTab('pricing')}
+                                >
+                                    Pricing Details
+                                </button>
+                            </div>
 
-  <div 
-    className={`transition-all duration-500 transform ${
-      activeTab === 'features' 
-        ? 'opacity-100 max-h-screen translate-y-0 scale-100' 
-        : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
-    }`}
-  >
-    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
-      <BsStars className="mr-2 text-emerald-600" />
-      Features
-    </div>
-    <ul className="flex flex-col gap-3 p-4 text-slate-800 text-base font-medium">
-      {serviceDetails?.features?.length > 0 ? (
-        serviceDetails.features.map((feature, idx) => (
-          <li key={idx} className="flex items-start gap-2 animate-fadeIn bg-gradient-to-r from-emerald-50 to-emerald-50 p-2 rounded-lg" style={{animationDelay: `${idx * 100}ms`}}>
-            <FaCheckCircle className="text-emerald-500 mt-1 flex-shrink-0" />
-            <span className="break-words">{feature}</span>
-          </li>
-        ))
-      ) : (
-        <li className="text-gray-500 italic">No features listed.</li>
-      )}
-    </ul>
-  </div>
+                            {/* Tab Content */}
 
-  <div 
-    className={`transition-all duration-500 transform ${
-      activeTab === 'pricing' 
-        ? 'opacity-100 max-h-screen translate-y-0 scale-100' 
-        : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
-    }`}
-  >
-    <motion.div
-      whileHover={{ y: -5 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ 
-        opacity: activeTab === 'pricing' ? 1 : 0,
-        y: activeTab === 'pricing' ? 0 : 20
-      }}
-      transition={{ type: "spring", stiffness: 300 }}
-      className="bg-white font-serif rounded-xl shadow-md overflow-hidden"
-    >
-      <div className="bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-4 text-white">
-        <h3 className="text-lg font-semibold flex items-center gap-2">
-          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
-              clipRule="evenodd"></path> </svg>
-          Pricing Details
-        </h3>
-      </div>
+                            <div className={` ${activeTab === 'pricing'
+                                    ? 'p-0'
+                                    : 'p-6 bg-white border border-blue-200 rounded-2xl '
+                                }`}>
+                                <div
+                                    className={`transition-all duration-500 transform ${activeTab === 'description'
+                                            ? 'opacity-100 max-h-screen translate-y-0 scale-100'
+                                            : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
+                                        }`}
+                                >
+                                    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
+                                        <MdOutlineDescription className="mr-2 text-emerald-600 text-xl" />
+                                        Description
+                                    </div>
+                                    <p className="text-justify p-4 text-slate-800 text-base font-medium leading-relaxed bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg mt-2">
+                                        {serviceDetails?.Description || "No description provided."}
+                                    </p>
+                                </div>
 
-      <div className="p-6">
-        <div className="flex justify-between items-center mb-6">
-          <div className="text-center">
-            <span className="block text-sm text-gray-500 mb-1">Starting From</span>
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-2xl font-bold text-gray-800 flex items-center justify-center"
-            >
-              <MdOutlineCurrencyRupee />
-              <span>{serviceDetails?.minPrice || "N/A"}</span>
-            </motion.div>
-          </div>
+                                <div
+                                    className={`transition-all duration-500 transform ${activeTab === 'features'
+                                            ? 'opacity-100 max-h-screen translate-y-0 scale-100'
+                                            : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
+                                        }`}
+                                >
+                                    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
+                                        <BsStars className="mr-2 text-emerald-600" />
+                                        Features
+                                    </div>
+                                    <ul className="flex flex-col gap-3 p-4 text-slate-800 text-base font-medium">
+                                        {serviceDetails?.features?.length > 0 ? (
+                                            serviceDetails.features.map((feature, idx) => (
+                                                <li key={idx} className="flex items-start gap-2 animate-fadeIn bg-gradient-to-r from-emerald-50 to-emerald-50 p-2 rounded-lg" style={{ animationDelay: `${idx * 100}ms` }}>
+                                                    <FaCheckCircle className="text-emerald-500 mt-1 flex-shrink-0" />
+                                                    <span className="break-words">{feature}</span>
+                                                </li>
+                                            ))
+                                        ) : (
+                                            <li className="text-gray-500 italic">No features listed.</li>
+                                        )}
+                                    </ul>
+                                </div>
 
-          <div className="h-12 border-r-2 border-gray-300"></div>
+                                <div
+                                    className={`transition-all duration-500 transform ${activeTab === 'pricing'
+                                            ? 'opacity-100 max-h-screen translate-y-0 scale-100'
+                                            : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
+                                        }`}
+                                >
+                                    <motion.div
+                                        
+                                       
+                                        className="bg-white font-serif rounded-xl shadow-md overflow-hidden"
+                                    >
+                                        <div className="bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-4 text-white">
+                                            <h3 className="text-lg font-semibold flex items-center gap-2">
+                                                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+                                                        clipRule="evenodd"></path> </svg>
+                                                Pricing Details
+                                            </h3>
+                                        </div>
 
-          <div className="text-center">
-            <span className="block text-sm text-gray-500 mb-1">Up To</span>
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="text-2xl font-bold text-gray-800 flex items-center justify-center"
-            >
-              <MdOutlineCurrencyRupee />
-              <span>{serviceDetails?.maxPrice || "N/A"}</span>
-            </motion.div>
-          </div>
-        </div>
+                                        <div className="p-6">
+                                            <div className="flex justify-between items-center mb-6">
+                                                <div className="text-center">
+                                                    <span className="block text-sm text-gray-500 mb-1">Starting From</span>
+                                                    <motion.div
+                                                        initial={{ scale: 0.8 }}
+                                                        animate={{ scale: 1 }}
+                                                        transition={{ duration: 0.5 }}
+                                                        className="text-2xl font-bold text-blue-800 flex items-center justify-center"
+                                                    >
+                                                        <MdOutlineCurrencyRupee />
+                                                        <span>{serviceDetails?.minPrice || "N/A"}</span>
+                                                    </motion.div>
+                                                </div>
 
-        <div className="mt-4 text-sm text-gray-600 bg-green-50 rounded-lg p-3 flex items-start gap-2">
-          <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
-          </svg>
-          <span>Prices may vary based on service complexity and specific requirements.</span>
-        </div>
-      </div>
-    </motion.div>
-  </div>
-</div>
-        
-        
-      
-     
-    </div>
+                                                <div className="h-12 border-r-2 border-gray-300"></div>
+
+                                                <div className="text-center">
+                                                    <span className="block text-sm text-gray-500 mb-1">Up To</span>
+                                                    <motion.div
+                                                        initial={{ scale: 0.8 }}
+                                                        animate={{ scale: 1 }}
+                                                        transition={{ delay: 0.2, duration: 0.5 }}
+                                                        className="text-2xl font-bold text-blue-800 flex items-center justify-center"
+                                                    >
+                                                        <MdOutlineCurrencyRupee />
+                                                        <span>{serviceDetails?.maxPrice || "N/A"}</span>
+                                                    </motion.div>
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-4 text-sm text-gray-600 bg-green-50 rounded-lg p-3 flex items-start gap-2">
+                                                <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
+                                                </svg>
+                                                <span>Prices may vary based on service complexity and specific requirements.</span>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
                         {/* Right Section */}
 
                         <div className="flex md:w-[45%] ">
@@ -517,7 +534,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                                 {/* Contact Info */}
-                                < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} handlePaymentInitiation={handlePaymentInitiation} hasPaid={hasPaid}/>
+                                < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} handlePaymentInitiation={handlePaymentInitiation} hasPaid={hasPaid} />
                             </div>
 
 
@@ -528,7 +545,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     {/* job */}
                     {
-                        userDetails?._id === serviceDetails?.user?._id &&
+                        userDetails?._id === serviceDetails?.user?._id  &&
                         <div ref={postedJobs} className=' w-[95%] h-auto  mb-10 mx-200'>
 
 
@@ -562,16 +579,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     />
                                 </motion.div>
 
-                                <Link to={`/job-post`}>
-                                    <motion.button
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className=" relative top-12 right-[400px] flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 h-10 w-[200px] text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
-                                    >
-                                        <FaAddressCard size={24} />
-                                        <span className=" text-base">Post Job</span>
-                                    </motion.button>
-                                </Link>
+                                
                             </div>
 
                             <div className=' w-full grid xl:grid-cols-2 sm:grid-cols-1 md:px-16 lg:px-20 xl:p-2   p-2 gap-5 my-10'>
@@ -1048,7 +1056,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                 </div>
             }
 
-<AnimatePresence>
+            <AnimatePresence>
                 {showPaymentModal && (
                     <PaymentModal
                         showPaymentModal={showPaymentModal}

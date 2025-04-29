@@ -151,7 +151,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
           {/* Copyright Section */}
           <div className="mt-12 pt-6 border-t border-cyan-300 text-center">
             <p className="text-cyan-100 font-serif">
-              © {new Date().getFullYear()} Local Service Platform. All rights reserved.
+              © {new Date().getFullYear()} Biztask Platform. All rights reserved.
             </p>
           </div>
         </div>

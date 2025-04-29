@@ -10,7 +10,7 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import { BsBriefcase, BsCalendarDate, BsClockHistory } from "react-icons/bs";
 import { GiSkills } from "react-icons/gi";
 import { MdOutlineDateRange, MdTask } from "react-icons/md";
-
+import { toast } from "react-toastify";
 import AddedBox from "./AddedBox";
 import { useDispatch, useSelector } from "react-redux";
 import { getServiceById } from "../../Redux/ServiceR/Action.js";
@@ -21,7 +21,7 @@ import { jobRegister, updateJob, getJobById } from "../../Redux/Job/Action.js";
 const JobListingForm = ({ registration }) => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    
+
     // Get job
     useEffect(() => {
         if (id) {
@@ -32,7 +32,7 @@ const JobListingForm = ({ registration }) => {
     const serviceStore = useSelector(store => store.serviceStore);
     const navigate = useNavigate();
     const jwt = localStorage.getItem("jwt");
-  
+
     const [formData, setFormData] = useState({
         jobRole: "",
         employmentType: "",
@@ -46,7 +46,7 @@ const JobListingForm = ({ registration }) => {
     // Locations
     const [location, setLocation] = useState('');
     const [locationArray, setLocationArray] = useState([]);
-    
+
     const handleLocationAdd = () => {
         if (location.trim() !== "") {
             const isExists = locationArray.some(l => l.toLowerCase() === location.toLowerCase());
@@ -61,11 +61,11 @@ const JobListingForm = ({ registration }) => {
         const newLocation = locationArray.filter((_, ind) => ind !== indexRemove);
         setLocationArray(newLocation);
     }
-    
+
     // Responsibility
     const [responsibilityInput, setResponsibilityInput] = useState('');
     const [responsibilityArray, setResponsibilityArray] = useState([]);
-    
+
     const handleResponsibilityAdd = () => {
         if (responsibilityInput.trim() !== "") {
             const isExists = responsibilityArray.some(l => l.toLowerCase() === responsibilityInput.toLowerCase());
@@ -84,7 +84,7 @@ const JobListingForm = ({ registration }) => {
     // Skills Required
     const [skillsRequiredInput, setSkillsRequiredInput] = useState('');
     const [skillsRequiredArray, setSkillsRequiredArray] = useState([]);
-    
+
     const handleSkillsRequiredAdd = () => {
         if (skillsRequiredInput.trim() !== "") {
             const isExists = skillsRequiredArray.some(l => l.toLowerCase() === skillsRequiredInput.toLowerCase());
@@ -107,13 +107,79 @@ const JobListingForm = ({ registration }) => {
             [e.target.name]: e.target.value,
         });
     }
-    
+
     // Jobs
     const jobStore = useSelector(store => store.jobStore);
-    
+
     // Handle form submit
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (formData.jobRole.trim() === "") {
+            toast.error("Job role is required");
+            return;
+        }
+        if (!/^[A-Za-z\s]+$/.test(formData.jobRole)) {
+            toast.error("Job role must only contain alphabets and spaces");
+            return;
+        }
+
+        const validEmploymentTypes = ["Full Time", "Part Time", "Temporary"];
+
+        if (formData.employmentType.trim() === "") {
+            toast.error("Employment type is required");
+            return;
+        }
+        if (!validEmploymentTypes.includes(formData.employmentType.trim())) {
+            toast.error("Employment type must be 'Full Time', 'Part Time', or 'Temporary'");
+            return;
+        }
+
+
+        const experience = Number(formData.experienceYear);
+        if (formData.experienceYear === "" || isNaN(experience) || experience < 0) {
+            toast.error("Experience must be a valid non-negative number");
+            return;
+        }
+        const minSalary = Number(formData.minSalary);
+        const maxSalary = Number(formData.maxSalary);
+
+        if (formData.minSalary === "" || isNaN(minSalary) || minSalary < 0) {
+            toast.error("Minimum salary must be a valid non-negative number");
+            return;
+        }
+        if (formData.maxSalary === "" || isNaN(maxSalary) || maxSalary < 0) {
+            toast.error("Maximum salary must be a valid non-negative number");
+            return;
+        }
+        if (minSalary > maxSalary) {
+            toast.error("Minimum salary cannot be greater than maximum salary");
+            return;
+        }
+
+        const deadlineDate = new Date(formData.deadline);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (deadlineDate < today) {
+            toast.error("Deadline must be a future date");
+            return;
+        }
+
+        if (!locationArray || locationArray.length === 0) {
+            toast.error("At least one job location is required");
+            return;
+        }
+
+
+        if (!responsibilityArray || responsibilityArray.length === 0) {
+            toast.error("At least one responsibility is required");
+            return;
+        }
+
+
+        if (!skillsRequiredArray || skillsRequiredArray.length === 0) {
+            toast.error("At least one required skill must be added");
+            return;
+        }
 
         const formD = new FormData();
         formD.append("jobRole", formData.jobRole);
@@ -129,8 +195,8 @@ const JobListingForm = ({ registration }) => {
 
         if (registration === true) {
             formD.append("serviceId", serviceStore?.service?._id);
-            dispatch(jobRegister(formD, jwt)); 
-            navigate(`/service-detail/${serviceStore?.service?._id}`); 
+            dispatch(jobRegister(formD, jwt));
+            navigate(`/service-detail/${serviceStore?.service?._id}`);
         } else {
             dispatch(updateJob(jwt, formD, id));
             navigate(`/job-detail/${id}`);
@@ -160,29 +226,29 @@ const JobListingForm = ({ registration }) => {
                 experienceYear: jobStore.job?.experienceYear || 0,
                 minSalary: jobStore.job?.minSalary || 0,
                 maxSalary: jobStore.job?.maxSalary || 0,
-                deadline: jobStore.job?.deadline || ""  
+                deadline: jobStore.job?.deadline || ""
             });
-    
+
             setLocationArray(jobStore.job?.jobLocations || []);
             setResponsibilityArray(jobStore.job?.responsibility || []);
             setSkillsRequiredArray(jobStore.job?.skillsRequired || []);
         }
     }, [jobStore.job, id, registration]);
-    
+
     return (
         <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-12">
             <div className="max-w-5xl mx-auto">
                 {/* Back navigation */}
                 <div className="mb-6">
-                    <button 
-                        onClick={() => navigate(-1)} 
+                    <button
+                        onClick={() => navigate(-1)}
                         className="flex items-center text-teal-700 hover:text-teal-900 transition-colors font-serif"
                     >
                         <IoArrowBack className="mr-2" />
                         <span>Go Back</span>
                     </button>
                 </div>
-                
+
                 <div className="bg-white rounded-xl shadow-xl overflow-hidden mb-10 border border-teal-100">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-blue-700 to-indigo-800 px-8 py-8">
@@ -201,7 +267,7 @@ const JobListingForm = ({ registration }) => {
                                     Job Role
                                 </label>
                                 <div className="relative">
-                                    <input 
+                                    <input
                                         type="text"
                                         name="jobRole"
                                         value={formData.jobRole}
@@ -211,13 +277,13 @@ const JobListingForm = ({ registration }) => {
                                     />
                                 </div>
                             </div>
-                            
+
                             <div className="space-y-2">
                                 <label className="flex items-center text-teal-800 font-medium font-serif">
                                     <BiCategoryAlt className="text-teal-600 mr-2 text-xl" />
                                     Employment Type
                                 </label>
-                                <input 
+                                <input
                                     type="text"
                                     name="employmentType"
                                     value={formData.employmentType}
@@ -227,21 +293,21 @@ const JobListingForm = ({ registration }) => {
                                 />
                             </div>
                         </div>
-                        
+
                         {/* Section: Job Requirements */}
                         <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl p-6 mb-8 border border-teal-100 shadow-sm">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <GiSkills className="mr-2 text-teal-700" />
                                 Job Requirements
                             </h2>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <BsClockHistory className="text-teal-600 mr-2" />
                                         Working Hours
                                     </label>
-                                    <input 
+                                    <input
                                         type="text"
                                         name="workingHours"
                                         value={formData.workingHours}
@@ -250,13 +316,13 @@ const JobListingForm = ({ registration }) => {
                                         className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
                                     />
                                 </div>
-                                
+
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <MdTask className="text-teal-600 mr-2" />
                                         Years of Experience
                                     </label>
-                                    <input 
+                                    <input
                                         type="text"
                                         name="experienceYear"
                                         value={formData.experienceYear}
@@ -266,14 +332,14 @@ const JobListingForm = ({ registration }) => {
                                     />
                                 </div>
                             </div>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <RiPriceTag3Line className="text-teal-600 mr-2" />
                                         Minimum Salary
                                     </label>
-                                    <input 
+                                    <input
                                         type="text"
                                         name="minSalary"
                                         value={formData.minSalary}
@@ -282,13 +348,13 @@ const JobListingForm = ({ registration }) => {
                                         className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
                                     />
                                 </div>
-                                
+
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <FaIndianRupeeSign className="text-teal-600 mr-2" />
                                         Maximum Salary
                                     </label>
-                                    <input 
+                                    <input
                                         type="text"
                                         name="maxSalary"
                                         value={formData.maxSalary}
@@ -298,13 +364,13 @@ const JobListingForm = ({ registration }) => {
                                     />
                                 </div>
                             </div>
-                            
+
                             <div className="mt-6">
                                 <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
                                     <BsCalendarDate className="text-teal-600 mr-2" />
                                     Application Deadline
                                 </label>
-                                <input 
+                                <input
                                     type="date"
                                     name="deadline"
                                     value={formData.deadline}
@@ -313,18 +379,18 @@ const JobListingForm = ({ registration }) => {
                                 />
                             </div>
                         </div>
-                        
+
                         {/* Section: Job Locations */}
                         <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <TbMapPin className="mr-2 text-teal-700 text-xl" />
                                 Job Locations
                             </h2>
-                            
+
                             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                                 <div className="flex-grow">
                                     <div className="relative">
-                                        <input 
+                                        <input
                                             type="text"
                                             value={location}
                                             onChange={(e) => setLocation(e.target.value)}
@@ -334,9 +400,9 @@ const JobListingForm = ({ registration }) => {
                                         <FaMapMarkerAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
                                     </div>
                                 </div>
-                                
-                                <button 
-                                    type="button" 
+
+                                <button
+                                    type="button"
                                     onClick={handleLocationAdd}
                                     className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
                                 >
@@ -344,7 +410,7 @@ const JobListingForm = ({ registration }) => {
                                     <span className="font-serif">Add Location</span>
                                 </button>
                             </div>
-                            
+
                             {locationArray.length > 0 && (
                                 <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
                                     <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
@@ -359,18 +425,18 @@ const JobListingForm = ({ registration }) => {
                                 </div>
                             )}
                         </div>
-                        
+
                         {/* Section: Responsibilities */}
                         <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <GoChecklist className="mr-2 text-teal-700 text-xl" />
                                 Job Responsibilities
                             </h2>
-                            
+
                             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                                 <div className="flex-grow">
                                     <div className="relative">
-                                        <input 
+                                        <input
                                             type="text"
                                             value={responsibilityInput}
                                             onChange={(e) => setResponsibilityInput(e.target.value)}
@@ -380,9 +446,9 @@ const JobListingForm = ({ registration }) => {
                                         <MdTask className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
                                     </div>
                                 </div>
-                                
-                                <button 
-                                    type="button" 
+
+                                <button
+                                    type="button"
                                     onClick={handleResponsibilityAdd}
                                     className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
                                 >
@@ -390,7 +456,7 @@ const JobListingForm = ({ registration }) => {
                                     <span className="font-serif">Add Responsibility</span>
                                 </button>
                             </div>
-                            
+
                             {responsibilityArray.length > 0 && (
                                 <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
                                     <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
@@ -405,18 +471,18 @@ const JobListingForm = ({ registration }) => {
                                 </div>
                             )}
                         </div>
-                        
+
                         {/* Section: Skills Required */}
                         <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <GiSkills className="mr-2 text-teal-700 text-xl" />
                                 Skills Required
                             </h2>
-                            
+
                             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                                 <div className="flex-grow">
                                     <div className="relative">
-                                        <input 
+                                        <input
                                             type="text"
                                             value={skillsRequiredInput}
                                             onChange={(e) => setSkillsRequiredInput(e.target.value)}
@@ -426,9 +492,9 @@ const JobListingForm = ({ registration }) => {
                                         <MdOutlineFeaturedPlayList className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
                                     </div>
                                 </div>
-                                
-                                <button 
-                                    type="button" 
+
+                                <button
+                                    type="button"
                                     onClick={handleSkillsRequiredAdd}
                                     className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
                                 >
@@ -436,7 +502,7 @@ const JobListingForm = ({ registration }) => {
                                     <span className="font-serif">Add Skill</span>
                                 </button>
                             </div>
-                            
+
                             {skillsRequiredArray.length > 0 && (
                                 <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
                                     <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
@@ -451,34 +517,34 @@ const JobListingForm = ({ registration }) => {
                                 </div>
                             )}
                         </div>
-                        
+
                         {/* Section: Company Information */}
                         <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 ">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 flex items-center">
                                 <FaBuilding className="mr-2 text-teal-700" />
                                 Company Information
                             </h2>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <BiCategoryAlt className="text-teal-600 mr-2" />
                                         Service Type
                                     </label>
-                                    <input 
+                                    <input
                                         type="text"
                                         value={serviceStore.service?.serviceType || ""}
                                         className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
                                         disabled
                                     />
                                 </div>
-                                
+
                                 <div className="space-y-2">
                                     <label className="flex items-center text-teal-700 font-medium font-serif">
                                         <FaBuilding className="text-teal-600 mr-2" />
                                         Company Name
                                     </label>
-                                    <input 
+                                    <input
                                         type="text"
                                         value={serviceStore.service?.bussiness?.companyName || ""}
                                         className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
@@ -486,26 +552,26 @@ const JobListingForm = ({ registration }) => {
                                     />
                                 </div>
                             </div>
-                            
+
                             <div className="mb-6">
                                 <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
                                     <FaEnvelope className="text-teal-600 mr-2" />
                                     Contact Email
                                 </label>
-                                <input 
+                                <input
                                     type="email"
                                     value={serviceStore.service?.user?.email || ""}
                                     className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
                                     disabled
                                 />
                             </div>
-                            
+
                             <div>
                                 <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
                                     <MdDescription className="text-teal-600 mr-2" />
                                     Company Description
                                 </label>
-                                <textarea 
+                                <textarea
                                     value={serviceStore.service?.bussiness?.description || ""}
                                     rows="10"
                                     className="w-full px-4 py-3 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-inner"
@@ -513,7 +579,7 @@ const JobListingForm = ({ registration }) => {
                                 ></textarea>
                             </div>
                         </div>
-                        
+
                         {/* Action Buttons */}
                         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
                             <button
@@ -523,7 +589,7 @@ const JobListingForm = ({ registration }) => {
                             >
                                 Cancel
                             </button>
-                            
+
                             <button
                                 type="submit"
                                 className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center"

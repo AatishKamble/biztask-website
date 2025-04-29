@@ -43,7 +43,7 @@ const BusinessDetails = ({ userDetails }) => {
   const jwt = localStorage.getItem("jwt");
   const businessStore = useSelector(store => store.businessStore);
   const isLoading = useSelector(store => store.businessStore.isLoading);
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState("about");
 
   useEffect(() => {
     if (jwt && id) {

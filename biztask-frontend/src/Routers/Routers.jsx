@@ -25,6 +25,7 @@ import ForgotPassword from "../components/Login/ForgotPassword.jsx";
 import ResetPassword from "../components/Login/ResetPassword.jsx";
 import Loader from "../components/Loader/Loader.jsx";
 import BusinessRegistration from "../components/Forms/BusinessRegistration.jsx";
+import JobApplicationForm from "../components/Forms/JobApplicationForm.jsx";
 const Routers = () => {
   
   const auth = useSelector((store )=> store.auth);
@@ -100,6 +101,7 @@ const isLoading = isAuthLoading ;
    
     <Route path="/reset-password/:id/:token" element={<ResetPassword />}/>
     <Route path="/support" element={ <Support/>}/>
+    <Route path="/apply-job/:id" element={ <JobApplicationForm/>}/>
  
         </Routes>
         {

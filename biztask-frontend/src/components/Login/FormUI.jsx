@@ -65,15 +65,38 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2,handleF
             handleButtonClick();
         }
         else if (type === "signup") {
+
+            if (formData.password.length < 6) {
+                toast.error("Password must be at least 6 characters long");
+                return;
+            }
+            if (!/[A-Z]/.test(formData.password)) {
+                toast.error("Password must contain at least one uppercase letter");
+                return;
+            }
+            if (!/[a-z]/.test(formData.password)) {
+                toast.error("Password must contain at least one lowercase letter");
+                return;
+            }
+            if (!/[0-9]/.test(formData.password)) {
+                toast.error("Password must contain at least one number");
+                return;
+            }
+            if (!/[!@#$%^&*]/.test(formData.password)) {
+                toast.error("Password must contain at least one special character (!@#$%^&*)");
+                return;
+            }
+
             if (formData.password === confPass) {
                 dispatch(register(formData));
                 handleButtonClick();
             }
             else {
                 setFormData({
-                    email: '',
-                    password: ''
+                    ...formData,
+                    [formData.password]: '',
                 });
+                
                 setConfPass('');
                  toast.error("Password and confirm password don't match");
                

@@ -180,14 +180,13 @@ const applyForJob = (jwt,formData) => async (dispatch) => {
         const response = await axios.patch(`${API_BASE_URL}/api/user/apply`,formData,{
             headers: {
                 "authorization": `Bearer ${jwt}`,
-                "Content-Type": "multipart/form-data"
             }
         });
 
         const newUser = response.data;
 
         if (newUser.success == true) {
-           
+         
             dispatch(applyJobSuccess(newUser.user, newUser.message));
             dispatch(getUserProfile(jwt));
             toast.success(newUser.message);

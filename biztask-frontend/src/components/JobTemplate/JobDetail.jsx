@@ -56,21 +56,11 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
   }
 
   const [popUp, setPopUp] = useState(false);
-  const handleEditProfile = () => {
-    if (userDetails) {
-      navigate('/profile-edit');
-    } else {
-      handleLogInButtonClick();
-    }
-    setPopUp(false);
-  }
+  
 
   const handleApply = () => {
     if (userDetails) {
-      const formData = new FormData();
-      formData.append("jobId", id);
-      dispatch(applyForJob(jwt, formData));
-      navigate(`/job-detail/${id}`);
+      navigate(`/apply-job/${id}`);
     }
     else {
       handleLogInButtonClick();
@@ -99,7 +89,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
       )}
 
       {popUp && (
-        <div className="bg-gradient-to-br from-slate-50 to-slate-100 border-[1px] border-slate-300 w-[90%] max-w-[800px] drop-shadow-xl h-auto pb-5 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] transform backdrop-blur-lg animate-scaleIn z-50 rounded-xl">
+        <div className="bg-gradient-to-br from-slate-50 to-slate-100 border-[2px] border-gray-400 w-[90%] max-w-[800px] drop-shadow-xl h-auto pb-5 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] transform backdrop-blur-lg animate-scaleIn z-50 rounded-xl">
           <div className="w-full p-5 flex justify-center items-center border-b-slate-300 border-[1px] relative bg-white/50 rounded-t-xl">
             <span className="text-3xl text-red-500 mr-3 animate-pulse"><HiBellAlert /></span>
             <div className="absolute top-3 right-3 text-[30px] cursor-pointer hover:text-red-500 hover:scale-110 transition-all duration-300 font-serif" onClick={() => setPopUp(false)}>
@@ -111,22 +101,22 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
           </div>
 
           <div className="flex justify-center flex-col font-serif items-center p-6">
-            <p className="text-[19px] text-blue-700 font-medium mb-3">Before proceeding, take a moment to ensure that your profile details are accurate.</p>
-            <p className="text-[17px] text-slate-700">Complete profile information helps local service providers know you better.</p>
+            <p className="text-[19px] text-blue-700 font-medium mb-3">Before proceeding, please take a moment to ensure that you are ready to apply.</p>
+         
           </div>
 
           <div className="flex justify-center p-5 gap-x-6">
             <button
-              className='bg-gradient-to-r from-[#2E86C1] to-[#3498DB] rounded-xl p-2 hover:from-[#3b3bc7] hover:to-[#4949e4] w-[120px] h-auto text-white font-serif font-bold text-[18px] shadow-lg hover:shadow-blue-200'
+              className='bg-blue-500 rounded-xl  p-2  w-[120px] h-auto text-white font-serif font-bold text-[18px] '
               onClick={handleApply}
             >
               Apply
             </button>
             <button
-              className='rounded-xl p-2 bg-gradient-to-r from-[#0d7634] to-[#10a049] w-[120px] h-auto text-white font-serif font-bold text-[18px] hover:from-[#1a9d4d] hover:to-[#22c363] shadow-lg hover:shadow-green-200'
-              onClick={handleEditProfile}
+              className='rounded-xl p-2 bg-red-500 w-[120px] h-auto text-white font-serif font-bold text-[18px]   '
+              onClick={() => setPopUp(false)}
             >
-              Edit
+              Cancel
             </button>
           </div>
         </div>
@@ -214,62 +204,61 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
               {/* Action Buttons */}
               <div className="mt-6 flex flex-wrap items-center font-serif gap-4 justify-end">
-                {userDetails?._id === jobStore?.job?.user?._id? (
-                  <>
-                    <Link to={`/job-detail/people-applied/${jobStore?.job?._id}`}>
-                      <button className="px-5 py-2 bg-gradient-to-r from-[#3B7A57] to-[#4CAF50] text-white rounded-xl shadow-lg  font-serif text-[18px] hover:shadow-green-200 flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="9" cy="7" r="4"></circle>
-                          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                        View People
-                      </button>
-                    </Link>
-                    <Link to={`/job-update/${jobStore?.job?._id}`}>
-                      <button className="px-5 py-2 bg-gradient-to-r from-[#0F3057] to-[#1C4E80] text-white rounded-xl shadow-lg 
-                  font-serif text-[18px] flex items-center font-semibold justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                        </svg>
-                        Update
-                      </button>
-                    </Link>
-                    <button
-                      className="px-5 py-2 font-semibold bg-gradient-to-r from-[#C0392B]  to-[#E74C3C] text-white rounded-xl shadow-lg  font-serif text-[18px] flex items-center justify-center gap-2"
-                      onClick={handlePopupWarningOpen}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 6h18"></path>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
-                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                      </svg>
-                      Remove
-                    </button>
-                  </>
-                ) : userDetails?.appliedJobs.some(job => job._id === id)  ? (
-                  <button className="px-5 py-2 border border-[#3B7A57] bg-white/80 text-[#2F5D46] rounded-xl shadow-lg font-serif text-[18px] cursor-not-allowed flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    Applied
-                  </button>
-                ) : (
-                  <button
-                    className="px-4 py-2 font-semibold bg-gradient-to-r from-[#2E86C1] to-[#3498DB] text-white rounded-xl shadow-lg border border-[#1C4E80] hover:from-[#1C4E80] hover:to-[#2874A6] font-serif text-[18px] flex items-center"
-                    onClick={() => setPopUp(true)}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    Apply Now
-                  </button>
-                )}
-              </div>
+  {userDetails?._id === jobStore?.job?.user?._id ? (
+    <>
+      <Link to={`/job-detail/people-applied/${jobStore?.job?._id}`}>
+        <button className="px-5 py-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white rounded-xl  font-serif text-[18px]  flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          View People
+        </button>
+      </Link>
+      <Link to={`/job-update/${jobStore?.job?._id}`}>
+        <button className="px-5 py-2 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-xl  font-serif text-[18px] flex items-center font-semibold justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+          Update
+        </button>
+      </Link>
+      <button
+        className="px-5 py-2 font-semibold bg-gradient-to-r from-red-700 to-red-500 text-white rounded-xl  font-serif text-[18px] flex items-center justify-center gap-2"
+        onClick={handlePopupWarningOpen}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 6h18"></path>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          <line x1="10" y1="11" x2="10" y2="17"></line>
+          <line x1="14" y1="11" x2="14" y2="17"></line>
+        </svg>
+        Remove
+      </button>
+    </>
+  ) : userDetails?.appliedJobs.some(job => job._id === id)  ? (
+    <button className="px-5 py-2  bg-white text-emerald-700 rounded-xl  border font-serif text-[18px] cursor-not-allowed flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+      </svg>
+      Applied
+    </button>
+  ) : (
+    <button
+      className="px-4 py-2 font-semibold bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-500 font-serif text-[18px] flex items-center"
+      onClick={() => setPopUp(true)}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+      </svg>
+      Apply Now
+    </button>
+  )}
+</div>
             </div>
 
             {/* Job Content */}
