@@ -47,6 +47,7 @@ const BusinessDetails = ({ userDetails }) => {
 
   useEffect(() => {
     if (jwt && id) {
+      console.log("called again")
       dispatch(getBusinessById(id));
     }
   }, [jwt, id, dispatch]);
