@@ -217,8 +217,8 @@ const ProfilePage = ({ userDetails }) => {
                     className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 py-9 gap-6"
                     variants={containerVariants}
                     initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
+                    animate="visible"
+                    
                   >
                     {userDetails?.businesses?.map((business, index) => (
                       <motion.div key={index} variants={itemVariants}>
