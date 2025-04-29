@@ -84,14 +84,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
        
-        if (formData.minPrice.trim() === "") {
-            toast.error('Minimum price is required');
-            return;
-        }
-        if (formData.maxPrice.trim() === "") {
-            toast.error('Maximum price is required');
-            return;
-        }
+       
         const minPriceValue = Number(formData.minPrice);
         const maxPriceValue = Number(formData.maxPrice);
 
@@ -359,6 +352,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                             name="minPrice"
                                             value={formData.minPrice}
                                             onChange={handleChange}
+                                            required={true}
                                             placeholder="Enter service Starting Price"
                                             className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
                                         />
@@ -373,6 +367,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                             type="text"
                                             name="maxPrice"
                                             value={formData.maxPrice}
+                                            required={true}
                                             onChange={handleChange}
                                             placeholder="Enter ending price of service"
                                             className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
