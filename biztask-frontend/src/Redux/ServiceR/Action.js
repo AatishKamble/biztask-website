@@ -140,7 +140,7 @@ const serviceRegister = (serviceData, jwt) => async (dispatch) => {
         if (newService.success == true) {
             // window.location.reload();
             dispatch(registerServiceSuccess(newService.message));
-            dispatch(getBusinessById(newService.service.bussiness));
+            // dispatch(getBusinessById(newService.service.bussiness));
             toast.success(newService.message);
         }
         else {
