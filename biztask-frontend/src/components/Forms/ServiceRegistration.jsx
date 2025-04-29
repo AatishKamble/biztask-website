@@ -83,7 +83,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
     // Form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIsButtonDisabled(true);
+       
         const minPriceValue = Number(formData.minPrice);
         const maxPriceValue = Number(formData.maxPrice);
 
@@ -154,6 +154,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         formD.append("features", JSON.stringify(featureArray));
 
         if (registration === true) {
+            setIsButtonDisabled(true);
             formD.append("businessId", businessStore.business?._id);
             dispatch(serviceRegister(formD, jwt));
             setTimeout(()=>{
@@ -170,6 +171,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                },2000);
             
         } else {
+            setIsButtonDisabled(true);
             dispatch(updateService(jwt, formD, id)); // service id
              setTimeout(()=>{
                 
