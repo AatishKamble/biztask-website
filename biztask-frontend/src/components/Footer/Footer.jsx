@@ -25,25 +25,20 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
 
   return (
     <footer className="relative pt-12">
-      {/* Wave overlay at the top of footer */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden mt-2 h-10">
-      <svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 1440 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,64 C240,32 480,0 720,0 C960,0 1200,32 1440,64 L1440,74 L0,74 L0,64 Z" fill="#3B82F6" />
-        </svg>
-      </div>
+     
       
       {/* Main Footer Content */}
       <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 w-full pt-12 pb-6 shadow-lg border-t-4 border-blue-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             
-          <div className=" flex flex-col justify-start items-center md:border-r md:border-cyan-200 md:border-dotted ">
-            <div className="h-36 w-[200px] ">
+          <div className=" flex flex-col justify-center items-center md:border-r md:border-cyan-200 md:border-dotted ">
+            <div className="h-28 w-full ">
             <img src={logo} alt='logo' className='h-full  w-full object-cover'/>
         
             </div>
         
-            <p className="  text-center font-serif text-cyan-100 hover:text-cyan-300 text-[18px] leading-relaxed italic ">
+            <p className="  text-center font-serif text-cyan-100 hover:text-cyan-300 text-[16px] leading-relaxed italic ">
               Connecting businesses, workers and service seekers with ease
             </p>
           </div>

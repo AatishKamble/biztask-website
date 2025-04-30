@@ -72,10 +72,22 @@ const FeaturedJob = () => {
               Explore Recently Posted Jobs
             </h2>
           </div>
-          <div className="h-[4px] w-48 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mx-auto rounded-full "></div>
-          <p  className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto font-serif">
+        
+          <p  className=" text-lg text-gray-600 max-w-2xl mx-auto font-serif">
             Discover the latest opportunities that match your skills and career goals
           </p>
+          <motion.div 
+            className="h-1 w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-teal-500 mx-auto mt-4  rounded-full"
+            animate={{ 
+              width: ["32px", "96px", "128px"], 
+              opacity: [0.7, 1, 0.7],
+              transition: { 
+                duration: 3, 
+                repeat: Infinity, 
+                repeatType: "reverse" 
+              }
+            }}
+          />
         
         </motion.div>
         {/* Loader Overlay */}
@@ -117,11 +129,11 @@ const FeaturedJob = () => {
               >
                 <Link to="/jobs" className="relative group">
                   {/* Glowing Background */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:blur-md"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl blur-sm opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:blur-md"></div>
 
                   {/* Button */}
                   <motion.button
-                    className="relative z-10 bg-white text-blue-700 px-8 py-3.5 rounded-full text-lg font-semibold font-serif flex items-center gap-3 shadow-md hover:shadow-xl transition-all duration-300  group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white w-full justify-center md:w-auto min-w-[240px]"
+                    className="relative z-10 bg-white text-blue-700 px-8 py-3.5 rounded-xl text-lg font-semibold font-serif flex items-center gap-3 shadow-md hover:shadow-xl transition-all duration-300  group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white w-full justify-center md:w-auto min-w-[240px]"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
                   >

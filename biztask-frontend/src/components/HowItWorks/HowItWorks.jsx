@@ -136,7 +136,7 @@ const HowItWorks = ({ HowItWorks }) => {
             Your Local Marketplace
           </motion.span>
           <motion.h2 
-            className="text-4xl font-serif md:text-5xl font-bold mt-2 text-blue-700"
+            className="text-3xl font-serif md:text-4xl font-bold mt-2 text-blue-700"
           >
             How Our Platform Works
           </motion.h2>
