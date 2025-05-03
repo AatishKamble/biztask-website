@@ -93,13 +93,13 @@ const HangingBanner=({imgage,title,subtitle})=>{
 
   {/* Hero Content */}
   <motion.div 
-    className="relative z-10 h-full w-full flex flex-col justify-center items-center text-slate-100 px-4 text-center"
+    className="relative font-serif z-10 h-full w-full flex flex-col justify-center items-center text-slate-100 px-4 text-center"
     variants={containerVariants}
     initial="hidden"
     animate="visible"
   >
     <motion.h1 
-      className="text-4xl md:text-5xl font-bold  text-cyan-200 font-serif mb-6 drop-shadow-lg"
+      className="text-4xl  md:text-5xl font-bold  text-cyan-200  mb-6 drop-shadow-lg"
       variants={textVariants}
     >
       {title}
