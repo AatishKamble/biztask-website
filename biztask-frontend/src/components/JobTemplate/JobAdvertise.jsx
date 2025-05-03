@@ -98,9 +98,9 @@ const JobAdvertise = ({ typeText, job, business }) => {
 
             {/* Salary */}
             <span className="flex items-center">
-              <div className="bg-blue-200 p-2 rounded-full">
+              <div className="bg-green-200 p-2 rounded-full">
                 <FaRegMoneyBillAlt className="text-green-700 text-xl" /></div>
-              <span className="text-green-600 font-bold p-1">{job?.maxSalary}</span>
+              <span className="text-green-600 font-medium p-1">{job?.maxSalary}</span>
             </span>
           </div>
 
