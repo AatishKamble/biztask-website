@@ -113,7 +113,7 @@ const ProfilePage = ({ userDetails }) => {
             >
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <motion.div
-                  className="w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-50 to-blue-100 group cursor-pointer"
+                  className="relative w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-50 to-blue-100 group cursor-pointer"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.7 }}
@@ -122,13 +122,14 @@ const ProfilePage = ({ userDetails }) => {
                   <img
                     src={`${userDetails?.profileImage?.ImageUrl}`}
                     alt="Profile"
-                    className="w-full h-full  object-cover"
-
+                    className="w-full h-full object-cover"
                   />
+                  
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition-all duration-300">
-                    <MdZoomOutMap className="text-white opacity-0 group-hover:opacity-100 text-2xl" />
+                    <MdZoomOutMap className="text-white opacity-0 group-hover:opacity-100 text-2xl transition-opacity duration-300" />
                   </div>
                 </motion.div>
+
 
                 <motion.div
                   className="flex-1 text-center md:text-left"
