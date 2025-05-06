@@ -107,7 +107,7 @@ const FeaturedJob = () => {
 
 
           {/* Job Cards Grid */}
-          <div className={`grid sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 justify-center transition-opacity duration-300 ${isLoading ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
+          <div className={`grid  grid-cols-1 xl:grid-cols-2 gap-8 justify-center transition-opacity duration-300 ${isLoading ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
             {jobStore?.jobs?.jobs?.slice(0, 10)?.map((job, index) => (
               <motion.div
                 key={index}

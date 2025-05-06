@@ -29,15 +29,16 @@ const Star = ({ star }) => {
         {
           // Full star if rating is at least this position + 1
           rating >= index + 1 ? (
-            <FaStar size={20} />
+          <FaStar className="xl:w-5 xl:h-5 w-6 h-6" />
+
           ) : 
           // Half star if rating is between this position and the next
           rating > index && rating < index + 1 ? (
-            <FaStarHalfStroke size={20} />
+            <FaStarHalfStroke className="xl:w-5 xl:h-5 w-6 h-6" />
           ) : 
           // Empty star otherwise
           (
-            <AiOutlineStar size={20} />
+            <AiOutlineStar className="xl:w-[22px] xl:h-[22px] w-[26px] h-[26px]" />
           )
         }
       </motion.span>

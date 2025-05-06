@@ -196,7 +196,7 @@ const SearchJobs = () => {
         <HangingBanner imgage={jobBack} title={`Find Your Dream Job Today`} subtitle="Explore top opportunities, filter what matters, and land where you belong." />
       </div>
 
-      <div className='w-full h-full p-10 flex ps-20'>
+      <div className='w-full h-full p-10 flex flex-col xl:flex-row ps-20'>
         <div>
           <div className="mb-6 mx-auto w-full">
             <h1 className="text-3xl font-serif font-bold text-blue-900 flex items-center">

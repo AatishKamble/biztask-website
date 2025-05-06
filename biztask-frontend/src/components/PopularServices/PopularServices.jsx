@@ -87,10 +87,10 @@ const PopularServices = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-white via-blue-50 to-white w-full py-12 pb-8 sm:px-6 lg:px-12 xl:px-24 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 mx-auto">
+      <div className="bg-gradient-to-b from-white via-blue-50 to-white w-full py-12 pb-8 sm:px-10 lg:px-12 xl:px-24 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 mx-auto">
         {/* Left Section: Available Services with animation */}
         <motion.div
-        className="bg-gradient-to-r from-[#6E45E2] to-[#6E45E2] text-white w-full lg:w-[400px] xl:w-[480px] h-[320px] lg:h-[520px] flex flex-col justify-center items-center rounded-3xl shadow-xl p-8 relative overflow-hidden"
+        className="bg-gradient-to-r  from-[#454fe2] to-[#5245e2] text-white w-full lg:w-[400px] xl:w-[480px] h-[320px] lg:h-[520px] flex flex-col justify-center items-center rounded-3xl shadow-xl p-8 relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2, margin: "-100px" }} 

@@ -62,11 +62,8 @@ const ProfileEdit = ({ userDetails }) => {
             toast.error("Mobile number must be exactly 10 digits");
             return false;
         }
-        if(image===null){
-            toast.error("Image Required!. Please Upload Profile image");
-            return false;
-        }
-        if (image.size > 2 * 1024 * 1024) { 
+       
+        if (image!==null && image.size > 2 * 1024 * 1024) { 
             toast.error("Image size should not exceed 2 MB");
             return false;
         }
@@ -81,8 +78,10 @@ const ProfileEdit = ({ userDetails }) => {
         const formD = new FormData();
         formD.append("name", formData.name);
         formD.append("mobileNumber", formData.mobileNumber);
-        formD.append("profileImage", image);
-
+        if(image!==null){
+            formD.append("profileImage", image);
+        }
+       
         
         dispatch(updateUserProfile(jwt, formD));
         navigate("/profile");
@@ -164,7 +163,7 @@ const ProfileEdit = ({ userDetails }) => {
                                 
                                 {image ? <p className="text-green-600 font-serif text-sm mt-2">New photo selected</p>:<p className="text-xs text-gray-500 mt-1 font-serif flex items-center">
                                         <FaTimes className="mr-1 text-gray-400" />
-                                        image  is required (2 MB) 
+                                       Select image (2 MB)
                                     </p>}
                             </div>
                         </div>

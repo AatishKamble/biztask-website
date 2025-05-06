@@ -99,14 +99,14 @@ const HangingBanner=({imgage,title,subtitle})=>{
     animate="visible"
   >
     <motion.h1 
-      className="text-4xl  md:text-5xl font-bold  text-cyan-200  mb-6 drop-shadow-lg"
+      className="text-5xl font-bold  text-cyan-200  mb-6 drop-shadow-lg"
       variants={textVariants}
     >
       {title}
     </motion.h1>
     
     <motion.p 
-      className="text-lg md:text-xl font-normal max-w-2xl text-slate-200 drop-shadow-sm mb-8"
+      className="text-[20px] font-normal max-w-2xl text-slate-200 drop-shadow-sm mb-8"
       variants={textVariants}
     >
       {subtitle}

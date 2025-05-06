@@ -118,15 +118,24 @@ const updateUserProfile = async (userId, userData, imageUrl, imagePublicID) => {
         const { name, mobileNumber } = userData;
         const user = await userModel.findById(userId);
 
-        if (user.profileImage && user.profileImage.publicId) {
-            await deleteFromCloudinary(user.profileImage.publicId);
-        }
+        const updateFields = {
+            name,
+            mobileNumber,
+          };
+      
+          if (imageUrl && imagePublicID) {
+            if (user.profileImage?.publicId) {
+              await deleteFromCloudinary(user.profileImage.publicId);
+            }
+      
+            updateFields.profileImage = {
+              ImageUrl: imageUrl,
+              publicId: imagePublicID,
+            };
+          }
 
-        const updatedUser = await userModel.findByIdAndUpdate(
-            userId,
-            { name: name, mobileNumber: mobileNumber, profileImage: { ImageUrl: imageUrl, publicId: imagePublicID } },
-            { new: true }
-        );
+          await userModel.findByIdAndUpdate(userId, updateFields, { new: true });
+
 
         const userUpdated = getUserById(userId)
         return userUpdated;

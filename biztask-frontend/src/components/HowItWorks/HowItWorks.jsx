@@ -118,7 +118,7 @@ const HowItWorks = ({ HowItWorks }) => {
   return (
     <motion.div
       ref={HowItWorks}
-      className="w-full py-16 pt-12 pb-24 px-6 lg:px-20 bg-white"
+      className="w-full xl:py-16 xl:pt-12 pt-10  px-6 lg:px-20 bg-white"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -160,10 +160,12 @@ const HowItWorks = ({ HowItWorks }) => {
         </motion.div>
         
         {/* Process Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
+        <div className="grid grid-cols-2 xl:grid-cols-3 gap-8 md:gap-12 relative">
          
         <div className="hidden md:block absolute top-36 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 z-0" />
           
+        <div className=" block xl:hidden absolute top-36 left-[23%] right-0 h-[80%] w-1 bg-gradient-to-t from-blue-500 via-purple-500 to-emerald-500 z-0" />
+         
           {steps.map((step, index) => (
             <motion.div 
               key={index}
@@ -178,19 +180,19 @@ const HowItWorks = ({ HowItWorks }) => {
                     <h3 className="text-2xl font-bold font-serif text-white">
                       {step.title}
                     </h3>
-                    <p className="text-white text-opacity-90 mt-1 font-serif text-sm hidden md:block">
+                    <p className="text-white text-opacity-90 mt-1 font-serif text-sm hidden md:block pe-4">
                       {step.description}
                     </p>
                   </div>
                   <motion.div 
-                    className={`w-20 h-20 ${step.bgColor} rounded-full flex items-center justify-center shadow-lg`}
-                    variants={iconVariants}
-                    whileHover="hover"
-                  >
-                    <span className="text-4xl text-blue-700">
-                      {step.icon}
-                    </span>
-                  </motion.div>
+                      className={`w-16 h-16 md:w-20 md:h-20 ${step.bgColor} rounded-full flex items-center justify-center shadow-lg`}
+                      variants={iconVariants}
+                      whileHover="hover"
+                    >
+                      <span className="text-3xl md:text-4xl text-blue-700">
+                        {step.icon}
+                      </span>
+                    </motion.div>
                 </div>
                 
                 {/* Card body */}

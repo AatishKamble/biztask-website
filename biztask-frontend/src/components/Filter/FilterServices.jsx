@@ -67,8 +67,8 @@ const FilterServices = ({
 
   return (
     <motion.div
-      className="w-96 mx-auto"
-      initial="hidden"
+    className="xl:w-96 mx-auto grid xl:grid-cols-1 grid-cols-2 gap-4 xl:gap-0"
+    initial="hidden"
       animate="visible"
       variants={containerVariants}
     >

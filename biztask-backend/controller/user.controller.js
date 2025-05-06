@@ -66,11 +66,14 @@ const updateUserProfile=async(req,res)=>{
 try {
     const obj = JSON.parse(JSON.stringify(req.body));
     const userId=req.user._id;
-    const imageUploadUrl=await uploadOnCloudinary(req.file?.path);
-    if(!imageUploadUrl){
-        throw new Error("Image Not Found");
-    }
-    const user=await userService.updateUserProfile(userId,obj,imageUploadUrl.secure_url,imageUploadUrl.public_id);
+    let imageUploadUrl = null;
+    if (req.file?.path) {
+        imageUploadUrl = await uploadOnCloudinary(req.file.path);
+        if (!imageUploadUrl) {
+          throw new Error("Image upload failed");
+        }
+      }
+    const user=await userService.updateUserProfile(userId,obj,imageUploadUrl?.secure_url,imageUploadUrl?.public_id);
     return res.json({success:true,message:"Profile Updated",user:user});
     
 } catch (error) {

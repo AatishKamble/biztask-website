@@ -215,17 +215,17 @@ const SearchService = () => {
     <>
 
 
-      <div className='relative w-full h-[400px] bg-blue-900 overflow-hidden shadow-xl'>
+      <div className='relative w-full xl:h-[400px] h-[700px] bg-blue-900 overflow-hidden shadow-xl'>
 
         <HangingBanner imgage={serviceBack} title={`Discover Top Services Around You`} subtitle=" Filter what matters and connect with the right service providers easily." />
 
       </div>
-      <div className='  w-full h-full pt-10 pb-10 ps-14 pe-0 flex '>
+      <div className='  w-full h-full pt-10 pb-10 xl:ps-14 p-10 xl:pe-0 flex flex-col xl:flex-row'>
         <div>
 
 
           <div className="mb-6 mx-auto w-full">
-            <h1 className="text-3xl font-serif font-bold text-blue-900 flex items-center">
+            <h1 className="xl:text-3xl text-4xl font-serif font-bold text-blue-900 flex items-center">
 
               Find Your Perfect Service
             </h1>
@@ -258,7 +258,7 @@ const SearchService = () => {
           />
         </div>
 
-        <div className=' w-full h-auto  grid xl:grid-cols-3 gap-y-10 ps-10 pe-2 mt-14 relative mx-3 '>
+        <div className=' w-full h-auto  grid grid-cols-2 xl:grid-cols-3 gap-y-10  xl:ps-10 pe-2 mt-14 relative xl:mx-3 mx-auto '>
 
           {isLoading == true && (
             <div className="absolute px-10 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
@@ -289,7 +289,7 @@ const SearchService = () => {
 
 
       </div>
-      <div className=' w-full h-20 flex ps-[500px] justify-center items-center py-5 mb-5'>
+      <div className=' w-full h-20 flex xl:ps-[500px] justify-center items-center py-5 mb-5'>
         <Pagination
           count={serviceStore.services?.totalPages || 0}
           variant="outlined"

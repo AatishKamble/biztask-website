@@ -15,7 +15,8 @@ import PopUp from '../components/PopUp/PopUp.jsx';
 import { removeBusiness } from '../Redux/Business/Action.js';
 import { IoBusinessOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
-import { motion } from 'framer-motion'; 
+import { motion, AnimatePresence } from "framer-motion";
+import ImageZoom from '../components/ContactInformation/ImageZoom.jsx';
 
 const ProfilePage = ({ userDetails }) => {
   const dispatch = useDispatch();
@@ -38,14 +39,18 @@ const ProfilePage = ({ userDetails }) => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.5
       }
     }
   };
+
+  //profile image state
+       const [showImageModal, setShowImageModal] = useState(false);
+          
 
   useEffect(() => {
     if (location.hash === "#applied-jobs" && appliedJobsRef.current) {
@@ -80,14 +85,14 @@ const ProfilePage = ({ userDetails }) => {
       {userDetails && (
         <div className="min-h-screen mt-10">
           {/* Header Banner  */}
-          <motion.div 
+          <motion.div
             className="bg-gradient-to-r from-blue-600 to-blue-800 h-64 relative px-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             <div className="absolute inset-0 bg-pattern opacity-10"></div>
-            <motion.div 
+            <motion.div
               className="container mx-auto px-6 h-full flex flex-col justify-end pb-20"
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -100,14 +105,14 @@ const ProfilePage = ({ userDetails }) => {
 
           {/* Profile Card  */}
           <div className="container px-6 -mt-16 relative z-10 w-[90%] mx-auto">
-            <motion.div 
+            <motion.div
               className="bg-white rounded-xl shadow-xl p-8 mb-8 border border-blue-100"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               <div className="flex flex-col md:flex-row items-center gap-8">
-                <motion.div 
+                <motion.div
                   className="w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-50 to-blue-100"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
@@ -117,11 +122,11 @@ const ProfilePage = ({ userDetails }) => {
                     src={`${userDetails?.profileImage?.ImageUrl}`}
                     alt="Profile"
                     className="w-full h-full  object-cover"
-                   
+
                   />
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   className="flex-1 text-center md:text-left"
                   initial={{ x: 20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -130,7 +135,7 @@ const ProfilePage = ({ userDetails }) => {
                   <div className="flex flex-col md:flex-row justify-between items-center mb-6">
                     <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 font-serif">
                       <IoPersonCircleOutline className="text-blue-600 text-3xl" />
-                      {userDetails ? userDetails?.name:"N/A"}
+                      {userDetails ? userDetails?.name : "N/A"}
                     </h2>
 
                     <Link to="/profile-edit">
@@ -156,7 +161,7 @@ const ProfilePage = ({ userDetails }) => {
             </motion.div>
 
             {/* Navigation Tabs  */}
-            <motion.div 
+            <motion.div
               className="flex overflow-x-auto mb-8 bg-white rounded-lg shadow-md p-2 border border-blue-100"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -183,8 +188,8 @@ const ProfilePage = ({ userDetails }) => {
             </motion.div>
 
             {/* Business Section */}
-            <motion.div 
-              ref={businessRegistrationRef} 
+            <motion.div
+              ref={businessRegistrationRef}
               className="bg-white rounded-xl mb-8 overflow-hidden border border-blue-100"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -199,7 +204,7 @@ const ProfilePage = ({ userDetails }) => {
                   </h2>
 
                   <Link to="/bussiness-registration">
-                    <motion.button 
+                    <motion.button
                       className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-semibold flex items-center gap-3 text-lg"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -213,10 +218,10 @@ const ProfilePage = ({ userDetails }) => {
 
               <div className="p-6">
                 {userDetails?.businesses?.length > 0 ? (
-                  <div 
+                  <div
                     className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 py-9 gap-6"
-                    
-                    
+
+
                   >
                     {userDetails?.businesses?.map((business, index) => (
                       <motion.div key={index} >
@@ -226,10 +231,10 @@ const ProfilePage = ({ userDetails }) => {
                         />
                       </motion.div>
                     ))}
-                   
+
                   </div>
                 ) : (
-                  <motion.div 
+                  <motion.div
                     className="text-center py-12 bg-blue-50 rounded-lg border border-blue-100"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -240,7 +245,7 @@ const ProfilePage = ({ userDetails }) => {
                     <p className="text-blue-600 text-xl mb-2">You haven't registered any businesses yet</p>
                     <p className="text-blue-400 text-lg mb-4">Register your business to offer services</p>
                     <Link to="/bussiness-registration">
-                      <motion.button 
+                      <motion.button
                         className="mt-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-medium text-lg"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -254,8 +259,8 @@ const ProfilePage = ({ userDetails }) => {
             </motion.div>
 
             {/* Applied Jobs Section  */}
-            <motion.div 
-              ref={appliedJobsRef} 
+            <motion.div
+              ref={appliedJobsRef}
               className="bg-white rounded-xl mb-8 overflow-hidden border border-blue-100"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -270,7 +275,7 @@ const ProfilePage = ({ userDetails }) => {
                   </h2>
 
                   <Link to="/jobs">
-                    <motion.button 
+                    <motion.button
                       className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-semibold flex items-center gap-3 text-lg"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -284,7 +289,7 @@ const ProfilePage = ({ userDetails }) => {
 
               <div className="p-6 pb-10">
                 {userDetails?.appliedJobs?.length > 0 ? (
-                  <motion.div 
+                  <motion.div
                     className="grid grid-cols-1 lg:grid-cols-2 gap-6"
                     variants={containerVariants}
                     initial="hidden"
@@ -302,7 +307,7 @@ const ProfilePage = ({ userDetails }) => {
                     ))}
                   </motion.div>
                 ) : (
-                  <motion.div 
+                  <motion.div
                     className="text-center py-12 bg-blue-50 rounded-lg border border-blue-100"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -313,7 +318,7 @@ const ProfilePage = ({ userDetails }) => {
                     <p className="text-blue-600 text-xl mb-2">You haven't applied to any jobs yet</p>
                     <p className="text-blue-400 text-lg mb-4">Find and apply to jobs that match your skills</p>
                     <Link to="/jobs">
-                      <motion.button 
+                      <motion.button
                         className="mt-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-semibold text-lg"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -329,7 +334,7 @@ const ProfilePage = ({ userDetails }) => {
 
           {/* Popup for removing business */}
           {popupwarning && (
-            <motion.div 
+            <motion.div
               className="fixed inset-0 bg-black/50 backdrop-blur-md z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -338,7 +343,7 @@ const ProfilePage = ({ userDetails }) => {
           )}
 
           {popupwarning && (
-            <motion.div 
+            <motion.div
               className='fixed inset-0 flex items-center justify-center z-50'
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -358,6 +363,17 @@ const ProfilePage = ({ userDetails }) => {
           )}
         </div>
       )}
+
+
+      <AnimatePresence>
+        {showImageModal && (
+          <ImageZoom
+            setShowImageModal={setShowImageModal}
+            profileImage={serviceDetails?.user?.profileImage?.ImageUrl}
+          />
+        )}
+      </AnimatePresence>
+
     </>
   );
 }

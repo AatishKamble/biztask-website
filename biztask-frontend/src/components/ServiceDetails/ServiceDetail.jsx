@@ -7,6 +7,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaUserSecret } from "react-icons/fa";
 import { BsStars } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
+import { MdOutlineImageNotSupported } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import React, { useEffect, useRef, useState } from 'react';
 import Review from "../Reviews/Review";
@@ -30,6 +31,8 @@ import ContactInformation from "../ContactInformation/ContactInformation.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 import ServiceDetailSkeleton from "./ServiceDetailSkeleton.jsx"
 import PaymentModal from "../ContactInformation/PaymentModal.jsx";
+import ImageZoom from "../ContactInformation/ImageZoom.jsx";
+
 
 const ServiceDetail = ({ serviceDetails, userDetails }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -230,6 +233,9 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
         }
     };
 
+    //profile image state
+     const [showImageModal, setShowImageModal] = useState(false);
+        
 
     // States for payment flow
     const [activeTab, setActiveTab] = useState('description');
@@ -279,28 +285,28 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                 ) : (<>
                     <div className="2xl:w-[90%] sm:w-full h-auto py-10 bg-white/30 backdrop-blur-lg shadow-lg my-10 flex flex-col lg:flex-row items-center px-10 rounded-2xl border border-gray-300">
 
-                        <div className='w-full h-[180px] relative flex items-start flex-col justify-center px-10'>
+                        <div className='w-full h-[180px] relative flex xl:items-start items-center flex-col justify-center px-10'>
 
 
 
-                            <div className='w-full text-[28px] text-slate-800 font-serif py-2'>
-                                <span className=' font-semibold px-2'>{serviceDetails?.serviceType}</span>
+                            <div className='xl:w-full xl:text-[32px] text-3xl font-bold text-[#2E3A46] font-serif py-2'>
+                                <span className='  px-2'>{serviceDetails?.serviceType}</span>
 
                             </div>
 
-                            <div className='w-full text-[20px] text-slate-600 font-serif pb-2'>
-                                <span className=' font-medium px-2'>{serviceDetails?.bussiness?.companyName}
+                            <div className='xl:w-full xl:text-[20px] text-2xl text-slate-600 font-serif pb-2'>
+                                <span className=' font-semibold px-2'>{serviceDetails?.bussiness?.companyName}
                                 </span>
 
                             </div>
-                            <div className='w-full px-2 pb-5 flex justify-start items-center  text-[16px] text-blue-950 font-serif font-medium'>
+                            <div className='xl:w-full px-2 pb-3 flex justify-start items-center   text-lg font-serif font-medium  text-gray-700'>
                                 <span>Ratings : </span>
                                 <span className="text-[26px] font-serif font-normal px-2  text-yellow-400"><Star star={serviceDetails?.rating} /> </span>
 
                             </div>
-                            <div className='w-[400px]  h-auto text-[16px] flex justify-start items-center text-blue-950 font-serif px-2 '>
-                                <span className="text-[24px]"><IoLocationSharp /></span>
-                                <span className=' font-normal px text-slate-900'>
+                            <div className='xl:w-[400px]  h-auto xl:text-[16px] text-lg flex justify-start items-center text-blue-950 font-serif '>
+                                <span className="text-[24px] text-blue-600"><IoLocationSharp /></span>
+                                <span className=' font-medium px text-gray-700'>
                                     {
                                         serviceDetails?.locations?.map((location, ind) => {
 
@@ -376,172 +382,141 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     </div>
 
-                    <div className="2xl:w-[90%] sm:w-full h-auto drop-shadow-lg my-10 mt-5 flex flex-col md:flex-row gap-10 px-6 sm:px-2">
-
-                        {/* Left Section */}
-
-                        <div className="flex flex-col xl:w-2/3 gap-6 font-serif">
-                            {/* Tab Navigation */}
-                            <div className="flex border-b font-semibold border-gray-300">
-                                <button
-                                    className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${activeTab === 'description'
-                                            ? 'border-blue-700 text-blue-900 '
-                                            : 'border-transparent text-gray-600 hover:text-blue-800'
-                                        }`}
-                                    onClick={() => setActiveTab('description')}
-                                >
-                                    About
-                                </button>
-                                <button
-                                    className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${activeTab === 'features'
-                                            ? 'border-blue-700 text-blue-900 '
-                                            : 'border-transparent text-gray-600 hover:text-blue-800'
-                                        }`}
-                                    onClick={() => setActiveTab('features')}
-                                >
-                                    Features
-                                </button>
-                                <button
-                                    className={`flex items-center text-lg py-3 px-6 transition-all duration-300 border-b-2 ${activeTab === 'pricing'
-                                            ? 'border-blue-700 text-blue-900 '
-                                            : 'border-transparent text-gray-600 hover:text-blue-800'
-                                        }`}
-                                    onClick={() => setActiveTab('pricing')}
-                                >
-                                    Pricing Details
-                                </button>
-                            </div>
-
-                            {/* Tab Content */}
-
-                            <div className={` ${activeTab === 'pricing'
-                                    ? 'p-0'
-                                    : 'p-6 bg-white border border-blue-200 rounded-2xl '
-                                }`}>
-                                <div
-                                    className={`transition-all duration-500 transform ${activeTab === 'description'
-                                            ? 'opacity-100 max-h-screen translate-y-0 scale-100'
-                                            : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
-                                        }`}
-                                >
-                                    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
-                                        <MdOutlineDescription className="mr-2 text-emerald-600 text-xl" />
-                                        Description
-                                    </div>
-                                    <p className="text-justify p-4 text-slate-800 text-base font-medium leading-relaxed bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg mt-2">
-                                        {serviceDetails?.Description || "No description provided."}
-                                    </p>
-                                </div>
-
-                                <div
-                                    className={`transition-all duration-500 transform ${activeTab === 'features'
-                                            ? 'opacity-100 max-h-screen translate-y-0 scale-100'
-                                            : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
-                                        }`}
-                                >
-                                    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
-                                        <BsStars className="mr-2 text-emerald-600" />
-                                        Features
-                                    </div>
-                                    <ul className="flex flex-col gap-3 p-4 text-slate-800 text-base font-medium">
-                                        {serviceDetails?.features?.length > 0 ? (
-                                            serviceDetails.features.map((feature, idx) => (
-                                                <li key={idx} className="flex items-start gap-2 animate-fadeIn bg-gradient-to-r from-emerald-50 to-emerald-50 p-2 rounded-lg" style={{ animationDelay: `${idx * 100}ms` }}>
-                                                    <FaCheckCircle className="text-emerald-500 mt-1 flex-shrink-0" />
-                                                    <span className="break-words">{feature}</span>
-                                                </li>
-                                            ))
-                                        ) : (
-                                            <li className="text-gray-500 italic">No features listed.</li>
-                                        )}
-                                    </ul>
-                                </div>
-
-                                <div
-                                    className={`transition-all duration-500 transform ${activeTab === 'pricing'
-                                            ? 'opacity-100 max-h-screen translate-y-0 scale-100'
-                                            : 'opacity-0 max-h-0 -translate-y-4 scale-95 overflow-hidden'
-                                        }`}
-                                >
-                                    <motion.div
-                                        
-                                       
-                                        className="bg-white font-serif rounded-xl shadow-md overflow-hidden"
-                                    >
-                                        <div className="bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-4 text-white">
-                                            <h3 className="text-lg font-semibold flex items-center gap-2">
-                                                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
-                                                        clipRule="evenodd"></path> </svg>
-                                                Pricing Details
-                                            </h3>
-                                        </div>
-
-                                        <div className="p-6">
-                                            <div className="flex justify-between items-center mb-6">
-                                                <div className="text-center">
-                                                    <span className="block text-sm text-gray-500 mb-1">Starting From</span>
-                                                    <motion.div
-                                                        initial={{ scale: 0.8 }}
-                                                        animate={{ scale: 1 }}
-                                                        transition={{ duration: 0.5 }}
-                                                        className="text-2xl font-bold text-blue-800 flex items-center justify-center"
-                                                    >
-                                                        <MdOutlineCurrencyRupee />
-                                                        <span>{serviceDetails?.minPrice || "N/A"}</span>
-                                                    </motion.div>
-                                                </div>
-
-                                                <div className="h-12 border-r-2 border-gray-300"></div>
-
-                                                <div className="text-center">
-                                                    <span className="block text-sm text-gray-500 mb-1">Up To</span>
-                                                    <motion.div
-                                                        initial={{ scale: 0.8 }}
-                                                        animate={{ scale: 1 }}
-                                                        transition={{ delay: 0.2, duration: 0.5 }}
-                                                        className="text-2xl font-bold text-blue-800 flex items-center justify-center"
-                                                    >
-                                                        <MdOutlineCurrencyRupee />
-                                                        <span>{serviceDetails?.maxPrice || "N/A"}</span>
-                                                    </motion.div>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-4 text-sm text-gray-600 bg-green-50 rounded-lg p-3 flex items-start gap-2">
-                                                <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
-                                                </svg>
-                                                <span>Prices may vary based on service complexity and specific requirements.</span>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                </div>
-                            </div>
+                   
 
 
+                  
 
+        <div className="2xl:w-[90%] font-serif sm:w-full h-auto drop-shadow-lg my-10 mt-5 flex flex-col xl:flex-row gap-10 px-6 sm:px-2">
+        {/* Left Section */}
+            <div className="flex flex-col xl:w-2/3 gap-5">
+                {/* Tab Navigation */}
+                <div className="flex border-b border-gray-300 overflow-x-auto no-scrollbar">
+                    <button
+                        className={`flex items-center text-lg py-3 px-5 transition-all duration-300 border-b-2 ${
+                            activeTab === 'description'
+                                ? 'border-emerald-600 text-emerald-800 font-semibold'
+                                : 'border-transparent text-gray-600 hover:text-emerald-700'
+                        }`}
+                        onClick={() => setActiveTab('description')}
+                    >
+                        About
+                    </button>
+                    <button
+                        className={`flex items-center text-lg py-3 px-5 transition-all duration-300 border-b-2 ${
+                            activeTab === 'features'
+                                ? 'border-emerald-600 text-emerald-800 font-semibold'
+                                : 'border-transparent text-gray-600 hover:text-emerald-700'
+                        }`}
+                        onClick={() => setActiveTab('features')}
+                    >
+                        Features
+                    </button>
+                    <button
+                        className={`flex items-center text-lg py-3 px-5 transition-all duration-300 border-b-2 ${
+                            activeTab === 'pricing'
+                                ? 'border-emerald-600 text-emerald-800 font-semibold'
+                                : 'border-transparent text-gray-600 hover:text-emerald-700'
+                        }`}
+                        onClick={() => setActiveTab('pricing')}
+                    >
+                        Pricing
+                    </button>
+                </div>
 
+                {/* Tab Content */}
+                <div className={`${activeTab === 'pricing' ? 'p-0' : 'p-5 bg-white border border-emerald-100 rounded-xl shadow-sm'}`}>
+                    {/* Description Tab */}
+                    <div 
+                        className={`${activeTab === 'description' ? 'block' : 'hidden'}`}
+                    >
+                        <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
+                            <MdOutlineDescription className="mr-2 text-emerald-600 text-xl" />
+                            Service Description
                         </div>
-                        {/* Right Section */}
-
-                        <div className="flex md:w-[45%] ">
-
-                            {/* Contact Details */}
-                            <div className="bg-white border border-blue-200 rounded-2xl p-6 w-full flex flex-col sm:flex-row gap-6 items-center ">
-
-
-
-
-                                {/* Contact Info */}
-                                < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} handlePaymentInitiation={handlePaymentInitiation} hasPaid={hasPaid} />
-                            </div>
-
-
-                        </div>
+                        <p className="text-justify p-4 text-slate-700 text-lg xl:text-base leading-relaxed bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg mt-3">
+                            {serviceDetails?.Description || "No description provided for this service."}
+                        </p>
                     </div>
 
+                    {/* Features Tab */}
+                    <div
+                        className={`${activeTab === 'features' ? 'block' : 'hidden'}`}
+                    >
+                        <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
+                            <BsStars className="mr-2 text-emerald-600" />
+                            Service Features
+                        </div>
+                        <ul className="flex flex-col gap-3 p-4 text-slate-700 text-lg xl:text-base">
+                            {serviceDetails?.features?.length > 0 ? (
+                                serviceDetails.features.map((feature, idx) => (
+                                    <li key={idx} className="flex items-start gap-3 bg-gradient-to-r from-emerald-50 to-white p-3 rounded-lg">
+                                        <FaCheckCircle className="text-emerald-500 mt-1 flex-shrink-0" />
+                                        <span className="break-words">{feature}</span>
+                                    </li>
+                                ))
+                            ) : (
+                                <li className="text-gray-500 italic p-3">No features listed for this service.</li>
+                            )}
+                        </ul>
+                    </div>
 
+                    {/* Pricing Tab */}
+                    <div
+                        className={`${activeTab === 'pricing' ? 'block' : 'hidden'}`}
+                    >
+                        <div
+                            className="bg-white font-serif rounded-xl shadow-md overflow-hidden border border-emerald-100"
+                        >
+                            <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4 text-white">
+                                <h3 className="text-xl font-semibold flex items-center gap-2">
+                                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+                                            clipRule="evenodd"></path> 
+                                    </svg>
+                                    Service Pricing
+                                </h3>
+                            </div>
+
+                            <div className="p-6">
+                                <div className="flex justify-between items-center mb-6">
+                                    <div className="text-center">
+                                        <span className="block text-sm text-gray-500 mb-1">Starting From</span>
+                                        <div className="text-2xl font-bold text-emerald-700 flex items-center justify-center">
+                                            <MdOutlineCurrencyRupee />
+                                            <span>{serviceDetails?.minPrice || "N/A"}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="h-12 border-r-2 border-gray-300"></div>
+
+                                    <div className="text-center">
+                                        <span className="block text-sm text-gray-500 mb-1">Up To</span>
+                                        <div className="text-2xl font-bold text-emerald-700 flex items-center justify-center">
+                                            <MdOutlineCurrencyRupee />
+                                            <span>{serviceDetails?.maxPrice || "N/A"}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4 text-base text-gray-600 bg-emerald-50 rounded-lg p-4 flex items-start gap-2">
+                                    <svg className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
+                                    </svg>
+                                    <span>Final prices may vary based on service complexity and your specific requirements.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Right Section  */}
+            <div className="flex xl:w-1/3">
+            < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} handlePaymentInitiation={handlePaymentInitiation} hasPaid={hasPaid} setShowImageModal={setShowImageModal} />
+            
+            </div>
+        </div>
 
                     {/* job */}
                     {
@@ -723,15 +698,16 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         )}
 
                         {AllPhotos.length === 0 ? (
-                            <div className="w-full flex items-center justify-center">
-                                <span className="text-[35px] text-[#b0d0d2] font-bold">
-                                    No Images Available
+                            <div className="w-full flex font-serif items-center justify-center text-[#adafaf] font-bold">
+                                <MdOutlineImageNotSupported className="text-5xl me-4" />
+                                <span className="text-[35px] ">
+                                 No Images Available
                                 </span>
                             </div>
                         ) : (
                             <div className="w-full bg-white border-y border-slate-300 rounded-xl relative p-6">
-                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-                                    {AllPhotos.slice(0, 15).map((element, index) => (
+                                <div className="grid grid-cols-2  xl:grid-cols-4 gap-6">
+                                    {AllPhotos.slice(0, 11).map((element, index) => (
                                         <div
                                             key={index}
                                             className="relative group cursor-pointer overflow-hidden rounded-lg border-2 border-blue-900  shadow-sm hover:shadow-md transition-all"
@@ -740,7 +716,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             <img
                                                 src={element.imageUrl}
                                                 alt={`img-${index}`}
-                                                className="w-full h-[200px] object-cover transition-transform  duration-300 group-hover:scale-105"
+                                                className="w-full xl:h-[220px] h-[250px] object-cover transition-transform  duration-300 group-hover:scale-105"
                                             />
 
                                         </div>
@@ -749,25 +725,28 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                                 {/* Modal */}
                                 {isModalOpen !== null && (
-                                    <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center  justify-center">
-                                        <div className="relative w-full max-w-4xl h-[90vh] bg-white rounded-xl border-2  shadow-xl">
-
-                                            <button
+                                    <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center  justify-center">
+                                        <button
                                                 onClick={handleModalClose}
-                                                className="absolute top-3 right-3 text-purple-600 bg-blue-50 hover:bg-blue-300 rounded-full p-2 z-50"
+                                                className="absolute top-5 right-6 text-red-600 bg-white/50 hover:scale-95  rounded-full p-2 z-50"
                                             >
                                                 <IoClose size={30} />
                                             </button>
+                                        <div className="relative w-[80%]  xl:h-[90vh] h-[50vh] bg-white rounded-xl   shadow-xl">
+
+                                            
 
                                             <img
                                                 src={AllPhotos[isModalOpen].imageUrl}
                                                 alt="Full view"
-                                                className="w-full h-full object-cover rounded-xl "
+                                                className="w-full h-full object-fit rounded-xl "
                                             />
 
 
-                                            <button
-                                                className="absolute left-3 top-1/2 -translate-y-1/2 text-xl w-10 h-10 text-grey-600 bg-blue-300 hover:bg-blue-200  p-2 rounded-2xl"
+                                           
+                                        </div>
+                                        <button
+                                                className="absolute xl:left-20 left-5 top-1/2 -translate-y-1/2 text-xl w-12 h-12 text-grey-600 bg-white/50 hover:bg-blue-200  p-2 pe-3 rounded-full flex items-center justify-center"
                                                 onClick={() =>
                                                     setIsModalOpen((prev) => (prev > 0 ? prev - 1 : AllPhotos.length - 1))
                                                 }
@@ -776,19 +755,17 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             </button>
 
                                             <button
-                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-xl w-10 h-10 text-grey-600 bg-blue-300 hover:bg-blue-200 p-2 ps-3 rounded-2xl text-center"
+                                                className="absolute xl:right-20 right-5 top-1/2 -translate-y-1/2 text-xl w-12 h-12 text-grey-600 bg-white/50 hover:bg-blue-200 p-2 ps-3  rounded-full flex items-center justify-center"
                                                 onClick={() =>
                                                     setIsModalOpen((prev) => (prev < AllPhotos.length - 1 ? prev + 1 : 0))
                                                 }
                                             >
                                                 <GrCaretNext />
                                             </button>
-                                        </div>
                                     </div>
                                 )}
                             </div>
                         )}
-
 
 
 
@@ -826,7 +803,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                     <div className="w-full px-6 py-8 mb-6">
-                        <div className="max-w-6xl   mx-auto flex flex-col md:flex-row justify-between items-center ">
+                        <div className="xl:max-w-6xl max-w-4xl   mx-auto flex flex-col md:flex-row justify-between items-center ">
                             <div className="text-blue-800 mb-6 md:mb-0 text-center md:text-left">
                                 <h2 className="font-serif font-bold text-3xl md:text-4xl mb-2">
                                     Client Reviews
@@ -892,7 +869,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
                     <div className="w-full px-6 mb-8">
-                        <div className="max-w-6xl mx-auto">
+                        <div className="xl:max-w-6xl max-w-4xl mx-auto">
                             {/* Filter tabs would go here - example UI */}
                             <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-6">
                                 <button className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-serif">
@@ -965,7 +942,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             className="max-w-2xl mx-auto flex flex-col items-center gap-6 py-8"
                         >
                             <div className="text-center mb-2">
-                                <h2 className="text-blue-950 font-serif font-bold text-2xl md:text-3xl inline-block border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+                                <h2 className="text-blue-950 font-serif font-bold text-3xl inline-block border-b-4 border-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent">
                                     Share Your Experience
                                 </h2>
                                 <div className="h-[3px] w-20 mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
@@ -973,7 +950,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                             {/* Rating input with half-star capability */}
                             <div className="flex flex-col items-center gap-2 w-full">
-                                <label htmlFor="star-rating" className="text-lg font-serif font-medium text-gray-700">
+                                <label htmlFor="star-rating" className="xl:text-lg text-xl font-serif font-medium text-gray-700">
                                     How would you rate this service?
                                 </label>
                                 <div className="flex items-center gap-4">
@@ -982,8 +959,8 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             <div key={index} className="relative">
                                                 {/* Full star base (gray background) */}
                                                 <FaStar
-                                                    size={28}
-                                                    className="text-gray-300"
+                                                   
+                                                    className="text-gray-300 xl:w-7 xl:h-7 w-8 h-8"
                                                 />
 
                                                 {/* Left half clickable area */}
@@ -1013,8 +990,8 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                                 {/* Colored overlay for full star */}
                                                 {(hoverValue || currentValue) >= index + 1 && (
                                                     <FaStar
-                                                        size={28}
-                                                        className="absolute top-0 left-0 text-yellow-500 drop-shadow-md"
+                                                       
+                                                        className="absolute top-0 left-0 text-yellow-500 drop-shadow-md xl:w-7 xl:h-7 w-8 h-8"
                                                     />
                                                 )}
                                             </div>
@@ -1034,14 +1011,14 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                             {/* Review input */}
                             <div className="w-full flex flex-col items-center gap-2">
-                                <label htmlFor="review" className="text-lg font-serif font-medium text-gray-700">
+                                <label htmlFor="review" className="xl:text-lg text-xl font-serif font-medium text-gray-700">
                                     Your Review
                                 </label>
                                 <textarea
                                     name="review"
                                     id="review"
                                     placeholder="What did you like or dislike? What was your experience with this service provider?"
-                                    className="text-[16px] h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                                    className="xl:text-[16px] text-lg h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
                                     style={{ resize: "none" }}
                                     rows={5}
                                     value={input}
@@ -1064,6 +1041,16 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     </div>
                 </div>
             }
+
+ {/* Image Modal/Lightbox */}
+ <AnimatePresence>
+                {showImageModal && (
+                   <ImageZoom 
+                   setShowImageModal={setShowImageModal} 
+                   profileImage={serviceDetails?.user?.profileImage?.ImageUrl} 
+               />
+                )}
+            </AnimatePresence>
 
             <AnimatePresence>
                 {showPaymentModal && (

@@ -24,7 +24,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[540px] sm:h-[600px] md:h-[700px] xl:h-[100vh] flex items-center overflow-hidden">
+    <div className="relative w-full h-[80vh]  xl:h-[100vh] flex items-center overflow-hidden">
       {/* Background Image  */}
       <div className="w-full h-full bg-gradient-to-r from-blue-900 to-slate-900 relative">
         <img

@@ -141,7 +141,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
             </div>
 
             {/* Job Header Card */}
-            <div className="relative w-full max-w-6xl bg-white shadow-lg my-2 p-8 rounded-3xl border border-blue-100">
+            <div className="relative  xl:max-w-6xl w-[95%] bg-white shadow-lg my-2 p-8 rounded-3xl border border-blue-100">
               <div className="flex flex-col">
                 <h2 className="text-[32px] font-serif font-bold text-[#2E3A46] mb-2">
                   {jobStore?.job?.jobRole}
@@ -262,7 +262,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
             </div>
 
             {/* Job Content */}
-            <div className="w-full max-w-6xl font-serif grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 mt-6">
+            <div className=" xl:max-w-6xl w-[95%] font-serif grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 mt-6">
               {/* Left Column - Job Overview */}
               <div className="lg:col-span-2">
                 <div className="mb-6">
@@ -369,6 +369,8 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
               {/* Right Column - Job Details */}
               <div className="lg:col-span-1">
+
+                <div className=" grid xl:grid-cols-1 grid-cols-2 gap-x-4 w-full">
                 {/* Job Details Card */}
                 <div className="bg-white border border-blue-100 rounded-xl p-6 mb-6 shadow-md hover:shadow-blue-100 transition-all duration-300">
                   <h3 className="flex items-center text-xl font-semibold text-gray-800 mb-4 pb-2 border-b border-blue-200 font-serif">
@@ -462,7 +464,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                     </div>
                   </div>
                 </div>
-
+                </div>
                 {/* Location Service Area Card - New */}
                 <div className="bg-white border border-blue-100 rounded-xl p-6 shadow-md hover:shadow-blue-100 transition-all duration-300">
                   <h3 className="flex items-center text-xl font-semibold text-gray-800 mb-4 pb-2 border-b border-blue-200 font-serif">
@@ -499,6 +501,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                     </div>
                   )}
                 </div>
+
               </div>
             </div>
 

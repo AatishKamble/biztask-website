@@ -32,19 +32,22 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             
-          <div className=" flex flex-col justify-center items-center md:border-r md:border-cyan-200 md:border-dotted ">
-            <div className="h-28 w-full ">
-            <img src={logo} alt='logo' className='h-full  w-full object-cover'/>
-        
+         
+          <div className="  md:border-r md:border-cyan-200 md:border-dotted ps-10 xl:ps-0 ">
+          <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4 pb-2">
+                About Biztask
+              </h3>
+              <div className="flex xl:flex-col items-center">
+                <div className="xl:h-24 h-28 xl:w-full w-[320px]">
+                  <img src={logo} alt='logo' className='h-full w-full object-cover' />
+                </div>
+                <p className="text-center  font-serif text-cyan-100 hover:text-cyan-300 xl:text-lg  leading-relaxed italic  xl:p-2 pe-3 xl:pt-2">
+                  Connecting businesses, workers and service seekers with ease
+                </p>
+              </div>
             </div>
-        
-            <p className="  text-center font-serif text-cyan-100 hover:text-cyan-300 text-[16px] leading-relaxed italic ">
-              Connecting businesses, workers and service seekers with ease
-            </p>
-          </div>
-
             {/* Quick Links */}
-            <div className="md:border-r md:border-cyan-200 md:border-dotted">
+            <div className="xl:border-r xl:border-cyan-200 xl:border-dotted">
               <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4  pb-2">
                 Quick Links
               </h3>
@@ -77,7 +80,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             </div>
 
             {/* Resources */}
-            <div className="md:border-r md:border-cyan-200 md:border-dotted">
+            <div className="md:border-r md:border-cyan-200 md:border-dotted ps-10 xl:ps-0">
               <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4  pb-2">
                 Resources
               </h3>
@@ -111,7 +114,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
               </h3>
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
-                  <MdLocationOn className="text-cyan-300 text-xl" />
+                  <MdLocationOn className="text-cyan-300 text-2xl" />
                   <span className="text-cyan-100 font-serif">Pimpri Chinchwad, Pune</span>
                 </div>
                 <div className="flex items-center gap-3">
