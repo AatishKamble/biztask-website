@@ -3,7 +3,7 @@ import ServiceCard from '../components/ServiceCard/ServiceCard.jsx'
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaPhone } from "react-icons/fa6";
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdZoomOutMap } from "react-icons/md";
 import BusinessCard from '../components/BusinessCard/BusinessCard.jsx';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,8 +49,8 @@ const ProfilePage = ({ userDetails }) => {
   };
 
   //profile image state
-       const [showImageModal, setShowImageModal] = useState(false);
-          
+  const [showImageModal, setShowImageModal] = useState(false);
+
 
   useEffect(() => {
     if (location.hash === "#applied-jobs" && appliedJobsRef.current) {
@@ -117,6 +117,7 @@ const ProfilePage = ({ userDetails }) => {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.7 }}
+                  onClick={() => setShowImageModal(true)}
                 >
                   <img
                     src={`${userDetails?.profileImage?.ImageUrl}`}
@@ -124,6 +125,9 @@ const ProfilePage = ({ userDetails }) => {
                     className="w-full h-full  object-cover"
 
                   />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition-all duration-300">
+                    <MdZoomOutMap className="text-white opacity-0 group-hover:opacity-100 text-2xl" />
+                  </div>
                 </motion.div>
 
                 <motion.div
