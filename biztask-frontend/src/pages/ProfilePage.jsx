@@ -113,7 +113,7 @@ const ProfilePage = ({ userDetails }) => {
             >
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <motion.div
-                  className="w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-50 to-blue-100"
+                  className="w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-50 to-blue-100 group cursor-pointer"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.7 }}
@@ -373,7 +373,7 @@ const ProfilePage = ({ userDetails }) => {
         {showImageModal && (
           <ImageZoom
             setShowImageModal={setShowImageModal}
-            profileImage={serviceDetails?.user?.profileImage?.ImageUrl}
+            profileImage={userDetails?.profileImage?.ImageUrl}
           />
         )}
       </AnimatePresence>
