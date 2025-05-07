@@ -784,7 +784,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 submessage="Are you sure you want to remove this service?"
                                 button1="Cancel"
                                 button2="Remove"
-                                submessage2={`Job Role: ${serviceDetails?.serviceType}`}
+                                submessage2={`Service Type: ${serviceDetails?.serviceType}`}
                                 closeButton={handlePopupWarningClose}
                                 handleRemove={handleServiceRemove}
                             />
