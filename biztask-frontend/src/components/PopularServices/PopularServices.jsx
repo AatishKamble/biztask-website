@@ -12,13 +12,13 @@ const PopularServices = () => {
   // Service data remains unchanged
   const services = [
     {
-      type: "Event Decoration",
+      type: "Decoration Services",
       image: eventDecoration,
-      value: "Event Decoration",
+      value: "Decoration",
       gradient: "from-purple-500 via-purple-400 to-purple-500", 
     },
     {
-      type: "Home Cleaning",
+      type: "Cleaning Services",
       image: homeCleaning,
       value: "Cleaning",
       gradient: "from-green-500 via-green-400 to-green-500",
@@ -44,7 +44,7 @@ const PopularServices = () => {
     {
       type: "Motor Repairing",
       image: motor,
-      value: "motor",
+      value: "Motor Repairing",
       gradient: "from-red-500 via-red-400 to-red-500",
     },
   ];

@@ -4,7 +4,7 @@ import Star from "../Reviews/Star";
 
 const ServiceCard = ({ business, service, provider }) => {
   return (
-    <div className="w-full h-full  rounded-xl shadow-md hover:shadow-xl transition duration-300 flex flex-col border border-green-200 bg-white">
+    <div className="w-full h-full sm:max-h-[450px] rounded-xl shadow-md hover:shadow-xl transition duration-300 flex flex-col border border-green-200 bg-white">
       {/* Image Section */}
       <div className="h-[280px] w-full p-4 overflow-hidden relative group rounded-t-lg">
         <img 

@@ -57,6 +57,13 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
   const [popUp, setPopUp] = useState(false);
 
+  const handleApplyPopUpOpen = () => {
+    setPopUp(true);
+  };
+
+  const handleApplyPopUpClose = () => {
+    setPopUp(false);
+  };
 
   const handleApply = () => {
     if (userDetails) {
@@ -65,7 +72,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
     else {
       handleLogInButtonClick();
     }
-    setPopUp(false);
+    handleApplyPopUpClose();
   }
 
   //remove popUp
@@ -88,38 +95,20 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-lg z-40 animate-fadeIn"></div>
       )}
 
-      {popUp && (
-        <div className="bg-gradient-to-br from-slate-50 to-slate-100 border-[2px] border-gray-400 w-[90%] max-w-[800px] drop-shadow-xl h-auto pb-5 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] transform backdrop-blur-lg animate-scaleIn z-50 rounded-xl">
-          <div className="w-full p-5 flex justify-center items-center border-b-slate-300 border-[1px] relative bg-white/50 rounded-t-xl">
-            <span className="text-3xl text-red-500 mr-3 animate-pulse"><HiBellAlert /></span>
-            <div className="absolute top-3 right-3 text-[30px] cursor-pointer hover:text-red-500 hover:scale-110 transition-all duration-300 font-serif" onClick={() => setPopUp(false)}>
-              <IoIosCloseCircleOutline />
-            </div>
-            <h1 className="text-2xl pe-4 pt-2 font-bold text-red-600 font-serif">
-              Please Review Your Profile!
-            </h1>
-          </div>
+      {popUp && (<>
 
-          <div className="flex justify-center flex-col font-serif items-center p-6">
-            <p className="text-[19px] text-blue-700 font-medium mb-3">Before proceeding, please take a moment to ensure that you are ready to apply.</p>
-
-          </div>
-
-          <div className="flex justify-center p-5 gap-x-6">
-            <button
-              className='bg-blue-500 rounded-xl  p-2  w-[120px] h-auto text-white font-serif font-bold text-[18px] '
-              onClick={handleApply}
-            >
-              Apply
-            </button>
-            <button
-              className='rounded-xl p-2 bg-red-500 w-[120px] h-auto text-white font-serif font-bold text-[18px]   '
-              onClick={() => setPopUp(false)}
-            >
-              Cancel
-            </button>
-          </div>
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <PopUp
+            message="Please Review Your Profile!"
+            submessage="Before proceeding, please take a moment to ensure that you are ready to apply."
+            button1="Cancel"
+            button2="Apply"
+            submessage2={`Job Role: ${jobStore?.job?.jobRole}`}
+            closeButton={handleApplyPopUpClose}
+            handleRemove={handleApply}
+          />
         </div>
+      </>
       )}
 
 
@@ -248,8 +237,8 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   </button>
                 ) : (
                   <button
-                    className="px-4 py-2 font-semibold bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-500 font-serif text-[18px] flex items-center justify-center"
-                    onClick={() => setPopUp(true)}
+                    className="px-4 py-2 font-semibold bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-500 font-serif text-[18px] flex items-center justify-center"
+                    onClick={() => handleApplyPopUpOpen()}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -492,7 +481,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                     <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200 mt-6">
                       <p className="text-blue-800 text-center font-medium mb-3 font-serif">Interested in this local opportunity?</p>
                       <button
-                        onClick={() => setPopUp(true)}
+                        onClick={() => handleApplyPopUpOpen()}
                         className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-300 flex items-center justify-center"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

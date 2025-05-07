@@ -11,6 +11,9 @@ import serviceBack from "../assets/service.jpg"
 import JobLoader from '../components/Loader/JobLoader.jsx';
 import HangingBanner from '../components/HangingBanner/HangingBanner.jsx';
 import { motion } from 'framer-motion';
+import { FaSearchDollar } from 'react-icons/fa';
+import { MdOutlineAddCircleOutline } from 'react-icons/md';
+
 const SearchService = () => {
 
   const location = useLocation();
@@ -211,6 +214,10 @@ const SearchService = () => {
     setPriceInput("");
     setSelectedCheckbox([]);
   };
+
+
+  const hasNoServices = !isLoading && (!serviceStore.services?.services || serviceStore.services?.services.length === 0);
+
   return (
     <>
 
@@ -258,33 +265,52 @@ const SearchService = () => {
           />
         </div>
 
-        <div className=' w-full h-auto  grid grid-cols-1 xl:grid-cols-3 gap-10 md:px-12 px-2 mt-14 relative   '>
-
-          {isLoading == true && (
-            <div className="absolute px-10 md:ms-2 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
-
-              <JobLoader />
-
-            </div>
-          )}
-          {
-            isLoading == false && serviceStore.services?.services?.map((service, index) => (
-              <div key={index} className='flex justify-center '>
-            <ServiceCard business={service?.bussiness} service={service} provider={service?.bussiness?.companyName} />
-            </div>
-          ))
-          }
-
-
-
-          <div>
-
-
-
-          </div>
-
+        <div className='w-full h-auto grid grid-cols-1 xl:grid-cols-3 gap-10 md:px-12 px-2 mt-14 relative font-serif'>
+      {isLoading && (
+        <div className="absolute px-10 md:ms-2 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
+          <JobLoader />
         </div>
+      )}
 
+      {hasNoServices && (
+        <div className="col-span-1 xl:col-span-3 py-16 flex flex-col items-center justify-center text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+          <div className="mb-6 p-6 bg-indigo-50 rounded-full">
+            <FaSearchDollar className="text-5xl text-indigo-500" />
+          </div>
+          <h3 className="text-2xl font-serif font-bold text-gray-800 mb-3">No Services Found</h3>
+          <p className="text-gray-600 max-w-md mx-auto mb-6 font-serif">
+            We couldn't find any services matching your criteria. Try adjusting your filters or check back later for new listings.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 mt-2">
+            <button className="px-6 py-3 bg-white border border-gray-300 rounded-lg text-gray-700 font-serif font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2" 
+            onClick={()=>clearAllFilters()}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              Reset Filters
+            </button>
+            
+          </div>
+        </div>
+      )}
+
+      {!isLoading && serviceStore.services?.services?.length > 0 && (
+        serviceStore.services.services.map((service, index) => (
+          <div key={index} className='flex justify-center'>
+            <ServiceCard 
+              business={service?.bussiness} 
+              service={service} 
+              provider={service?.bussiness?.companyName} 
+            />
+          </div>
+        ))
+      )}
+
+      <div>
+        {/* Empty div preserved from original code */}
+      </div>
+    </div>
 
 
 

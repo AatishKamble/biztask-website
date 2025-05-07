@@ -11,55 +11,64 @@ const PopUp = ({message, submessage, button1, button2, submessage2, closeButton,
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/40 d z-40 flex items-center justify-center">
-        <div className={`w-11/12 max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-          {/* Top Accent Bar */}
-          <div className="h-2 bg-gradient-to-r from-red-500 via-orange-400 to-red-500"></div>
-          
-          {/* Header */}
-          <div className="relative px-6 pt-8 pb-4">
-            <div className="flex items-center">
-              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-red-100 mr-4">
-                <span className="text-2xl text-red-500">
-                  <IoWarning />
-                </span>
+      <div className="fixed inset-0 backdrop-blur-sm bg-black/30 z-40 flex items-center justify-center font-serif p-4">
+        <div className={`w-full max-w-2xl transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {/* Card  */}
+          <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100">
+            {/* Side accent  */}
+            <div className="flex">
+              <div className="w-2 bg-indigo-600 hidden md:block"></div>
+              
+              <div className="flex-1">
+                {/* Header  */}
+                <div className="flex items-start p-6 pb-0">
+                  <div className="flex-shrink-0 bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-3 rounded-lg shadow-lg mr-4">
+                    <IoWarning className="text-xl" />
+                  </div>
+                  
+                  <div className="flex-1">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-1">
+                      {message}
+                    </h2>
+                    
+                    <p className="text-lg text-indigo-700 font-medium">
+                      {submessage}
+                    </p>
+                  </div>
+                  
+                  <button 
+                    className="ml-4 text-gray-400 hover:text-indigo-500 transition-colors duration-300" 
+                    onClick={() => closeButton()}
+                    aria-label="Close popup"
+                  >
+                    <IoIosCloseCircleOutline className="text-2xl" />
+                  </button>
+                </div>
+                
+                {/* Body */}
+                <div className="px-6 py-6">
+                  <p className="text-gray-700 leading-relaxed">
+                    {submessage2}
+                  </p>
+                </div>
+                
+                {/* Footer  */}
+                <div className="p-6 bg-blue-100 flex flex-col-reverse md:flex-row md:justify-end gap-3 border-t border-gray-100">
+                  <button
+                    className="px-6 py-3 text-red-700 font-medium rounded-lg border border-gray-200 bg-white hover:shadow-md transition-all duration-300"
+                    onClick={() => closeButton()}
+                  >
+                    {button1}
+                  </button>
+                  <button
+                    className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:shadow-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300"
+                    onClick={() => handleRemove()}
+                  >
+                    {button2}
+                  </button>
+                </div>
               </div>
-              <h1 className="text-2xl font-bold text-gray-800 pr-10 break-all">
-                {message}
-              </h1>
             </div>
-            <button 
-              className="absolute top-6 right-6 text-2xl text-gray-400 hover:text-red-500 transition-colors duration-300" 
-              onClick={() => closeButton()}
-              aria-label="Close popup"
-            >
-              <IoIosCloseCircleOutline />
-            </button>
-          </div>
-          
-          {/* Divider */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-          
-          {/* Body */}
-          <div className="px-6 py-8 bg-gray-50">
-            <p className="text-lg font-medium text-blue-600 mb-3 text-center">{submessage}</p>
-            <p className="text-gray-600 text-center">{submessage2}</p>
-          </div>
-          
-          {/* Footer */}
-          <div className="px-6 py-6 bg-white flex flex-col sm:flex-row justify-center gap-4">
-            <button
-              className="w-full sm:w-40 px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-300 transition-colors duration-300"
-              onClick={() => closeButton()}
-            >
-              {button1}
-            </button>
-            <button
-              className="w-full sm:w-40 px-6 py-3 bg-red-500 text-white font-medium rounded-xl hover:bg-red-600 shadow-md hover:shadow-lg hover:shadow-red-100 transition-all duration-300"
-              onClick={() => handleRemove()}
-            >
-              {button2}
-            </button>
           </div>
         </div>
       </div>

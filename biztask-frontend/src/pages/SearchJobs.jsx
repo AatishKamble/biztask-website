@@ -8,7 +8,9 @@ import { getAllJobs } from '../Redux/Job/Action.js';
 import jobBack from "../assets/jobsbackground.jpg";
 import JobLoader from '../components/Loader/JobLoader.jsx';
 import HangingBanner from '../components/HangingBanner/HangingBanner.jsx';
-
+import { BsBriefcaseFill } from 'react-icons/bs';
+import { FiRefreshCw } from 'react-icons/fi';
+import { MdNotificationsActive } from 'react-icons/md';
 const SearchJobs = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -189,6 +191,7 @@ const SearchJobs = () => {
   }
 
   const isLoading = useSelector(store => store.jobStore.isLoading);
+  const hasNoJobs = !isLoading && (!jobStore.jobs?.jobs || jobStore.jobs?.jobs.length === 0);
 
   return (
     <>
@@ -230,30 +233,59 @@ const SearchJobs = () => {
           />
         </div>
 
-        <div className='w-full h-auto grid grid-cols-1 gap-10  py-10 p-4 relative '>
-          {isLoading === true  && (
-            <div className="absolute  px-10 md:ms-2 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
-              <JobLoader />
-            </div>
-          )}
+        <div className='w-full h-auto grid grid-cols-1 gap-10 py-10 p-4 relative font-serif'>
+      {isLoading === true && (
+        <div className="absolute px-10 md:ms-2 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
+          <JobLoader />
+        </div>
+      )}
 
-          {isLoading === false && jobStore.jobs?.jobs?.map((job, index) => (
-            <JobAdvertise key={index} typeText="Apply" job={job} business={job.business} />
-          ))}
-
-          <div>
-            <div className='w-full h-20 flex justify-center items-center pt-16 '>
-              <Pagination
-                count={jobStore.jobs?.totalPages || 0}
-                variant="outlined"
-                shape="rounded"
-                size="large"
-                page={jobStore.jobs?.currentPage || 1}
-                onChange={handlePageChange}
-              />
-            </div>
+      {hasNoJobs && (
+        <div className="col-span-1 py-20 flex flex-col items-center justify-center text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+          <div className="mb-6 p-5 bg-blue-50 rounded-full shadow-sm">
+            <BsBriefcaseFill className="text-5xl text-blue-500" />
+          </div>
+          <h3 className="text-2xl font-serif font-bold text-gray-800 mb-3">No Job Listings Found</h3>
+          <p className="text-gray-600 max-w-md mx-auto mb-6 font-serif">
+            We couldn't find any job opportunities matching your search criteria. Try broadening your search or create a job alert to be notified of new positions.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 mt-2">
+            <button className="px-6 py-3 bg-white border border-gray-300 rounded-lg text-gray-700 font-serif font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+            
+            onClick={()=> clearAllFilters()}
+            >
+              <FiRefreshCw className="text-lg" />
+              Adjust Search
+            </button>
+           
+          </div>
+          <div className="mt-8 text-sm text-gray-500 font-serif">
+            <p>Looking for something specific? Try adjusting your filters or keywords.</p>
           </div>
         </div>
+      )}
+
+      {!isLoading && jobStore.jobs?.jobs?.length > 0 && (
+        jobStore.jobs.jobs.map((job, index) => (
+          <JobAdvertise key={index} typeText="Apply" job={job} business={job.business} />
+        ))
+      )}
+
+      <div>
+        {jobStore.jobs?.totalPages > 0 && (
+          <div className='w-full h-20 flex justify-center items-center pt-16'>
+            <Pagination
+              count={jobStore.jobs?.totalPages || 0}
+              variant="outlined"
+              shape="rounded"
+              size="large"
+              page={jobStore.jobs?.currentPage || 1}
+              onChange={handlePageChange}
+            />
+          </div>
+        )}
+      </div>
+    </div>
       </div>
     </>
   )
