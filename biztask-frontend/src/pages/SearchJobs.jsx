@@ -196,13 +196,13 @@ const SearchJobs = () => {
         <HangingBanner imgage={jobBack} title={`Find Your Dream Job Today`} subtitle="Explore top opportunities, filter what matters, and land where you belong." />
       </div>
 
-      <div className='w-full h-full p-10 flex flex-col xl:flex-row ps-20'>
-        <div>
+      <div className='w-full h-full  xl:ps-14 p-4 md:pt-10 pt-8 xl:pe-0 flex flex-col xl:flex-row'>
+        <div className=' md:ps-10 '>
           <div className="mb-6 mx-auto w-full">
             <h1 className="text-3xl font-serif font-bold text-blue-900 flex items-center">
              
               Find Your Perfect Job
-              <span className="ml-2 text-blue-500 bg-blue-50 px-2 rounded-xl text-base font-normal">Today</span>
+            
             </h1>
           </div>
 
@@ -230,9 +230,9 @@ const SearchJobs = () => {
           />
         </div>
 
-        <div className='w-full h-auto grid grid-cols-1 gap-10 p-20 py-10 ps-0 relative mx-3'>
-          {isLoading === true && (
-            <div className="absolute  px-10 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
+        <div className='w-full h-auto grid grid-cols-1 gap-10  py-10 p-4 relative '>
+          {isLoading === true  && (
+            <div className="absolute  px-10 md:ms-2 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
               <JobLoader />
             </div>
           )}
@@ -242,7 +242,7 @@ const SearchJobs = () => {
           ))}
 
           <div>
-            <div className='w-full h-20 flex justify-center items-center pt-20 mt-10'>
+            <div className='w-full h-20 flex justify-center items-center pt-16 '>
               <Pagination
                 count={jobStore.jobs?.totalPages || 0}
                 variant="outlined"

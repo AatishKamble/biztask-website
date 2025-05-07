@@ -283,28 +283,28 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     <ServiceDetailSkeleton />
 
                 ) : (<>
-                    <div className="2xl:w-[90%] sm:w-full h-auto py-10 bg-white/30 backdrop-blur-lg shadow-lg my-10 flex flex-col lg:flex-row items-center px-10 rounded-2xl border border-gray-300">
+                    <div className="md:w-[90%] w-[96%] sm:w-full h-auto py-10 bg-white/30 backdrop-blur-lg shadow-lg my-10 flex flex-col lg:flex-row items-center md:px-10 rounded-2xl border border-gray-300">
 
-                        <div className='w-full h-[180px] relative flex xl:items-start items-center flex-col justify-center px-10'>
+                        <div className='w-full md:h-[180px] relative flex xl:items-start items-center flex-col  justify-center md:px-10 px-4'>
 
 
 
-                            <div className='xl:w-full xl:text-[32px] text-3xl font-bold text-[#2E3A46] font-serif py-2'>
-                                <span className='  px-2'>{serviceDetails?.serviceType}</span>
+                            <div className='w-full xl:text-[32px] px-2 text-3xl font-bold text-[#2E3A46] font-serif py-2'>
+                                <span className=''>{serviceDetails?.serviceType}</span>
 
                             </div>
 
-                            <div className='xl:w-full xl:text-[20px] text-2xl text-slate-600 font-serif pb-2'>
-                                <span className=' font-semibold px-2'>{serviceDetails?.bussiness?.companyName}
+                            <div className='w-full xl:text-[20px] text-2xl px-2 text-slate-600 font-serif pb-2'>
+                                <span className=' font-semibold '>{serviceDetails?.bussiness?.companyName}
                                 </span>
 
                             </div>
-                            <div className='xl:w-full px-2 pb-3 flex justify-start items-center   text-lg font-serif font-medium  text-gray-700'>
+                            <div className='w-full  px-2 pb-3 flex justify-start items-center  text-lg font-serif font-medium  text-gray-700'>
                                 <span>Ratings : </span>
                                 <span className="text-[26px] font-serif font-normal px-2  text-yellow-400"><Star star={serviceDetails?.rating} /> </span>
 
                             </div>
-                            <div className='xl:w-[400px]  h-auto xl:text-[16px] text-lg flex justify-start items-center text-blue-950 font-serif '>
+                            <div className='xl:w-[400px] w-full  h-auto xl:text-[16px] text-lg flex justify-start items-center text-blue-950 font-serif '>
                                 <span className="text-[24px] text-blue-600"><IoLocationSharp /></span>
                                 <span className=' font-medium px text-gray-700'>
                                     {
@@ -328,7 +328,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                         </div>
 
-                        <div className="flex flex-col w-[600px] items-center justify-center">
+                        <div className="flex flex-col md:w-[600px] w-full items-center justify-center">
                             <div className='w-[190px] h-[190px] shadow-lg shadow-white border-cyan-600 border-4   rounded-full m-5'>
 
                                 <img src={`${serviceDetails?.bussiness?.companyLogo?.imageUrl}`} alt="profile picture" className='  w-full h-full rounded-full object-contain' />
@@ -387,7 +387,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                   
 
-        <div className="2xl:w-[90%] font-serif sm:w-full h-auto drop-shadow-lg my-10 mt-5 flex flex-col xl:flex-row gap-10 px-6 sm:px-2">
+        <div className="2xl:w-[90%]  font-serif sm:w-full h-auto drop-shadow-lg my-10 mt-5 flex flex-col xl:flex-row gap-10 px-2 sm:px-2">
         {/* Left Section */}
             <div className="flex flex-col xl:w-2/3 gap-5">
                 {/* Tab Navigation */}
@@ -656,7 +656,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         </motion.form>
                     </motion.div>
 
-                    <div className=' w-full h-auto relative    my-10  mt-4 flex flex-col px-5'>
+                    <div className=' w-full h-auto relative    my-10  mt-4 flex flex-col md:px-5 px-2'>
 
 
                         {files.length > 0 && (
@@ -670,7 +670,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                         <img
                                             src={URL.createObjectURL(element)}
                                             alt={`preview-${idx}`}
-                                            className="w-full h-[180px] object-fit"
+                                            className="w-full md:h-[220px] h-[140px] object-cover"
                                         />
 
                                         {/* Remove Button */}
@@ -700,23 +700,23 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                         {AllPhotos.length === 0 ? (
                             <div className="w-full flex font-serif items-center justify-center text-[#adafaf] font-bold">
                                 <MdOutlineImageNotSupported className="text-5xl me-4" />
-                                <span className="text-[35px] ">
+                                <span className="md:text-[35px] text-xl ">
                                  No Images Available
                                 </span>
                             </div>
                         ) : (
-                            <div className="w-full bg-white border-y border-slate-300 rounded-xl relative p-6">
-                                <div className="grid grid-cols-2  xl:grid-cols-4 gap-6">
+                            <div className="w-full bg-white  rounded-xl border border-slate-300 shadow-md  relative md:p-6 p-4">
+                                <div className="grid grid-cols-2  md:grid-cols-4 md:gap-6 gap-4">
                                     {AllPhotos.slice(0, 11).map((element, index) => (
                                         <div
                                             key={index}
-                                            className="relative group cursor-pointer overflow-hidden rounded-lg border-2 border-blue-900  shadow-sm hover:shadow-md transition-all"
+                                            className="relative group cursor-pointer overflow-hidden rounded-lg   shadow-sm hover:shadow-md transition-all"
                                             onClick={() => handleModalOpen(index)}
                                         >
                                             <img
                                                 src={element.imageUrl}
                                                 alt={`img-${index}`}
-                                                className="w-full xl:h-[220px] h-[250px] object-cover transition-transform  duration-300 group-hover:scale-105"
+                                                className="w-full md:h-[220px] h-[140px] object-cover transition-transform  duration-300 group-hover:scale-105"
                                             />
 
                                         </div>
@@ -796,16 +796,16 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
             {isLoading == false &&
-                <div className='w-full h-auto relative my-10 mt-0 flex flex-col bg-white rounded-xl py-8'>
+                <div className='w-full h-auto relative my-10 mt-0 flex flex-col bg-white rounded-xl py-4'>
 
 
 
 
 
-                    <div className="w-full px-6 py-8 mb-6">
+                    <div className="w-full md:px-6 px-4 md:py-6 py-2 mb-6">
                         <div className="xl:max-w-6xl max-w-4xl   mx-auto flex flex-col md:flex-row justify-between items-center ">
                             <div className="text-blue-800 mb-6 md:mb-0 text-center md:text-left">
-                                <h2 className="font-serif font-bold text-3xl md:text-4xl mb-2">
+                                <h2 className="font-serif font-bold text-4xl mb-2">
                                     Client Reviews
                                 </h2>
 
@@ -814,9 +814,9 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 </p>
                                 {/* Rating stats */}
                                 {reviewStore?.reviews.length > 0 ? (
-                                    <div className="flex items-center gap-4">
-                                        <div className="flex items-center gap-2">
-                                            <span className="font-serif font-bold text-3xl">
+                                    <div className="flex items-center font-serif justify-center md:justify-start gap-4">
+                                        <div className="flex items-center  gap-2">
+                                            <span className="font-serif font-bold md:text-3xl text-xl">
                                                 {(reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)}
                                             </span>
                                             <div className="flex flex-col items-start">
@@ -831,7 +831,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="flex items-center">
+                                    <div className="flex items-center justify-center md:justify-start">
                                         <div className="flex">
                                             {[1, 2, 3, 4, 5].map((star) => (
                                                 <FaStar key={star} size={18} className="text-blue-200" />
@@ -868,7 +868,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     </div>
 
 
-                    <div className="w-full px-6 mb-8">
+                    <div className="w-full md:px-6 px-4 mb-8">
                         <div className="xl:max-w-6xl max-w-4xl mx-auto">
                             {/* Filter tabs would go here - example UI */}
                             <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-6">
@@ -922,7 +922,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             )}
 
                             {/* Load more button */}
-                            {visibleReviews < reviewStore?.reviews.length && (
+                            {visibleReviews < reviewStore?.reviews.length  && (
                                 <div className='w-full flex justify-center mt-8'>
                                     <button className='bg-white border border-blue-600 text-blue-700 hover:bg-blue-50 px-6 py-2 rounded-lg text-lg font-serif font-medium shadow-sm transition-all duration-300'>
                                         View All Reviews
@@ -950,7 +950,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                             {/* Rating input with half-star capability */}
                             <div className="flex flex-col items-center gap-2 w-full">
-                                <label htmlFor="star-rating" className="xl:text-lg text-xl font-serif font-medium text-gray-700">
+                                <label htmlFor="star-rating" className="text-lg  font-serif font-medium text-gray-700">
                                     How would you rate this service?
                                 </label>
                                 <div className="flex items-center gap-4">
@@ -960,7 +960,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                                 {/* Full star base (gray background) */}
                                                 <FaStar
                                                    
-                                                    className="text-gray-300 xl:w-7 xl:h-7 w-8 h-8"
+                                                    className="text-gray-300 w-7 h-7 "
                                                 />
 
                                                 {/* Left half clickable area */}
@@ -983,7 +983,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                                 {(hoverValue || currentValue) >= index + 0.5 && (hoverValue || currentValue) < index + 1 && (
                                                     <FaStarHalfStroke
                                                         size={28}
-                                                        className="absolute top-0 left-0 text-yellow-500 drop-shadow-md"
+                                                        className="absolute top-0 left-0 text-yellow-500 drop-shadow-md w-7 h-7"
                                                     />
                                                 )}
 
@@ -991,7 +991,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                                 {(hoverValue || currentValue) >= index + 1 && (
                                                     <FaStar
                                                        
-                                                        className="absolute top-0 left-0 text-yellow-500 drop-shadow-md xl:w-7 xl:h-7 w-8 h-8"
+                                                        className="absolute top-0 left-0 text-yellow-500 drop-shadow-md w-7 h-7"
                                                     />
                                                 )}
                                             </div>
@@ -1018,7 +1018,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     name="review"
                                     id="review"
                                     placeholder="What did you like or dislike? What was your experience with this service provider?"
-                                    className="xl:text-[16px] text-lg h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                                    className=" text-base h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
                                     style={{ resize: "none" }}
                                     rows={5}
                                     value={input}

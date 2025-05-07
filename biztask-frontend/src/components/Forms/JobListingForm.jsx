@@ -236,7 +236,7 @@ const JobListingForm = ({ registration }) => {
     }, [jobStore.job, id, registration]);
 
     return (
-        <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-12">
+        <div className="min-h-screen bg-white py-8 px-2 sm:px-6 lg:px-12">
             <div className="max-w-5xl mx-auto">
                 {/* Back navigation */}
                 <div className="mb-6">
@@ -258,7 +258,7 @@ const JobListingForm = ({ registration }) => {
                         <p className="text-teal-100 text-center mt-2 font-serif">Connect with qualified candidates for your business needs</p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="p-6 lg:p-8">
+                    <form onSubmit={handleSubmit} className="sm:p-6 p-4 lg:p-8">
                         {/* Job Basic Details */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div className="space-y-2">

@@ -118,7 +118,7 @@ const HowItWorks = ({ HowItWorks }) => {
   return (
     <motion.div
       ref={HowItWorks}
-      className="w-full xl:py-16 xl:pt-12 pt-10  px-6 lg:px-20 bg-white"
+      className="w-full  px-4 pb-5 pt-10 md:pt-0 lg:px-20 bg-white"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -141,7 +141,7 @@ const HowItWorks = ({ HowItWorks }) => {
             How Our Platform Works
           </motion.h2>
           <motion.p
-            className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto font-serif"
+            className="mt-4 text-lg  text-gray-600 max-w-2xl mx-auto font-serif"
           >
             Connecting local businesses, service providers, and job seekers in your community
           </motion.p>
@@ -160,16 +160,16 @@ const HowItWorks = ({ HowItWorks }) => {
         </motion.div>
         
         {/* Process Steps */}
-        <div className="grid grid-cols-2 xl:grid-cols-3 gap-8 md:gap-12 relative">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 md:gap-12 relative">
          
         <div className="hidden md:block absolute top-36 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 z-0" />
           
-        <div className=" block xl:hidden absolute top-36 left-[23%] right-0 h-[80%] w-1 bg-gradient-to-t from-blue-500 via-purple-500 to-emerald-500 z-0" />
+        <div className=" block xl:hidden absolute top-36 left-1/2 right-0 h-[80%] w-1 bg-gradient-to-t from-blue-500 via-purple-500 to-emerald-500 z-0" />
          
           {steps.map((step, index) => (
             <motion.div 
               key={index}
-              className="z-10"
+              className="z-10 rounded-3xl"
               variants={cardVariants}
               whileHover="hover"
             >

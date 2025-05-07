@@ -90,7 +90,7 @@ const BusinessDetails = ({ userDetails }) => {
             <FaAddressCard className="mr-2 text-2xl" /> Business Information
           </h2>
         </div>
-        <div className="p-8">
+        <div className="sm:p-8 p-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
               initial="hidden"
@@ -210,18 +210,20 @@ const BusinessDetails = ({ userDetails }) => {
       >
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-4 flex justify-between items-center">
           <h2 className="text-xl font-bold flex items-center">
-            <FaBriefcase className="mr-2 text-2xl" /> All Services
+            <FaBriefcase className="mr-2 text-xl" /> All Services
           </h2>
           <Link to={`/service-registration/${businessStore.business?._id}`}>
-            <button className="bg-white text-blue-700 hover:bg-blue-50 px-6 py-2 rounded-full flex items-center font-semibold text-lg transition-all">
-              <FaPlus className="mr-2" /> Add Service
+            <button className="bg-white text-blue-700 hover:bg-blue-50 sm:px-6 p-4 py-2 rounded-xl flex items-center  font-semibold text-lg transition-all">
+              <FaPlus className="sm:mr-2" /> 
+              <span className='hidden sm:block'>
+              Add Service</span>
             </button>
           </Link>
         </div>
 
-        <div className="p-8">
+        <div className="sm:p-8 p-4">
           {businessStore.business?.services?.length > 0 ?
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10">
               {businessStore.business?.services?.map((service, index) => (
                 <motion.div
                   key={index}
@@ -230,6 +232,7 @@ const BusinessDetails = ({ userDetails }) => {
                   viewport={{ once: true }}
                   custom={index + 1}
                   variants={fadeUp}
+                   className=' sm:px-8'
                 >
                   <ServiceCard business={businessStore?.business} service={service} provider={businessStore.business?.companyName} />
                 </motion.div>
@@ -263,11 +266,11 @@ const BusinessDetails = ({ userDetails }) => {
               viewport={{ once: true }}
               custom={1}
               variants={fadeUp}
-              className="bg-white text-gray-700 w-11/12 border border-teal-300 mx-auto rounded-lg shadow-xl"
+              className="bg-white text-gray-700 sm:w-11/12 w-[96%] border border-gray-300 mx-auto rounded-2xl shadow-md"
             >
               <div className="max-w-7xl mx-auto px-6 py-16">
                 <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="w-40 h-40 rounded-full border-2 border-blue-600 bg-white p-2 shadow-2xl flex-shrink-0">
+                  <div className="w-40 h-40 rounded-full border-2 border-blue-600 bg-white p-2 shadow-md flex-shrink-0">
                     <div className="w-full text-center   h-full rounded-full overflow-hidden">
                       <img
                         src={businessStore.business.companyLogo?.imageUrl}
@@ -278,16 +281,16 @@ const BusinessDetails = ({ userDetails }) => {
                   </div>
                   <div className="text-center md:text-left">
                     <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                      <h1 className="text-4xl font-bold">{businessStore.business?.companyName}</h1>
-                      <MdVerified className="text-green-700 text-3xl" />
+                      <h1 className="text-3xl font-bold">{businessStore.business?.companyName}</h1>
+                      <MdVerified className="text-green-600 text-2xl" />
                     </div>
-                    <p className="text-xl text-blue-500 mb-2">{userDetails?.name}</p>
+                    <p className="text-xl text-gray-500 mb-2">{userDetails?.name}</p>
                     <div className="mt-6 flex flex-wrap items-center justify-center md:justify-start gap-4">
-                      <span className=" bg-white bg-opacity-10 px-5 py-2 rounded-lg text-green-500  flex items-center">
+                      <span className=" bg-white bg-opacity-10  py-2 rounded-lg text-green-800  flex items-center">
                         <FaBuilding className="mr-2" /> Registered Business
                       </span>
                       <Link to={`/service-registration/${businessStore.business?._id}`}>
-                        <button className="bg-blue-500 text-white hover:bg-blue-700 px-6 py-2 rounded-full flex items-center font-semibold text-lg transition-all">
+                        <button className="bg-blue-500 text-white hover:bg-blue-700 px-6 py-2 rounded-xl flex items-center font-semibold text-lg transition-all">
                           <FaPlus className="mr-2" /> Add Service
                         </button>
                       </Link>
@@ -297,14 +300,14 @@ const BusinessDetails = ({ userDetails }) => {
               </div>
             </motion.div>
 
-            <div className="max-w-7xl mx-auto px-6 py-14">
+            <div className="max-w-7xl mx-auto px-6 sm:py-14 py-8">
               {/* Tabs Navigation */}
-              <div className="flex flex-wrap overflow-x-auto p-4  gap-2 mb-6">
+              <div className="grid sm:grid-cols-3 p-4  gap-4 mb-6">
 
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  className={`px-6 py-3 rounded-full text-lg font-semibold transition-all ${activeTab === "about"
+                  className={`px-6 py-3 rounded-xl text-lg font-semibold transition-all ${activeTab === "about"
                       ? "bg-blue-600 text-white shadow-lg"
                       : "bg-blue-100 text-slate-700 hover:bg-blue-200"
                     }`}
@@ -315,7 +318,7 @@ const BusinessDetails = ({ userDetails }) => {
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  className={`px-6 py-3 rounded-full text-lg font-semibold transition-all ${activeTab === "info"
+                  className={`px-6 py-3 rounded-xl text-lg font-semibold transition-all ${activeTab === "info"
                       ? "bg-blue-600 text-white shadow-lg"
                       : "bg-blue-100 text-slate-700 hover:bg-blue-200"
                     }`}
@@ -326,7 +329,7 @@ const BusinessDetails = ({ userDetails }) => {
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  className={`px-6 py-3 rounded-full text-lg font-semibold transition-all ${activeTab === "services"
+                  className={`px-6 py-3 rounded-xl text-lg font-semibold transition-all ${activeTab === "services"
                       ? "bg-blue-600 text-white shadow-lg"
                       : "bg-blue-100 text-slate-700 hover:bg-blue-200"
                     }`}

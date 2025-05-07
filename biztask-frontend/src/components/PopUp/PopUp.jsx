@@ -1,36 +1,68 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { IoWarning } from "react-icons/io5";
-const PopUp = ({message,submessage,button1,button2,submessage2,closeButton,handleRemove}) => {
+
+const PopUp = ({message, submessage, button1, button2, submessage2, closeButton, handleRemove}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   return (
     <>
-  
-
-<div className="bg-gradient-to-br from-slate-50 to-slate-100 border-[1px] border-slate-300 w-[800px] drop-shadow-xl h-auto pb-5 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] transform backdrop-blur-lg animate-scaleIn z-50 rounded-xl">
-          <div className="w-full p-5 flex justify-center items-center border-b-slate-300 border-[1px] relative bg-white/50 rounded-t-xl">
-            <span className="text-3xl text-red-500 mr-3 animate-pulse"><IoWarning /></span>
-            <div className="absolute top-3 right-3 text-[30px] cursor-pointer hover:text-red-500 hover:scale-110 transition-all duration-300 font-serif" onClick={()=>closeButton()}>
-            <IoIosCloseCircleOutline />
+      <div className="fixed inset-0 bg-black/40 d z-40 flex items-center justify-center">
+        <div className={`w-11/12 max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+          {/* Top Accent Bar */}
+          <div className="h-2 bg-gradient-to-r from-red-500 via-orange-400 to-red-500"></div>
+          
+          {/* Header */}
+          <div className="relative px-6 pt-8 pb-4">
+            <div className="flex items-center">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-red-100 mr-4">
+                <span className="text-2xl text-red-500">
+                  <IoWarning />
+                </span>
+              </div>
+              <h1 className="text-2xl font-bold text-gray-800 pr-10 break-all">
+                {message}
+              </h1>
             </div>
-            <h1 className="text-2xl font-bold text-red-500 font-serif">
-            {message}
-            </h1>
+            <button 
+              className="absolute top-6 right-6 text-2xl text-gray-400 hover:text-red-500 transition-colors duration-300" 
+              onClick={() => closeButton()}
+              aria-label="Close popup"
+            >
+              <IoIosCloseCircleOutline />
+            </button>
           </div>
-
-          <div className="flex justify-center flex-col font-serif items-center p-6">
-            <p className="text-[19px] text-blue-700 font-medium mb-3">{submessage}</p>
-            <p className="text-[17px] text-slate-600">{submessage2}</p>
+          
+          {/* Divider */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+          
+          {/* Body */}
+          <div className="px-6 py-8 bg-gray-50">
+            <p className="text-lg font-medium text-blue-600 mb-3 text-center">{submessage}</p>
+            <p className="text-gray-600 text-center">{submessage2}</p>
           </div>
-
-          <div className="flex justify-center p-5 gap-x-6">
+          
+          {/* Footer */}
+          <div className="px-6 py-6 bg-white flex flex-col sm:flex-row justify-center gap-4">
             <button
-              className='bg-gradient-to-r from-[#2E86C1] to-[#3498DB] rounded-xl p-2 hover:from-[#3b3bc7] hover:to-[#4949e4] w-[120px] h-auto text-white font-serif font-bold text-[18px] shadow-lg hover:shadow-blue-200 '
-              onClick={()=>closeButton()}>{button1}</button>
+              className="w-full sm:w-40 px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-300 transition-colors duration-300"
+              onClick={() => closeButton()}
+            >
+              {button1}
+            </button>
             <button
-              className='rounded-xl p-2 bg-gradient-to-r from-[#0d7634] to-[#10a049] w-[120px] h-auto text-white font-serif font-bold text-[18px] hover:from-[#1a9d4d] hover:to-[#22c363] shadow-lg hover:shadow-green-200 '
-              onClick={()=>handleRemove()}>{button2}</button>
+              className="w-full sm:w-40 px-6 py-3 bg-red-500 text-white font-medium rounded-xl hover:bg-red-600 shadow-md hover:shadow-lg hover:shadow-red-100 transition-all duration-300"
+              onClick={() => handleRemove()}
+            >
+              {button2}
+            </button>
           </div>
         </div>
+      </div>
     </>
   )
 }

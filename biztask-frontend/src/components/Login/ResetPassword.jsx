@@ -65,10 +65,10 @@ const ResetPassword = () => {
   
     return (
         <>
-            <div className='bg-inherit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-auto flex justify-center items-center flex-col px-5'>
+            <div className='bg-inherit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-auto flex justify-center items-center flex-col px-5 z-50'>
                 {authStore.message ? (
                     <motion.div
-                        className='w-[40%] bg-slate-100 flex flex-col justify-center items-center p-10 text-center rounded-2xl shadow-2xl'
+                        className='md:w-[40%] w-full bg-slate-100 flex flex-col justify-center items-center p-10 text-center rounded-2xl shadow-2xl'
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
@@ -93,7 +93,7 @@ const ResetPassword = () => {
                     </motion.div>
                 ) : (
                     <motion.div
-                        className='w-[40%] rounded-2xl shadow-2xl overflow-hidden'
+                        className='md:w-[40%] w-full  rounded-2xl shadow-2xl overflow-hidden'
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}

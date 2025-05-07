@@ -241,7 +241,7 @@ const { id } = useParams();
 
   
   return (
-    <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-12 font-serif">
+    <div className="min-h-screen bg-white py-8 px-2 sm:px-6 lg:px-12 font-serif">
              <div className="max-w-5xl mx-auto">
               <div className="mb-6">
                 <button
@@ -269,7 +269,7 @@ const { id } = useParams();
           <p className="text-teal-100 text-center mt-2">Fill out the form below to apply for local service jobs</p>
         </motion.div>
 
-        <div className="p-8">
+        <div className="sm:p-8 p-4">
           {/* Personal Information Section */}
           <motion.div variants={itemVariants} className="mb-8">
             <h3 className="text-xl font-semibold text-blue-700 border-b border-blue-200 pb-2 mb-4">Personal Information</h3>

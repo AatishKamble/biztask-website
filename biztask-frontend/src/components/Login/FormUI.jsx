@@ -24,28 +24,35 @@ const FormUI = ({ type, openState, handleButtonClick, handleButtonClick2,handleF
    
 
     // Modal style with improved aesthetics
-    const customStyles = {
-        overlay: {
-            zIndex: 999,
-            backgroundColor: 'rgba(0, 0, 0, 0.75)'
-        },
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            width: "480px",
-            maxHeight: "95vh",
-            overflow: "hidden",
-            padding: 0,
-            border: "none",
-            borderRadius: "16px",
-            backgroundColor: 'transparent',
-            zIndex: '1000'
-        },
+    const getModalStyles = () => {
+        const mediaQuery = window.matchMedia('(min-width: 1024px)'); 
+        return {
+            overlay: {
+                zIndex: 999,
+                backgroundColor: 'rgba(0, 0, 0, 0.75)'
+            },
+            content: {
+                top: '50%',
+                left: '50%',
+                right: 'auto',
+                bottom: 'auto',
+                marginRight: '-50%',
+                transform: 'translate(-50%, -50%)',
+                width:  "95vw", 
+                maxWidth:"480px",
+                maxHeight: "95vh",
+                overflow: mediaQuery.matches ? "hidden" : "scroll", 
+                padding: 0,
+                border: "none",
+                borderRadius: "16px",
+                backgroundColor: 'transparent',
+                zIndex: '1000'
+            },
+        };
     };
+    
+    const customStyles = getModalStyles();
+    
 
     function handleChange(e) {
         setFormData({

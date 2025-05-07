@@ -133,7 +133,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
 
 
   return (
-    <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-12">
+    <div className="min-h-screen bg-white py-8 px-2 sm:px-6 lg:px-12">
       <div className="max-w-5xl mx-auto">
         {/* Back navigation */}
         <div className="mb-6">
@@ -155,7 +155,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
             <p className="text-teal-100 text-center mt-2 font-serif">Elevate your presence and reach more customers in your community</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6 lg:p-8">
+          <form onSubmit={handleSubmit} className="sm:p-6 p-4 lg:p-8">
             {/* Business Name Section */}
             <div className="mb-8">
               <div className="space-y-2">
@@ -231,7 +231,7 @@ const BusinessRegistration = ({ userDetails, registration }) => {
             </div>
 
             {/* Section: Business Details */}
-            <div className="bg-white p-6 mb-8  ">
+            <div className="bg-white sm:p-6 p-2 mb-8  ">
               <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 border-b border-blue-200 pb-2 flex items-center">
                 
                 Company Description

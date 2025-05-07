@@ -163,8 +163,9 @@ const AboutUs = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
+            className=' grid grid-cols-1 md:grid-cols-2 gap-4'
           >
-            <button onClick={() => navigate("/services")} className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-lg text-lg font-medium transition-all shadow-lg hover:shadow-xl mr-4">
+            <button onClick={() => navigate("/services")} className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-lg text-lg font-medium transition-all shadow-lg hover:shadow-xl ">
               Find Services
             </button>
             <button onClick={() => navigate("/jobs")} className="bg-white text-blue-800 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-medium transition-all shadow-lg hover:shadow-xl">
@@ -223,16 +224,16 @@ const AboutUs = () => {
       {/* Mission Section  */}
       <ScrollReveal>
         <div className="py-20 bg-gradient-to-b from-gray-100 to-white">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto md:px-4 px-1">
             <div className="max-w-6xl mx-auto">
               <motion.div 
-                className="bg-gradient-to-r from-blue-800 to-blue-600 rounded-2xl shadow-2xl overflow-hidden"
+                className="bg-gradient-to-r from-blue-800 to-blue-600 md:rounded-2xl rounded-md shadow-2xl overflow-hidden"
                 initial="offscreen"
                 whileInView="onscreen"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={cardVariants}
               >
-                <div className="font-serif text-center p-12 relative overflow-hidden">
+                <div className="font-serif text-center p-12 px-6 sm:px-12 relative overflow-hidden">
                   {/* Background decorative elements */}
                   <div className="absolute top-0 left-0 w-full h-full">
                     <motion.div 
@@ -338,7 +339,7 @@ const AboutUs = () => {
 
       {/* About Section  */}
       <ScrollReveal>
-        <div className="py-20 bg-white">
+        <div className="py-6 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="font-serif flex flex-col md:flex-row items-center gap-12">
@@ -350,7 +351,7 @@ const AboutUs = () => {
                   transition={{ duration: 0.8 }}
                 >
                   <h2 className="text-3xl font-bold text-blue-800 mb-6 inline-block border-l-4 border-blue-600 pl-4">About BizTask</h2>
-                  <p className="text-gray-700 text-lg mb-6 leading-relaxed">
+                  <p className="text-gray-700 text-lg mb-6 leading-relaxed text-justify">
                     BizTask was founded on the principle that finding reliable services should be simple and secure. Our platform 
                     connects skilled professionals with individuals and businesses who need their expertise.
                   </p>
@@ -409,7 +410,7 @@ const AboutUs = () => {
 
       {/* Developer Details Section  */}
       <ScrollReveal threshold={0.2}>
-        <div className="py-20 bg-gradient-to-b from-gray-100 to-white">
+        <div className="md:py-16 py-10 bg-gradient-to-b from-gray-100 to-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <motion.h2 

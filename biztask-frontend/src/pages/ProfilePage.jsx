@@ -17,7 +17,8 @@ import { IoBusinessOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
 import ImageZoom from '../components/ContactInformation/ImageZoom.jsx';
-
+import { FaRegEdit } from "react-icons/fa";
+import { TbWorldSearch } from "react-icons/tb";
 const ProfilePage = ({ userDetails }) => {
   const dispatch = useDispatch();
   const appliedJobsRef = useRef(null);
@@ -83,10 +84,10 @@ const ProfilePage = ({ userDetails }) => {
   return (
     <>
       {userDetails && (
-        <div className="min-h-screen mt-10">
+        <div className="min-h-screen mt-2 font-serif">
           {/* Header Banner  */}
           <motion.div
-            className="bg-gradient-to-r from-blue-600 to-blue-800 h-64 relative px-20"
+            className="bg-gradient-to-r from-blue-600 to-blue-800 h-64 relative md:px-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -99,19 +100,25 @@ const ProfilePage = ({ userDetails }) => {
               transition={{ delay: 0.6, duration: 0.6 }}
             >
               <h1 className="text-white text-4xl font-bold font-serif">My Profile</h1>
-              <p className="text-blue-100 font-normal mt-2 text-xl">Manage your information, businesses and job applications</p>
+              <p className="text-blue-100 font-normal mt-2 md:text-xl">Manage your information, businesses and job applications</p>
             </motion.div>
           </motion.div>
 
           {/* Profile Card  */}
-          <div className="container px-6 -mt-16 relative z-10 w-[90%] mx-auto">
+          <div className="container md:px-6 px-2 -mt-16 relative z-10 md:w-[90%] mx-auto">
             <motion.div
               className="bg-white rounded-xl shadow-xl p-8 mb-8 border border-blue-100"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex flex-col md:flex-row items-center gap-8 ">
+              <Link to="/profile-edit">
+                      <button className="absolute sm:top-10 sm:right-14  right-5 top-3  px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-medium text-lg  ">
+                      <FaRegEdit className='sm:hidden'/>
+                        <span className=' hidden sm:block'>Edit Profile</span>
+                      </button>
+                    </Link>
                 <motion.div
                   className="relative w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-50 to-blue-100 group cursor-pointer"
                   initial={{ scale: 0.8, opacity: 0 }}
@@ -137,27 +144,24 @@ const ProfilePage = ({ userDetails }) => {
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
                 >
-                  <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-                    <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 font-serif">
-                      <IoPersonCircleOutline className="text-blue-600 text-3xl" />
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-blue-800 flex items-center gap-1">
+                      <IoPersonCircleOutline className="text-blue-600 " />
                       {userDetails ? userDetails?.name : "N/A"}
                     </h2>
 
-                    <Link to="/profile-edit">
-                      <button className="mt-4 md:mt-0 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-medium text-lg flex items-center gap-2">
-                        <span>Edit Profile</span>
-                      </button>
-                    </Link>
+                   
+                    
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3 font-normal text-gray-700 text-xl">
-                      <MdEmail className="text-blue-600 text-2xl" />
+                    <div className="flex items-center gap-1 font-normal text-gray-700 text-xl">
+                      <MdEmail className="text-blue-600  " />
                       <span>{userDetails?.email}</span>
                     </div>
 
-                    <div className="flex items-center font-normal gap-3 text-gray-700 text-xl">
-                      <FaPhone className="text-blue-600 text-2xl" />
+                    <div className="flex items-center font-normal gap-1 text-gray-700 text-xl">
+                      <FaPhone className="text-blue-600 " />
                       <span>{userDetails?.mobileNumber}</span>
                     </div>
                   </div>
@@ -174,7 +178,7 @@ const ProfilePage = ({ userDetails }) => {
             >
               <motion.a
                 href="#bussiness-registration"
-                className="flex-1 py-4 px-6 text-center font-semibold text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
+                className="flex-1 sm:py-4 sm:px-6 px-2 text-center font-semibold text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -183,7 +187,7 @@ const ProfilePage = ({ userDetails }) => {
               </motion.a>
               <motion.a
                 href="#applied-jobs"
-                className="flex-1 py-4 px-6 text-center font-semibold text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
+                className="flex-1 sm:py-4 sm:px-6 px-2 text-center font-semibold text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -202,9 +206,9 @@ const ProfilePage = ({ userDetails }) => {
               transition={{ duration: 0.6 }}
             >
               <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 font-serif">
-                    <IoBusinessOutline className="text-blue-600 text-3xl" />
+                <div className="flex  justify-between items-center">
+                  <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3">
+                    <IoBusinessOutline className="text-blue-600 " />
                     <span>My Businesses</span>
                   </h2>
 
@@ -215,7 +219,7 @@ const ProfilePage = ({ userDetails }) => {
                       whileTap={{ scale: 0.95 }}
                     >
                       <FaAddressCard />
-                      <span>Register New</span>
+                      <span className=' hidden sm:block'>Register New</span>
                     </motion.button>
                   </Link>
                 </div>
@@ -273,9 +277,9 @@ const ProfilePage = ({ userDetails }) => {
               transition={{ duration: 0.6 }}
             >
               <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 font-serif">
-                    <MdOutlineWorkOutline className="text-blue-600 text-3xl" />
+                <div className="flex  justify-between items-center">
+                  <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 ">
+                    <MdOutlineWorkOutline className="text-blue-600 " />
                     <span>Applied Jobs</span>
                   </h2>
 
@@ -285,8 +289,8 @@ const ProfilePage = ({ userDetails }) => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <FaExternalLinkAlt />
-                      <span>Browse Jobs</span>
+                     <TbWorldSearch />
+                      <span className=' hidden sm:block'>Browse Jobs</span>
                     </motion.button>
                   </Link>
                 </div>

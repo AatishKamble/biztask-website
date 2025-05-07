@@ -10,7 +10,7 @@ import { logout } from "../../Redux/Auth/Action.js";
 import { useDispatch } from "react-redux";
 import logo from "../../assets/logo-transparent.png";
 import ForgotPassword from "../Login/ForgotPassword.jsx";
-
+import { RiMenu2Fill } from "react-icons/ri";
 const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButtonClick, signUp }) => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -107,8 +107,8 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
       <div className='bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 w-full h-20 flex items-center shadow-lg drop-shadow-2xl backdrop-blur-sm'>
         <div className='w-full px-4 md:px-6 flex items-center justify-between'>
           {/* Logo Section */}
-          <div  className='h-44 w-44 bg-inherit p-2 flex items-center'>
-            <img src={logo} alt='logo' className='h-full w-full object-contain' />
+          <div  className='sm:h-44 sm:w-44 h-24 w-[170px] bg-inherit p-2 flex items-center'>
+            <img src={logo} alt='logo' className='h-full w-full object-cover' />
           </div>
 
           {/* Navigation Links */}
@@ -199,7 +199,9 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
       {/* Sidebar for mobile  */}
       <div className={`lg:hidden fixed top-0 right-0 h-full w-[300px] sm:w-[350px] md:w-[400px] bg-gradient-to-b from-blue-700 to-blue-900 z-50 transform transition-transform duration-300 ease-in-out shadow-2xl ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`} ref={sidebarRef}>
         <div className="flex justify-between items-center p-4 border-b border-blue-600">
-          <h2 className="text-cyan-100 font-serif font-medium text-base sm:text-lg">Menu</h2>
+          <h2 className="text-cyan-100 font-serif font-medium  sm:text-lg text-2xl"><RiMenu2Fill  /> 
+          
+          </h2>
           <button onClick={toggleSidebar} className="text-cyan-100 text-2xl">
             <FaTimes />
           </button>

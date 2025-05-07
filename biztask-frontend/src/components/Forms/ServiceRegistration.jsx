@@ -212,7 +212,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
     }, [serviceStore.service, registration, id]);
 
     return (
-        <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-12">
+        <div className="min-h-screen bg-white py-8 px-2 sm:px-6 lg:px-12">
             <div className="max-w-5xl mx-auto">
                 {/* Back navigation */}
                 <div className="mb-6">
@@ -234,7 +234,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                         <p className="text-teal-100 text-center mt-2 font-serif">Connect with your community by offering your specialized services</p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="p-6 lg:p-8">
+                    <form onSubmit={handleSubmit} className="sm:p-6 p-4 lg:p-8">
                         {/* Service Type and Company Name */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div className="space-y-2">
@@ -269,7 +269,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                         </div>
 
                         {/* Section: Contact Details */}
-                        <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl p-6 mb-8 border border-teal-100 shadow-sm">
+                        <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl sm:p-6 p-4 mb-8 border border-teal-100 shadow-sm">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <FaUser className="mr-2 text-teal-700" />
                                 Contact Details (Provider)
@@ -318,7 +318,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                         </div>
 
                         {/* Section: Service Details */}
-                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                        <div className="bg-white rounded-xl sm:p-6 p-4 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 flex items-center">
                                 <MdDescription className="mr-2 text-teal-700" />
                                 Service Details
@@ -378,7 +378,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                         </div>
 
                         {/* Section: Locations */}
-                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                        <div className="bg-white rounded-xl sm:p-6 p-4 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <TbMapPin className="mr-2 text-teal-700 text-xl" />
                                 Service Locations
@@ -424,7 +424,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                         </div>
 
                         {/* Section: Features */}
-                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
+                        <div className="bg-white rounded-xl sm:p-6 p-4 mb-8 border border-teal-200 shadow-md">
                             <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
                                 <GoChecklist className="mr-2 text-teal-700 text-xl" />
                                 Service Features

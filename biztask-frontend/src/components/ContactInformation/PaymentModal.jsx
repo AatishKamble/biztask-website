@@ -16,14 +16,14 @@ const PaymentModal = ({
 }) => {
     return (
         <motion.div
-            className="fixed inset-0 font-serif bg-black/50 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 font-serif  overflow-scroll sm:overflow-hidden  bg-black/50 flex items-center justify-center z-50 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowPaymentModal(false)}
         >
             <motion.div
-                className="bg-white rounded-xl xl:max-w-md w-[80%] p-6"
+                className="bg-white rounded-xl max-w-md w-[97%]   md:p-6 p-4"
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
@@ -33,8 +33,8 @@ const PaymentModal = ({
                     <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                         <MdPayment className="text-blue-600 text-3xl" />
                     </div>
-                    <h3 className="xl:text-xl text-2xl font-bold text-gray-900">Payment Required</h3>
-                    <p className="text-gray-500 xl:text-base text-lg mt-1">
+                    <h3 className="text-xl  font-bold text-gray-900">Payment Required</h3>
+                    <p className="text-gray-500 text-base  mt-1">
                         Pay ₹2 to unlock
                     </p>
                 </div>
@@ -48,7 +48,7 @@ const PaymentModal = ({
                             />
                         </div>
                     </div>
-                    <div className="text-center xl:text-sm text-gray-600 mb-4">
+                    <div className="text-center text-sm text-gray-600 mb-4">
                         <p>Scan the QR code with any UPI app</p>
                         <p>or pay to: <span className="font-medium">{upiID}</span></p>
                     </div>
@@ -56,7 +56,7 @@ const PaymentModal = ({
 
                 <div className="space-y-4">
                     <div>
-                        <label className="block xl:text-sm  font-medium text-gray-700 mb-1">
+                        <label className="block text-sm  font-medium text-gray-700 mb-1">
                             Enter Transaction ID/Reference Number
                         </label>
                         <input
@@ -70,13 +70,13 @@ const PaymentModal = ({
 
                     <div className="flex gap-3">
                         <button
-                            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded-lg text-lg xl:text-base font-medium transition-colors duration-200"
+                            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded-lg text-base font-medium transition-colors duration-200"
                             onClick={() => setShowPaymentModal(false)}
                         >
                             Cancel
                         </button>
                         <button
-                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-lg xl:text-base flex items-center justify-center gap-2 transition-colors duration-200"
+                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-base flex items-center justify-center gap-2 transition-colors duration-200"
                             onClick={verifyPayment}
                             disabled={isVerifying}
                         >
@@ -99,7 +99,7 @@ const PaymentModal = ({
                     </div>
                 </div>
 
-                <div className="mt-4 xl:text-xs text-base  text-center text-gray-500">
+                <div className="mt-4 text-xs   text-center text-gray-500">
                     Note: Contact details will be unlocked immediately after payment verification
                 </div>
             </motion.div>

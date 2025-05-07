@@ -38,14 +38,14 @@ const PeopleApplied = () => {
     };
 
     return (
-        <div className="bg-white min-h-screen p-6 md:p-10  font-serif">
+        <div className="bg-white min-h-screen sm:p-6 p-4 md:p-10  font-serif">
             {/* Job Header Card */}
             <div className="w-full max-w-6xl mx-auto">
                 <div className="w-full bg-white rounded-2xl shadow-md border border-teal-100 p-8 mb-10 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-100 to-transparent rounded-bl-full opacity-50 -z-10"></div>
                     
                     <div className="flex flex-col">
-                        <h2 className="text-3xl md:text-4xl text-[34px] font-serif  text-[#6196cb] font-bold mb-3 ">
+                        <h2 className="text-3xl md:text-4xl text-[34px] font-serif  text-gray-700 font-bold mb-3 ">
                             {jobStore?.job?.jobRole}
                         </h2>
                         

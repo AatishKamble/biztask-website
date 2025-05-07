@@ -36,7 +36,7 @@ const ServiceReview = ({ review, userDetails, handleReviewDelete }) => {
       {/* Review header  */}
       <div className={`h-2 w-full ${isOwnReview ? 'bg-blue-500' : 'bg-gradient-to-r from-blue-400 to-indigo-500'}`}></div>
       
-      <div className="p-6">
+      <div className="md:p-6 p-3">
         <div className="flex items-start">
           {/* User Profile Section */}
           <div className="mr-5 flex flex-col items-center">
@@ -51,7 +51,7 @@ const ServiceReview = ({ review, userDetails, handleReviewDelete }) => {
               />
             </motion.div>
             
-            {isOwnReview && (
+            {isOwnReview  && (
               <motion.span 
                 className="mt-2 bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium shadow-sm"
                 initial={{ scale: 0.8 }}
@@ -68,10 +68,10 @@ const ServiceReview = ({ review, userDetails, handleReviewDelete }) => {
             
             <div className="flex justify-between items-start">
               <div>
-                <div className="flex items-center">
+                <div className="flex flex-col md:flex-row md:items-center items-start">
                   <h4 className="font-semibold text-gray-800 text-lg">{review?.user?.name || 'Anonymous User'}</h4>
                   <motion.div 
-                    className="ml-2 flex items-center text-green-600 text-xs bg-green-50 px-2 py-1 rounded-full"
+                    className="md:ml-2 flex items-center text-green-600 text-xs bg-green-50 px-2 py-1 rounded-full"
                     whileHover={{ scale: 1.05 }}
                   >
                     <FaCheckCircle className="mr-1" />
@@ -88,7 +88,7 @@ const ServiceReview = ({ review, userDetails, handleReviewDelete }) => {
               <div className="flex flex-col items-end">
                 <Star star={review?.rating} />
                 
-                {isOwnReview && (
+                {isOwnReview  && (
                   <motion.button
                     onClick={() => handleReviewDelete(review?._id)}
                     className="mt-3 text-gray-400 hover:text-red-500 transition duration-200 bg-gray-100 hover:bg-red-50 p-2 rounded-full"

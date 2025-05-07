@@ -26,13 +26,13 @@ const JobAdvertise = ({ typeText, job, business }) => {
   };
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto  overflow-hidden rounded-3xl shadow-md border border-blue-100 transition-all duration-300 hover:shadow-xl hover:border-blue-300 bg-white">
+    <div className="relative w-full max-w-2xl mx-auto  overflow-hidden md:rounded-3xl rounded-2xl shadow-md border border-blue-100 transition-all duration-300 hover:shadow-xl hover:border-blue-300 bg-white">
       {/* Decorative accent bar at top */}
       <div className="h-2 bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-500"></div>
       
       <div className="flex flex-col sm:flex-row p-6 gap-6">
         {/* Left Section - Company Logo */}
-        <div className="flex flex-col items-center sm:w-[30%]">
+        <div className="flex flex-col border-b border-gray-100 md:border-none items-center sm:w-[30%] ">
           {/* Logo Container */}
           <div className="w-[140px] h-[140px] relative">
             {/* Background design elements */}
@@ -49,7 +49,7 @@ const JobAdvertise = ({ typeText, job, business }) => {
           </div>
 
           {/* Company Name */}
-          <h3 className="mt-4 text-blue-800 font-serif font-bold text-lg text-center  max-w-full">
+          <h3 className="mt-4 text-blue-800 font-serif font-bold text-lg text-center md:pb-0 pb-4  max-w-full">
             {business?.companyName}
           </h3>
         </div>

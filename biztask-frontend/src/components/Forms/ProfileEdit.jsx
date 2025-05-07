@@ -88,10 +88,10 @@ const ProfileEdit = ({ userDetails }) => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-blue-50 sm:py-12 py-6 sm:px-4 px-2 lg:px-8">
             <div className="max-w-3xl mx-auto">
                 {/* Back navigation */}
-                <div className="mb-8">
+                <div className="sm:mb-8 mb-4">
                     <button 
                         onClick={() => navigate(-1)} 
                         className="flex items-center text-blue-600 hover:text-blue-800 transition-colors font-serif"
@@ -108,7 +108,7 @@ const ProfileEdit = ({ userDetails }) => {
                         <p className="text-blue-100 text-center mt-2 font-serif">Update your personal details</p>
                     </div>
 
-                    <div className="p-8">
+                    <div className="sm:p-8 p-4">
                         {/* Photo comparison section */}
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-10 bg-gray-50 p-6 rounded-xl">
                             {/* Current photo */}

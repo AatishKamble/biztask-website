@@ -72,7 +72,7 @@ const FilterBy = ({
 
   return (
     <motion.div
-      className="xl:w-96 mx-auto grid xl:grid-cols-1 grid-cols-2 gap-4 xl:gap-0"
+      className="xl:w-96 mx-auto grid grid-cols-1"
       initial="hidden"
       animate="visible"
       variants={containerVariants}

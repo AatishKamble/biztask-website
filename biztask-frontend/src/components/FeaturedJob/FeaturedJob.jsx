@@ -52,12 +52,12 @@ const FeaturedJob = () => {
 
 
   return (
-    <section className="w-full  py-16 pb-4 xl:px-10 lg:px-20 sm:px-5">
+    <section className="w-full  md:py-16 py-10 pb-4 px-3 xl:px-10 lg:px-20 sm:px-5">
       {/* Decorative elements */}
       <div className="absolute left-0 top-1/4 w-32 h-32 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
       <div className="absolute right-0 bottom-1/4 w-32 h-32 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
 
-      <div className="max-w-7xl mx-auto relative">
+      <div className="md:max-w-7xl mx-auto relative">
         {/* Section Header */}
         <motion.div
           className="text-center mb-12"
@@ -98,7 +98,7 @@ const FeaturedJob = () => {
         ):(<>
         {/* Job Listings Container */}
         <motion.div
-          className="w-full relative px-6 py-6"
+          className="w-full relative md:px-6 px-2 py-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
