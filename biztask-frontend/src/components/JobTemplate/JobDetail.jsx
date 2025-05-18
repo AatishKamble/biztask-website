@@ -132,12 +132,12 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
             {/* Job Header Card */}
             <div className="relative  xl:max-w-6xl w-full bg-white shadow-lg my-2 p-8 rounded-3xl border border-blue-100">
               <div className="flex flex-col">
-                <h2 className="text-[32px] font-serif font-bold text-[#2E3A46] mb-2">
+                <h2 className="text-[32px] font-serif font-bold text-[#2E3A46] px-2 mb-2">
                   {jobStore?.job?.jobRole}
                 </h2>
 
                 {/* Company Name  */}
-                <div className="flex items-center text-[#1C4E80] px-2 space-x-2 mb-2">
+                <div className="flex items-center text-[#1C4E80] px-2 space-x-2">
                   <HiBuildingOffice2 className="text-xl text-blue-600" />
                   <h3 className="text-[20px] font-serif font-semibold text-[#3D5060]">
                     {jobStore?.job?.business?.companyName}
@@ -291,7 +291,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
                     <div className="flex flex-wrap gap-3 mt-4">
                       {jobStore?.job?.skillsRequired?.map((skill, ind) => (
-                        <span key={ind} className="bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-serif border border-blue-200 hover:bg-blue-100 hover:text-blue-800 cursor-default flex items-center">
+                        <span key={ind} className="bg-blue-50 text-blue-700 px-4 py-2 rounded-2xl text-sm font-serif border border-blue-200 hover:bg-blue-100 hover:text-blue-800 cursor-default flex items-center">
                           <span> <svg className="w-4 h-4   mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                           </svg></span>

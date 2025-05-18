@@ -447,7 +447,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             <BsStars className="mr-2 text-emerald-600" />
                             Service Features
                         </div>
-                        <ul className="flex flex-col gap-3 p-4 text-slate-700 text-lg xl:text-base">
+                        <ul className="flex flex-col gap-3 py-4 sm:p-4 text-slate-700 text-lg xl:text-base">
                             {serviceDetails?.features?.length > 0 ? (
                                 serviceDetails.features.map((feature, idx) => (
                                     <li key={idx} className="flex items-start gap-3 bg-gradient-to-r from-emerald-50 to-white p-3 rounded-lg">

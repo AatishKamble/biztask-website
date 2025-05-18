@@ -233,7 +233,7 @@ const SearchJobs = () => {
           />
         </div>
 
-        <div className='w-full h-auto grid grid-cols-1 gap-10 py-10 p-4 relative font-serif'>
+        <div className='w-full h-auto grid grid-cols-1 gap-10 py-10 sm:p-4 relative font-serif'>
       {isLoading === true && (
         <div className="absolute px-10 md:ms-2 inset-0 flex items-center justify-center bg-[#fefefe] opacity-100 z-10">
           <JobLoader />
@@ -241,7 +241,7 @@ const SearchJobs = () => {
       )}
 
       {hasNoJobs && (
-        <div className="col-span-1 py-20 flex flex-col items-center justify-center text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+        <div className="col-span-1 py-20 flex flex-col items-center justify-center px-1 text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
           <div className="mb-6 p-5 bg-blue-50 rounded-full shadow-sm">
             <BsBriefcaseFill className="text-5xl text-blue-500" />
           </div>
