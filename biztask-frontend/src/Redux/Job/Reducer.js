@@ -13,7 +13,10 @@ import {
     JOB_UPDATE_FAILURE,
     GET_ALL_JOB_REQUEST,
     GET_ALL_JOB_SUCCESS,
-    GET_ALL_JOB_FAILURE
+    GET_ALL_JOB_FAILURE,
+     GET_PEOPLE_APPLIED_BY_JOBID_REQUEST,
+    GET_PEOPLE_APPLIED_BY_JOBID_SUCCESS,
+    GET_PEOPLE_APPLIED_BY_JOBID_FAILURE
 } from './ActionType.js';
 
 
@@ -22,7 +25,8 @@ const initialState = {
     error: null,
     isLoading: null,
     jobs: [],
-    job: {}
+    job: {},
+    appliedPeople:[]
 }
 
 export const jobReducer = (state = initialState, action) => {
@@ -33,6 +37,7 @@ export const jobReducer = (state = initialState, action) => {
         case JOB_REMOVE_REQUEST:
         case JOB_UPDATE_REQUEST:
             case GET_ALL_JOB_REQUEST:
+                case GET_PEOPLE_APPLIED_BY_JOBID_REQUEST:
             return {
                 ...state,
                 isLoading: true
@@ -73,11 +78,20 @@ export const jobReducer = (state = initialState, action) => {
                     jobs:action.payload
                 }
 
+                case GET_PEOPLE_APPLIED_BY_JOBID_SUCCESS:
+                    return {
+                    ...state,
+                    isLoading:false,
+                    appliedPeople:action.payload
+                }
+
+
         case JOB_REGISTER_FAILURE:
         case JOB_GET_BY_ID_FAILURE:
         case JOB_REMOVE_FAILURE:
         case JOB_UPDATE_FAILURE:
             case GET_ALL_JOB_FAILURE:
+                case GET_PEOPLE_APPLIED_BY_JOBID_FAILURE:
             return {
                 ...state,
                 isLoading: false,

@@ -13,7 +13,12 @@ import {
     JOB_UPDATE_FAILURE,
     GET_ALL_JOB_REQUEST,
     GET_ALL_JOB_SUCCESS,
-    GET_ALL_JOB_FAILURE
+    GET_ALL_JOB_FAILURE,
+    GET_PEOPLE_APPLIED_BY_JOBID_REQUEST,
+    GET_PEOPLE_APPLIED_BY_JOBID_SUCCESS,
+    GET_PEOPLE_APPLIED_BY_JOBID_FAILURE
+
+    
 } from './ActionType.js';
 
 
@@ -54,7 +59,21 @@ const removeJobFailure = (error) => ({
     payload: error
 });
 
+//get applied people
+const getAppliedPeopleRequest = () => ({
+    type:GET_PEOPLE_APPLIED_BY_JOBID_REQUEST,
 
+});
+
+const getAppliedPeopleSuccess = (jobPeople) => ({
+    type: GET_PEOPLE_APPLIED_BY_JOBID_SUCCESS,
+    payload: jobPeople
+});
+
+const getAppliedPeopleFailure = (error) => ({
+    type:GET_PEOPLE_APPLIED_BY_JOBID_FAILURE,
+    payload: error
+});
 //job update
 const updateJobRequest = () => ({
     type: JOB_UPDATE_REQUEST
@@ -190,6 +209,26 @@ const updateJob = (jwt, jobData, jobId) => async (dispatch) => {
     }
 };
 
+// get applied people
+const getAppliedPeople = (jobId) => async (dispatch) => {
+    dispatch(getAppliedPeopleRequest());
+    try {
+     
+        const response = await axios.get(`${API_BASE_URL}/api/jobs/people-applied/${jobId}`);
+
+        const jobData = response.data;
+    
+        if (jobData.success === true) {
+            dispatch(getAppliedPeopleSuccess(jobData.job));
+            
+        } else {
+            throw new Error(jobData.message);
+        }
+    } catch (error) {
+        dispatch(getAppliedPeopleFailure(error.message));
+        toast.error(error.message);
+    }
+};
 //get by id
 //get job
 const getJobById = (jobId) => async (dispatch) => {
@@ -249,7 +288,8 @@ export{
     removeJob,
     updateJob,
     getJobById,
-    getAllJobs
+    getAllJobs,
+    getAppliedPeople
 
 }
 

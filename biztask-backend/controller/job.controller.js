@@ -84,11 +84,31 @@ const getAllJob=async(req,res)=>{{
     }
     
 }}
+
+
+const getPeopleAppliedByJobId=async(req,res)=>{
+    try {
+        const jobId=req.params.id;
+     
+    const jobpeople = await jobService.getPeopleAppliedByJobId(jobId);
+
+    return res.json({success:true,job:jobpeople});
+    
+    } catch (error) {
+        
+        return res.json({success:false,message:error.message});
+    }
+    
+    }
+
+
+
 export default{
     createJob,
     getJobById,
     updateJob,
     removeJob,
-    getAllJob
+    getAllJob,
+    getPeopleAppliedByJobId
     
 }

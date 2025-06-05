@@ -169,7 +169,7 @@ const AboutUs = () => {
               Find Services
             </button>
             <button onClick={() => navigate("/jobs")} className="bg-white text-blue-800 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-medium transition-all shadow-lg hover:shadow-xl">
-              Find Jobs Services
+              Find Jobs 
             </button>
           </motion.div>
         </motion.div>

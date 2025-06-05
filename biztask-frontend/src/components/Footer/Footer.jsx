@@ -35,7 +35,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
          
           <div className="border-b xl:border-b-0  md:border-r  border-cyan-200 border-dotted  xl:ps-0 ">
           <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4 pb-2">
-                About Biztask
+                About Company
               </h3>
               <div className="flex flex-col md:items-center items-start pb-5 md:pb-0">
                 <div className="md:h-20 md:w-[85%] h-24 w-[170px]   ">

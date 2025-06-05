@@ -1,6 +1,7 @@
 import serviceModel from "../models/service.model.js"
 import jobsDetailsModel from "../models/jobsDetails.model.js";
 import servicesService from "../services/services.service.js";
+import userApplicationModel from "../models/userJobApplication.model.js";
 
 const createJob = async (userId, reqData) => {
 
@@ -56,6 +57,30 @@ const getJobById=async(jobId)=>{
     }
 }
 
+
+const getPeopleAppliedByJobId=async(jobId)=>{
+    try {
+
+        
+        const applicants=await userApplicationModel.find({jobId}).populate("userId").populate({
+                    path: "jobId",
+                    model: "jobsDetails",
+                    populate: [
+                        { path: "business",
+                            model:"bussiness"
+                         },
+                        
+                    ]
+        
+                });
+ 
+        if(applicants.length===0) return [];
+        
+        return applicants;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
 
 const updateJob=async(userId,jobId,reqData)=>{
     try {
@@ -201,11 +226,14 @@ const totalJobs=await jobsDetailsModel.countDocuments(query);
         throw new Error(error.message);
     }
 }
+
+
 export default{
     createJob,
     getJobById,
     updateJob,
     removeJob,
-    getAllJob
+    getAllJob,
+    getPeopleAppliedByJobId
   
 }

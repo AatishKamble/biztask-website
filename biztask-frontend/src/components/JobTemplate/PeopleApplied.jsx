@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getJobById } from "../../Redux/Job/Action.js";
+import { getJobById,getAppliedPeople } from "../../Redux/Job/Action.js";
 import timeAgo from '../timeCalculate.js';
 
 // Icons
@@ -15,20 +15,22 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import { BsStars } from "react-icons/bs";
 
 const PeopleApplied = () => {
+    
     const { id } = useParams();
     const dispatch = useDispatch();
     const jobStore = useSelector(store => store.jobStore);
     const [selectedApplicant, setSelectedApplicant] = useState(null);
 
+  
+    
     useEffect(() => {
         if (id) {
-            dispatch(getJobById(id));
+            dispatch(getAppliedPeople(id));
         }
     }, [id, dispatch]);
 
-    
+    const applicants = jobStore?.appliedPeople ;
    
-    const applicants = jobStore?.job?.peopleApplied ;
     const handleApplicantClick = (applicant) => {
         setSelectedApplicant(applicant);
     };
@@ -46,22 +48,22 @@ const PeopleApplied = () => {
                     
                     <div className="flex flex-col">
                         <h2 className="text-3xl md:text-4xl text-[34px] font-serif  text-gray-700 font-bold mb-3 ">
-                            {jobStore?.job?.jobRole}
+                            {applicants[0]?.jobId?.jobRole}
                         </h2>
-                        
+                       
                         <div className="flex items-center text-gray-700 mb-3">
                             <HiBuildingOffice2 className="text-xl text-blue-600 mr-2" />
                             <h3 className="text-[20px]  text-[#3D5060]">
-                                {jobStore?.job?.business?.companyName}
+                                {applicants[0]?.jobId?.business?.companyName}
                             </h3>
                         </div>
                         
                         <div className="flex items-center text-[#1C4E80]  mb-3">
                             <IoLocationSharp className="text-lg text-blue-500 mr-2" />
                             <span>
-                                {jobStore?.job?.jobLocations?.slice(0, 8).map((location, ind) => {
+                                {applicants[0]?.jobId?.jobLocations?.slice(0, 8).map((location, ind) => {
                                     let formattedLocation = location.charAt(0).toUpperCase() + location.slice(1);
-                                    if (ind !== jobStore?.job?.jobLocations?.length - 1) {
+                                    if (ind !== applicants[0]?.jobId?.jobLocations?.length - 1) {
                                         formattedLocation += ", ";
                                     }
                                     return formattedLocation;
@@ -71,11 +73,11 @@ const PeopleApplied = () => {
                         
                         <div className="flex items-center text-[#0F3057]">
                             <IoMdTime className="text-lg text-blue-500 mr-2" />
-                            <span>Posted {timeAgo(jobStore?.job?.postedAt) }</span>
+                            <span>Posted {timeAgo(applicants[0]?.jobId?.postedAt) }</span>
                         </div>
                         
                         <div className="mt-6">
-                            <Link to={`/job-detail/${jobStore?.job?._id}`}>
+                            <Link to={`/job-detail/${applicants[0]?.jobId?._id}`}>
                                 <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg transition-all duration-200 font-medium flex items-center">
                                     <span>Back to Job Details</span>
                                     <FaChevronRight className="ml-2" />
@@ -108,7 +110,7 @@ const PeopleApplied = () => {
                                     <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-md">
                                         <img
                                             src={person.profileImage?.imageUrl || `https://ui-avatars.com/api/?fullName=${encodeURIComponent(person.fullName)}&background=random`}
-                                            alt={person.fullName}
+                                            alt={person?.fullName}
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
@@ -116,23 +118,24 @@ const PeopleApplied = () => {
                             </div>
                             
                             <div className="pt-12 pb-6 px-6">
-                                <h3 className="text-xl font-semibold text-gray-800 mb-1">{person.fullName}</h3>
-                                <p className="text-blue-600 font-medium mb-3">{person.profession}</p>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-1">{person?.fullName}</h3>
+                                <p className="text-blue-600 font-medium mb-3">{person?.profession}</p>
                                 
                                 <div className="flex items-center text-gray-600 text-sm mb-2">
                                     <MdEmail className="mr-2 text-gray-500" />
-                                    <span className="truncate">{person.email}</span>
+                                    <span className="truncate">{person?.email}</span>
                                 </div>
                                 
                                 <div className="flex items-center text-gray-600 text-sm mb-4">
                                     <FaPhone className="mr-2 text-gray-500" />
-                                    <span>{person.phone}</span>
+                                    <span>{person?.phone
+}</span>
                                 </div>
                                 
                                 <div className="mt-4 pt-4 border-t border-blue-200 flex justify-between items-center">
                                     <div className="flex items-center text-gray-600 text-sm">
                                         <MdWork className="mr-1 text-blue-500" />
-                                        <span>{person.experience} exp</span>
+                                        <span>{person?.experience} exp</span>
                                     </div>
                                     <button className="text-blue-600 font-medium text-sm flex items-center hover:text-blue-700">
                                         View Profile
@@ -165,7 +168,7 @@ const PeopleApplied = () => {
                                 <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg">
                                     <img
                                         src={selectedApplicant.profileImage?.imageUrl || `https://ui-avatars.com/api/?fullName=${encodeURIComponent(selectedApplicant.fullName)}&size=200&background=random`}
-                                        alt={selectedApplicant.fullName}
+                                        alt={selectedApplicant?.fullName}
                                         className="w-full h-full object-cover"
                                     />
                                 </div>
@@ -175,8 +178,8 @@ const PeopleApplied = () => {
                         {/* Content */}
                         <div className="pt-24 pb-8 px-8">
                             <div className="text-center mb-6">
-                                <h2 className="text-3xl font-bold text-gray-800">{selectedApplicant.fullName}</h2>
-                                <p className="text-xl text-blue-600 font-medium">{selectedApplicant.profession}</p>
+                                <h2 className="text-3xl font-bold text-gray-800">{selectedApplicant?.fullName}</h2>
+                                <p className="text-xl text-blue-600 font-medium">{selectedApplicant?.profession}</p>
                             </div>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -191,7 +194,7 @@ const PeopleApplied = () => {
                                             <MdEmail className="text-gray-500 mt-1 mr-3" />
                                             <div>
                                                 <p className="text-sm text-gray-500">Email</p>
-                                                <p className="text-gray-800">{selectedApplicant.email}</p>
+                                                <p className="text-gray-800">{selectedApplicant?.email}</p>
                                             </div>
                                         </div>
                                         
@@ -199,7 +202,7 @@ const PeopleApplied = () => {
                                             <FaPhone className="text-gray-500 mt-1 mr-3" />
                                             <div>
                                                 <p className="text-sm text-gray-500">Phone</p>
-                                                <p className="text-gray-800">{selectedApplicant.phone}</p>
+                                                <p className="text-gray-800">{selectedApplicant?.phone}</p>
                                             </div>
                                         </div>
                                         
@@ -207,8 +210,8 @@ const PeopleApplied = () => {
                                             <FaMapMarkerAlt className="text-gray-500 mt-1 mr-3" />
                                             <div>
                                                 <p className="text-sm text-gray-500">Address</p>
-                                                <p className="text-gray-800">{selectedApplicant.address}</p>
-                                                <p className="text-gray-800">ZIP: {selectedApplicant.zipCode}</p>
+                                                <p className="text-gray-800">{selectedApplicant?.address}</p>
+                                                <p className="text-gray-800">ZIP: {selectedApplicant?.zipCode}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +236,7 @@ const PeopleApplied = () => {
                                             <MdWork className="text-gray-500 mt-1 mr-3" />
                                             <div>
                                                 <p className="text-sm text-gray-500">Experience</p>
-                                                <p className="text-gray-800">{selectedApplicant.experience}</p>
+                                                <p className="text-gray-800">{selectedApplicant?.experience}</p>
                                             </div>
                                         </div>
                                         
@@ -254,7 +257,7 @@ const PeopleApplied = () => {
                                     Skills
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
-                                    {selectedApplicant.skills.split(',').map((skill, index) => (
+                                    {selectedApplicant?.skills?.split(',')?.map((skill, index) => (
                                         <span 
                                             key={index}
                                             className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
@@ -271,7 +274,7 @@ const PeopleApplied = () => {
                                     Availability
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
-                                    {selectedApplicant.availability.map((day, index) => (
+                                    {selectedApplicant?.availability?.map((day, index) => (
                                         <span 
                                             key={index}
                                             className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
