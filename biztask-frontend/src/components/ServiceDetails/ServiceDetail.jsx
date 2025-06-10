@@ -185,7 +185,11 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
     const [visibleReviews, setVisibleReviews] = useState(10);
 
+    const handleMostRecentReviews =()=>{
+//.postedAt
+    }
     const handleViewMore = () => {
+        
         setVisibleReviews((prevVisibleReviews) => prevVisibleReviews + 10);
     };
 
@@ -234,8 +238,8 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
     };
 
     //profile image state
-     const [showImageModal, setShowImageModal] = useState(false);
-        
+    const [showImageModal, setShowImageModal] = useState(false);
+
 
     // States for payment flow
     const [activeTab, setActiveTab] = useState('description');
@@ -335,7 +339,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             </div>
 
                             {
-                                userDetails?._id == serviceDetails?.user?._id  &&
+                                userDetails?._id == serviceDetails?.user?._id &&
 
                                 <div className="mt-6 grid grid-cols-2  items-center font-serif gap-2 justify-end">
 
@@ -355,15 +359,15 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             </svg>Update</button>
                                     </Link>
                                     <Link to={`/job-post`}>
-                                          
-                                    <button
-                                       
-                                        className="px-5 py-2 bg-gradient-to-r w-full from-blue-700 to-blue-500 text-white rounded-xl shadow-lg font-serif text-[18px] flex items-center font-semibold justify-center gap-2"
-                                          >
-                                        <FaAddressCard size={24} />
-                                        <span className=" text-base">Post Job</span>
-                                    </button>
-                                </Link>
+
+                                        <button
+
+                                            className="px-5 py-2 bg-gradient-to-r w-full from-blue-700 to-blue-500 text-white rounded-xl shadow-lg font-serif text-[18px] flex items-center font-semibold justify-center gap-2"
+                                        >
+                                            <FaAddressCard size={24} />
+                                            <span className=" text-base">Post Job</span>
+                                        </button>
+                                    </Link>
 
                                     <button
                                         className="px-5 py-2 font-semibold w-full bg-gradient-to-r from-red-700 to-red-500 text-white rounded-xl shadow-lg font-serif text-[18px] flex items-center justify-center gap-2"
@@ -382,145 +386,142 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                     </div>
 
-                   
 
 
-                  
 
-        <div className="2xl:w-[90%]  font-serif sm:w-full h-auto drop-shadow-lg my-10 mt-5 flex flex-col xl:flex-row gap-10 px-2 sm:px-2">
-        {/* Left Section */}
-            <div className="flex flex-col xl:w-2/3 gap-5">
-                {/* Tab Navigation */}
-                <div className="flex border-b border-gray-300 overflow-x-auto no-scrollbar">
-                    <button
-                        className={`flex items-center text-lg py-3 px-5 transition-all duration-300 border-b-2 ${
-                            activeTab === 'description'
-                                ? 'border-emerald-600 text-emerald-800 font-semibold'
-                                : 'border-transparent text-gray-600 hover:text-emerald-700'
-                        }`}
-                        onClick={() => setActiveTab('description')}
-                    >
-                        About
-                    </button>
-                    <button
-                        className={`flex items-center text-lg py-3 px-5 transition-all duration-300 border-b-2 ${
-                            activeTab === 'features'
-                                ? 'border-emerald-600 text-emerald-800 font-semibold'
-                                : 'border-transparent text-gray-600 hover:text-emerald-700'
-                        }`}
-                        onClick={() => setActiveTab('features')}
-                    >
-                        Features
-                    </button>
-                    <button
-                        className={`flex items-center text-lg py-3 px-5 transition-all duration-300 border-b-2 ${
-                            activeTab === 'pricing'
-                                ? 'border-emerald-600 text-emerald-800 font-semibold'
-                                : 'border-transparent text-gray-600 hover:text-emerald-700'
-                        }`}
-                        onClick={() => setActiveTab('pricing')}
-                    >
-                        Pricing
-                    </button>
-                </div>
 
-                {/* Tab Content */}
-                <div className={`${activeTab === 'pricing' ? 'p-0' : 'p-5 bg-white border border-emerald-100 rounded-xl shadow-sm'}`}>
-                    {/* Description Tab */}
-                    <div 
-                        className={`${activeTab === 'description' ? 'block' : 'hidden'}`}
-                    >
-                        <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
-                            <MdOutlineDescription className="mr-2 text-emerald-600 text-xl" />
-                            Service Description
-                        </div>
-                        <p className="text-justify p-4 text-slate-700 text-lg xl:text-base leading-relaxed bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg mt-3">
-                            {serviceDetails?.Description || "No description provided for this service."}
-                        </p>
-                    </div>
 
-                    {/* Features Tab */}
-                    <div
-                        className={`${activeTab === 'features' ? 'block' : 'hidden'}`}
-                    >
-                        <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
-                            <BsStars className="mr-2 text-emerald-600" />
-                            Service Features
-                        </div>
-                        <ul className="flex flex-col gap-3 py-4 sm:p-4 text-slate-700 text-lg xl:text-base">
-                            {serviceDetails?.features?.length > 0 ? (
-                                serviceDetails.features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-start gap-3 bg-gradient-to-r from-emerald-50 to-white p-3 rounded-lg">
-                                        <FaCheckCircle className="text-emerald-500 mt-1 flex-shrink-0" />
-                                        <span className="break-words">{feature}</span>
-                                    </li>
-                                ))
-                            ) : (
-                                <li className="text-gray-500 italic p-3">No features listed for this service.</li>
-                            )}
-                        </ul>
-                    </div>
-
-                    {/* Pricing Tab */}
-                    <div
-                        className={`${activeTab === 'pricing' ? 'block' : 'hidden'}`}
-                    >
-                        <div
-                            className="bg-white font-serif rounded-xl shadow-md overflow-hidden border border-emerald-100"
-                        >
-                            <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4 text-white">
-                                <h3 className="text-xl font-semibold flex items-center gap-2">
-                                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
-                                            clipRule="evenodd"></path> 
-                                    </svg>
-                                    Service Pricing
-                                </h3>
+                    <div className="2xl:w-[90%]  font-serif sm:w-full h-auto  my-10 mt-5 flex flex-col xl:flex-row gap-10 px-2 sm:px-2">
+                        {/* Left Section */}
+                        <div className="flex flex-col xl:w-2/3 gap-5">
+                            {/* Tab Navigation */}
+                            <div className="flex justify-evenly  overflow-x-auto no-scrollbar font-semibold">
+                                <button
+                                    className={`flex w-full items-center justify-center text-lg py-3 px-5 transition-all duration-300 rounded-tl-md rounded-bl-md  border-2 ${activeTab === 'description'
+                                        ? ' text-emerald-800  bg-blue-100 '
+                                        : ' text-gray-600 hover:text-emerald-700 bg-slate-100 '
+                                        }`}
+                                    onClick={() => setActiveTab('description')}
+                                >
+                                    About
+                                </button>
+                                <button
+                                    className={`flex w-full items-center justify-center text-lg py-3 px-5 transition-all duration-300  border-y-2 ${activeTab === 'features'
+                                        ? ' text-emerald-800 font-semibold bg-blue-100 '
+                                        : ' text-gray-600 hover:text-emerald-700 bg-slate-100'
+                                        }`}
+                                    onClick={() => setActiveTab('features')}
+                                >
+                                    Features
+                                </button>
+                                <button
+                                    className={`flex w-full justify-center items-center text-lg py-3 px-5 transition-all duration-300 rounded-tr-md rounded-br-md  border-2   ${activeTab === 'pricing'
+                                        ? ' text-emerald-800 font-semibold bg-blue-100 '
+                                        : ' text-gray-600 hover:text-emerald-700 bg-slate-100'
+                                        }`}
+                                    onClick={() => setActiveTab('pricing')}
+                                >
+                                    Pricing
+                                </button>
                             </div>
 
-                            <div className="p-6">
-                                <div className="flex justify-between items-center mb-6">
-                                    <div className="text-center">
-                                        <span className="block text-sm text-gray-500 mb-1">Starting From</span>
-                                        <div className="text-2xl font-bold text-emerald-700 flex items-center justify-center">
-                                            <MdOutlineCurrencyRupee />
-                                            <span>{serviceDetails?.minPrice || "N/A"}</span>
-                                        </div>
+                            {/* Tab Content */}
+                            <div className={`${activeTab === 'pricing' ? 'p-0' : 'p-5 bg-white border border-emerald-100 rounded-xl shadow-sm'}`}>
+                                {/* Description Tab */}
+                                <div
+                                    className={`${activeTab === 'description' ? 'block' : 'hidden'}`}
+                                >
+                                    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
+                                        <MdOutlineDescription className="mr-2 text-emerald-600 text-xl" />
+                                        Service Description
                                     </div>
+                                    <p className="text-justify p-4 text-slate-700 text-lg xl:text-base leading-relaxed bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg mt-3">
+                                        {serviceDetails?.Description || "No description provided for this service."}
+                                    </p>
+                                </div>
 
-                                    <div className="h-12 border-r-2 border-gray-300"></div>
+                                {/* Features Tab */}
+                                <div
+                                    className={`${activeTab === 'features' ? 'block' : 'hidden'}`}
+                                >
+                                    <div className="w-full flex items-center text-xl text-emerald-800 font-semibold pb-3 border-b border-emerald-200">
+                                        <BsStars className="mr-2 text-emerald-600" />
+                                        Service Features
+                                    </div>
+                                    <ul className="flex flex-col gap-3 py-4 sm:p-4 text-slate-700 text-lg xl:text-base">
+                                        {serviceDetails?.features?.length > 0 ? (
+                                            serviceDetails.features.map((feature, idx) => (
+                                                <li key={idx} className="flex items-start gap-3 bg-gradient-to-r from-emerald-50 to-white p-3 rounded-lg">
+                                                    <FaCheckCircle className="text-emerald-500 mt-1 flex-shrink-0" />
+                                                    <span className="break-words">{feature}</span>
+                                                </li>
+                                            ))
+                                        ) : (
+                                            <li className="text-gray-500 italic p-3">No features listed for this service.</li>
+                                        )}
+                                    </ul>
+                                </div>
 
-                                    <div className="text-center">
-                                        <span className="block text-sm text-gray-500 mb-1">Up To</span>
-                                        <div className="text-2xl font-bold text-emerald-700 flex items-center justify-center">
-                                            <MdOutlineCurrencyRupee />
-                                            <span>{serviceDetails?.maxPrice || "N/A"}</span>
+                                {/* Pricing Tab */}
+                                <div
+                                    className={`${activeTab === 'pricing' ? 'block' : 'hidden'}`}
+                                >
+                                    <div
+                                        className="bg-white font-serif rounded-xl shadow-md overflow-hidden border border-emerald-100"
+                                    >
+                                        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4 text-white">
+                                            <h3 className="text-xl font-semibold flex items-center gap-2">
+                                                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+                                                        clipRule="evenodd"></path>
+                                                </svg>
+                                                Service Pricing
+                                            </h3>
+                                        </div>
+
+                                        <div className="p-6">
+                                            <div className="flex justify-between items-center mb-6">
+                                                <div className="text-center">
+                                                    <span className="block text-sm text-gray-500 mb-1">Starting From</span>
+                                                    <div className="text-2xl font-bold text-emerald-700 flex items-center justify-center">
+                                                        <MdOutlineCurrencyRupee />
+                                                        <span>{serviceDetails?.minPrice || "N/A"}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="h-12 border-r-2 border-gray-300"></div>
+
+                                                <div className="text-center">
+                                                    <span className="block text-sm text-gray-500 mb-1">Up To</span>
+                                                    <div className="text-2xl font-bold text-emerald-700 flex items-center justify-center">
+                                                        <MdOutlineCurrencyRupee />
+                                                        <span>{serviceDetails?.maxPrice || "N/A"}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-4 text-base text-gray-600 bg-emerald-50 rounded-lg p-4 flex items-start gap-2">
+                                                <svg className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
+                                                </svg>
+                                                <span>Final prices may vary based on service complexity and your specific requirements.</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="mt-4 text-base text-gray-600 bg-emerald-50 rounded-lg p-4 flex items-start gap-2">
-                                    <svg className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path>
-                                    </svg>
-                                    <span>Final prices may vary based on service complexity and your specific requirements.</span>
-                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            {/* Right Section  */}
-            <div className="flex xl:w-1/3">
-            < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} handlePaymentInitiation={handlePaymentInitiation} hasPaid={hasPaid} setShowImageModal={setShowImageModal} />
-            
-            </div>
-        </div>
+                        {/* Right Section  */}
+                        <div className="flex xl:w-1/3">
+                            < ContactInformation serviceDetails={serviceDetails} userDetails={userDetails} handlePaymentInitiation={handlePaymentInitiation} hasPaid={hasPaid} setShowImageModal={setShowImageModal} />
+
+                        </div>
+                    </div>
 
                     {/* job */}
                     {
-                        userDetails?._id === serviceDetails?.user?._id  &&
+                        userDetails?._id === serviceDetails?.user?._id &&
                         <div ref={postedJobs} className=' w-[95%] h-auto  mb-10 mx-200'>
 
 
@@ -543,7 +544,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     >
                                         Posted Jobs
                                     </motion.h2>
-                                  
+
 
                                     <motion.div
                                         initial={{ scaleX: 0 }}
@@ -552,18 +553,18 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                         transition={{ delay: 0.4, duration: 0.5 }}
                                         className="h-[4px] w-28 origin-left bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-0 rounded-full "
                                     />
-                                      <motion.p
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.6 }}
-                            className="text-gray-600 text-center font-normal mt-4  font-serif text-base max-w-xl"
-                        >
-                           Jobs listing under this Service.
-                        </motion.p>
+                                    <motion.p
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.6 }}
+                                        className="text-gray-600 text-center font-normal mt-4  font-serif text-base max-w-xl"
+                                    >
+                                        Jobs listing under this Service.
+                                    </motion.p>
                                 </motion.div>
 
-                                
+
                             </div>
 
                             <div className=' w-full grid xl:grid-cols-2 sm:grid-cols-1 md:px-16 lg:px-20 xl:p-2   p-2 gap-5 my-10'>
@@ -701,7 +702,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             <div className="w-full flex font-serif items-center justify-center text-[#adafaf] font-bold">
                                 <MdOutlineImageNotSupported className="text-5xl me-4" />
                                 <span className="md:text-[35px] text-xl ">
-                                 No Images Available
+                                    No Images Available
                                 </span>
                             </div>
                         ) : (
@@ -727,14 +728,14 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                 {isModalOpen !== null && (
                                     <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center  justify-center">
                                         <button
-                                                onClick={handleModalClose}
-                                                className="absolute top-5 right-6 text-red-600 bg-white/50 hover:scale-95  rounded-full p-2 z-50"
-                                            >
-                                                <IoClose size={30} />
-                                            </button>
+                                            onClick={handleModalClose}
+                                            className="absolute top-5 right-6 text-red-600 bg-white/50 hover:scale-95  rounded-full p-2 z-50"
+                                        >
+                                            <IoClose size={30} />
+                                        </button>
                                         <div className="relative w-[80%]  xl:h-[90vh] h-[50vh] bg-white rounded-xl   shadow-xl">
 
-                                            
+
 
                                             <img
                                                 src={AllPhotos[isModalOpen].imageUrl}
@@ -743,25 +744,25 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             />
 
 
-                                           
+
                                         </div>
                                         <button
-                                                className="absolute xl:left-20 left-5 top-1/2 -translate-y-1/2 text-xl w-12 h-12 text-grey-600 bg-white/50 hover:bg-blue-200  p-2 pe-3 rounded-full flex items-center justify-center"
-                                                onClick={() =>
-                                                    setIsModalOpen((prev) => (prev > 0 ? prev - 1 : AllPhotos.length - 1))
-                                                }
-                                            >
-                                                <GrCaretPrevious />
-                                            </button>
+                                            className="absolute xl:left-20 left-5 top-1/2 -translate-y-1/2 text-xl w-12 h-12 text-grey-600 bg-white/50 hover:bg-blue-200  p-2 pe-3 rounded-full flex items-center justify-center"
+                                            onClick={() =>
+                                                setIsModalOpen((prev) => (prev > 0 ? prev - 1 : AllPhotos.length - 1))
+                                            }
+                                        >
+                                            <GrCaretPrevious />
+                                        </button>
 
-                                            <button
-                                                className="absolute xl:right-20 right-5 top-1/2 -translate-y-1/2 text-xl w-12 h-12 text-grey-600 bg-white/50 hover:bg-blue-200 p-2 ps-3  rounded-full flex items-center justify-center"
-                                                onClick={() =>
-                                                    setIsModalOpen((prev) => (prev < AllPhotos.length - 1 ? prev + 1 : 0))
-                                                }
-                                            >
-                                                <GrCaretNext />
-                                            </button>
+                                        <button
+                                            className="absolute xl:right-20 right-5 top-1/2 -translate-y-1/2 text-xl w-12 h-12 text-grey-600 bg-white/50 hover:bg-blue-200 p-2 ps-3  rounded-full flex items-center justify-center"
+                                            onClick={() =>
+                                                setIsModalOpen((prev) => (prev < AllPhotos.length - 1 ? prev + 1 : 0))
+                                            }
+                                        >
+                                            <GrCaretNext />
+                                        </button>
                                     </div>
                                 )}
                             </div>
@@ -802,26 +803,31 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
 
 
-                    <div className="w-full md:px-6 px-4 md:py-6 py-2 mb-6">
-                        <div className="xl:max-w-6xl max-w-4xl   mx-auto flex flex-col md:flex-row justify-between items-center ">
-                            <div className="text-blue-800 mb-6 md:mb-0 text-center md:text-left">
-                                <h2 className="font-serif font-bold text-4xl mb-2">
-                                    Client Reviews
-                                </h2>
+                    {/* Header Section */}
+                    <div className="w-full md:px-6 px-4 md:py-6 py-2 mb-4 sm:md-2">
+                        <div className="xl:max-w-6xl max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center">
 
-                                <p className="text-gray-600 text-base font-serif mb-4">
+                            <div className="text-blue-800 mb-6 md:mb-0 text-center md:text-left">
+                                <div className="relative  ">
+                                    <h2 className="font-serif font-bold text-4xl  relative z-10">
+                                        Client Reviews
+                                    </h2>
+
+                                </div>
+
+                                <p className="text-gray-600 text-base font-serif mb-2 py-2">
                                     Trusted by customers across the country
                                 </p>
+
                                 {/* Rating stats */}
                                 {reviewStore?.reviews.length > 0 ? (
                                     <div className="flex items-center font-serif justify-center md:justify-start gap-4">
-                                        <div className="flex items-center  gap-2">
-                                            <span className="font-serif font-bold md:text-3xl text-xl">
+                                        <div className="flex items-center gap-2 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                                            <span className="font-serif font-bold md:text-3xl text-xl text-blue-800">
                                                 {(reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)}
                                             </span>
                                             <div className="flex flex-col items-start">
                                                 <div className="flex">
-
                                                     <Star star={(reviewStore.reviews.reduce((acc, review) => acc + review.rating, 0) / reviewStore.reviews.length).toFixed(1)} />
                                                 </div>
                                                 <span className="text-gray-600 text-sm">
@@ -832,58 +838,65 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     </div>
                                 ) : (
                                     <div className="flex items-center justify-center md:justify-start">
-                                        <div className="flex">
-                                            {[1, 2, 3, 4, 5].map((star) => (
-                                                <FaStar key={star} size={18} className="text-blue-200" />
-                                            ))}
+                                        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center">
+                                            <div className="flex">
+                                                {[1, 2, 3, 4, 5].map((star) => (
+                                                    <FaStar key={star} size={18} className="text-blue-200" />
+                                                ))}
+                                            </div>
+                                            <span className="ml-2 text-blue-400 text-sm">No reviews yet</span>
                                         </div>
-                                        <span className="ml-2 text-blue-400 text-sm">No reviews yet</span>
                                     </div>
                                 )}
                             </div>
 
-
+                            {/* Card */}
                             <motion.div
-                                whileHover={{ scale: 1.02 }}
+
                                 whileTap={{ scale: 0.98 }}
-                                className="bg-gradient-to-r from-blue-500 to-blue-600 border border-slate-400 p-4 rounded-lg shadow-lg max-w-md text-center"
+                                className="bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 p-6 rounded-xl shadow-lg max-w-md text-center relative overflow-hidden"
                             >
-                                <h3 className="text-white font-serif font-semibold text-lg mb-1">
-                                    Had an experience with this service?
-                                </h3>
-                                <p className="text-blue-100 text-sm mb-2">
-                                    Your feedback helps others make better choices
-                                </p>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="flex items-center justify-center gap-2 mx-auto h-11 w-36 bg-white   font-serif font-semibold rounded-lg shadow-md transition-all duration-300"
-                                    onClick={() => document.getElementById('review-form').scrollIntoView({ behavior: 'smooth' })}
-                                >
-                                    <IoIosAddCircle size={20} />
-                                    <span>Add Review</span>
-                                </motion.button>
+                                <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full transform translate-x-8 -translate-y-8"></div>
+                                <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/5 rounded-full transform -translate-x-6 translate-y-6"></div>
+
+                                <div className="relative z-10">
+                                    <h3 className="text-white font-serif font-semibold text-lg mb-1">
+                                        Had an experience with this service?
+                                    </h3>
+                                    <p className="text-blue-100 text-sm mb-2">
+                                        Your feedback helps others make better choices
+                                    </p>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="flex items-center justify-center gap-2 mx-auto h-11 w-36 bg-white text-blue-700 font-serif font-semibold rounded-lg shadow-md transition-all duration-300 hover:shadow-lg"
+                                        onClick={() => document.getElementById('review-form').scrollIntoView({ behavior: 'smooth' })}
+                                    >
+                                        <IoIosAddCircle size={20} />
+                                        <span>Add Review</span>
+                                    </motion.button>
+                                </div>
                             </motion.div>
                         </div>
                     </div>
 
-
+                    {/* Reviews Section */}
                     <div className="w-full md:px-6 px-4 mb-8">
                         <div className="xl:max-w-6xl max-w-4xl mx-auto">
-                            {/* Filter tabs would go here - example UI */}
+
+                            {/* Filter tabs */}
                             <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-6">
-                                <button className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-serif">
+                                <button className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-serif shadow-sm hover:shadow-md transition-all duration-300">
                                     All Reviews ({reviewStore?.reviews.length})
                                 </button>
-
-                                <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full text-sm font-serif">
+                                {/* <button className="px-4 py-2 bg-white hover:bg-gray-50 text-gray-700 rounded-full text-sm font-serif shadow-sm border border-gray-200 transition-all duration-300" onClick={handleMostRecentReviews}>
                                     Most Recent
-                                </button>
+                                </button> */}
                             </div>
 
                             {/* Reviews grid */}
                             {reviewStore?.reviews.length > 0 ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {reviewStore?.reviews.slice(0, visibleReviews).map((review, index) => (
                                         <motion.div
                                             key={index}
@@ -891,7 +904,6 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             whileInView={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.5, delay: index * 0.1 }}
                                             viewport={{ once: true }}
-                                            className="bg-gray-50 rounded-lg "
                                         >
                                             <Review review={review} userDetails={userDetails} handleReviewDelete={handleReviewDelete} />
                                         </motion.div>
@@ -902,9 +914,9 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.8 }}
-                                    className="text-center p-10 bg-gray-50 rounded-lg shadow-sm"
+                                    className="text-center p-10 bg-white rounded-xl shadow-sm border border-gray-100"
                                 >
-                                    <div className="text-gray-400 mb-4">
+                                    <div className="text-blue-300 mb-4">
                                         <svg className="w-20 h-20 mx-auto" fill="currentColor" viewBox="0 0 20 20">
                                             <path fillRule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clipRule="evenodd"></path>
                                         </svg>
@@ -913,7 +925,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                     <p className="text-gray-500 font-serif mb-4">Be the first to share your experience with this service provider!</p>
                                     <button
                                         onClick={() => document.getElementById('review-form').scrollIntoView({ behavior: 'smooth' })}
-                                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-base font-serif transition-colors duration-300"
+                                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-base font-serif transition-colors duration-300 shadow-sm hover:shadow-md"
                                     >
                                         <IoIosAddCircle size={20} />
                                         <span>Write a Review</span>
@@ -922,10 +934,11 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             )}
 
                             {/* Load more button */}
-                            {visibleReviews < reviewStore?.reviews.length  && (
+                            {visibleReviews < reviewStore?.reviews.length && (
                                 <div className='w-full flex justify-center mt-8'>
-                                    <button className='bg-white border border-blue-600 text-blue-700 hover:bg-blue-50 px-6 py-2 rounded-lg text-lg font-serif font-medium shadow-sm transition-all duration-300'>
-                                        View All Reviews
+                                    <button className='bg-white border border-blue-600 text-blue-700 hover:bg-blue-50 px-6 py-2 rounded-lg text-lg font-serif font-medium shadow-sm hover:shadow-md transition-all duration-300' 
+                                    onClick={handleViewMore}>
+                                        View More Reviews
                                     </button>
                                 </div>
                             )}
@@ -933,7 +946,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                     </div>
 
                     {/* Review form  */}
-                    <div id="review-form" className="w-full px-6 pt-4 border-t border-gray-100">
+                    <div id="review-form" className="w-full sm:px-6 px-2 pt-4 border-t border-gray-100">
                         <motion.div
                             variants={fadeUp}
                             initial="hidden"
@@ -949,7 +962,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                             </div>
 
                             {/* Rating input with half-star capability */}
-                            <div className="flex flex-col items-center gap-2 w-full">
+                            <div className="flex flex-col items-center gap-2 p-6 rounded-xl shadow-sm border border-gray-100  w-full max-w-lg">
                                 <label htmlFor="star-rating" className="text-lg  font-serif font-medium text-gray-700">
                                     How would you rate this service?
                                 </label>
@@ -959,7 +972,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                             <div key={index} className="relative">
                                                 {/* Full star base (gray background) */}
                                                 <FaStar
-                                                   
+
                                                     className="text-gray-300 w-7 h-7 "
                                                 />
 
@@ -990,7 +1003,7 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                                                 {/* Colored overlay for full star */}
                                                 {(hoverValue || currentValue) >= index + 1 && (
                                                     <FaStar
-                                                       
+
                                                         className="absolute top-0 left-0 text-yellow-500 drop-shadow-md w-7 h-7"
                                                     />
                                                 )}
@@ -1011,30 +1024,32 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
 
                             {/* Review input */}
                             <div className="w-full flex flex-col items-center gap-2">
-                                <label htmlFor="review" className="xl:text-lg text-xl font-serif font-medium text-gray-700">
-                                    Your Review
-                                </label>
-                                <textarea
-                                    name="review"
-                                    id="review"
-                                    placeholder="What did you like or dislike? What was your experience with this service provider?"
-                                    className=" text-base h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 transition-all duration-200"
-                                    style={{ resize: "none" }}
-                                    rows={5}
-                                    value={input}
-                                    onChange={handleInputChange}
-                                ></textarea>
-                                <div className="w-full flex justify-between items-center px-2">
-                                    <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={handleSubmitReview}
-                                        className="flex items-center justify-center gap-2 h-11 px-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
-                                    >
-                                        <IoIosAddCircle size={22} />
-                                        <span>Submit Review</span>
-                                    </motion.button>
+                                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 w-full">
+
+                                    <label htmlFor="review" className="xl:text-lg text-xl font-serif font-medium  text-gray-700">
+                                        Your Review
+                                    </label>
+                                    <textarea
+                                        name="review"
+                                        id="review"
+                                        placeholder="What did you like or dislike? What was your experience with this service provider?"
+                                        className="text-base h-[150px] text-gray-700 font-serif outline-none p-4 w-full border border-gray-300 bg-gray-50 rounded-lg shadow-sm focus:ring-1 focus:ring-gray-200  transition-all duration-200"
+                                        style={{ resize: "none" }} rows={5}
+                                        value={input}
+                                        onChange={handleInputChange}
+                                    ></textarea>
+                                    <div className="w-full flex justify-between items-center px-2 py-2">
+                                        <p className="font-serif text-gray-500 text-sm">{wordCount} / 20 words</p>
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={handleSubmitReview}
+                                            className="flex items-center justify-center gap-2 h-11 px-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-serif font-semibold rounded-xl shadow-md transition-all duration-300"
+                                        >
+                                            <IoIosAddCircle size={22} />
+                                            <span>Submit Review</span>
+                                        </motion.button>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
@@ -1042,13 +1057,13 @@ const ServiceDetail = ({ serviceDetails, userDetails }) => {
                 </div>
             }
 
- {/* Image Modal/Lightbox */}
- <AnimatePresence>
+            {/* Image Modal/Lightbox */}
+            <AnimatePresence>
                 {showImageModal && (
-                   <ImageZoom 
-                   setShowImageModal={setShowImageModal} 
-                   profileImage={serviceDetails?.user?.profileImage?.ImageUrl} 
-               />
+                    <ImageZoom
+                        setShowImageModal={setShowImageModal}
+                        profileImage={serviceDetails?.user?.profileImage?.ImageUrl}
+                    />
                 )}
             </AnimatePresence>
 
