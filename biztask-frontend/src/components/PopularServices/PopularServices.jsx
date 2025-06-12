@@ -85,10 +85,18 @@ const PopularServices = () => {
     }
   };
 
+  const rightSectionVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.7, ease: "easeOut" }
+    }
+  };
   return (
     <>
       <div className="bg-gradient-to-b from-white via-blue-50 to-white w-full py-12 pb-8 sm:px-10 lg:px-12 xl:px-24 px-2 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 mx-auto">
-        {/* Left Section: Available Services with animation */}
+        {/* Left Section: Available Services */}
         <motion.div
         className="bg-gradient-to-r  from-[#454fe2] to-[#5245e2] text-white w-full lg:w-[400px] xl:w-[480px] h-[400px] lg:h-[520px] flex flex-col justify-center items-center rounded-3xl shadow-xl p-8 relative overflow-hidden"
         initial="hidden"
@@ -169,7 +177,7 @@ const PopularServices = () => {
         {/* Right Section: Service Cards Grid with scroll animation */}
         <motion.div 
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl mx-auto"
-        variants={containerVariants}
+        variants={rightSectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1, margin: "-50px" }} 

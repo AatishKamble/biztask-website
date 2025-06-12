@@ -11,47 +11,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllServices } from '../Redux/ServiceR/Action.js';
 import heroSection from "../assets/hero.jpg";
 import { getAllJobs } from '../Redux/Job/Action.js';
-
-// ScrollReveal component for animations on scroll
-const ScrollReveal = ({ children, threshold = 0.1 }) => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({ threshold, triggerOnce: false });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={controls}
-      variants={{
-        hidden: { opacity: 0, y: 50 },
-        visible: { 
-          opacity: 1, 
-          y: 0,
-          transition: { 
-            duration: 0.8, 
-            ease: "easeOut" 
-          }
-        }
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-};
+import HangingBanner from '../components/HangingBanner/HangingBanner.jsx';
+import aboutusBack from "../assets/aboutback.png"
 
 const AboutUs = () => {
   const navigate = useNavigate();
   
   // Animation controls
   const { scrollYProgress } = useScroll();
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const parallaxOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
   
   // Animation variants
   const cardVariants = {
@@ -125,77 +92,15 @@ const AboutUs = () => {
 
   return (
     <div className="bg-gray-50 w-full overflow-hidden">
-     
-     <motion.div 
-        className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden"
-        style={{ opacity: parallaxOpacity }}
-      >
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-700 z-0"
-          style={{ y: parallaxY }}
-        />
-        
-        <div className="absolute inset-0 bg-black/40 z-10 font-serif" />
-        
-        <motion.div 
-          className="z-20 text-center px-4 max-w-4xl "
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-white mb-4 font-serif"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            Connecting Talent With Opportunity
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-gray-100 mb-8"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            BizTask bridges the gap between service providers and those in need of skilled professionals.
-          </motion.p>
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className=' grid grid-cols-1 md:grid-cols-2 gap-4'
-          >
-            <button onClick={() => navigate("/services")} className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-lg text-lg font-medium transition-all shadow-lg hover:shadow-xl ">
-              Find Services
-            </button>
-            <button onClick={() => navigate("/jobs")} className="bg-white text-blue-800 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-medium transition-all shadow-lg hover:shadow-xl">
-              Find Jobs 
-            </button>
-          </motion.div>
-        </motion.div>
-        
-        {/* Abstract Shapes */}
-        <motion.div 
-          className="absolute top-20 left-20 w-32 h-32 bg-blue-400 opacity-20 rounded-full blur-3xl z-5"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.3, 0.2],
-          }}
-          transition={{ duration: 6, repeat: Infinity, repeatType: "reverse" }}
-        />
-        <motion.div 
-          className="absolute bottom-10 right-20 w-40 h-40 bg-teal-500 opacity-20 rounded-full blur-3xl z-5"
-          animate={{ 
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.3, 0.2],
-          }}
-          transition={{ duration: 7, repeat: Infinity, repeatType: "reverse" }}
-        />
-      </motion.div>
+     <div className='relative w-full h-[400px] bg-blue-900 overflow-hidden shadow-xl'>
 
+     <HangingBanner imgage={aboutusBack} title={`Connecting Talent With Opportunity`} subtitle=" BizTask bridges the gap between service providers and those in need of skilled professionals" />
+
+</div>
       {/* Statistics Section  */}
-      <ScrollReveal>
+    
         <div className="bg-white py-16  relative z-20">
+          
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {stats.map((stat, i) => (
@@ -219,10 +124,10 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-      </ScrollReveal>
+  
 
       {/* Mission Section  */}
-      <ScrollReveal>
+   
         <div className="py-20 bg-gradient-to-b from-gray-100 to-white">
           <div className="container mx-auto md:px-4 px-1">
             <div className="max-w-6xl mx-auto">
@@ -335,10 +240,10 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-      </ScrollReveal>
+     
 
       {/* About Section  */}
-      <ScrollReveal>
+     
         <div className="py-6 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -406,10 +311,10 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-      </ScrollReveal>
+     
 
       {/* Developer Details Section  */}
-      <ScrollReveal threshold={0.2}>
+    
         <div className="md:py-16 py-10 bg-gradient-to-b from-gray-100 to-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
@@ -546,7 +451,7 @@ const AboutUs = () => {
             </motion.div>
           </div>
         </div>
-      </ScrollReveal> 
+    
     </div>
   );
 };

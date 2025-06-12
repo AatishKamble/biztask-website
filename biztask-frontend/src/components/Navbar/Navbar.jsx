@@ -105,14 +105,14 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
       {forgotPassword && <ForgotPassword openState={forgotPassword} handleButtonClick={handleForgotPasswordClick} handleBackToLogin={handleBackToLogin} />}
 
       <div className='bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 w-full h-20 flex items-center shadow-lg drop-shadow-2xl backdrop-blur-sm'>
-        <div className='w-full px-4 md:px-6 flex items-center justify-between'>
+        <div className='w-full pe-4 md:pe-6 flex items-center justify-between'>
           {/* Logo Section */}
-          <div  className='sm:h-44 sm:w-44 h-24 w-[170px] bg-inherit p-2 flex items-center'>
+          <div  className='sm:h-20 sm:w-44 h-20 w-[170px] bg-inherit  flex items-center'>
             <img src={logo} alt='logo' className='h-full w-full object-cover' />
           </div>
 
           {/* Navigation Links */}
-          <div className='hidden lg:flex absolute left-1/2 transform -translate-x-1/2'>
+          <div className='hidden lg:flex '>
             <ul className='text-lg gap-6 xl:gap-10 font-serif font-medium text-cyan-100 flex tracking-wide'>
               <Link to={"/"} className="group relative text-cyan-100 hover:text-cyan-300 transition duration-300 ease-in-out font-semibold text-lg tracking-wide">
                 <li className='cursor-pointer'>Home
@@ -157,12 +157,12 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
             ) : (
               <div className="hidden lg:flex items-center space-x-5">
                 <button
-                  className="button-shine hover-glow relative bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 h-10 w-[110px] rounded-lg 
+                  className="button-shine  relative bg-gradient-to-r from-blue-500 to-blue-600 border border-white  h-10 w-[110px] rounded-lg 
                   shadow-lg flex justify-center items-center transition-all duration-500 hover:scale-105 overflow-hidden group"
                   onClick={handleLogInButtonClick}
                   style={{ animationDelay: "0s" }}
                 >
-                  <span className="absolute inset-0 bg-cyan-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
+                  <span className="absolute inset-0 bg-blue-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
                   <span className="relative text-md font-serif font-semibold text-white flex items-center gap-2">
                     <IoMdLogIn />
                     Log In
@@ -170,12 +170,12 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
                 </button>
               
                 <button
-                  className="button-shine hover-glow relative bg-gradient-to-r from-lime-500 to-lime-600 hover:from-lime-600 hover:to-lime-700 h-10 w-[110px] rounded-lg 
+                  className="button-shine border border-green-700 relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 h-10 w-[110px] rounded-lg 
                   shadow-lg flex justify-center items-center transition-all duration-500 hover:scale-105 overflow-hidden group"
                   onClick={handleSignUpButtonClick}
                   style={{ animationDelay: "0.3s" }}
                 >
-                  <span className="absolute inset-0 bg-lime-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
+                  <span className="absolute inset-0 bg-green-400 opacity-40 blur-lg group-hover:opacity-50 transition-all duration-500"></span>
                   <span className="relative text-md font-serif text-white flex items-center gap-2">
                     <FaPlus />
                     Sign Up
@@ -229,7 +229,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
           <div className="absolute bottom-6 left-0 right-0 px-6">
             <div className="flex flex-col gap-3">
               <button
-                className="button-shine relative bg-gradient-to-r from-cyan-500 to-cyan-600 py-3 rounded-lg flex justify-center items-center gap-2 transition-all duration-200 hover:from-cyan-600 hover:to-cyan-700 shadow-md"
+                className="button-shine relative bg-gradient-to-r from-blue-500 to-blue-600 border border-white py-3 rounded-lg flex justify-center items-center gap-2 transition-all duration-200  shadow-md"
                 onClick={handleLoginFromSidebar}
               >
                 <IoMdLogIn className="text-white text-lg sm:text-xl" />
@@ -237,7 +237,7 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
               </button>
               
               <button
-                className="button-shine relative bg-gradient-to-r from-lime-500 to-lime-600 py-3 rounded-lg flex justify-center items-center gap-2 transition-all duration-200 hover:from-lime-600 hover:to-lime-700 shadow-md"
+                className="button-shine border-green-700 relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 py-3 rounded-lg flex justify-center items-center gap-2 transition-all duration-200  shadow-md"
                 onClick={handleSignUpFromSidebar}
               >
                 <FaPlus className="text-white text-lg sm:text-xl" />
@@ -257,18 +257,18 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
       )}
 
      
-      {isDropdownOpen  && (
+      {isDropdownOpen   && (
         <div 
           ref={menuRef} 
-          className='bg-cyan-500 font-serif text-white drop-shadow-xl shadow-lg w-[130px] sm:w-[150px] absolute rounded-md z-50 right-4 md:right-6 mt-1 overflow-hidden'
+          className='bg-blue-500 font-serif text-white drop-shadow-xl shadow-lg w-[130px] sm:w-[140px] absolute rounded-md z-50 right-4 md:right-6 mt-1 overflow-hidden'
           style={{ top: '80px' }}
         >
-          <div className="cursor-pointer py-3 w-full flex justify-center items-center hover:bg-blue-500 hover:text-white transition border-blue-900 border-b">
+          <div className="cursor-pointer py-3 w-full flex justify-center items-center hover:bg-blue-100 hover:text-blue-500 transition border-blue-100 border-b">
             <Link to="/profile" className="w-full text-center">
               <span className="text-base sm:text-lg font-medium">Profile</span>
             </Link>
           </div>
-          <div className="py-3 w-full flex justify-center cursor-pointer items-center hover:bg-blue-500 hover:text-white transition rounded-b-md" onClick={handleLogout}>
+          <div className="py-3 w-full flex justify-center cursor-pointer items-center hover:bg-blue-100 hover:text-blue-500 transition rounded-b-md" onClick={handleLogout}>
             <span className="text-base sm:text-lg font-medium">Logout</span>
           </div>
         </div>
