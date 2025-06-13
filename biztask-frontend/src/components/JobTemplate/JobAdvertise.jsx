@@ -1,11 +1,11 @@
 import { MdLocationOn } from "react-icons/md";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
-import { MdOutlineAccessTime } from "react-icons/md";
+import { FaRegMoneyBillAlt, FaTools, FaUserTie } from "react-icons/fa";
+import { MdOutlineAccessTime, MdHandyman } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from "../../configApi/ConfigApi";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-
+import { GrFormNextLink } from "react-icons/gr";
 const JobAdvertise = ({ typeText, job, business }) => {
   // Time showing function
   const timeAgo = (postedAt) => {
@@ -25,87 +25,125 @@ const JobAdvertise = ({ typeText, job, business }) => {
     }
   };
 
+ 
+
   return (
-    <div className="relative w-full max-w-2xl mx-auto  overflow-hidden md:rounded-3xl rounded-2xl shadow-md border border-blue-100 transition-all duration-300 hover:shadow-xl hover:border-blue-300 bg-white">
-      {/* Decorative accent bar at top */}
-      <div className="h-2 bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-500"></div>
-      
-      <div className="flex flex-col sm:flex-row p-6 gap-6">
-        {/* Left Section - Company Logo */}
-        <div className="flex flex-col border-b border-gray-100 md:border-none items-center sm:w-[30%] ">
-          {/* Logo Container */}
-          <div className="w-[140px] h-[140px] relative">
-            {/* Background design elements */}
-            <div className="absolute inset-0 rounded-full shadow-lg bg-gradient-to-br from-blue-200 to-blue-400 p-2">
-              {/* Logo Image with Circular Mask */}
-              <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden border-4 border-white">
+    <div className="relative w-full max-w-2xl mx-auto">
+      {/* Main Card */}
+      <div className="bg-white rounded-2xl shadow-lg border-2 border-cyan-100 hover:border-cyan-300 transition-all duration-300 hover:shadow-xl overflow-hidden">
+
+        {/* Header Strip */}
+        <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 p-1">
+          <div className="bg-white rounded-lg mx-1 my-1 px-4 py-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-lg flex items-center justify-center">
+                 <FaUserTie className="text-blue-600 text-2xl" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-serif font-bold text-blue-800 leading-tight">
+                    {job?.jobRole}
+                  </h2>
+                    </div>
+              </div>
+              <div className="text-right">
+                <div className="flex items-center gap-1 text-cyan-600">
+                  <MdOutlineAccessTime className="text-sm" />
+                  <span className="text-sm font-serif font-medium">
+                    {timeAgo(job?.postedAt)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6">
+          {/* Business Info Section */}
+          <div className="flex items-center gap-4 mb-6 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border border-cyan-100">
+            <div className="w-16 h-16 relative flex-shrink-0">
+              <div className="w-full h-full bg-white rounded-xl shadow-md border-2 border-cyan-200 flex items-center justify-center overflow-hidden">
                 <img
                   src={`${business?.companyLogo?.imageUrl}`}
-                  className="w-full h-full object-contain"
-                  alt="Company Logo"
+                  className="w-full h-full object-contain p-1"
+                  alt="Business Logo"
                 />
               </div>
             </div>
-          </div>
-
-          {/* Company Name */}
-          <h3 className="mt-4 text-blue-800 font-serif font-bold text-lg text-center md:pb-0 pb-4  max-w-full">
-            {business?.companyName}
-          </h3>
-        </div>
-
-        {/* Right Section - Job Details */}
-        <div className="flex-1 font-serif">
-          {/* Job Role - Bold and prominent */}
-          <h2 className="text-2xl font-serif font-bold text-blue-900 leading-tight mb-2">
-            {job?.jobRole}
-          </h2>
-
-          {/* Divider */}
-          <div className="w-full h-[2px] bg-gradient-to-r from-blue-500 to-blue-100 rounded mb-4"></div>
-
-         
-          <div className="flex flex-col gap-4 my-4">
-            {/*  Time Posted and Location */}
-            <div className="flex flex-wrap items-center gap-4">
-              {/* Posted Time */}
-              <div className="flex items-center gap-2 group">
-                <div className="p-2 rounded-full bg-blue-200 group-hover:bg-blue-300 transition-colors">
-                  <MdOutlineAccessTime className="text-blue-700 text-xl" />
-                </div>
-                <span className="text-blue-800 font-medium text-base">
-                  {timeAgo(job?.postedAt)}
-                </span>
-              </div>
-
-              {/* Location */}
-              <div className="flex items-center gap-2 group">
-                <div className="p-2 rounded-full bg-blue-200 group-hover:bg-blue-300 transition-colors">
-                  <MdLocationOn className="text-blue-700 text-xl" />
-                </div>
-                <span className="text-blue-800 font-medium text-base truncate">
-                  {job?.jobLocations?.[0]?.charAt(0).toUpperCase() + job?.jobLocations?.[0]?.slice(1)}
-                </span>
-              </div>
-            </div>
-            
-            {/*  Salary Range */}
-            <div className="flex items-center gap-2 group">
-              <div className="p-2 rounded-full bg-green-200 group-hover:bg-green-300 transition-colors">
-                <FaRegMoneyBillAlt className="text-green-700 text-xl" />
-              </div>
-              <span className="text-green-700 font-medium text-base">
-                {job?.minSalary} - {job?.maxSalary}
-              </span>
+            <div className="flex-1">
+              <h3 className="text-lg font-serif font-bold text-blue-700 mb-1">
+                {business?.companyName}
+              </h3>
+              
             </div>
           </div>
 
-          {/* Apply Button */}
+          {/* Key Information Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+
+            {/* Location Card */}
+            <div className="bg-white border-2 border-blue-100 rounded-xl p-4 hover:border-blue-300 transition-colors duration-300">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center">
+                  <MdLocationOn className="text-blue-600 text-xl" />
+                </div>
+                <div>
+                  <p className="text-xs font-serif text-blue-500 uppercase tracking-wide font-medium">Service Area</p>
+                  <p className="text-lg font-serif font-bold text-blue-800">
+                    {job?.jobLocations?.slice(0, 2).map(location =>
+                      location.charAt(0).toUpperCase() + location.slice(1)
+                    ).join(", ")}
+                  </p>
+
+                </div>
+              </div>
+            </div>
+
+            {/* Pay Rate Card */}
+            <div className="bg-white border-2 border-green-100 rounded-xl p-4 hover:border-green-300 transition-colors duration-300">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-cyan-100 rounded-xl flex items-center justify-center">
+                  <FaRegMoneyBillAlt className="text-green-600 text-xl" />
+                </div>
+                <div>
+                  <p className="text-xs font-serif text-green-600 uppercase tracking-wide font-medium">Pay Range</p>
+                  <p className="text-lg font-serif font-bold text-green-700">
+                    ₹{job?.minSalary} - ₹{job?.maxSalary}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
           <Link to={`/job-detail/${job?._id}`}>
-            <div className="mt-6 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white rounded-lg px-5 py-2 font-serif font-medium text-lg shadow-md transition-all duration-300 hover:scale-105 w-full sm:w-auto text-center">
-              {typeText}
+            <div className="relative group">
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 py-4 font-serif font-bold text-lg shadow-lg transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-xl text-center border-2 border-blue-600 hover:border-blue-700">
+                <div className="flex items-center justify-center gap-3">
+                  <span>{typeText}</span>
+                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                    <span className="text-sm"><GrFormNextLink /></span>
+                  </div>
+                </div>
+              </div>
             </div>
           </Link>
+
+          {/* Trust Indicators */}
+          <div className="mt-4 flex justify-center gap-6 text-xs font-serif text-blue-500">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <span>Local Business</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span>Quick Response</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+              <span>Verified</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

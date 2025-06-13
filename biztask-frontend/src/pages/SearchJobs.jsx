@@ -200,11 +200,11 @@ const SearchJobs = () => {
       </div>
 
       <div className='w-full h-full  xl:ps-14 p-4 md:pt-10 pt-8 xl:pe-0 flex flex-col xl:flex-row'>
-        <div className=' md:ps-10 '>
+        <div className=' md:ps-10 md:w-[50%]'>
           <div className="mb-6 mx-auto w-full">
-            <h1 className="text-3xl font-serif font-bold text-blue-900 flex items-center">
+            <h1 className="text-2xl font-serif font-semibold text-blue-700 flex items-center">
              
-              Find Your Perfect Job
+              Sort by Your Priorities
             
             </h1>
           </div>

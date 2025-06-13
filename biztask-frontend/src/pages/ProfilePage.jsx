@@ -84,10 +84,10 @@ const ProfilePage = ({ userDetails }) => {
   return (
     <>
       {userDetails && (
-        <div className="min-h-screen mt-2 font-serif">
+        <div className="min-h-screen  font-serif">
           {/* Header Banner  */}
           <motion.div
-            className="bg-gradient-to-r from-blue-600 to-blue-800 h-64 relative md:px-20"
+            className="bg-gradient-to-b from-blue-200 via-blue-600 to-blue-800 h-64 relative md:px-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -107,24 +107,32 @@ const ProfilePage = ({ userDetails }) => {
           {/* Profile Card  */}
           <div className="container md:px-6 px-2 -mt-16 relative z-10 md:w-[90%] mx-auto">
             <motion.div
-              className="bg-white rounded-xl shadow-xl p-8 mb-8 border border-blue-100"
+              className="bg-white rounded-2xl shadow-lg sm:p-8 p-6 mb-8 border border-gray-100 "
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <div className="flex flex-col md:flex-row items-center gap-8 ">
-              <Link to="/profile-edit">
-                      <button className="absolute sm:top-10 sm:right-14  right-5 top-3  px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-md font-medium text-lg  ">
-                      <FaRegEdit className='sm:hidden'/>
-                        <span className=' hidden sm:block'>Edit Profile</span>
-                      </button>
-                    </Link>
+              <div className="flex flex-col lg:flex-row items-center gap-8">
+                {/* Edit Button */}
+                <Link to="/profile-edit" className="absolute top-6 right-10">
+                  <motion.button 
+                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl transition-all duration-300 shadow-lg font-semibold"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaRegEdit className="text-sm" />
+                    <span className="hidden sm:block">Edit Profile</span>
+                  </motion.button>
+                </Link>
+
+                {/* Enhanced Profile Image */}
                 <motion.div
-                  className="relative w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-50 to-blue-100 group cursor-pointer"
+                  className="relative w-44 h-44 rounded-3xl border-4 border-gradient-to-r from-indigo-200 to-purple-200 shadow-xl overflow-hidden flex-shrink-0 bg-gradient-to-br  group cursor-pointer"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.7 }}
                   onClick={() => setShowImageModal(true)}
+                  whileHover={{ scale: 1.05 }}
                 >
                   <img
                     src={`${userDetails?.profileImage?.ImageUrl}`}
@@ -132,83 +140,77 @@ const ProfilePage = ({ userDetails }) => {
                     className="w-full h-full object-cover"
                   />
                   
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition-all duration-300">
-                    <MdZoomOutMap className="text-white opacity-0 group-hover:opacity-100 text-2xl transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                    <MdZoomOutMap className="text-white text-3xl" />
                   </div>
                 </motion.div>
 
-
+                {/* Enhanced Profile Info */}
                 <motion.div
-                  className="flex-1 text-center md:text-left"
+                  className="flex-1 text-center lg:text-left"
                   initial={{ x: 20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
                 >
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
-                    <h2 className="sm:text-2xl text-xl font-semibold text-blue-800 flex items-center gap-1">
-                      <IoPersonCircleOutline className="text-blue-600 " />
-                      {userDetails ? userDetails?.name : "N/A"}
-                    </h2>
-
-                   
+                  <div className="mb-6">
+                     <motion.div 
+                      className="flex items-center md:max-w-[60%] justify-center lg:justify-start gap-3 text-gray-600 bg-gray-50 rounded-xl p-4"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
+                        <IoPersonCircleOutline className="text-white text-xl" />
+                      </div>
+                      <span className="text-lg font-medium">{userDetails ? userDetails?.name : "N/A"}</span>
+                    </motion.div>
                     
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-1 font-normal text-gray-700 text-xl">
-                      <MdEmail className="text-blue-600  " />
-                      <span>{userDetails?.email}</span>
-                    </div>
 
-                    <div className="flex items-center font-normal gap-1 text-gray-700 text-xl">
-                      <FaPhone className="text-blue-600 " />
-                      <span>{userDetails?.mobileNumber}</span>
-                    </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <motion.div 
+                      className="flex items-center justify-center lg:justify-start gap-3 text-gray-600 bg-gray-50 rounded-xl p-4"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                        <MdEmail className="text-white text-lg" />
+                      </div>
+                      <span className="text-lg font-medium">{userDetails?.email}</span>
+                    </motion.div>
+
+                    <motion.div 
+                      className="flex items-center justify-center lg:justify-start gap-3 text-gray-600 bg-gray-50 rounded-xl p-4"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                        <FaPhone className="text-white text-lg" />
+                      </div>
+                      <span className="text-lg font-medium">{userDetails?.mobileNumber}</span>
+                    </motion.div>
                   </div>
                 </motion.div>
               </div>
             </motion.div>
 
+
             {/* Navigation Tabs  */}
-            <motion.div
-              className="flex overflow-x-auto mb-8 bg-white rounded-lg shadow-md p-2 border border-blue-100"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-            >
-              <motion.a
-                href="#bussiness-registration"
-                className="flex-1 sm:py-4 sm:px-6 px-2 text-center font-semibold text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <IoBusinessOutline className="text-2xl" />
-                <span>My Businesses</span>
-              </motion.a>
-              <motion.a
-                href="#applied-jobs"
-                className="flex-1 sm:py-4 sm:px-6 px-2 text-center font-semibold text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-200 flex items-center justify-center gap-3 text-lg"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <MdOutlineWorkOutline className="text-2xl" />
-                <span>Applied Jobs</span>
-              </motion.a>
-            </motion.div>
+            
 
             {/* Business Section */}
             <motion.div
               ref={businessRegistrationRef}
-              className="bg-white rounded-xl mb-8 overflow-hidden border border-blue-100"
+              className="bg-white rounded-xl mb-8 overflow-hidden "
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
+              <div className="px-6 py-4 bg-blue-200 ">
                 <div className="flex  justify-between items-center">
                   <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3">
-                    <IoBusinessOutline className="text-blue-600 " />
+                    <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
+                      <IoBusinessOutline className="text-white text-xl" />
+                    </div>
                     <span>My Businesses</span>
                   </h2>
 
@@ -270,16 +272,18 @@ const ProfilePage = ({ userDetails }) => {
             {/* Applied Jobs Section  */}
             <motion.div
               ref={appliedJobsRef}
-              className="bg-white rounded-xl mb-8 overflow-hidden border border-blue-100"
+              className="bg-white rounded-xl mb-8 overflow-hidden "
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
+              <div className="px-6 py-4 bg-blue-200 border-b border-blue-100">
                 <div className="flex  justify-between items-center">
                   <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-3 ">
-                    <MdOutlineWorkOutline className="text-blue-600 " />
+                   <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                      <MdOutlineWorkOutline className="text-white text-xl" />
+                    </div>
                     <span>Applied Jobs</span>
                   </h2>
 
@@ -296,7 +300,7 @@ const ProfilePage = ({ userDetails }) => {
                 </div>
               </div>
 
-              <div className="p-6 pb-10">
+              <div className="sm:p-6 px-2 py-6 pb-10">
                 {userDetails?.appliedJobs?.length > 0 ? (
                   <motion.div
                     className="grid grid-cols-1 lg:grid-cols-2 gap-6"

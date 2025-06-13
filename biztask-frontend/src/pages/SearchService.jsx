@@ -231,10 +231,11 @@ const SearchService = () => {
         <div>
 
 
-          <div className="mb-6 mx-auto w-full">
-            <h1 className="text-3xl  font-serif font-bold text-blue-900 flex items-center">
-
-              Find Your Perfect Service
+<div className="mb-6 mx-auto w-full">
+            <h1 className="text-2xl font-serif font-semibold text-blue-700 flex items-center">
+             
+              Sort by Your Priorities
+            
             </h1>
           </div>
 

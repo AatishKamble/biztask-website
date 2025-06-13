@@ -52,7 +52,7 @@ const FeaturedJob = () => {
 
 
   return (
-    <section className="w-full  md:py-16 py-10 pb-4 px-3 xl:px-10 lg:px-20 sm:px-5">
+    <section className="w-full  md:pb-12 py-10 pb-4 px-3 xl:px-10 lg:px-20 sm:px-5">
       {/* Decorative elements */}
       <div className="absolute left-0 top-1/4 w-32 h-32 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
       <div className="absolute right-0 bottom-1/4 w-32 h-32 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
@@ -159,7 +159,7 @@ const FeaturedJob = () => {
             </motion.div>
           )}
 
-          {/* View All Jobs Button */}
+        
 
         </motion.div></>)}
       </div>

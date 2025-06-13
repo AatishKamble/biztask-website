@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import logo from "../../assets/logo-transparent.png";
 import ForgotPassword from "../Login/ForgotPassword.jsx";
 import { RiMenu2Fill } from "react-icons/ri";
+import { ImProfile } from "react-icons/im";
+import { IoMdLogOut } from "react-icons/io";
 const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButtonClick, signUp }) => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -98,6 +100,8 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
     if(forgotPassword) setForgotPassword(false);
     handleLogInButtonClick();
   }
+
+  
   return (
     <>
       {login && <Login openState={login} type="login" handleButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick} handleForgotPasswordClick={handleForgotPasswordClick}  />}
@@ -145,15 +149,17 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
           {/* User Actions Section */}
           <div className="flex items-center space-x-2">
             {userDetails ? (
+              <div className="w-[40px] md:w-[240px] flex justify-end ">
               <div 
                 ref={buttonRef} 
-                className='bg-cyan-500 w-[40px] md:w-[45px] flex justify-center items-center text-xl md:text-2xl h-[40px] md:h-[45px] rounded-full cursor-pointer shadow-md hover:shadow-lg transition-all duration-300' 
+                className='bg-cyan-500 w-[40px] md:w-[50px] flex justify-center items-center text-xl md:text-2xl h-[40px] md:h-[50px] rounded-full cursor-pointer shadow-md hover:shadow-lg transition-all duration-300' 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
-                <p className="text-cyan-100 font-extrabold">
+                {/* <p className="text-cyan-100 font-extrabold">
                   {userDetails.name && userDetails.name.length > 0 ? userDetails.name[0].toUpperCase() : ""}
-                </p>
-              </div>
+                </p> */}
+                <img src={userDetails?.profileImage?.ImageUrl} alt="profile image" className="w-full h-full rounded-full"/>
+              </div></div>
             ) : (
               <div className="hidden lg:flex items-center space-x-5">
                 <button
@@ -264,12 +270,13 @@ const Navbar = ({ userDetails, login, handleLogInButtonClick, handleSignUpButton
           style={{ top: '80px' }}
         >
           <div className="cursor-pointer py-3 w-full flex justify-center items-center hover:bg-blue-100 hover:text-blue-500 transition border-blue-100 border-b">
-            <Link to="/profile" className="w-full text-center">
+            <Link to="/profile" className="w-full text-center flex justify-center items-center space-x-2"><span><ImProfile /></span>
               <span className="text-base sm:text-lg font-medium">Profile</span>
             </Link>
           </div>
-          <div className="py-3 w-full flex justify-center cursor-pointer items-center hover:bg-blue-100 hover:text-blue-500 transition rounded-b-md" onClick={handleLogout}>
-            <span className="text-base sm:text-lg font-medium">Logout</span>
+          <div className="py-3 w-full flex justify-center cursor-pointer font-medium items-center hover:bg-blue-100 hover:text-blue-500 transition rounded-b-md space-x-2" onClick={handleLogout}>
+            <span className="text-[18px]"><IoMdLogOut /></span>
+            <span className="text-base sm:text-lg ">Logout</span>
           </div>
         </div>
       )}
