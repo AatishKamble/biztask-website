@@ -1,9 +1,15 @@
+<div align="center">
+
 # BizTask – Local Services & Job Finding Platform
 
-BizTask is a **local services marketplace and job finding platform** that connects **service providers, customers (service seekers), job seekers, and businesses** on a single platform. The system allows businesses to offer services, hire workers, manage bookings, and receive payments, while customers can easily book services, apply for jobs, and track their activity.
+BizTask is a **local services marketplace and job finding platform** that connects **service providers, customers (service seekers), job seekers, and businesses** on a single platform.The system allows businesses to offer services, hire workers, manage bookings, and receive payments, while customers can easily book services, apply for jobs, and track their activity.
 
-🔗 **Live Demo**: https://biztask.vercel.app 
+
+🔗 **Live Demo**: https://biztask.vercel.app  
 📂 **GitHub Repository**: https://github.com/AatishKamble/biztask-website
+
+</div>
+
 ---
 
 ## 🌟 Key Features Overview
@@ -22,7 +28,7 @@ BizTask is a **local services marketplace and job finding platform** that connec
 
 | Category                   | Technologies                                                                                |
 | -------------------------- | ------------------------------------------------------------------------------------------- |
-| **Frontend**               | React.js, Redux Toolkit, Tailwind CSS, Framer Motion, React Toastify, HTML, CSS, JavaScript,Axios |
+| **Frontend**               | React.js, Redux Toolkit, Tailwind CSS, Framer Motion, React Toastify, HTML, CSS, JavaScript, Axios |
 | **Backend**                | Node.js, Express.js                                                                         |
 | **Database**               | MongoDB                                                                                     |
 | **Authentication**         | JWT, Email OTP, Google OAuth                                                                |
