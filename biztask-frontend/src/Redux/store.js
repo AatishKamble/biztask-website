@@ -5,12 +5,16 @@ import { businessReducer } from "./Business/Reducer.js";
 import { serviceReducer } from "./ServiceR/Reducer.js";
 import {jobReducer} from "./Job/Reducer.js";
 import { reviewReducer } from "./Review/Reducer.js";
+import { serviceBookingReducer } from "./ServiceBooking/Reducer.js";
+import { adminBookingReducer } from "./Adminbookings/Reducer.js";
 const rootReducer=combineReducers({
         auth:authReducer,
         businessStore:businessReducer,
         serviceStore:serviceReducer,
         jobStore:jobReducer,
-        reviewStore:reviewReducer
+        reviewStore:reviewReducer,
+        serviceBookingStore:serviceBookingReducer,
+        adminServiceBooking:adminBookingReducer
         
 });
 

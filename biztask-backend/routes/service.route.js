@@ -6,6 +6,7 @@ const router=express.Router();
 
 router.post('/register',authenticate,upload.none(),serviceController.createService);
 router.post('/upload',authenticate,upload.array("previousImages"),serviceController.uploadImage);
+router.post('/:serviceId/delete-image',authenticate,serviceController.deleteWorkImage); //new image delete path
 router.get('/details/:id',serviceController.getServiceById);
 router.delete('/remove/:id',authenticate,serviceController.removeService);
 router.patch('/update/:id',authenticate,upload.none(),serviceController.updateService);

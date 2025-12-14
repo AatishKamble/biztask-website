@@ -27,14 +27,14 @@ const ServiceCard = ({ business, service, provider }) => {
           
           {/* Service Title */}
           <div className="mb-4 text-center">
-            <h3 className="text-xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-emerald-700 line-clamp-2 leading-tight mb-2">
+            <h2 className="text-xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-emerald-700 line-clamp-2 leading-tight mb-2">
               {service?.serviceType}
-            </h3>
+            </h2>
             
             {/* Provider Info */}
            
           
-              <p className="text-base font-serif font-medium  text-blue-700">
+              <p className="text-[18px] font-serif font-medium  text-blue-700">
                 {provider}
               </p>
            

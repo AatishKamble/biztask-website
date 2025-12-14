@@ -74,6 +74,7 @@ const getJobById=async(req,res)=>{
 const getAllJob=async(req,res)=>{{
     try {
        
+        
       const allJobs=await jobService.getAllJob(req.query);
 
     return res.json({success:true,message:'All Jobs',jobs:allJobs.jobs,totalPages:allJobs.totalPages,currentPage:allJobs.currentPage,totalJobs:allJobs.totalJobs});
@@ -89,6 +90,7 @@ const getAllJob=async(req,res)=>{{
 const getPeopleAppliedByJobId=async(req,res)=>{
     try {
         const jobId=req.params.id;
+    
      
     const jobpeople = await jobService.getPeopleAppliedByJobId(jobId);
 

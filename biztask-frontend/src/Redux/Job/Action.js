@@ -16,7 +16,10 @@ import {
     GET_ALL_JOB_FAILURE,
     GET_PEOPLE_APPLIED_BY_JOBID_REQUEST,
     GET_PEOPLE_APPLIED_BY_JOBID_SUCCESS,
-    GET_PEOPLE_APPLIED_BY_JOBID_FAILURE
+    GET_PEOPLE_APPLIED_BY_JOBID_FAILURE,
+     UPDATE_APPLICATION_STATUS_REQUEST,
+UPDATE_APPLICATION_STATUS_SUCCESS,
+UPDATE_APPLICATION_STATUS_FAILURE,
 
     
 } from './ActionType.js';
@@ -70,9 +73,28 @@ const getAppliedPeopleSuccess = (jobPeople) => ({
     payload: jobPeople
 });
 
+
+
+
 const getAppliedPeopleFailure = (error) => ({
     type:GET_PEOPLE_APPLIED_BY_JOBID_FAILURE,
     payload: error
+});
+
+//status update 
+export const updateStatusRequest = () => ({
+  type: UPDATE_APPLICATION_STATUS_REQUEST,
+});
+
+export const updateStatusSuccess = (data) => ({
+  type: UPDATE_APPLICATION_STATUS_SUCCESS,
+  payload: data,
+  
+});
+
+export const updateStatusFailure = (error) => ({
+  type: UPDATE_APPLICATION_STATUS_FAILURE,
+  payload: error,
 });
 //job update
 const updateJobRequest = () => ({
@@ -140,14 +162,15 @@ const jobRegister = (jobData, jwt) => async (dispatch) => {
         if (newJob.success === true) {
             dispatch(registerJobSuccess(newJob.message));
             dispatch(getServiceById(newJob.job?.service));
-            toast.success(newJob.message);
+           
+             return { success: true, message: newJob.message };
         } else {
             throw new Error(newJob.message);
         }
 
     } catch (error) {
         dispatch(registerJobFailure(error.message));
-        toast.error(error.message);
+         return { success: false, message: error.message };
     }
 };
 
@@ -168,14 +191,14 @@ const removeJob = (jwt, jobId, serviceId) => async (dispatch) => {
         if (newJob.success === true) {
             dispatch(removeJobSuccess(newJob.message));
             dispatch(getServiceById(serviceId));
-            toast.success(newJob.message);
+            return { success: true, message: newJob.message };
         } else {
             throw new Error(newJob.message);
         }
 
     } catch (error) {
         dispatch(removeJobFailure(error.message));
-        toast.error(error.message);
+        return { success: false, message: error.message };
     }
 };
 
@@ -197,7 +220,7 @@ const updateJob = (jwt, jobData, jobId) => async (dispatch) => {
         if (updatedJob.success === true) {
             dispatch(updateJobSuccess(updatedJob.job));
             dispatch(getJobById(updatedJob.job._id));
-            toast.success(updatedJob.message);
+            return { success: true, message: updatedJob.message };
       
         } else {
             throw new Error(updatedJob.message);
@@ -205,7 +228,7 @@ const updateJob = (jwt, jobData, jobId) => async (dispatch) => {
 
     } catch (error) {
         dispatch(updateJobFailure(error.message));
-        toast.error(error.message);
+        return { success: false, message: error.message };
     }
 };
 
@@ -263,14 +286,17 @@ try {
             minSalary,
             maxSalary,
             employmentType,
+            postedWithin,
             page,
             limit
         }=reqData;
     
    
-    const response=await axios.get(`${API_BASE_URL}/api/jobs/all?jobName=${jobName}&jobLocation=${jobLocation}&minSalary=${minSalary}&maxSalary=${maxSalary}&employmentType=${employmentType}&page=${page}&limit=${limit}`);
+    const response=await axios.get(`${API_BASE_URL}/api/jobs/all?jobName=${jobName}&jobLocation=${jobLocation}&minSalary=${minSalary}&maxSalary=${maxSalary}&employmentType=${employmentType}&postedWithin=${postedWithin}&page=${page}&limit=${limit}`);
     const allJobs=response.data;
 
+
+    
     if(allJobs.success==true){
         dispatch(getAllJobsSuccess(allJobs));
      
@@ -283,13 +309,45 @@ try {
 }
 
 
+// update status
+ const updateApplicationStatus = (jwt, applicationId, status,messageToUser ) => async (dispatch) => {
+  dispatch(updateStatusRequest());
+
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/api/user/update-application-status`,
+      { applicationId, status,messageToUser  },
+      {
+        headers: {
+          authorization: `Bearer ${jwt}`,
+        },
+      }
+    );
+
+    const result = response.data;
+
+    if (result.success === true) {
+      dispatch(updateStatusSuccess(result.application));
+
+      return { success: true, message: result.message };
+    } else {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    dispatch(updateStatusFailure(error.message));
+    return { success: false, message: error.message };
+  }
+};
+
+
 export{
     jobRegister,
     removeJob,
     updateJob,
     getJobById,
     getAllJobs,
-    getAppliedPeople
+    getAppliedPeople,
+    updateApplicationStatus
 
 }
 

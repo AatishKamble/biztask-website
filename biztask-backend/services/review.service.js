@@ -1,10 +1,39 @@
 import ReviewsModel from "../models/Reviews.model.js";
 import serviceModel from "../models/service.model.js";
 import servicesService from "./services.service.js";
+import workPhotosModel from "../models/workPhotos.model.js";
+import { deleteFromCloudinary } from "../config/Cloudinary.js";
+import bookingModel from "../models/booking.modal.js";
 const createReview = async (userId, reqData) => {
 
     try {
+ const service = await serviceModel.findById(reqData.serviceId);
+        if (!service) throw new Error("Service not found.");
 
+        if (service.user.toString() === userId.toString()) {
+            throw new Error("You cannot review your own service.");
+        }
+
+
+        const completedBooking = await bookingModel.findOne({
+      service: reqData.serviceId,
+      seeker: userId,
+      bookingStatus: "COMPLETED"
+    });
+
+    if (!completedBooking) {
+      throw new Error(
+        "You can review this service only after completing a booking."
+      );
+    }
+        const existingReview = await ReviewsModel.findOne({
+            user: userId,
+            service: reqData.serviceId
+        });
+
+        if (existingReview) {
+            throw new Error("You have already submitted a review for this service.");
+        }
         const review = new ReviewsModel({
             service: reqData.serviceId,
             user: userId,
@@ -30,7 +59,7 @@ const createReview = async (userId, reqData) => {
             { new: true }
         );
 
-        const upReview=await getReviewById(newReview._id);
+        const upReview = await getReviewById(newReview._id);
         return upReview;
 
     } catch (error) {
@@ -62,25 +91,47 @@ const removeReview = async (reviewId, userId) => {
         if (review.user._id.toString() !== userId.toString()) {
             throw new Error("Review does not belong to this user");
         }
+        const serviceId = review.service._id;
 
+        const workPhotos = await workPhotosModel.find({
+            user: userId,
+            service: serviceId
+        });
 
+        for (const wp of workPhotos) {
+            for (const img of wp.photos) {
+                if (img.publicId) {
+                    await deleteFromCloudinary(img.publicId);
+                }
+            }
+        }
+         await workPhotosModel.deleteMany({
+            user: userId,
+            service: serviceId
+        });
+         if (workPhotos.length > 0) {
+            await serviceModel.findByIdAndUpdate(
+                serviceId,
+                { $pull: { WorkImage: { $in: workPhotos.map(w => w._id) } } }
+            );
+        }
         await ReviewsModel.findByIdAndDelete(reviewId);
 
         //service update
         await serviceModel.findByIdAndUpdate(
-            review.service._id,
+           serviceId,
             { $pull: { reviews: reviewId } }, // Remove the job ID from the jobs in service
             { new: true }
         );
 
-        const allReviews = await ReviewsModel.find({ service: review.service._id });
-        const averageRating = allReviews.length > 0 
+        const allReviews = await ReviewsModel.find({ service: serviceId });
+        const averageRating = allReviews.length > 0
             ? allReviews.reduce((acc, rev) => acc + rev.rating, 0) / allReviews.length
             : 0;
 
-     
+
         await serviceModel.findByIdAndUpdate(
-            review.service._id,
+            serviceId,
             { rating: averageRating },
             { new: true }
         );
@@ -97,51 +148,64 @@ const removeReview = async (reviewId, userId) => {
 
 
 
-// const updateReview = async (userId, reviewId, reqData) => {
-//     try {
+const updateReview = async (userId, reviewId, reqData) => {
+    try {
 
-//         const review = await getReviewById(reviewId);
+        const review = await getReviewById(reviewId);
 
-//         if (review.user._id.toString() !== userId.toString()) {
-//             throw new Error("Review does not belong to this user");
-//         }
+        if (review.user._id.toString() !== userId.toString()) {
+            throw new Error("Review does not belong to this user");
+        }
 
-//         const newReview = await ReviewsModel.findByIdAndUpdate(
-//             review._id,
-//             {
-//                 ReviewMessage: reqData.review,
-//                 rating: reqData.rating
-//             }
-//             ,
-//             { new: true }
-//         )
+        const newReview = await ReviewsModel.findByIdAndUpdate(
+            review._id,
+            {
+                ReviewMessage: reqData.review,
+                rating: reqData.rating
+            }
+            ,
+            { new: true }
+        );
 
-//         return newReview;
-
-//     } catch (error) {
-//         throw new Error(error.message);
-//     }
-
-
-// }
+        const allReviews = await ReviewsModel.find({ service: review.service._id });
+        const averageRating = allReviews.length > 0
+            ? allReviews.reduce((acc, rev) => acc + rev.rating, 0) / allReviews.length
+            : 0;
 
 
-const getAllReviews=async(serviceId)=>{
-try {
-    
-const service=await servicesService.getServiceById(serviceId);
+        await serviceModel.findByIdAndUpdate(
+            review.service._id,
+            { rating: averageRating },
+            { new: true }
+        );
 
-const reviews=await ReviewsModel.find({service:serviceId}).populate("service").populate("user").exec();
+        const upReview = await getReviewById(reviewId);
+        return upReview;
 
-return reviews;
-} catch (error) {
-    throw new Error(error.message);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+
+
 }
+
+
+const getAllReviews = async (serviceId) => {
+    try {
+
+        const service = await servicesService.getServiceById(serviceId);
+
+        const reviews = await ReviewsModel.find({ service: serviceId }).populate("service").populate("user").exec();
+
+        return reviews;
+    } catch (error) {
+        throw new Error(error.message);
+    }
 
 }
 export default {
     createReview,
     removeReview,
-    // updateReview,
+    updateReview,
     getAllReviews
 }

@@ -6,7 +6,7 @@ import { IoMdTime } from "react-icons/io";
 import { json, Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getJobById, removeJob } from "../../Redux/Job/Action.js";
+import { getAppliedPeople, getJobById, removeJob } from "../../Redux/Job/Action.js";
 import { getBusinessById } from "../../Redux/Business/Action.js";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
@@ -24,6 +24,8 @@ import { FaMapMarkerAlt, FaBriefcase, FaUserClock, FaCalendarAlt, FaTools } from
 import JobDetailSkeleton from "./JobDetailSkeleton.jsx";
 import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { CgDetailsMore } from "react-icons/cg";
+import { MdOutlineMessage } from "react-icons/md";
+import { toast } from "react-toastify";
 const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
   useEffect(() => {
     if (id) {
       // dispatch(getUserProfile(jwt))
+      dispatch(getAppliedPeople(id))
       dispatch(getJobById(id));
     }
   }, [id, dispatch]);
@@ -49,10 +52,35 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
     return date.toISOString().split("T")[0].split("-").reverse().join("/");
   };
 
+  const [isRLoading, setIsRLoading] = useState(false);
   //job remove
-  const handleJobRemove = () => {
-    dispatch(removeJob(jwt, jobStore?.job?._id, jobStore?.job?.service?._id));
-    navigate(`/service-detail/${jobStore?.job?.service?._id}`);
+  const handleJobRemove = async () => {
+    try {
+      setIsRLoading(true);
+
+
+      const result = await dispatch(removeJob(jwt, jobStore?.job?._id, jobStore?.job?.service?._id));
+      if (result?.success) {
+
+        toast.success(result?.message);
+
+        setPopupWarning(false);
+
+
+        navigate(`/service-detail/${jobStore?.job?.service?._id}`);
+
+
+      } else {
+        toast.error(result?.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+
+      setIsRLoading(false);
+
+    }
+
   }
 
   const [popUp, setPopUp] = useState(false);
@@ -88,6 +116,17 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
   const isLoading = useSelector(store => store.jobStore.isLoading);
 
+
+const appliedPerson =jobStore?.appliedPeople?.find(
+  person => userDetails?._id === person?.userId?._id
+);
+
+const applicationStatus = appliedPerson?.status;
+const applicationMessage=appliedPerson?.adminMessage;
+
+const isApplied = Boolean(appliedPerson);
+
+
   return (
     <>
       {/* Profile Review Modal */}
@@ -113,7 +152,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
 
 
       <div className="bg-white relative flex flex-col items-center w-full min-h-screen py-10 md:px-4 px-2 font-serif">
-        {isLoading ? (
+        {isLoading && !isRLoading ? (
           <JobDetailSkeleton />
         ) : (
           <>
@@ -129,8 +168,21 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
               </div>
             </div>
 
+{isApplied && 
+<div className="w-full max-w-7xl mb-6 font-serif">
+              <div className="bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500 rounded-lg p-3 flex items-center shadow-sm">
+                <div className="bg-green-100 p-2 rounded-full mr-3">
+                  <MdOutlineMessage className="text-green-800 " />
+                </div>
+                <p className="text-green-800 font-medium font-serif flex flex-col">
+                <span className=" font-semibold"> Message from the Employer</span>  <span className="text-slate-700 italic">{applicationMessage || "No message yet !!"}</span> 
+                </p>
+              </div>
+            </div>
+}
+            
             {/* Job Header Card */}
-            <div className="relative  xl:max-w-6xl w-full bg-white shadow-lg my-2 p-8 rounded-3xl border border-blue-100">
+            <div className="relative  xl:max-w-6xl w-full bg-white shadow-lg my-2 p-8 rounded-3xl border border-blue-100 font-serif">
               <div className="flex flex-col">
                 <h2 className="text-[32px] font-serif font-bold text-[#2E3A46] px-2 mb-2">
                   {jobStore?.job?.jobRole}
@@ -190,32 +242,33 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                 </div>
               </div>
 
+
               {/* Action Buttons */}
               <div className="mt-6 md:flex md:flex-wrap md:items-center font-serif gap-4 md:justify-end grid grid-cols-1 ">
                 {userDetails?._id === jobStore?.job?.user?._id ? (
                   <>
                     <Link to={`/job-detail/people-applied/${jobStore?.job?._id}`}>
-                      <button className="px-5 w-full py-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white rounded-xl  font-serif text-[18px]  flex items-center justify-center gap-2">
+                      <button className="px-5 w-full py-2 bg-gradient-to-r from-emerald-600 to-green-500 transition-transform duration-200 hover:scale-105 text-white rounded-xl  font-serif text-[18px]  flex items-center justify-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                           <circle cx="9" cy="7" r="4"></circle>
                           <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         </svg>
-                        View People
+                        Applications
                       </button>
                     </Link>
                     <Link to={`/job-update/${jobStore?.job?._id}`}>
-                      <button className="px-5 py-2 w-full bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-xl  font-serif text-[18px] flex items-center font-semibold justify-center gap-2">
+                      <button className="px-5 py-2 w-full bg-gradient-to-r from-blue-700 to-blue-500 transition-transform duration-200 hover:scale-105 text-white rounded-xl  font-serif text-[18px] flex items-center font-semibold justify-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                           <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                         </svg>
-                        Update
+                        Update Job
                       </button>
                     </Link>
                     <button
-                      className="px-5 py-2 font-semibold bg-gradient-to-r from-red-700 to-red-500 text-white rounded-xl  font-serif text-[18px] flex items-center justify-center gap-2"
+                      className="px-5 py-2 font-semibold bg-gradient-to-r from-red-700 to-red-500 transition-transform duration-200 hover:scale-105 text-white rounded-xl  font-serif text-[18px] flex items-center justify-center gap-2"
                       onClick={handlePopupWarningOpen}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -225,19 +278,27 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                         <line x1="10" y1="11" x2="10" y2="17"></line>
                         <line x1="14" y1="11" x2="14" y2="17"></line>
                       </svg>
-                      Remove
+                      Remove Job
                     </button>
                   </>
-                ) : userDetails?.appliedJobs.some(job => job._id === id) ? (
+                ) : isApplied ? (
+                  <>
+                  <div className=" text-emerald-700  border px-5 py-2 text-base bg-white text-center rounded-xl">
+                    <span className="font-semibold ">Application Status :</span>
+                    
+                    <span className=" font-medium text-slate-700 italic "> {applicationStatus}</span>
+                  </div>
                   <button className="px-5 py-2  bg-white text-emerald-700 rounded-xl  border font-serif text-[18px] cursor-not-allowed flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     Applied
                   </button>
+                  </>
+                  
                 ) : (
                   <button
-                    className="px-4 py-2 font-semibold bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-500 font-serif text-[18px] flex items-center justify-center"
+                    className="px-4 py-2 font-semibold bg-gradient-to-r from-blue-600 to-blue-500 transition-transform duration-200 hover:scale-105 text-white rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-500 font-serif text-[18px] flex items-center justify-center"
                     onClick={() => handleApplyPopUpOpen()}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -510,6 +571,7 @@ const JobDetail = ({ userDetails, handleLogInButtonClick }) => {
                   submessage2={`Job Role: ${jobStore?.job?.jobRole}`}
                   closeButton={handlePopupWarningClose}
                   handleRemove={handleJobRemove}
+                  isLoading={isRLoading}
                 />
               </div>
             )}

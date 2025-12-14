@@ -5,13 +5,24 @@ import authenticate from "../middleware/authenticate.js";
 const userRouter=express.Router();
 userRouter.post('/signUp',userController.registerUser);
 userRouter.post('/signIn',userController.loginUser);
+
+userRouter.post('/send-otp', userController.sendOtp);
+userRouter.post('/verify-otp', userController.verifyOtp);
+
 userRouter.get('/profile',userController.getUserProfile);
 userRouter.patch('/profile-update',authenticate,upload.single("profileImage"),userController.updateUserProfile);
 
 userRouter.patch('/apply', authenticate, upload.single("profileImage"), userController.applyJob);
+userRouter.patch(
+  "/update-application-status",
+  authenticate,
+  userController.updateApplicationStatus
+);
+
 
 userRouter.post('/forgot-password',userController.forgotpassword);//forgotpassword
 userRouter.post('/reset-password/:id/:token',userController.resetpassword);
+
 
 export default userRouter;
 

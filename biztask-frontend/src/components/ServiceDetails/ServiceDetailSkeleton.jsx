@@ -43,60 +43,126 @@ const ServiceDetailSkeleton = () => {
             </div>
 
             {/* Main Content Section */}
-            <div className="2xl:w-[90%] sm:w-full h-auto my-10 mt-5 flex flex-col xl:flex-row gap-10 px-2 sm:px-2">
-                {/* Left Section */}
-                <div className="flex flex-col xl:w-2/3 gap-5">
-                    {/* Tab Navigation */}
-                    <div className="flex border-b border-gray-300">
-                        <div className="h-12 bg-gray-300 rounded-t-lg w-24 mr-4"></div>
-                        <div className="h-12 bg-gray-300 rounded-t-lg w-24 mr-4"></div>
-                        <div className="h-12 bg-gray-300 rounded-t-lg w-24"></div>
-                    </div>
+            <div className="2xl:w-[90%] font-serif w-full h-auto my-10 mt-5 px-2 sm:px-2 animate-pulse">
+            {/* Tab Navigation Skeleton */}
+            <div className="relative mb-6 sm:mb-12">
+                {/* Connection Line */}
+                <div className="absolute top-8 left-0 right-0 h-1 bg-gray-200 hidden sm:block"></div>
 
-                    {/* Tab Content */}
-                    <div className="p-5 bg-gray-100 border border-gray-200 rounded-xl">
-                        <div className="w-full flex items-center pb-3 border-b border-gray-300">
-                            <div className="w-6 h-6 bg-gray-300 rounded mr-2"></div>
-                            <div className="h-6 bg-gray-300 rounded w-48"></div>
+                <div className="flex justify-between items-start relative z-10 gap-2 sm:gap-4">
+                    {/* Tab Skeleton Items */}
+                    {[1, 2, 3, 4].map((item) => (
+                        <div key={item} className="flex-1 flex flex-col items-center">
+                            {/* Circle Skeleton */}
+                            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gray-200 mb-3"></div>
+                            
+                            {/* Text Skeleton */}
+                            <div className="text-center w-full">
+                                <div className="h-4 bg-gray-200 rounded w-20 mx-auto mb-2"></div>
+                                <div className="h-3 bg-gray-200 rounded w-24 mx-auto hidden sm:block"></div>
+                            </div>
                         </div>
-                        
-                        {/* Content Lines */}
-                        <div className="mt-4 space-y-3">
-                            <div className="h-4 bg-gray-300 rounded w-full"></div>
-                            <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-                            <div className="h-4 bg-gray-300 rounded w-4/5"></div>
-                            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
+            </div>
 
-                {/* Right Section - Contact Info */}
-                <div className="flex xl:w-1/3">
-                    <div className="w-full bg-gray-100 rounded-xl p-6 border border-gray-200">
-                        {/* Contact Header */}
-                        <div className="h-8 bg-gray-300 rounded w-3/4 mb-4"></div>
-                        
-                        {/* Contact Items */}
+            {/* Tab Content Skeleton */}
+            <div className="relative">
+                {/* Background glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-50 rounded-3xl blur-3xl"></div>
+                
+                <div className="relative bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200 overflow-hidden">
+                    {/* Top border skeleton */}
+                    <div className="h-1.5 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
+                    
+                    {/* Header Section Skeleton */}
+                    <div className="py-6 px-6 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                {/* Icon skeleton */}
+                                <div className="w-14 h-14 rounded-xl bg-gray-200"></div>
+                                
+                                <div>
+                                    {/* Title skeleton */}
+                                    <div className="h-6 bg-gray-200 rounded w-48 mb-2"></div>
+                                    {/* Subtitle skeleton */}
+                                    <div className="h-3 bg-gray-200 rounded w-32"></div>
+                                </div>
+                            </div>
+                            
+                            {/* Badge skeleton */}
+                            <div className="hidden sm:block h-8 w-24 bg-gray-200 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    {/* Content Area Skeleton */}
+                    <div className="p-6 sm:p-8">
+                        {/* Content blocks */}
                         <div className="space-y-4">
-                            <div className="flex items-center">
-                                <div className="w-6 h-6 bg-gray-300 rounded mr-3"></div>
-                                <div className="h-5 bg-gray-300 rounded w-32"></div>
+                            {/* Large content block */}
+                            <div className="bg-gray-100 rounded-2xl p-6 sm:p-8">
+                                <div className="space-y-3">
+                                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                                    <div className="h-4 bg-gray-200 rounded w-11/12"></div>
+                                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                                             </div>
                             </div>
-                            <div className="flex items-center">
-                                <div className="w-6 h-6 bg-gray-300 rounded mr-3"></div>
-                                <div className="h-5 bg-gray-300 rounded w-40"></div>
-                            </div>
-                            <div className="flex items-center">
-                                <div className="w-6 h-6 bg-gray-300 rounded mr-3"></div>
-                                <div className="h-5 bg-gray-300 rounded w-36"></div>
+
+                            {/* Additional content items */}
+                            {[1, 2].map((item) => (
+                                <div key={item} className="flex gap-4 bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                    {/* Icon skeleton */}
+                                    <div className="w-10 h-10 rounded-lg bg-gray-200 flex-shrink-0"></div>
+                                    
+                                    {/* Text skeleton */}
+                                    <div className="flex-1 space-y-2">
+                                        <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+                                        <div className="h-4 bg-gray-200 rounded w-full"></div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Bottom info box skeleton */}
+                        <div className="mt-6 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                            <div className="flex items-start gap-4">
+                                <div className="w-10 h-10 rounded-lg bg-gray-200 flex-shrink-0"></div>
+                                <div className="flex-1 space-y-2">
+                                    <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+                                    <div className="h-3 bg-gray-200 rounded w-full"></div>
+                                   
+                                </div>
                             </div>
                         </div>
-                        
-                        {/* Contact Button */}
-                        <div className="mt-6 h-12 bg-gray-300 rounded-xl w-full"></div>
                     </div>
                 </div>
             </div>
+
+            {/* Shimmer effect overlay */}
+            <style>{`
+                @keyframes shimmer {
+                    0% {
+                        background-position: -1000px 0;
+                    }
+                    100% {
+                        background-position: 1000px 0;
+                    }
+                }
+                
+                .animate-pulse {
+                    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                }
+                
+                @keyframes pulse {
+                    0%, 100% {
+                        opacity: 1;
+                    }
+                    50% {
+                        opacity: 0.5;
+                    }
+                }
+            `}</style>
+        </div>
 
             {/* Previous Work Section */}
             <div className="w-full flex flex-col items-center py-10 px-4 md:px-10 rounded-2xl">

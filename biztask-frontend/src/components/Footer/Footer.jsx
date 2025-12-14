@@ -7,24 +7,18 @@ import logo from '../../assets/logo-transparent.png';
 const Footer = ({ userDetails, handleLogInButtonClick }) => {
   const navigate = useNavigate();
   
-  const handleBusinessRegistration = () => {
+  const handleProfileClick = () => {
     if (userDetails) {
-      navigate("/profile#bussiness-registration");
+      navigate("/profile");
     } else {
       handleLogInButtonClick();
     }
   };
 
-  const handleAppliedJob = () => {
-    if (userDetails) {
-      navigate("/profile#applied-jobs");
-    } else {
-      handleLogInButtonClick();
-    }
-  };
+  
 
   return (
-    <footer className="relative pt-12">
+    <footer className="relative pt-6">
      
       
       {/* Main Footer Content */}
@@ -64,18 +58,13 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
                     Services
                   </li>
                 </Link>
-                <div onClick={handleBusinessRegistration} className="group flex items-center cursor-pointer">
+                <div onClick={handleProfileClick} className="group flex items-center cursor-pointer">
                   <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
                   <li className="hover:text-cyan-300 transition-all duration-300">
-                    Register Business
+                    Profile
                   </li>
                 </div>
-                <div onClick={handleAppliedJob} className="group flex items-center cursor-pointer">
-                  <span className="w-0 group-hover:w-2 h-4 group-hover:bg-cyan-300 mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                  <li className="hover:text-cyan-300 transition-all duration-300">
-                    Applied Jobs
-                  </li>
-                </div>
+               
               </ul>
             </div>
 
@@ -115,11 +104,11 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
               <div className=" text-lg flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <MdLocationOn className="text-cyan-300 text-2xl" />
-                  <span className="text-cyan-100 font-serif">Pimpri Chinchwad, Pune</span>
+                  <span className="text-cyan-100 font-serif">Kolhapur</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MdEmail className="text-cyan-300 text-xl" />
-                  <span className="text-cyan-100 font-serif">AtishKambleXXXX@gmail.com</span>
+                  <span className="text-cyan-100 font-serif">Atishk2454@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <FaPhoneAlt className="text-cyan-300 text-xl" />

@@ -23,6 +23,12 @@ FORGOT_PASSWORD_FAILURE,
 RESET_PASSWORD_REQUEST,
 RESET_PASSWORD_SUCCESS,
 RESET_PASSWORD_FAILURE,
+SEND_OTP_REQUEST, 
+SEND_OTP_SUCCESS, 
+SEND_OTP_FAILURE,
+    VERIFY_OTP_REQUEST, 
+    VERIFY_OTP_SUCCESS, 
+    VERIFY_OTP_FAILURE
 } from "./ActionType.js";
 import { getJobById } from "../Job/Action.js";
 import { toast } from "react-toastify";
@@ -59,6 +65,37 @@ const resetPasswordSuccess=(message)=>({type:RESET_PASSWORD_SUCCESS,payload:{mes
 const resetPasswordFailure=(error)=>({type:RESET_PASSWORD_FAILURE,payload:error});
 
 
+export const sendOtpRequest = () => ({
+    type: SEND_OTP_REQUEST,
+});
+
+export const sendOtpSuccess = (message) => ({
+    type: SEND_OTP_SUCCESS,
+    payload: message,
+});
+
+export const sendOtpFailure = (error) => ({
+    type: SEND_OTP_FAILURE,
+    payload: error,
+});
+
+
+export const verifyOtpRequest = () => ({
+    type: VERIFY_OTP_REQUEST,
+});
+
+export const verifyOtpSuccess = (message) => ({
+    type: VERIFY_OTP_SUCCESS,
+    payload: message,
+});
+
+export const verifyOtpFailure = (error) => ({
+    type: VERIFY_OTP_FAILURE,
+    payload: error,
+});
+
+
+
 const register = (userData) => async (dispatch) => {
     dispatch(signUpRequest());
     try {
@@ -69,7 +106,7 @@ const register = (userData) => async (dispatch) => {
             localStorage.setItem("jwt", user.token);
             window.scrollTo(0,0);
             dispatch(signUpSuccess(user.token));
-            toast.success(user.message);
+             return { success: true, message: user.message };
         }
         else {
             throw new Error(user.message);
@@ -79,7 +116,7 @@ const register = (userData) => async (dispatch) => {
     } catch (error) {
 
         dispatch(signUpFailure(error.message));
-        toast.error(error.message);
+       return { success: false, message: error.message };
     }
 
 }
@@ -95,7 +132,8 @@ const login = (userData) => async (dispatch) => {
             localStorage.setItem("jwt", user.token);
            window.scrollTo(0,0);
             dispatch(loginSuccess(user.token));
-            toast.success(user.message);
+          
+             return { success: true, message: user.message };
         }
         else {
             throw new Error(user.message);
@@ -103,7 +141,7 @@ const login = (userData) => async (dispatch) => {
 
     } catch (error) {
         dispatch(loginFailure(error.message));
-        toast.error(error.message);
+        return { success: false, message: error.message };
     }
 
 }
@@ -161,6 +199,7 @@ const updateUserProfile = (jwt, userData) => async (dispatch) => {
             // window.location.reload();
             dispatch(updateUserProfileSuccess(newUser.user, newUser.message));
             toast.success(newUser.message);
+             return { success: true };
         }
         else {
             throw new Error(newUser.message);
@@ -170,6 +209,7 @@ const updateUserProfile = (jwt, userData) => async (dispatch) => {
     } catch (error) {
         dispatch(updateUserProfileFailure(error.message));
         toast.error(error.message);
+         return { success: false};
     }
 }
 //apply
@@ -189,7 +229,8 @@ const applyForJob = (jwt,formData) => async (dispatch) => {
          
             dispatch(applyJobSuccess(newUser.user, newUser.message));
             dispatch(getUserProfile(jwt));
-            toast.success(newUser.message);
+           
+             return { success: true, message: newUser.message };
         }
         else {
             throw new Error(newUser.message);
@@ -198,7 +239,7 @@ const applyForJob = (jwt,formData) => async (dispatch) => {
 
     } catch (error) {
         dispatch(applyJobFailure(error.message));
-        toast.error(error.message);
+        return { success: false, message: error.message };
     }
 }
 
@@ -217,8 +258,8 @@ const forgotPassword = (formData) => async (dispatch) => {
         if (newUser.success == true) {
            
             dispatch(forgotPasswordSuccess(newUser.message));
-          
-            toast.success(newUser.message);
+           return { success: true, message: newUser.message };
+           
         }
         else {
             throw new Error(newUser.message);
@@ -227,7 +268,7 @@ const forgotPassword = (formData) => async (dispatch) => {
 
     } catch (error) {
         dispatch(forgotPasswordFailure(error.message));
-        toast.error(error.message);
+       return { success: false, message: error.message };
     }
 }
 
@@ -245,7 +286,7 @@ const resetPassword = (formData,id,token) => async (dispatch) => {
         if (newUser.success == true) {
            
             dispatch(resetPasswordSuccess(newUser.message));
-          
+           return { success: true, message: newUser.message};
            
         }
         else {
@@ -255,10 +296,61 @@ const resetPassword = (formData,id,token) => async (dispatch) => {
 
     } catch (error) {
         dispatch(resetPasswordFailure(error.message));
-      
+        return { success: false, message: error.message };
     }
 }
 
+const sendOtp = (email) => async (dispatch) => {
+    dispatch(sendOtpRequest());
+
+    try {
+        const response = await axios.post(
+            `${API_BASE_URL}/api/user/send-otp`,
+            { email }
+        );
+
+        const data = response.data;
+
+        if (data.success === true) {
+            dispatch(sendOtpSuccess(data.message));
+            return { success: true, message: data.message };
+        } else {
+            throw new Error(data.message || "Failed to send OTP");
+        }
+
+    } catch (error) {
+        const msg =  error.message || "Network error. Try again.";
+        dispatch(sendOtpFailure(msg));
+        return { success: false, message: msg };
+    }
+};
 
 
-export { register, login, getUserProfile, logout, updateUserProfile, applyForJob,forgotPassword,resetPassword };
+ const verifyOtp = (email, otp) => async (dispatch) => {
+    dispatch(verifyOtpRequest());
+
+    try {
+        const response = await axios.post(
+            `${API_BASE_URL}/api/user/verify-otp`,
+            { email, otp }
+        );
+
+        const data = response.data;
+
+        if (data.success === true) {
+            dispatch(verifyOtpSuccess(data.message));
+            return { success: true, message: data.message };
+        } else {
+            throw new Error(data.message || "Invalid or expired OTP");
+        }
+
+    } catch (error) {
+        const msg =error.message || "Network error. Try again.";
+        dispatch(verifyOtpFailure(msg));
+        return { success: false, message: msg };
+    }
+};
+
+
+
+export { register, login, getUserProfile, logout, updateUserProfile, applyForJob,forgotPassword,resetPassword,sendOtp,verifyOtp };

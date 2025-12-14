@@ -3,43 +3,68 @@ import userModel from "../models/user.model.js";
 import servicesService from "./services.service.js";
 import { unlink } from 'node:fs';
 import { deleteFromCloudinary } from "../config/Cloudinary.js";
-const createBusiness = async (userId, reqData, companyLogoImage,imagePublicID) => {
+const createBusiness = async (userId, reqData, companyLogoImage, imagePublicID) => {
+  try {
+    const business = new bussinessModel({
+      user: userId,
 
-    try {
-        
-        const business = new bussinessModel({
-            user: userId,
-            companyName: reqData.companyName,
-            description: reqData.description,
-            companyLogo:{
-                imageUrl:companyLogoImage,
-                publicId:imagePublicID
-            }
+      // Basic Info
+      companyName: reqData.companyName,
+      description: reqData.description,
 
-        });
+      // Business Info
+      businessName: reqData.businessName,
+      businessCategory: reqData.businessCategory,
+      yearsOfExperience: reqData.yearsOfExperience,
 
-        const newBusiness = await business.save();
+      // Company Logo
+      companyLogo: {
+        imageUrl: companyLogoImage || null,
+        publicId: imagePublicID || null,
+      },
 
-        await userModel.findByIdAndUpdate(
-            userId,
-            {$push:{businesses:newBusiness._id}},
-            {new:true}
-        );
+      // Address
+      houseNumber: reqData.houseNumber,
+      village: reqData.village || "",
+      area: reqData.area,
+      subDistrict: reqData.subDistrict,
+      district: reqData.district,
+      pinCode: reqData.pinCode,
 
-        return newBusiness;
+      // Operating Hours
+      openingTime: reqData.openingTime,
+      closingTime: reqData.closingTime,
 
-    } catch (error) {
-        throw new Error(error.message);
-    }
+      // Working Days (parse because coming from FormData as JSON string)
+      workingDays: JSON.parse(reqData.workingDays),
 
-}
+      // Default services array
+      services: [],
+    });
+
+    const newBusiness = await business.save();
+
+    // Push business id into user's businesses array
+    await userModel.findByIdAndUpdate(
+      userId,
+      { $push: { businesses: newBusiness._id } },
+      { new: true }
+    );
+
+    return newBusiness;
+
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 
 
 const findBusinessById=async(businessId)=>{
     try {
 
        
-        const business=await bussinessModel.findById(businessId).populate("services");
+        const business=await bussinessModel.findById(businessId).populate("services").populate("user");
 
         if(!business){
             throw new Error("Business Not Found");
@@ -51,32 +76,60 @@ const findBusinessById=async(businessId)=>{
 }
 
 
-const updateBusiness=async(businessId,reqData,companyLogoImage,imagePublicID)=>{
- try {
-    const {companyName,description}=reqData;
-    const business=await findBusinessById(businessId);
-    // unlink(`uploads/${business.companyLogo}`,()=>{});//for deleting previous image
-    if(business.companyLogo && business.companyLogo.publicId){
-        await deleteFromCloudinary(business.companyLogo.publicId);
+const updateBusiness = async (businessId, reqData, companyLogoImage, imagePublicID) => {
+  try {
+    const business = await findBusinessById(businessId);
+
+    if (!business) {
+      throw new Error("Business not found");
     }
 
-    const newBusiness=await bussinessModel.findByIdAndUpdate(
-        businessId,
-        {companyName:companyName,description:description, companyLogo:{
-                imageUrl:companyLogoImage,
-                publicId:imagePublicID
-            }},
-        {new:true}
-    )
+    // Prepare update object
+    const updateObj = {
+      companyName: reqData.companyName,
+      description: reqData.description,
+      businessName: reqData.businessName,
+      businessCategory: reqData.businessCategory,
+      yearsOfExperience: reqData.yearsOfExperience,
 
-return newBusiness;
+      houseNumber: reqData.houseNumber,
+      village: reqData.village || "", // optional
+      area: reqData.area,
+      subDistrict: reqData.subDistrict,
+      district: reqData.district,
+      pinCode: reqData.pinCode,
 
- } catch (error) {
+      openingTime: reqData.openingTime,
+      closingTime: reqData.closingTime,
+      workingDays: JSON.parse(reqData.workingDays),
+    };
+
+    // If NEW image uploaded
+    if (companyLogoImage && imagePublicID) {
+      // delete old image
+      if (business.companyLogo?.publicId) {
+        await deleteFromCloudinary(business.companyLogo.publicId);
+      }
+
+      updateObj.companyLogo = {
+        imageUrl: companyLogoImage,
+        publicId: imagePublicID,
+      };
+    }
+
+    // update DB
+    const updatedBusiness = await bussinessModel.findByIdAndUpdate(
+      businessId,
+      updateObj,
+      { new: true }
+    );
+
+    return updatedBusiness;
+
+  } catch (error) {
     throw new Error(error.message);
- }
-
-
-}
+  }
+};
 
 
 const removeBusiness=async(businessId,userId)=>{
@@ -84,7 +137,7 @@ const removeBusiness=async(businessId,userId)=>{
        
        const business=await findBusinessById(businessId);
      
-       if (business.user.toString() !== userId.toString()) {
+       if (business.user._id.toString() !== userId.toString()) {
         throw new Error("Business does not belong to this user");
     }
     

@@ -17,7 +17,7 @@ import ServiceRegistration from "../components/Forms/ServiceRegistration.jsx";
 import { getUserProfile} from "../Redux/Auth/Action.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect,useState } from "react";
-import BusinessDetails from "../pages/BusinessDetails.jsx";
+import BusinessDetailsPage from "../pages/BusinessDetailsPage.jsx";
 import ScrollToTop from "../components/ScrollTo/ScrollToTop.jsx";
 import PeopleApplied from "../components/JobTemplate/PeopleApplied.jsx";
 import { toast } from "react-toastify";
@@ -26,6 +26,8 @@ import ResetPassword from "../components/Login/ResetPassword.jsx";
 import Loader from "../components/Loader/Loader.jsx";
 import BusinessRegistration from "../components/Forms/BusinessRegistration.jsx";
 import JobApplicationForm from "../components/Forms/JobApplicationForm.jsx";
+import AdminPanel from "../pages/AdminPanel.jsx";
+import ProviderBookings from "../pages/ProviderBookings.jsx";
 const Routers = () => {
   
   const auth = useSelector((store )=> store.auth);
@@ -71,7 +73,7 @@ const isLoading = isAuthLoading ;
      
         <ScrollToTop />
         {
-        (  !location.pathname.startsWith("/reset-password") && !location.pathname.startsWith("/forgot-password"))&&
+        (  !location.pathname.startsWith("/reset-password") && !location.pathname.startsWith("/forgot-password") )&&
         <Navbar userDetails={auth.user} login={login} handleLogInButtonClick={handleLogInButtonClick} handleSignUpButtonClick={handleSignUpButtonClick}  signUp={signUp} />
 }
 
@@ -82,17 +84,19 @@ const isLoading = isAuthLoading ;
           <Route path="/profile-edit" element={<ProfileEdit userDetails={auth.user}/>} />
           <Route path="/bussiness-registration" element={<RegistrationPage userDetails={auth.user} registration={true} />} />
           <Route path="/bussiness-update/:id" element={<RegistrationPage userDetails={auth.user} registration={false}/>} />
-          <Route path="/bussiness/details/:id" element={ <BusinessDetails userDetails={auth.user} />} />
+          <Route path="/bussiness/details/:id" element={ <BusinessDetailsPage userDetails={auth.user} />} />
          
-          <Route path="/service-detail/:id" element={<ServiceDetailPage userDetails={auth.user} />} />
+          <Route path="/service-detail/:id" element={<ServiceDetailPage userDetails={auth.user} handleLogInButtonClick={handleLogInButtonClick}/>} />
           
-          <Route path="/job-post" element={<JobPostPage registration={true}/>} />
+          <Route path="/job-post/:id" element={<JobPostPage registration={true}/>} />
           <Route path="/job-update/:id" element={<JobPostPage registration={false}/>} />
           
           <Route path="/job-detail/:id" element={<JobDetail userDetails={auth.user} handleLogInButtonClick={handleLogInButtonClick}/>} />
           <Route path="/job-detail/people-applied/:id" element= { <PeopleApplied />} />
         
           <Route path="/jobs" element={<SearchJobs />} />
+           <Route path="/admin" element={<AdminPanel />} />
+           
           <Route path="/services" element={<SearchService />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/auth/google/callback" element={<Home />} />
@@ -101,11 +105,13 @@ const isLoading = isAuthLoading ;
    
     <Route path="/reset-password/:id/:token" element={<ResetPassword />}/>
     <Route path="/support" element={ <Support/>}/>
-    <Route path="/apply-job/:id" element={ <JobApplicationForm/>}/>
- 
+
+    <Route path="/business/all-services-bookings" element={ <ProviderBookings/>}/>
+    <Route path="/apply-job/:id" element={ <JobApplicationForm userDetails={auth.user}/>}/>
+
         </Routes>
         {
-           (!location.pathname.startsWith("/reset-password")&& !location.pathname.startsWith("/forgot-password"))&&
+           (!location.pathname.startsWith("/reset-password")&& !location.pathname.startsWith("/forgot-password") )&&
        
         <Footer userDetails={auth.user} handleLogInButtonClick={handleLogInButtonClick}/>
        

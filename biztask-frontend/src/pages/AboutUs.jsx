@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { MdPhone, MdEmail, MdWork, MdStar, MdPeople, MdLocationOn, MdChevronRight } from "react-icons/md";
+import { MdPhone, MdEmail, MdWork, MdStar, MdPeople, MdLocationOn, MdChevronRight, MdPanTool } from "react-icons/md";
 import { ImLinkedin } from "react-icons/im";
-import { FaUserTie, FaHandshake, FaRegLightbulb } from "react-icons/fa";
+import { FaUserTie, FaHandshake, FaRegLightbulb, FaTools } from "react-icons/fa";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import aboutPhoto from "../assets/developer.png";
@@ -64,7 +64,7 @@ const AboutUs = () => {
     };
   
     dispatch(getAllServices(data));
-  }, []);
+  }, [dispatch]);
   
   useEffect(() => {
     const data = {
@@ -74,21 +74,25 @@ const AboutUs = () => {
       maxSalary: 1000000000000000,
       employmentType: null,
       page: 1,
+      postedWithin:null,
       limit: 1000, 
     };
   
     dispatch(getAllJobs(data));
-  }, []);
+  }, [dispatch]);
   
   const serviceStore = useSelector(store => store.serviceStore);
   const jobStore = useSelector(store => store.jobStore);
   
+  
   // Statistic items
+ 
   const stats = [
-    { icon: <MdWork />, value: `${jobStore.jobs?.totalJobs?.toLocaleString() || "0"}`, label: "Job Listings" },
-    { icon: <MdPeople />, value: `${serviceStore.services?.totalServices?.toLocaleString() || "0"}`, label: "Service Providers" },
-    { icon: <MdLocationOn />, value: "100+", label: "Locations" }
+    { icon: <MdWork />, value: `${jobStore.jobs?.totalJobs?.toLocaleString() || "0"}`, label: "Jobs", bg: "bg-orange-500", conbg: "bg-purple-100" },
+    { icon: <FaTools />, value: `${serviceStore.services?.totalServices?.toLocaleString() || "0"}`, label: "Services", bg: "bg-blue-500", conbg: "bg-emerald-100" },
+    { icon: <MdPeople />, value: "2+", label: "Users", bg: "bg-cyan-500", conbg: "bg-indigo-100" }
   ];
+ 
 
   return (
     <div className="bg-gray-50 w-full overflow-hidden">
@@ -99,27 +103,68 @@ const AboutUs = () => {
 </div>
       {/* Statistics Section  */}
     
-        <div className="bg-white py-16  relative z-20">
+        <div className="bg-white py-16  relative z-20 font-serif">
           
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {stats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  className="flex flex-col items-center text-center p-6 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 shadow-md hover:shadow-lg transition-all duration-300 border border-blue-100"
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
-                  variants={statVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.3 } }}
+             <motion.div
+            key={i}
+            className={`group relative flex flex-col items-center text-center p-10 rounded-3xl bg-gradient-to-br from-indigo-600 to-indigo-900/90 backdrop-blur-xl border border-white/10 overflow-hidden`}
+            custom={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={statVariants}
+            whileHover={{ 
+              y: -12, 
+              rotateX: 5,
+              transition: { duration: 0.3 }
+            }}
+          >
+           
+            {/* Grid pattern overlay */}
+            <div className="absolute inset-0 opacity-5" style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+              backgroundSize: '20px 20px'
+            }} />
+            
+            <div className="relative z-10">
+              {/*  icon container */}
+              <motion.div 
+                className="relative w-20 h-20 mb-6 mx-auto "
+              >
+                <div className={`absolute inset-0 ${stat.bg} opacity-30 blur-xl rounded-full`} />
+                <div className={`relative w-full h-full flex items-center justify-center ${stat.bg} text-white text-4xl rounded-full`}
+                 
                 >
-                  <div className=" w-16 h-16 flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full mb-5 text-3xl shadow-lg">
-                    {stat.icon}
-                  </div>
-                  <h3 className="text-3xl font-bold text-blue-800 mb-2 font-serif">{stat.value}</h3>
-                  <p className="text-gray-600 font-medium text-lg">{stat.label}</p>
-                </motion.div>
+                  {stat.icon}
+                </div>
+              </motion.div>
+              
+              {/* Animated counter effect */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.2 + 0.3 }}
+              >
+                <h3 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-white mb-4 font-mono tracking-tighter">
+                  {stat.value}
+                </h3>
+              </motion.div>
+              
+              
+                <p className="text-gray-300 font-semibold text-sm uppercase tracking-widest mb-3">{stat.label}</p>
+            
+             
+            </div>
+
+           
+            
+            {/* Corner accent lines */}
+            <div className={`absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 ${stat.bg.replace('bg-', 'border-')} opacity-50`} />
+            <div className={`absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 ${stat.bg.replace('bg-', 'border-')} opacity-50`} />
+          </motion.div>
               ))}
             </div>
           </div>
@@ -128,7 +173,7 @@ const AboutUs = () => {
 
       {/* Mission Section  */}
    
-        <div className="py-20 bg-gradient-to-b from-gray-100 to-white">
+        <div className="py-20 pt-12 bg-gradient-to-b from-gray-100 to-white">
           <div className="container mx-auto md:px-4 px-1">
             <div className="max-w-6xl mx-auto">
               <motion.div 
@@ -386,7 +431,7 @@ const AboutUs = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <h3 className="text-2xl font-semibold text-blue-800 mb-4 border-b border-blue-100 pb-2">About Me</h3>
+                    <h2 className="text-2xl font-semibold text-blue-800 mb-4 border-b border-blue-100 pb-2">About Me</h2>
                     <p className="text-gray-600 font-medium mb-4 leading-relaxed">
                       I'm a passionate Full Stack Developer specializing in creating intuitive and 
                       efficient web applications. With expertise in modern web technologies, I focus on 
@@ -399,23 +444,23 @@ const AboutUs = () => {
                   </motion.div>
                   
                   <motion.div 
-                    className="border-t border-gray-200 pt-6"
+                    className="border-t border-gray-200 pt-6 font-serif"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
-                    <h3 className="text-xl text-blue-800 mb-4 font-medium">Contact Details</h3>
+                    <h3 className="text-xl text-blue-800 mb-4 font-semibold">Contact Details</h3>
                     <div className="space-y-2">
                       <motion.div 
                         className="flex items-center space-x-4 p-4 rounded-lg group hover:bg-blue-50 transition-all duration-300 border border-transparent hover:border-blue-100"
                         whileHover={{ x: 5 }}
                       >
-                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-full text-white shadow-md">
+                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-full text-white  shadow-md">
                           <MdEmail className="text-xl" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500">Email</p>
-                          <p className="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">AtishXXXXX123@gmail.com</p>
+                          <p className="text-sm font-medium text-gray-500 ">Email</p>
+                          <p className="text-gray-700 group-hover:text-blue-600 transition-colors font-bold">Atishk2454@gmail.com</p>
                         </div>
                       </motion.div>
                       
@@ -428,7 +473,7 @@ const AboutUs = () => {
                         </div>
                         <div>
                           <p className="text-sm text-gray-500 font-medium">Phone</p>
-                          <p className="text-gray-700 group-hover:text-teal-600 transition-colors font-medium">XXXXXXX454</p>
+                          <p className="text-gray-700 group-hover:text-teal-600 transition-colors font-bold">XXXXXXX454</p>
                         </div>
                       </motion.div>
                       
@@ -441,7 +486,7 @@ const AboutUs = () => {
                         </div>
                         <div>
                           <p className="text-sm text-gray-500 font-medium">LinkedIn</p>
-                          <p className="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">aatish-kamble2003</p>
+                          <p className="text-gray-700 group-hover:text-blue-600 transition-colors font-bold">aatish-kamble2003</p>
                         </div>
                       </motion.div>
                     </div>

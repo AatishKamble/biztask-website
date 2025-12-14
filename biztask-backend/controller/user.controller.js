@@ -18,6 +18,31 @@ try {
 }
 }
 
+const sendOtp = async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        const result = await userService.sendOtp(email);
+
+        return res.json(result);
+
+    } catch (error) {
+        return res.json({ success: false, message: error.message });
+    }
+};
+
+
+const verifyOtp = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+        const result = await userService.verifyOtp(email, otp);
+
+        return res.json(result);
+
+    } catch (error) {
+        return res.json({ success: false, message: error.message });
+    }
+};
 const loginUser=async(req,res)=>{
     const {email,password}=req.body;
     try {
@@ -121,6 +146,34 @@ const applyJob = async (req, res) => {
     }
 };
 
+//update job application status 
+const updateApplicationStatus = async (req, res) => {
+    try {
+        const { applicationId, status,messageToUser  } = req.body;
+
+        if (!applicationId || !status) {
+            throw new Error("Application ID and status are required");
+        }
+
+        const updatedApplication = await userService.updateApplicationStatus(
+            applicationId,
+            status,messageToUser 
+        );
+
+        return res.json({
+            success: true,
+            message: "Application status updated successfully",
+            application: updatedApplication
+        });
+
+    } catch (error) {
+        return res.json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 
 const forgotpassword=async(req,res)=>{
     try {
@@ -160,5 +213,8 @@ export default{
     updateUserProfile,
     applyJob,
     forgotpassword,
-    resetpassword
+    resetpassword,
+    sendOtp,
+    verifyOtp,
+    updateApplicationStatus
 }

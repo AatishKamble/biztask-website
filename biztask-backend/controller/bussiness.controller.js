@@ -28,13 +28,16 @@ const createBusiness=async(req,res)=>{
 const updateBusiness=async(req,res)=>{
 try {
     
-    const imageUploadUrl=await uploadOnCloudinary(req.file?.path);
-     
-        if(!imageUploadUrl){
-            throw new Error("Logo Image Not Found");
-        }
+
+         let imageUploadUrl = null;
+            if (req.file?.path) {
+                imageUploadUrl = await uploadOnCloudinary(req.file.path);
+                if (!imageUploadUrl) {
+                  throw new Error("Image upload failed");
+                }
+              }
     const businessId=req.params.id;
-const business=await bussinessService.updateBusiness(businessId,req.body,imageUploadUrl.secure_url,imageUploadUrl.public_id);//req body error
+const business=await bussinessService.updateBusiness(businessId,req.body,imageUploadUrl?.secure_url,imageUploadUrl?.public_id);//req body error
 return res.json({success:true,message:'Business updated',business:business});
 
 

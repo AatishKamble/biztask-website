@@ -38,7 +38,10 @@ const createService = async (userId, reqData) => {
 const getServiceById = async (serviceId) => {
   try {
 
-    const service = await serviceModel.findById(serviceId).populate("bussiness").populate("user").populate("jobs").populate("WorkImage").populate("reviews");
+    const service = await serviceModel.findById(serviceId).populate({path:"bussiness",populate:{path:"services"}}).populate("user").populate("jobs").populate({
+      path: "WorkImage",
+      populate: { path: "user", select: "name email" }  
+  }).populate("reviews");
 
     if (!service) {
       throw new Error("Service Not Found");
@@ -214,33 +217,103 @@ const getAllServices = async (reqQuery) => {
   }
 };
 
-
+//upload work images
 const uploadImage = async (userId, serviceId, filesUrl) => {
   try {
+    //  Fetch service
+    const service = await serviceModel.findById(serviceId).populate("user");
+
+    if (!service) throw new Error("Service not found");
+
+    const ownerId = service.user._id.toString();
 
 
+    //  If NOT owner → check review
+    if (userId.toString() !== ownerId) {
+
+      // Check if customer has written a review
+      const hasReview = await ReviewsModel.findOne({
+        service: serviceId,
+        user: userId
+      });
+
+      if (!hasReview) {
+        throw new Error("You must give a review before uploading images.");
+      }
+    }
+
+    // Continue Upload
     const WorkPhoto = new workPhotosModel({
       service: serviceId,
       user: userId,
       photos: filesUrl
     });
-const newWorkPhoto=await WorkPhoto.save();
 
-const newService=await serviceModel.findByIdAndUpdate(
-  serviceId,
-  {$push:{WorkImage:newWorkPhoto._id}},
-  { new: true }
-);
+    const newWorkPhoto = await WorkPhoto.save();
 
-const service=await getServiceById(newService._id);
-    return service;
+    //  Push into service
+    const updatedService = await serviceModel.findByIdAndUpdate(
+      serviceId,
+      { $push: { WorkImage: newWorkPhoto._id } },
+      { new: true }
+    );
+
+    //  Final populated response
+    const finalService = await getServiceById(updatedService._id);
+    return finalService;
 
   } catch (error) {
     throw new Error(error.message);
   }
+};
 
 
-}
+
+
+//delete image
+const deleteWorkImage = async (userId, serviceId, workPhotoId, photoId, publicId) => {
+    try {
+      
+       const service = await serviceModel.findById(serviceId).populate("user");
+        if (!service) throw new Error("Service not found");
+ const ownerId = service.user._id.toString();
+   const workPhoto = await workPhotosModel.findById(workPhotoId);
+        if (!workPhoto) throw new Error("Work photo entry not found");
+
+        const uploaderId = workPhoto.user.toString();
+         if (userId.toString() !== ownerId) {
+            //  Only delete your own uploads
+            if (uploaderId !== userId.toString()) {
+                throw new Error("You can delete only your own uploaded images.");
+            }
+        }
+
+        await deleteFromCloudinary(publicId);
+
+        
+        const updatedWorkPhoto = await workPhotosModel.findOneAndUpdate(
+            { _id: workPhotoId, service: serviceId },
+            { $pull: { photos: { _id: photoId } } },
+            { new: true }
+        );
+
+        //  If no photos left, delete the entire WorkPhoto document
+        if (updatedWorkPhoto && updatedWorkPhoto.photos.length === 0) {
+            await workPhotosModel.findByIdAndDelete(workPhotoId);
+
+            //  remove its reference from service
+            await serviceModel.findByIdAndUpdate(
+                serviceId,
+                { $pull: { WorkImage: workPhotoId } }
+            );
+        }
+
+        return  "Image deleted successfully!" ;
+
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
 
 export default {
   createService,
@@ -248,6 +321,7 @@ export default {
   removeService,
   updateService,
   getAllServices,
-  uploadImage
+  uploadImage,
+  deleteWorkImage
 
 }

@@ -16,7 +16,10 @@ import {
     GET_ALL_SERVICE_FAILURE,
     UPLOAD_IMAGE_REQUEST,
     UPLOAD_IMAGE_SUCCESS,
-    UPLOAD_IMAGE_FAILURE
+    UPLOAD_IMAGE_FAILURE,
+    DELETE_IMAGE_REQUEST,
+    DELETE_IMAGE_SUCCESS,
+    DELETE_IMAGE_FAILURE
 
 } from './ActionType.js';
 
@@ -110,17 +113,31 @@ const getAllServicesFailure = (error) => ({
 //upload previous work images
 export const uploadImageRequest = () => ({
     type: UPLOAD_IMAGE_REQUEST,
-  });
-  
-  export const uploadImageSuccess = (message,service) => ({
+});
+
+export const uploadImageSuccess = (message, service) => ({
     type: UPLOAD_IMAGE_SUCCESS,
-    payload: {message,service},
-  });
-  
-  export const uploadImageFailure = (error) => ({
+    payload: { message, service },
+});
+
+export const uploadImageFailure = (error) => ({
     type: UPLOAD_IMAGE_FAILURE,
     payload: error,
-  });
+});
+// delete image of work
+export const deleteImageRequest = () => ({
+    type: DELETE_IMAGE_REQUEST,
+});
+
+export const deleteImageSuccess = (message, ids) => ({
+    type: DELETE_IMAGE_SUCCESS,
+    payload: { message, ids },
+});
+
+export const deleteImageFailure = (error) => ({
+    type: DELETE_IMAGE_FAILURE,
+    payload: error,
+});
 
 //register service
 
@@ -136,13 +153,15 @@ const serviceRegister = (serviceData, jwt) => async (dispatch) => {
         });
 
         const newService = response.data;
-    
+
         if (newService.success == true) {
             // window.location.reload();
+          
             dispatch(registerServiceSuccess(newService.message));
             dispatch(getBusinessById(newService.service.bussiness));
-            toast.success(newService.message);
-           
+            
+            return { success: true, message: newService.message,id:newService.service._id };
+
         }
         else {
             throw new Error(newService.message);
@@ -152,7 +171,7 @@ const serviceRegister = (serviceData, jwt) => async (dispatch) => {
     } catch (error) {
 
         dispatch(registerServiceFailure(error.message));
-        toast.error(error.message);
+        return { success: false, message: error.message };
     }
 
 }
@@ -168,7 +187,7 @@ const getServiceById = (serviceId) => async (dispatch) => {
 
 
         const newService = response.data;
-      
+
 
         if (newService.success == true) {
 
@@ -202,7 +221,7 @@ const removeService = (jwt, serviceId, businessId) => async (dispatch) => {
         if (newService.success == true) {
             dispatch(removeServiceSuccess(newService.message));
             dispatch(getBusinessById(newService.service.bussiness._id));
-                toast.success(newService.message);
+            return { success: true, message: newService.message };
         }
         else {
             throw new Error(newService.message);
@@ -211,7 +230,7 @@ const removeService = (jwt, serviceId, businessId) => async (dispatch) => {
 
     } catch (error) {
         dispatch(removeServiceFailure(error.message));
-        toast.error(error.message);
+         return { success: false, message: error.message };
     }
 }
 
@@ -236,8 +255,8 @@ const updateService = (jwt, serviceData, serviceId) => async (dispatch) => {
         if (newService.success == true) {
 
             dispatch(updateServiceSuccess(newService.service));
-dispatch(getServiceById(newService.service._id))
-            toast.success(newService.message);
+            dispatch(getServiceById(newService.service._id))
+              return { success: true, message: newService.message };
 
         }
         else {
@@ -247,7 +266,7 @@ dispatch(getServiceById(newService.service._id))
 
     } catch (error) {
         dispatch(updateServiceFailure(error.message));
-        toast.error(error.message);
+        return { success: false, message: error.message };
     }
 }
 
@@ -270,7 +289,7 @@ const getAllServices = (reqData) => async (dispatch) => {
 
         const response = await axios.get(`${API_BASE_URL}/api/services/all?serviceName=${serviceName}&serviceLocation=${serviceLocation}&minPrice=${minPrice}&maxPrice=${maxPrice}&rating=${rating}&page=${page}&limit=${limit}`);
         const allServices = response.data;
-     
+
         if (allServices.success == true) {
             dispatch(getAllServicesSuccess(allServices));
 
@@ -298,11 +317,12 @@ const uploadImage = (formData, jwt) => async (dispatch) => {
         });
 
         const newService = response.data;
-   
+
         if (newService.success == true) {
             // window.location.reload();
-            dispatch(uploadImageSuccess(newService.message,newService.service));
-            toast.success(newService.message);
+            dispatch(uploadImageSuccess(newService.message, newService.service));
+         
+             return { success: true, message: newService.message };
         }
         else {
             throw new Error(newService.message);
@@ -310,18 +330,63 @@ const uploadImage = (formData, jwt) => async (dispatch) => {
 
 
     } catch (error) {
-           
-        dispatch(uploadImageFailure(error.message));
-        if(jwt===null){
-            toast.error("Session expired,Please Login !")
-        }
-        else{
 
-       
-        toast.error(error.message); }
+        dispatch(uploadImageFailure(error.message));
+        if (error.message === "jwt expired") {
+            
+            return { success: false, message: "Session expired,Please Login !" };
+        }
+        else {
+
+
+        return { success: false, message: error.message };
+        }
     }
 
 }
+
+
+//delete service work image
+const deleteServiceImage = (serviceId, workPhotoId, photoId, publicId, jwt) => 
+async (dispatch) => {
+
+    dispatch(deleteImageRequest());
+
+    try {
+        const response = await axios.post(
+            `${API_BASE_URL}/api/services/${serviceId}/delete-image`,
+            { workPhotoId, photoId, publicId },   
+            {
+                headers: {
+                    "authorization": `Bearer ${jwt}`
+                }
+            }
+        );
+
+        const data = response.data;
+
+        if (data.success === true) {
+
+            
+            dispatch(deleteImageSuccess(data.message, { workPhotoId, photoId }));
+
+            return { success: true, message: data.message };
+        }
+
+        throw new Error(data.message);
+
+    } catch (error) {
+
+        dispatch(deleteImageFailure(error.message));
+
+        if (error.message === "jwt expired") {
+            return { success: false, message: "Session expired, Please Login !" };
+        }
+
+        return { success: false, message: error.message };
+    }
+};
+
 
 
 export {
@@ -330,6 +395,7 @@ export {
     removeService,
     updateService,
     getAllServices,
-    uploadImage
+    uploadImage,
+    deleteServiceImage
 
 }

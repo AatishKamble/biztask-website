@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { useParams } from 'react-router-dom';
 import {getServiceById} from "../Redux/ServiceR/Action.js";
 import { getAllReviews } from '../Redux/Review/Action.js';
-const ServiceDetailPage = ({userDetails}) => {
+const ServiceDetailPage = ({userDetails,handleLogInButtonClick}) => {
 
 const dispatch=useDispatch();
 const {id}=useParams();
@@ -19,13 +19,6 @@ if(id){
 },[id,dispatch]);
 
 
-const reviewStore = useSelector(store => store.reviewStore);
-
-    useEffect(() => {
-        if (id) {
-            dispatch(getAllReviews(id));
-        }
-    }, [id,dispatch]);
 
 
 
@@ -35,7 +28,7 @@ const serviceStore = useSelector(store => store.serviceStore)
 
   return (
    <>
-   <ServiceDetail serviceDetails={serviceStore.service} userDetails={userDetails}/>
+   <ServiceDetail serviceDetails={serviceStore.service} userDetails={userDetails} handleLogInButtonClick={handleLogInButtonClick}/>
    </>
   )
 }

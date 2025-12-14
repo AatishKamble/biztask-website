@@ -17,7 +17,8 @@ import { TbMapPin } from "react-icons/tb";
 import { GoChecklist } from "react-icons/go";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { MdPersonAddAlt } from "react-icons/md";
-
+import { motion } from 'framer-motion';
+import { ImCancelCircle } from "react-icons/im";
 
 const ServiceRegistration = ({ userDetails, registration }) => {
     const navigate = useNavigate();
@@ -79,12 +80,25 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         });
     }
 
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                type: "spring",
+                stiffness: 100
+            }
+        }
+    };
+
+
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     // Form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-       
-       
+
+
         const minPriceValue = Number(formData.minPrice);
         const maxPriceValue = Number(formData.maxPrice);
 
@@ -114,16 +128,16 @@ const ServiceRegistration = ({ userDetails, registration }) => {
             toast.error('Description is required');
             return;
         }
-       
 
-        const words = formData.Description.trim().split(/\s+/);  
+
+        const words = formData.Description.trim().split(/\s+/);
         const wordCount = words.filter(word => word).length;
 
-        if (wordCount < 100 ) {
+        if (wordCount < 100) {
             toast.error('Description cannot be smaller than 100 words');
             return;
         }
-        if (wordCount > 500 ) {
+        if (wordCount > 500) {
             toast.error('Description cannot be longer than 500 words');
             return;
         }
@@ -146,42 +160,41 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         formD.append("locations", JSON.stringify(locationArray));
         formD.append("features", JSON.stringify(featureArray));
 
-        if (registration === true) {
+        try {
             setIsButtonDisabled(true);
-            formD.append("businessId", businessStore.business?._id);
-            dispatch(serviceRegister(formD, jwt));
-            setTimeout(()=>{
-                toast.success("Registered successfully ! want to add more.");
-                setIsButtonDisabled(false)
-        setFormData({
-            serviceType: "",
-            Description: "",
-            minPrice: "",
-            maxPrice: ""
-        });
-        setFeatureArray([]);
-        setLocationArray([]);
-               },2000);
-            
-        } else {
-            setIsButtonDisabled(true);
-            dispatch(updateService(jwt, formD, id)); // service id
-             setTimeout(()=>{
-                
-                setIsButtonDisabled(false)
-                navigate(`/service-detail/${serviceStore.service?._id}`);
-            
-        setFormData({
-            serviceType: "",
-            Description: "",
-            minPrice: "",
-            maxPrice: ""
-        });
-        setFeatureArray([]);
-        setLocationArray([]);
-               },2000);
-           
-      
+
+            let result;
+            if (registration === true) {
+                formD.append("businessId", businessStore.business?._id);
+                result = await dispatch(serviceRegister(formD, jwt));
+            } else {
+                result = await dispatch(updateService(jwt, formD, id)); // service id
+            }
+
+            if (result?.success) {
+                toast.success(result.message || "Operation successful!");
+                setFormData({
+                    serviceType: "",
+                    Description: "",
+                    minPrice: "",
+                    maxPrice: ""
+                });
+                setFeatureArray([]);
+                setLocationArray([]);
+
+                if (registration) {
+                    navigate(`/service-detail/${result.id}`);
+                } else {
+                    navigate(`/service-detail/${serviceStore.service?._id}`);
+                }
+            } else {
+                toast.error(result?.message || "Something went wrong!");
+            }
+
+        } catch (error) {
+            toast.error("Unexpected error occurred");
+        } finally {
+            setIsButtonDisabled(false);
         }
 
     }
@@ -196,6 +209,7 @@ const ServiceRegistration = ({ userDetails, registration }) => {
 
     const serviceStore = useSelector(store => store.serviceStore);
 
+ 
     // While updating
     useEffect(() => {
         if (registration === false && serviceStore.service && serviceStore.service._id === id) {
@@ -211,57 +225,61 @@ const ServiceRegistration = ({ userDetails, registration }) => {
         }
     }, [serviceStore.service, registration, id]);
 
+
     return (
-        <div className="min-h-screen bg-white py-8 px-2 sm:px-6 lg:px-12">
+        <div className={`min-h-screen bg-white py-8 px-2 sm:px-6 lg:px-12 font-serif `}>
             <div className="max-w-5xl mx-auto">
-                {/* Back navigation */}
-                <div className="mb-6">
-                    <button
-                        onClick={() => navigate(-1)}
-                        className="flex items-center text-teal-700 hover:text-teal-900 transition-colors font-serif"
-                    >
-                        <IoArrowBack className="mr-2" />
-                        <span>Go Back</span>
-                    </button>
-                </div>
+
 
                 <div className="bg-white rounded-xl shadow-xl overflow-hidden mb-10 border border-teal-100">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-blue-700 to-indigo-800 px-8 py-8">
-                        <h1 className="text-3xl font-semibold text-white text-center font-serif">
-                            {registration ? "Create Your Local Service" : "Update Your Service"}
-                        </h1>
-                        <p className="text-teal-100 text-center mt-2 font-serif">Connect with your community by offering your specialized services</p>
-                    </div>
+
+
+                    <motion.div
+                        className="relative bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 sm:px-8 py-8 sm:py-10 overflow-hidden"
+                        initial={{ y: -50, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <div className="absolute inset-0 bg-black/10"></div>
+                        <div className="relative z-10 text-center">
+
+                            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2"> {registration ? "Register Your  Service" : "Update Your Service"}</h2>
+                            <p className="text-blue-100 text-sm sm:text-base">Connect with your community by offering your specialized services</p>
+                        </div>
+                    </motion.div>
 
                     <form onSubmit={handleSubmit} className="sm:p-6 p-4 lg:p-8">
                         {/* Service Type and Company Name */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div className="space-y-2">
-                                <label className="flex items-center text-teal-800 font-medium font-serif">
-                                    <BiCategoryAlt className="text-teal-600 mr-2 text-xl" />
+                                <label className="flex items-center text-slate-600 font-medium font-serif">
+                                    <BiCategoryAlt className=" mr-2 text-xl" />
                                     Service Type
                                 </label>
                                 <div className="relative">
                                     <input
+                                        disabled={isButtonDisabled}
                                         type="text"
                                         name="serviceType"
                                         value={formData.serviceType}
                                         onChange={handleChange}
                                         placeholder="Cleaning, Event decoration etc."
-                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                            }`}
                                     />
                                 </div>
                             </div>
 
                             <div className="space-y-2">
-                                <label className="flex items-center text-teal-800 font-medium font-serif">
-                                    <FaBuilding className="text-teal-600 mr-2 text-xl" />
+                                <label className="flex items-center text-slate-600 font-medium font-serif">
+                                    <FaBuilding className=" mr-2 text-xl" />
                                     Company Name
                                 </label>
                                 <input
+
                                     type="text"
-                                    value={businessStore.business?.companyName}
+                                    value={(businessStore.business?.companyName ? businessStore.business?.companyName : serviceStore.service?.bussiness?.companyName) || ""}
                                     className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg bg-gray-50 cursor-not-allowed shadow-sm"
                                     disabled
                                 />
@@ -270,15 +288,18 @@ const ServiceRegistration = ({ userDetails, registration }) => {
 
                         {/* Section: Contact Details */}
                         <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl sm:p-6 p-4 mb-8 border border-teal-100 shadow-sm">
-                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
-                                <FaUser className="mr-2 text-teal-700" />
+
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-600 mb-6 font-serif flex items-center gap-2">
+                                <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                    <FaUser className="text-white text-lg" />
+                                </div>
                                 Contact Details (Provider)
                             </h2>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
-                                    <label className="flex items-center text-teal-700 font-medium font-serif">
-                                        <MdPersonAddAlt className="text-teal-600 mr-2" />
+                                    <label className="flex items-center text-slate-500 font-medium font-serif">
+                                        <MdPersonAddAlt className="text-slate-600 mr-2" />
                                         Name
                                     </label>
                                     <input
@@ -290,8 +311,8 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="flex items-center text-teal-700 font-medium font-serif">
-                                        <FaPhone className="text-teal-600 mr-2" />
+                                    <label className="flex items-center text-slate-500 font-medium font-serif">
+                                        <FaPhone className="text-slate-600 mr-2" />
                                         Phone
                                     </label>
                                     <input
@@ -303,8 +324,8 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="flex items-center text-teal-700 font-medium font-serif">
-                                        <FaEnvelope className="text-teal-600 mr-2" />
+                                    <label className="flex items-center text-slate-500 font-medium font-serif">
+                                        <FaEnvelope className="text-slate-600 mr-2" />
                                         Email
                                     </label>
                                     <input
@@ -319,58 +340,68 @@ const ServiceRegistration = ({ userDetails, registration }) => {
 
                         {/* Section: Service Details */}
                         <div className="bg-white rounded-xl sm:p-6 p-4 mb-8 border border-teal-200 shadow-md">
-                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-6 flex items-center">
-                                <MdDescription className="mr-2 text-teal-700" />
+
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-600 mb-6 font-serif flex items-center gap-2">
+                                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                                    <MdDescription className="text-white text-lg" />
+                                </div>
                                 Service Details
                             </h2>
 
+
                             <div className="space-y-6">
                                 <div>
-                                    <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
+                                    <label className="flex items-center text-slate-500 font-medium font-serif mb-2">
 
                                         Description
                                     </label>
                                     <textarea
+                                        disabled={isButtonDisabled}
                                         name="Description"
                                         id="DescriptionBox"
                                         value={formData.Description}
                                         onChange={handleChange}
                                         placeholder="Tell potential customers about your service expertise, quality guarantees, and what makes your service special... "
-                                        className="w-full h-60 px-4 py-3 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-inner"
+                                        className={`w-full h-60 px-4 py-3 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-inner ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                            }`}
                                         style={{ resize: 'none' }}
                                     ></textarea>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
-                                            <RiPriceTag3Line className="text-teal-600 mr-2 text-xl" />
+                                        <label className="flex items-center text-slate-500 font-medium font-serif mb-2">
+                                            <RiPriceTag3Line className="text-slate-600 mr-2 text-xl" />
                                             Min Price
                                         </label>
                                         <input
+                                            disabled={isButtonDisabled}
                                             type="text"
                                             name="minPrice"
                                             value={formData.minPrice}
                                             onChange={handleChange}
                                             required={true}
                                             placeholder="Enter service Starting Price"
-                                            className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                            className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                                }`}
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="flex items-center text-teal-700 font-medium font-serif mb-2">
-                                            <FaIndianRupeeSign className="text-teal-600 mr-2 text-xl" />
+                                        <label className="flex items-center text-slate-500 font-medium font-serif mb-2">
+                                            <FaIndianRupeeSign className="text-slate-600 mr-2 text-xl" />
                                             Max Price
                                         </label>
                                         <input
+                                            disabled={isButtonDisabled}
                                             type="text"
                                             name="maxPrice"
                                             value={formData.maxPrice}
                                             required={true}
                                             onChange={handleChange}
                                             placeholder="Enter ending price of service"
-                                            className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                            className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                                }`}
                                         />
                                     </div>
                                 </div>
@@ -379,8 +410,11 @@ const ServiceRegistration = ({ userDetails, registration }) => {
 
                         {/* Section: Locations */}
                         <div className="bg-white rounded-xl sm:p-6 p-4 mb-8 border border-teal-200 shadow-md">
-                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
-                                <TbMapPin className="mr-2 text-teal-700 text-xl" />
+
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-600 mb-6 font-serif flex items-center gap-2">
+                                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                    <TbMapPin className="text-white text-lg" />
+                                </div>
                                 Service Locations
                             </h2>
 
@@ -388,20 +422,24 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 <div className="flex-grow">
                                     <div className="relative">
                                         <input
+                                            disabled={isButtonDisabled}
                                             type="text"
                                             value={location}
                                             onChange={(e) => setLocation(e.target.value)}
                                             placeholder="Enter neighborhood, area or city you serve"
-                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                            className={`w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                                }`}
                                         />
-                                        <FaMapMarkerAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
+                                        <FaMapMarkerAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600" />
                                     </div>
                                 </div>
 
                                 <button
+                                    disabled={isButtonDisabled}
                                     type="button"
                                     onClick={handleLocationAdd}
-                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                    className={`flex items-center justify-center bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                        }`}
                                 >
                                     <HiPlus className="mr-2" />
                                     <span className="font-serif">Add Location</span>
@@ -410,13 +448,13 @@ const ServiceRegistration = ({ userDetails, registration }) => {
 
                             {locationArray.length > 0 && (
                                 <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
-                                    <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
+                                    <h3 className="text-sm text-slate-500 mb-3 font-serif flex items-center">
                                         <FaCheckCircle className="text-teal-500 mr-2" />
                                         Areas You Serve:
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
                                         {locationArray.map((l, index) => (
-                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />
+                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} isButtonDisabled={isButtonDisabled} />
                                         ))}
                                     </div>
                                 </div>
@@ -425,8 +463,11 @@ const ServiceRegistration = ({ userDetails, registration }) => {
 
                         {/* Section: Features */}
                         <div className="bg-white rounded-xl sm:p-6 p-4 mb-8 border border-teal-200 shadow-md">
-                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
-                                <GoChecklist className="mr-2 text-teal-700 text-xl" />
+
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-600 mb-6 font-serif flex items-center gap-2">
+                                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                                    <GoChecklist className="text-white text-lg" />
+                                </div>
                                 Service Features
                             </h2>
 
@@ -434,20 +475,24 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                                 <div className="flex-grow">
                                     <div className="relative">
                                         <input
+                                            disabled={isButtonDisabled}
                                             type="text"
                                             value={featureInput}
                                             onChange={(e) => setFeatureInput(e.target.value)}
                                             placeholder="Add key service benefits or special features"
-                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                            className={`w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                                }`}
                                         />
-                                        <MdOutlineFeaturedPlayList className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
+                                        <MdOutlineFeaturedPlayList className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600" />
                                     </div>
                                 </div>
 
                                 <button
+                                    disabled={isButtonDisabled}
                                     type="button"
                                     onClick={handleFeatureAdd}
-                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                    className={`flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                        }`}
                                 >
                                     <HiPlus className="mr-2" />
                                     <span className="font-serif">Add Feature</span>
@@ -456,13 +501,13 @@ const ServiceRegistration = ({ userDetails, registration }) => {
 
                             {featureArray.length > 0 && (
                                 <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
-                                    <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
+                                    <h3 className="text-sm text-slate-500 mb-3 font-serif flex items-center">
                                         <FaCheckCircle className="text-teal-500 mr-2" />
                                         Your Service Features:
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
                                         {featureArray.map((l, index) => (
-                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleFeatureRemove} />
+                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleFeatureRemove} isButtonDisabled={isButtonDisabled} />
                                         ))}
                                     </div>
                                 </div>
@@ -470,47 +515,85 @@ const ServiceRegistration = ({ userDetails, registration }) => {
                         </div>
 
                         {/* Company Logo */}
-                        <div className="bg-white rounded-xl p-6 mb-8 border border-teal-200 shadow-md">
-                            <h2 className="text-xl text-teal-800 font-medium font-serif mb-4 flex items-center">
-                                <FaBuilding className="mr-2 text-teal-700" />
-                                Company Branding
-                            </h2>
 
-                            <div className="flex flex-col md:flex-row items-center gap-6">
-                                <div className="w-36 h-36 rounded-xl overflow-hidden border-2 border-teal-100 shadow-lg">
-                                    <img
-                                        src={businessStore.business?.companyLogo ? `${businessStore.business?.companyLogo?.imageUrl}` : dummyPhoto}
-                                        alt="Company Logo"
-                                        className="w-full h-full object-scale-down"
-                                    />
-                                </div>
-                                <div className="text-teal-700 font-serif">
-                                    <p>This is your company logo displayed to local customers.</p>
-                                    <p className="text-sm mt-2 text-teal-600">To update your logo, please edit your business profile.</p>
+                        <motion.div
+                            className="mb-8 sm:mb-10"
+                            variants={itemVariants}
+                        >
+                            <div className="bg-white rounded-2xl p-6 border border-teal-100 shadow-md">
+
+                                <h2 className="text-xl sm:text-2xl font-bold text-gray-600 mb-6 font-serif flex items-center gap-2">
+                                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                        <FaBuilding className="text-white text-lg" />
+                                    </div>
+                                    Company Branding
+                                </h2>
+
+                                <div className="flex flex-col sm:flex-row items-center justify-center gap-8 p-6 rounded-2xl ">
+
+                                    {/* Company Logo */}
+                                    <div className="text-center">
+
+                                        <div className="w-28 h-28 sm:w-40 sm:h-40 rounded-2xl overflow-hidden ring-4 ring-teal-200 shadow-lg">
+                                            <img
+                                                src={businessStore?.business?.companyLogo?.imageUrl ? businessStore?.business?.companyLogo?.imageUrl : serviceStore.service?.bussiness?.companyLogo?.imageUrl || dummyPhoto}
+                                                alt="Company Logo"
+                                                className="w-full h-full object-scale-down"
+                                            />
+                                        </div>
+
+                                    </div>
+
+
+                                    <div className="text-center sm:text-left space-y-2  text-slate-500 font-serif">
+                                        <p className="text-base ">
+                                            This is your company logo displayed to local customers.
+                                        </p>
+                                        <p className="text-sm  text-red-600 flex items-center ">
+
+                                            To update your logo, please edit your business profile.
+                                        </p>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-                            <button
-                                type='button'
-                                onClick={() => navigate(-1)}
-                                className='bg-white border border-teal-300 hover:bg-teal-50 text-teal-700 font-serif font-medium py-3 px-8 rounded-lg shadow-sm transition-colors duration-200 flex items-center justify-center'
-                            >
-                                Cancel
-                            </button>
+
+                        <motion.div
+                            variants={itemVariants}
+                            className="pt-6 flex flex-col sm:flex-row justify-center  gap-4 sm:gap-6 w-full">
+
 
                             <button
-                                type='submit'
+                                type="button"
                                 disabled={isButtonDisabled}
-                                className={`bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center ${
-                                    isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
-                                  }`}  >
-                                <FaSave className="mr-2" />
-                                {registration ? "Launch My Service" : "Update My Service"}
+                                onClick={() => navigate(-1)}
+                                className={`flex-1 px-6 py-3.5 bg-white hover:bg-red-50 text-red-600 hover:text-red-700 border-2 border-red-300 hover:border-red-400 rounded-xl font-bold text-base transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 ${isButtonDisabled ? 'opacity-60 cursor-not-allowed' : ''}`}
+                            >
+                                <ImCancelCircle className="text-lg" />
+                                <span>Cancel</span>
                             </button>
-                        </div>
+
+                            <button
+                                type="submit"
+                                disabled={isButtonDisabled}
+                                className={`flex-1 px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold text-base transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 ${isButtonDisabled ? 'opacity-60 cursor-not-allowed' : ''}`}
+                            >
+                                {isButtonDisabled ? (
+                                    <>
+                                        <span className="animate-spin border-3 border-white border-t-transparent rounded-full w-5 h-5"></span>
+                                        <span>Wait...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaSave className="text-lg" />
+                                        {registration ? "Launch Service" : "Update Service"}
+                                    </>
+                                )}
+                            </button>
+                        </motion.div>
+
                     </form>
                 </div>
             </div>

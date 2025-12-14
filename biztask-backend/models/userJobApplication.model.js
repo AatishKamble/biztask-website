@@ -62,6 +62,15 @@ const userApplicationSchema = new mongoose.Schema({
             default: ""
         }
     },
+     status: {
+    type: String,
+    enum: ["Pending", "Shortlisted", "Rejected", "Interview Scheduled", "Hired"],
+    default: "Pending"
+  },
+  adminMessage: {
+  type: String,
+  default: ""
+},
     appliedAt: {
         type: Date,
         default: Date.now

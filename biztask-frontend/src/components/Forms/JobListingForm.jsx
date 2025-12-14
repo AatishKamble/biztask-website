@@ -25,11 +25,19 @@ const JobListingForm = ({ registration }) => {
     // Get job
     useEffect(() => {
         if (id) {
-            dispatch(getJobById(id));
+            if (registration) {
+                dispatch(getServiceById(id))
+            }
+            else {
+                dispatch(getJobById(id));
+            }
+
+
         }
     }, [id, dispatch]);
 
     const serviceStore = useSelector(store => store.serviceStore);
+
     const navigate = useNavigate();
     const jwt = localStorage.getItem("jwt");
 
@@ -111,8 +119,9 @@ const JobListingForm = ({ registration }) => {
     // Jobs
     const jobStore = useSelector(store => store.jobStore);
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     // Handle form submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.jobRole.trim() === "") {
             toast.error("Job role is required");
@@ -192,33 +201,56 @@ const JobListingForm = ({ registration }) => {
         formD.append("jobLocations", JSON.stringify(locationArray));
         formD.append("responsibilities", JSON.stringify(responsibilityArray));
         formD.append("skillsRequired", JSON.stringify(skillsRequiredArray));
+        //new
 
-        if (registration === true) {
-            formD.append("serviceId", serviceStore?.service?._id);
-            dispatch(jobRegister(formD, jwt));
-            navigate(`/service-detail/${serviceStore?.service?._id}`);
-        } else {
-            dispatch(updateJob(jwt, formD, id));
-            navigate(`/job-detail/${id}`);
+        try {
+            setIsButtonDisabled(true);
+
+            let result;
+            if (registration === true) {
+                formD.append("serviceId", serviceStore?.service?._id);
+                result = await dispatch(jobRegister(formD, jwt));
+            } else {
+                result = await dispatch(updateJob(jwt, formD, id));
+            }
+
+            if (result?.success) {
+                toast.success(result.message || "Operation successful!");
+                setFormData({
+                    jobRole: "",
+                    employmentType: "",
+                    workingHours: "",
+                    experienceYear: "",
+                    minSalary: "",
+                    maxSalary: "",
+                    deadline: ""
+                });
+                setSkillsRequiredArray([]);
+                setLocationArray([]);
+                setResponsibilityArray([]);
+
+                if (registration) {
+                    navigate(`/service-detail/${serviceStore?.service?._id}`);
+                } else {
+                    navigate(`/job-detail/${id}`);
+                }
+            } else {
+                toast.error(result?.message || "Something went wrong!");
+            }
+
+        } catch (error) {
+            toast.error("Unexpected error occurred");
+        } finally {
+            setIsButtonDisabled(false);
         }
 
-        setFormData({
-            jobRole: "",
-            employmentType: "",
-            workingHours: "",
-            experienceYear: "",
-            minSalary: "",
-            maxSalary: "",
-            deadline: ""
-        });
-        setSkillsRequiredArray([]);
-        setLocationArray([]);
-        setResponsibilityArray([]);
+
     }
 
     // While updating job
     useEffect(() => {
         if (jobStore.job && jobStore.job._id === id && registration === false) {
+
             setFormData({
                 jobRole: jobStore.job?.jobRole || "",
                 employmentType: jobStore.job?.employmentType || "",
@@ -241,11 +273,13 @@ const JobListingForm = ({ registration }) => {
                 {/* Back navigation */}
                 <div className="mb-6">
                     <button
+                        disabled={isButtonDisabled}
                         onClick={() => navigate(-1)}
-                        className="flex items-center text-teal-700 hover:text-teal-900 transition-colors font-serif"
+                        className={`flex items-center text-teal-700 hover:text-teal-900 transition-colors font-serif ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                            }`}
                     >
                         <IoArrowBack className="mr-2" />
-                        <span>Go Back</span>
+                        <span>Back</span>
                     </button>
                 </div>
 
@@ -271,9 +305,10 @@ const JobListingForm = ({ registration }) => {
                                         type="text"
                                         name="jobRole"
                                         value={formData.jobRole}
+                                        disabled={isButtonDisabled}
                                         onChange={handleChange}
                                         placeholder="Enter Job Role"
-                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                     />
                                 </div>
                             </div>
@@ -283,15 +318,22 @@ const JobListingForm = ({ registration }) => {
                                     <BiCategoryAlt className="text-teal-600 mr-2 text-xl" />
                                     Employment Type
                                 </label>
-                                <input
-                                    type="text"
+
+                                <select
                                     name="employmentType"
+                                    disabled={isButtonDisabled}
                                     value={formData.employmentType}
                                     onChange={handleChange}
-                                    placeholder="Full time, Part time, Temporary, etc."
-                                    className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
-                                />
+                                    className={`w-full h-12 px-4 py-2 text-base font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
+                                >
+                                    <option value="">Select Employment Type</option>
+                                    <option value="Full Time">Full Time</option>
+                                    <option value="Part Time">Part Time</option>
+                                    <option value="Temporary">Temporary</option>
+
+                                </select>
                             </div>
+
                         </div>
 
                         {/* Section: Job Requirements */}
@@ -310,10 +352,11 @@ const JobListingForm = ({ registration }) => {
                                     <input
                                         type="text"
                                         name="workingHours"
+                                        disabled={isButtonDisabled}
                                         value={formData.workingHours}
                                         onChange={handleChange}
                                         placeholder="e.g., 9 AM - 5 PM or Flexible"
-                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                     />
                                 </div>
 
@@ -325,10 +368,11 @@ const JobListingForm = ({ registration }) => {
                                     <input
                                         type="text"
                                         name="experienceYear"
+                                        disabled={isButtonDisabled}
                                         value={formData.experienceYear}
                                         onChange={handleChange}
                                         placeholder="e.g. 0, 2, 5+"
-                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                     />
                                 </div>
                             </div>
@@ -342,10 +386,11 @@ const JobListingForm = ({ registration }) => {
                                     <input
                                         type="text"
                                         name="minSalary"
+                                        disabled={isButtonDisabled}
                                         value={formData.minSalary}
                                         onChange={handleChange}
                                         placeholder="Enter minimum salary"
-                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                     />
                                 </div>
 
@@ -357,10 +402,11 @@ const JobListingForm = ({ registration }) => {
                                     <input
                                         type="text"
                                         name="maxSalary"
+                                        disabled={isButtonDisabled}
                                         value={formData.maxSalary}
                                         onChange={handleChange}
                                         placeholder="Enter maximum salary"
-                                        className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                        className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                     />
                                 </div>
                             </div>
@@ -373,9 +419,10 @@ const JobListingForm = ({ registration }) => {
                                 <input
                                     type="date"
                                     name="deadline"
-                                    value={formData.deadline}
+                                    disabled={isButtonDisabled}
+                                    value={formData.deadline ? formData.deadline.split("T")[0] : ""}
                                     onChange={handleChange}
-                                    className="w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                    className={`w-full h-12 px-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                 />
                             </div>
                         </div>
@@ -393,9 +440,10 @@ const JobListingForm = ({ registration }) => {
                                         <input
                                             type="text"
                                             value={location}
+                                            disabled={isButtonDisabled}
                                             onChange={(e) => setLocation(e.target.value)}
                                             placeholder="Enter neighborhood, area or city for job location"
-                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                            className={`w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                         />
                                         <FaMapMarkerAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
                                     </div>
@@ -404,7 +452,8 @@ const JobListingForm = ({ registration }) => {
                                 <button
                                     type="button"
                                     onClick={handleLocationAdd}
-                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                    disabled={isButtonDisabled}
+                                    className={`flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                 >
                                     <HiPlus className="mr-2" />
                                     <span className="font-serif">Add Location</span>
@@ -412,14 +461,14 @@ const JobListingForm = ({ registration }) => {
                             </div>
 
                             {locationArray.length > 0 && (
-                                <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
+                                <div className=" p-4  border-t-2 border-indigo-200 rounded-t-lg">
                                     <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
                                         <FaCheckCircle className="text-teal-500 mr-2" />
                                         Job Locations:
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
                                         {locationArray.map((l, index) => (
-                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} />
+                                            <AddedBox key={index} Index={index} Name={l} handleRemove={handleLocationRemove} isButtonDisabled={isButtonDisabled} />
                                         ))}
                                     </div>
                                 </div>
@@ -439,9 +488,10 @@ const JobListingForm = ({ registration }) => {
                                         <input
                                             type="text"
                                             value={responsibilityInput}
+                                            disabled={isButtonDisabled}
                                             onChange={(e) => setResponsibilityInput(e.target.value)}
                                             placeholder="Add key job responsibilities"
-                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                            className={`w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                         />
                                         <MdTask className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
                                     </div>
@@ -450,7 +500,8 @@ const JobListingForm = ({ registration }) => {
                                 <button
                                     type="button"
                                     onClick={handleResponsibilityAdd}
-                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                    disabled={isButtonDisabled}
+                                    className={`flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                 >
                                     <HiPlus className="mr-2" />
                                     <span className="font-serif">Add Responsibility</span>
@@ -458,14 +509,14 @@ const JobListingForm = ({ registration }) => {
                             </div>
 
                             {responsibilityArray.length > 0 && (
-                                <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
+                                <div className="border-t-2 border-indigo-200 rounded-t-lg p-4">
                                     <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
                                         <FaCheckCircle className="text-teal-500 mr-2" />
                                         Job Responsibilities:
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
                                         {responsibilityArray.map((r, index) => (
-                                            <AddedBox key={index} Index={index} Name={r} handleRemove={handleResponsibilityRemove} />
+                                            <AddedBox key={index} Index={index} Name={r} handleRemove={handleResponsibilityRemove} isButtonDisabled={isButtonDisabled} />
                                         ))}
                                     </div>
                                 </div>
@@ -485,9 +536,10 @@ const JobListingForm = ({ registration }) => {
                                         <input
                                             type="text"
                                             value={skillsRequiredInput}
+                                            disabled={isButtonDisabled}
                                             onChange={(e) => setSkillsRequiredInput(e.target.value)}
                                             placeholder="Add required skills for this position"
-                                            className="w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
+                                            className={`w-full h-12 pl-10 pr-4 py-2 text-lg font-serif outline-none border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""}`}
                                         />
                                         <MdOutlineFeaturedPlayList className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-600" />
                                     </div>
@@ -496,7 +548,8 @@ const JobListingForm = ({ registration }) => {
                                 <button
                                     type="button"
                                     onClick={handleSkillsRequiredAdd}
-                                    className="flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md"
+                                    disabled={isButtonDisabled}
+                                    className={`flex items-center justify-center bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white h-12 px-6 rounded-lg transition-colors duration-200 shadow-md ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""} `}
                                 >
                                     <HiPlus className="mr-2" />
                                     <span className="font-serif">Add Skill</span>
@@ -504,14 +557,14 @@ const JobListingForm = ({ registration }) => {
                             </div>
 
                             {skillsRequiredArray.length > 0 && (
-                                <div className="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg shadow-inner">
+                                <div className=" p-4 border-t-2 border-indigo-200 rounded-t-lg">
                                     <h3 className="text-sm text-teal-700 mb-3 font-serif flex items-center">
                                         <FaCheckCircle className="text-teal-500 mr-2" />
                                         Required Skills:
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
                                         {skillsRequiredArray.map((s, index) => (
-                                            <AddedBox key={index} Index={index} Name={s} handleRemove={handleSkillsRequiredRemove} />
+                                            <AddedBox key={index} Index={index} Name={s} handleRemove={handleSkillsRequiredRemove} isButtonDisabled={isButtonDisabled} />
                                         ))}
                                     </div>
                                 </div>
@@ -583,19 +636,34 @@ const JobListingForm = ({ registration }) => {
                         {/* Action Buttons */}
                         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
                             <button
-                                type="button"
+                                disabled={isButtonDisabled}
+                                type='button'
                                 onClick={() => navigate(-1)}
-                                className="bg-white border border-teal-300 hover:bg-teal-50 text-teal-700 font-serif font-medium py-3 px-8 rounded-lg shadow-sm transition-colors duration-200 flex items-center justify-center"
+                                className={` bg-white border border-teal-300 hover:bg-teal-50 text-teal-700 font-serif font-medium py-3 px-8 rounded-lg shadow-sm transition-colors  duration-200 flex items-center justify-center ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                    }`}
                             >
                                 Cancel
                             </button>
 
                             <button
-                                type="submit"
-                                className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center"
-                            >
-                                <FaSave className="mr-2" />
-                                {registration ? "Post Job" : "Update Job"}
+                                type='submit'
+                                disabled={isButtonDisabled}
+                                className={`bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-serif font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center ${isButtonDisabled ? "opacity-80 cursor-not-allowed" : ""
+                                    }`}  >
+
+
+
+                                {isButtonDisabled ? (
+                                    <>
+                                        <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5"></span>
+                                        <span className='px-1'>wait...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaSave className="mr-2" />
+                                        {registration ? "Post Job" : "Update Job Details"}
+                                    </>
+                                )}
                             </button>
                         </div>
                     </form>

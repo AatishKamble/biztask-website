@@ -125,12 +125,35 @@ const uploadImage = async (req, res) => {
 
 
 }
+
+const deleteWorkImage = async (req, res) => {
+    try {
+        const { workPhotoId, photoId, publicId } = req.body;
+        const userId = req.user._id;
+        const { serviceId } = req.params;
+
+        const message=await servicesService.deleteWorkImage(
+            userId,
+            serviceId,
+            workPhotoId,
+            photoId,
+            publicId
+        );
+
+        return res.json({ success: true, message:message});
+
+    } catch (error) {
+        return res.json({ success: false, message: error.message });
+    }
+};
+
 export default {
     createService,
     getServiceById,
     removeService,
     updateService,
     getAllServices,
-    uploadImage
+    uploadImage,
+    deleteWorkImage
 
 }

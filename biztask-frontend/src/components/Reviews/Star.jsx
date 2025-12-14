@@ -6,8 +6,12 @@ import { FaStar } from "react-icons/fa";
 
 const Star = ({ star }) => {
  
-  const rating = Number(star);
+ const ratingNumber = Number(star);
+const rating = isNaN(ratingNumber) ? 0 : ratingNumber;
+
   
+
+
   const ratingArray = Array.from({ length: 5 }, (_, index) => {
    
     return (
@@ -25,6 +29,8 @@ const Star = ({ star }) => {
           scale: 1.2,
           transition: { duration: 0.2 } 
         }}
+         whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
       >
         {
           // Full star if rating is at least this position + 1

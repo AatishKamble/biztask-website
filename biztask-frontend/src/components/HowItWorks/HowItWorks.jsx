@@ -20,14 +20,14 @@ const HowItWorks = ({ HowItWorks }) => {
 
   const titleVariants = {
     hidden: { y: -60, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 80, 
+      transition: {
+        type: "spring",
+        stiffness: 80,
         damping: 12,
-        duration: 1 
+        duration: 1
       }
     }
   };
@@ -37,36 +37,36 @@ const HowItWorks = ({ HowItWorks }) => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { 
-        type: "spring", 
+      transition: {
+        type: "spring",
         stiffness: 90,
         damping: 12
       }
     },
-    hover: { 
+    hover: {
       y: -15,
       boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-      transition: { 
-        type: "spring", 
-        stiffness: 400, 
-        damping: 10 
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10
       }
     }
   };
 
   const iconVariants = {
     hidden: { scale: 0 },
-    visible: { 
+    visible: {
       scale: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 200, 
-        delay: 0.3 
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        delay: 0.3
       }
     },
-    hover: { 
+    hover: {
       rotate: [0, -10, 10, -5, 5, 0],
-      transition: { 
+      transition: {
         duration: 0.8,
         repeat: Infinity,
         repeatType: "mirror",
@@ -77,38 +77,38 @@ const HowItWorks = ({ HowItWorks }) => {
 
   // Updated steps to better match local services platform
   const steps = [
-    { 
-      icon: <BsBuilding />, 
+    {
+      icon: <BsBuilding />,
       title: "Local Businesses",
       description: "Connect with customers in your area and grow your local business",
       steps: [
-        "Create your business profile with service details",
-        "Add your range of professional services",
-        "Post jobs and connect with top talent"
+        "Create your business profile with service details.",
+        "Add your range of professional services.",
+        "Post jobs and connect with top talent."
       ],
       color: "from-blue-600 to-indigo-700",
       bgColor: "bg-blue-50"
     },
-    { 
-      icon: <FaPeopleGroup />, 
+    {
+      icon: <FaPeopleGroup />,
       title: "Job Seekers",
       description: "Find local opportunities and connect with employers in your area",
       steps: [
-        "Build your profile highlighting skills and experience",
-        "Find relevant job opportunities",
-        "Apply with a single click and track applications"
+        "Find relevant job opportunities.",
+        "Apply for the job you want.",
+         "Apply by highlighting skills and experience."
       ],
       color: "from-purple-600 to-fuchsia-700",
       bgColor: "bg-purple-50"
     },
-    { 
-      icon: <FaHandshake />, 
+    {
+      icon: <FaHandshake />,
       title: "Service Customers",
       description: "Discover trusted local service providers for all your needs",
       steps: [
-        "Search local services by category and location",
-        "Read verified reviews from community members",
-        "Book services directly through the platform"
+        "Search local services by category and location.",
+        "Read verified reviews from community members.",
+        "Get service provider details directly through the platform."
       ],
       color: "from-teal-600 to-emerald-700",
       bgColor: "bg-teal-50"
@@ -118,7 +118,7 @@ const HowItWorks = ({ HowItWorks }) => {
   return (
     <motion.div
       ref={HowItWorks}
-      className="w-full  px-4 pb-5 pt-10 md:pt-0 lg:px-20 bg-white"
+      className="w-full  px-4 pb-5 pt-4  md:pt-0 lg:px-20 bg-white"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -126,48 +126,44 @@ const HowItWorks = ({ HowItWorks }) => {
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
-        <motion.div 
-          className="text-center mb-20"
+        <motion.div
+          className="text-center mb-14"
           variants={titleVariants}
         >
-          <motion.span 
+          <motion.span
             className="text-md font-semibold font-serif tracking-wider text-indigo-900 uppercase"
           >
             Your Local Marketplace
           </motion.span>
-          <motion.h2 
-            className="text-3xl font-serif md:text-4xl font-bold mt-2 text-blue-700"
+          <motion.h2
+            className="text-3xl font-serif md:text-4xl font-bold mt-2 text-blue-700 mb-3"
           >
             How Our Platform Works
           </motion.h2>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="h-1 max-w-xs mx-auto bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full mb-4"
+          />
           <motion.p
-            className="mt-4 text-lg  text-gray-600 max-w-2xl mx-auto font-serif"
+            className=" text-base  text-gray-600 max-w-2xl mx-auto font-serif"
           >
             Connecting local businesses, service providers, and job seekers in your community
           </motion.p>
-          <motion.div 
-            className="h-1 w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-teal-500 mx-auto mt-6 rounded-full"
-            animate={{ 
-              width: ["32px", "96px", "128px"], 
-              opacity: [0.7, 1, 0.7],
-              transition: { 
-                duration: 3, 
-                repeat: Infinity, 
-                repeatType: "reverse" 
-              }
-            }}
-          />
+         
         </motion.div>
-        
+
         {/* Process Steps */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 md:gap-12 relative">
-         
-        <div className="hidden md:block absolute top-36 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 z-0" />
-          
-        <div className=" block xl:hidden absolute top-36 left-1/2 right-0 h-[80%] w-1 bg-gradient-to-t from-blue-500 via-purple-500 to-emerald-500 z-0" />
-         
+
+          <div className="hidden md:block absolute top-36 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 z-0" />
+
+          <div className=" block xl:hidden absolute top-36 left-1/2 right-0 h-[80%] w-1 bg-gradient-to-t from-blue-500 via-purple-500 to-emerald-500 z-0" />
+
           {steps.map((step, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               className="z-10 rounded-3xl"
               variants={cardVariants}
@@ -184,22 +180,22 @@ const HowItWorks = ({ HowItWorks }) => {
                       {step.description}
                     </p>
                   </div>
-                  <motion.div 
-                      className={`w-16 h-16 md:w-20 md:h-20 ${step.bgColor} rounded-full flex items-center justify-center shadow-lg`}
-                      variants={iconVariants}
-                      whileHover="hover"
-                    >
-                      <span className="text-3xl md:text-4xl text-blue-700">
-                        {step.icon}
-                      </span>
-                    </motion.div>
+                  <motion.div
+                    className={`w-16 h-16 md:w-20 md:h-20 ${step.bgColor} rounded-full flex items-center justify-center shadow-lg`}
+                    variants={iconVariants}
+                    whileHover="hover"
+                  >
+                    <span className="text-3xl md:text-4xl text-blue-700">
+                      {step.icon}
+                    </span>
+                  </motion.div>
                 </div>
-                
+
                 {/* Card body */}
                 <div className="p-8">
                   <ol className="space-y-6">
                     {step.steps.map((item, i) => (
-                      <motion.li 
+                      <motion.li
                         key={i}
                         className="flex items-start"
                         initial={{ opacity: 0, x: -20 }}
@@ -208,7 +204,7 @@ const HowItWorks = ({ HowItWorks }) => {
                         viewport={{ once: true }}
                       >
                         <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 text-white font-semibold text-sm mr-4 mt-0.5 shadow-md">
-                          {i+1}
+                          {i + 1}
                         </span>
                         <span className="text-gray-300 font-serif text-lg">
                           {item}
@@ -217,8 +213,8 @@ const HowItWorks = ({ HowItWorks }) => {
                     ))}
                   </ol>
                 </div>
-                
-             
+
+
               </div>
             </motion.div>
           ))}

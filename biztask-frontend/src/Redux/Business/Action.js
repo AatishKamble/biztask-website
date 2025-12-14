@@ -94,10 +94,10 @@ const businessRegister = (businessData, jwt) => async (dispatch) => {
         const newBusiness = response.data;
        
         if (newBusiness.success == true) {
-            // window.location.reload();
+          
             dispatch(registerBusinessSuccess(newBusiness.business));
             dispatch(getUserProfile(jwt));
-            toast.success(newBusiness.message);
+             return { success: true, message: newBusiness.message };
         }
         else {
             throw new Error(newBusiness.message);
@@ -107,7 +107,8 @@ const businessRegister = (businessData, jwt) => async (dispatch) => {
     } catch (error) {
 
         dispatch(registerBusinessFailure(error.message));
-        toast.error(error.message);
+     
+         return { success: false, message:error.message };
     }
 
 }
@@ -133,7 +134,7 @@ const updateBusiness = (jwt, businessData, businessId) => async (dispatch) => {
            
             dispatch(updateBusinessSuccess(newBusiness.business));
             dispatch(getUserProfile(jwt));
-            toast.success(newBusiness.message);
+           return { success: true, message: newBusiness.message };
         }
         else {
             throw new Error(newBusiness.message);
@@ -143,7 +144,7 @@ const updateBusiness = (jwt, businessData, businessId) => async (dispatch) => {
 
     } catch (error) {
         dispatch(updateBusinessFailure(error.message));
-        toast.error(error.message);
+        return { success: false, message:error.message };
     }
 }
 
@@ -166,7 +167,7 @@ const removeBusiness = (jwt,businessId) => async (dispatch) => {
         if (newBusiness.success == true) {
             dispatch(removeBusinessSuccess(newBusiness.message));
             dispatch(getUserProfile(jwt));
-            toast.success(newBusiness.message);
+             return { success: true, message: newBusiness.message };
         }
         else {
             throw new Error(newBusiness.message);
@@ -175,7 +176,7 @@ const removeBusiness = (jwt,businessId) => async (dispatch) => {
 
     } catch (error) {
         dispatch(removeBusinessFailure(error.message));
-        toast.error(error.message);
+         return { success: false, message:error.message };
     }
 }
 

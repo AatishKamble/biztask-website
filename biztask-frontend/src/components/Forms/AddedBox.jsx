@@ -1,5 +1,5 @@
 import { MdDelete } from "react-icons/md";
-const AddedBox = ({Index,Name,handleRemove}) => {
+const AddedBox = ({Index,Name,handleRemove, isButtonDisabled=false}) => {
 
   return (
     <div  className='  w-full h-auto flex  py-2 items-center me-4 text-black justify-end'>
@@ -7,7 +7,8 @@ const AddedBox = ({Index,Name,handleRemove}) => {
                         <div className=" font-serif   h-auto relative w-full p-2 flex items-center justify-between  ro ">
 
                             <span className="pe-5 text-[18px]">{Name}</span>
-                            <span className=" text-[20px]  hover:text-red-500 cursor-pointer" onClick={()=>handleRemove(Index)}><MdDelete /></span>
+                            <button type="button"
+                             disabled={isButtonDisabled} className={` text-[20px]   ${isButtonDisabled ? ' cursor-not-allowed' : 'text-red-500 cursor-pointer'}`}  onClick={()=>handleRemove(Index)}><MdDelete /></button>
                         </div>
                     </div>
 

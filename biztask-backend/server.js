@@ -10,6 +10,9 @@ import userModel from "./models/user.model.js";
 import jwtProvider from "./config/jwtProvider.js";
 import jobRouter from "./routes/job.route.js";
 import reviweRouter from "./routes/reviews.route.js"
+import bookingRouter from "./routes/booking.route.js"
+
+import adminRouter from "./routes/admin.booking.route.js"
 import "dotenv/config";
 
 const app=express();
@@ -66,6 +69,8 @@ app.use('/api/user',userRouter);
 app.use('/api/images',express.static("uploads"));
 app.use('/api/business',businessRouter);
 app.use('/api/services',serviceRouter);
+app.use('/api/service-booking',bookingRouter);
+app.use('/api/admin',adminRouter)
 app.use('/api/jobs',jobRouter);
 app.use('/api/reviews',reviweRouter);
 

@@ -13,24 +13,26 @@ import {
     DELETE_REVIEW_FAILURE
 } from "./ActionType.js";
 
+import { DELETE_IMAGE_BY_REVIEW_FAILURE,DELETE_IMAGE_BY_REVIEW_REQUEST,DELETE_IMAGE_BY_REVIEW_SUCCESS } from "../ServiceR/ActionType.js";
+
 
 import { API_BASE_URL } from '../../configApi/ConfigApi.js';
 import axios from 'axios';
 import { getServiceById } from "../ServiceR/Action.js";
 import { toast } from "react-toastify";
 
-const addReviewRequest=()=>({
-    type:ADD_REVIEW_REQUEST
+const addReviewRequest = () => ({
+    type: ADD_REVIEW_REQUEST
 })
 
-const addReviewSuccess=(message,review)=>({
-    type:ADD_REVIEW_SUCCESS,
-    payload:{message,review}
+const addReviewSuccess = (message, review) => ({
+    type: ADD_REVIEW_SUCCESS,
+    payload: { message, review }
 });
 
-const addReviewFailure=(error)=>({
+const addReviewFailure = (error) => ({
     type: ADD_REVIEW_FAILURE,
-    payload:error
+    payload: error
 });
 
 //for all review
@@ -52,9 +54,9 @@ export const updateReviewRequest = () => ({
     type: UPDATE_REVIEW_REQUEST,
 });
 
-export const updateReviewSuccess = (message,review) => ({
+export const updateReviewSuccess = (message, review) => ({
     type: UPDATE_REVIEW_SUCCESS,
-    payload: {message,review},
+    payload: { message, review },
 });
 
 export const updateReviewFailure = (error) => ({
@@ -67,9 +69,9 @@ export const deleteReviewRequest = () => ({
     type: DELETE_REVIEW_REQUEST,
 });
 
-export const deleteReviewSuccess = (message,review) => ({
+export const deleteReviewSuccess = (message, review) => ({
     type: DELETE_REVIEW_SUCCESS,
-    payload: {message,review},
+    payload: { message, review },
 });
 
 export const deleteReviewFailure = (error) => ({
@@ -77,125 +79,154 @@ export const deleteReviewFailure = (error) => ({
     payload: error,
 });
 
+// for automatic image deletion
+export const deleteImageByReviewRequest = () => ({
+    type: DELETE_IMAGE_BY_REVIEW_REQUEST,
+});
+
+export const deleteImageByReviewSuccess = (message, workImages) => ({
+    type: DELETE_IMAGE_BY_REVIEW_SUCCESS,
+    payload: { message, workImages },
+});
+
+export const deleteImageByReviewFailure = (error) => ({
+    type: DELETE_IMAGE_BY_REVIEW_FAILURE,
+    payload: error,
+});
+
 const addReview = (formData, jwt) => async (dispatch) => {
     dispatch(addReviewRequest());
     try {
 
-       
+
         const response = await axios.post(`${API_BASE_URL}/api/reviews/add`, formData, {
             headers: {
                 "authorization": `Bearer ${jwt}`,
                 "Content-Type": "multipart/form-data"
             }
         });
-        
-        const newReview = response.data;
-    
-        if (newReview.success === true) {
-            dispatch(addReviewSuccess(newReview.message,newReview.review));
 
-           dispatch(getServiceById(newReview?.review?.service._id))
-           toast.success(newReview.message);
+        const newReview = response.data;
+        
+
+        if (newReview?.success === true) {
+            dispatch(addReviewSuccess(newReview.message, newReview.review));
+            return { success: true, message: newReview.message };
         } else {
-            throw new Error(newReview.message);
+            dispatch(addReviewFailure(newReview.message));
+        if ((newReview?.message === "jwt expired") ||(newReview?.message === "jwt malformed") ) {
+            return { success: false, message: "Session expired,Please Login !" };
+
+        }
+        else {
+
+
+            return { success: false, message: newReview?.message };
+        }
         }
 
     } catch (error) {
         dispatch(addReviewFailure(error.message));
-        if(jwt===null){
-            toast.error("Session expired,Please Login !")
-        }
-        else{
+        if ((error?.response?.data?.message === "jwt expired") ||(error?.response?.data?.message === "jwt malformed") ) {
+            return { success: false, message: "Session expired,Please Login !" };
 
-       
-        toast.error(error.message); }
-    
+        }
+        else {
+
+
+            return { success: false, message: error?.response?.data?.message };
+        }
+
     }
 };
 
 
-const removeReview=(reviewId,jwt)=>async (dispatch) =>{
+const removeReview = (reviewId, jwt) => async (dispatch) => {
     dispatch(deleteReviewRequest());
     try {
-   
-       
-        const response = await axios.delete(`${API_BASE_URL}/api/reviews/remove/${reviewId}`,{
+
+
+        const response = await axios.delete(`${API_BASE_URL}/api/reviews/remove/${reviewId}`, {
             headers: {
                 "authorization": `Bearer ${jwt}`,
             }
         });
-        
+
         const newReview = response.data;
 
         if (newReview.success === true) {
-            dispatch(deleteReviewSuccess(newReview.message,newReview.review));
-            dispatch(getServiceById(newReview?.review?.service?._id))
-            toast.success(newReview.message);
+           
+            dispatch(deleteReviewSuccess(newReview.message, newReview.review));
+           dispatch(deleteImageByReviewSuccess(newReview.message,newReview?.service?.WorkImage))
+            return { success: true, message: newReview.message };
         } else {
             throw new Error(newReview.message);
         }
 
     } catch (error) {
         dispatch(deleteReviewFailure(error.message));
+        return { success: false, message: error.message };
+    }
+
+
+}
+
+
+const updateReview=(formData,reviewId,jwt)=>async (dispatch) =>{
+ 
+    dispatch(updateReviewRequest());
+    try {
+
+
+        const response = await axios.patch(`${API_BASE_URL}/api/reviews/update/${reviewId}`,formData,{
+            headers: {
+                "authorization": `Bearer ${jwt}`,
+                 "Content-Type": "multipart/form-data"
+            }
+        });
+
+        const newReview = response.data;
+    
+        if (newReview.success === true) {
+            dispatch(updateReviewSuccess(newReview.message,newReview.review));
+ return { success: true, message: newReview.message };
+        } else {
+            throw new Error(newReview.message);
+        }
+
+    } catch (error) {
+         
+        dispatch(updateReviewFailure(error.message));
+        return { success: false, message: error.message };
+    }
+
+
+}
+
+
+
+const getAllReviews = (serviceId) => async (dispatch) => {
+    dispatch(getReviewsRequest());
+    try {
+
+
+        const response = await axios.get(`${API_BASE_URL}/api/reviews/all?serviceId=${serviceId}`);
+        const allReviews = response.data;
+
+
+        if (allReviews.success == true) {
+            dispatch(getReviewsSuccess(allReviews.reviews));
+
+        }
+    } catch (error) {
+        dispatch(getReviewsFailure(error.message));
         toast.error(error.message);
     }
 
-
 }
-
-
-// const updateReview=async(formData,reviewId,jwt)=>async (dispatch) =>{
-//     dispatch(updateReviewRequest());
-//     try {
-
-       
-//         const response = await axios.patch(`${API_BASE_URL}/api/reviews/update/${reviewId}`,formData,{
-//             headers: {
-//                 "authorization": `Bearer ${jwt}`,
-//                  "Content-Type": "multipart/form-data"
-//             }
-//         });
-        
-//         const newReview = response.data;
-//     
-//         if (newReview.success === true) {
-//             dispatch(updateReviewSuccess(newReview.message,newReview.review));
-           
-//         } else {
-//             throw new Error(newReview.message);
-//         }
-
-//     } catch (error) {
-//         dispatch(updateReviewFailure(error.message));
-//     }
-
-
-// }
-
-
-
-const getAllReviews=(serviceId)=>async(dispatch)=>{
-    dispatch(getReviewsRequest());
-try {
-
-    
-    const response=await axios.get(`${API_BASE_URL}/api/reviews/all?serviceId=${serviceId}`);
-    const allReviews=response.data;
-   
-
-    if(allReviews.success==true){
-        dispatch(getReviewsSuccess(allReviews.reviews));
-     
-    }
-} catch (error) {
-    dispatch(getReviewsFailure(error.message));
-    toast.error(error.message);
-}
-
-}
-export{
+export {
     addReview,
     removeReview,
-    // updateReview,
+    updateReview,
     getAllReviews
 }

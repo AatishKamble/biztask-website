@@ -10,7 +10,8 @@ const FilterBy = ({
   nameInput, handleNameInputChange, handleNameInputSubmit, clearNameFilter,
   locationInput, handleLocationInputChange, handleLocationInputSubmit, clearLocationFilter,
   priceInput, handlePriceInputChange, handlePriceInputSubmit, clearSalaryFilter,
-  selectedCheckbox, handleCheckboxChange, checkBoxOptions, clearEmploymentFilter,clearAllFilters
+  selectedCheckbox, handleCheckboxChange, checkBoxOptions, clearEmploymentFilter,clearAllFilters,
+  recentFilter, handleRecentFilter
 }) => {
   const [expandedSection, setExpandedSection] = useState(null);
   
@@ -59,6 +60,13 @@ const FilterBy = ({
     "Temporary": <BsCalendarEvent className="text-amber-600" />
   };
 
+  const recentJobOptions = [
+  { label: "Last 24 Hours", value: "1" },
+  { label: "Last 7 Days", value: "7" },
+  { label: "Last 30 Days", value: "30" }
+];
+
+
   const formatSalary = (value) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
@@ -72,11 +80,84 @@ const FilterBy = ({
 
   return (
     <motion.div
-      className="xl:w-full mx-auto grid grid-cols-1"
+      className="sm:w-full mx-auto grid grid-cols-1"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
+
+        {/*  Recent Jobs Filter */}
+<motion.div
+  className={`bg-white mb-4 rounded-xl shadow-lg overflow-hidden transition-all duration-300 ${
+    expandedSection === 'recent' ? 'ring-2 ring-blue-400' : ''
+  }`}
+  variants={cardVariants}
+  animate={expandedSection === 'recent' ? 'expanded' : 'collapsed'}
+>
+  <div
+    className="p-6 flex items-center justify-between cursor-pointer"
+    onClick={() => toggleSection('recent')}
+  >
+    <div className="flex items-center">
+      <div className="bg-purple-100 p-3 rounded-full">
+        <BsClock className="text-purple-600 text-xl" />
+      </div>
+      <h3 className="ml-4 text-xl font-serif font-semibold text-blue-900">
+        Recent Jobs
+      </h3>
+    </div>
+
+    <div className="flex items-center">
+      {recentFilter && (
+        <motion.button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleRecentFilter("");
+          }}
+          className="mr-2 p-1 rounded-full hover:bg-gray-100"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <IoMdClose className="text-purple-600 text-lg" />
+        </motion.button>
+      )}
+
+      <motion.div
+        animate={{ rotate: expandedSection === 'recent' ? 180 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <svg className="w-5 h-5 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </motion.div>
+    </div>
+  </div>
+
+  <motion.div
+    className="px-6 pb-6"
+    variants={contentVariants}
+    initial="collapsed"
+    animate={expandedSection === 'recent' ? 'expanded' : 'collapsed'}
+  >
+    <div className="flex flex-wrap gap-3">
+      {recentJobOptions.map(item => (
+        <motion.button
+          key={item.value}
+          onClick={() => handleRecentFilter(item.value)}
+          className={`px-4 py-2 rounded-lg border text-sm font-serif font-medium transition ${
+            recentFilter === item.value
+              ? "bg-purple-600 text-white border-purple-600"
+              : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+          }`}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {item.label}
+        </motion.button>
+      ))}
+    </div>
+  </motion.div>
+</motion.div>
       {/* Job Title Search */}
       <motion.div
         className={`bg-white mb-4 rounded-xl shadow-lg overflow-hidden transition-all duration-300 ${expandedSection === 'job' ? 'ring-2 ring-blue-400' : ''}`}
@@ -494,7 +575,7 @@ const FilterBy = ({
 
      
       {/* Clear All Filters Button - Only appears when there are active filters */}
-      {(nameInput || locationInput || priceInput || selectedCheckbox.length > 0) && (
+      {(nameInput || locationInput || priceInput || selectedCheckbox.length > 0 || recentFilter) && (
         <motion.button
           className="w-full py-3 mt-3 bg-white text-blue-700 border border-blue-300 font-serif font-medium rounded-xl shadow-sm hover:bg-blue-50"
           whileHover={{ scale: 1.02 }}
@@ -510,6 +591,9 @@ const FilterBy = ({
           </div>
         </motion.button>
       )}
+
+    
+
     </motion.div>
   );
 }

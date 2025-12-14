@@ -1,4 +1,5 @@
 import reviewService from "../services/review.service.js";
+import servicesService from "../services/services.service.js";
 
 const createReview=async(req,res)=>{
 
@@ -24,8 +25,9 @@ const removeReview=async(req,res)=>{
         const userId=req.user._id;
        
     const review=await reviewService.removeReview(reviewId,userId);
+    const service= await servicesService.getServiceById(review?.service?._id)
 
-    return res.json({success:true,message:"Review Removed",review:review});
+    return res.json({success:true,message:"Review Removed",review:review,service:service});
     
     } catch (error) {
         
@@ -37,21 +39,21 @@ const removeReview=async(req,res)=>{
 }
 
 
-// const updateReview=async(req,res)=>{
-//     try {
+const updateReview=async(req,res)=>{
+    try {
         
        
-//         const reviewId=req.params.id;
-//         const userId=req.user._id;
-//     const review=await reviewService.updateReview(userId,reviewId,req.body);
-//     return res.json({success:true,message:"Review Updated",review:review});
+        const reviewId=req.params.id;
+        const userId=req.user._id;
+    const review=await reviewService.updateReview(userId,reviewId,req.body);
+    return res.json({success:true,message:"Review Updated",review:review});
     
-//     } catch (error) {
+    } catch (error) {
         
-//         return res.json({success:false,message:error.message});
-//     }
+        return res.json({success:false,message:error.message});
+    }
     
-//     }
+    }
 
 
     const getAllReviews=async(req,res)=>{
@@ -72,6 +74,6 @@ const removeReview=async(req,res)=>{
 export default{
     createReview,
     removeReview,
-    // updateReview,
+    updateReview,
     getAllReviews
 }

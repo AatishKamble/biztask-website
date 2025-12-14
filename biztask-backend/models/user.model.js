@@ -1,54 +1,85 @@
 import mongoose from "mongoose";
 
 
-const userSchema=new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
-    name:{
-        type:String,
-        default:""
+    name: {
+        type: String,
+        default: ""
 
     },
-    email:{
+    email: {
 
-        type:String,
-        required:true,
-        unique:true
+        type: String,
+        required: true,
+        unique: true
     },
-    mobileNumber:{
-        type:String,
-        default:"0000000000"
+    mobileNumber: {
+        type: String,
+        default: "0000000000"
     },
-    password:{
-        type:String,
-        required:true
+    district: {
+        type: String,
+        default: ""
     },
-    profileImage:{
-        ImageUrl:{
-        type:String,
-        default:"" 
+
+    subDistrict: {
+        type: String,
+        default: ""
     },
-publicId:{
-    type:String,
-    default:"" 
-}
-},
-    appliedJobs:[
+    village: {
+        type: String,
+        default: ""
+    },
+    area: {
+        type: String,
+        default: ""
+    },
+    pinCode: {
+        type: String,
+        default: ""
+    },
+    houseNumber: {
+        type: String,
+        default: ""
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    profileImage: {
+        ImageUrl: {
+            type: String,
+            default: ""
+        },
+        publicId: {
+            type: String,
+            default: ""
+        }
+    },
+    appliedJobs: [
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'jobsDetails',
-            default:[]
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'jobsDetails',
+            default: []
         }
     ],
-    businesses:[
+    businesses: [
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'bussiness',
-            default:[]
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'bussiness',
+            default: []
         }
-    ]
-},{minimize:false});
+    ],
+    role: {
+        type: String,
+        enum: ["USER", "ADMIN"],
+        default: "USER"
+    },
+
+}, { minimize: false });
 
 
-const userModel= mongoose.models.users || mongoose.model('users',userSchema);
+const userModel = mongoose.models.users || mongoose.model('users', userSchema);
 
 export default userModel;
