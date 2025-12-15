@@ -2,13 +2,19 @@
 
 # BizTask – Local Services & Job Finding Platform
 
-BizTask is a **local services marketplace and job finding platform** that connects **service providers, customers (service seekers), job seekers, and businesses** on a single platform.The system allows businesses to offer services, hire workers, manage bookings, and receive payments, while customers can easily book services, apply for jobs, and track their activity.
-
+BizTask is a **local services marketplace and job finding platform** that connects **service providers, customers (service seekers), job seekers, and businesses** on a single platform.  
+The system allows businesses to offer services, hire workers, manage bookings, and receive payments, while customers can easily book services, apply for jobs, and track their activity.
 
 🔗 **Live Demo**: https://biztask.vercel.app  
 📂 **GitHub Repository**: https://github.com/AatishKamble/biztask-website
 
+⚠️ **Note on Email OTP**  
+Email OTP functionality works correctly in local development.  
+On production, email delivery may be delayed or blocked due to **SMTP limitations on free hosting (Render)**.  
+This is a deployment constraint, and the feature logic is fully implemented and ready for production-grade email services (SES / Resend / SendGrid).
+
 </div>
+
 
 ---
 
