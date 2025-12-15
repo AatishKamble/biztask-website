@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { HiSearch } from "react-icons/hi";
 import { cancelSeekerBooking, getMyBookings } from '../Redux/ServiceBooking/Action.js';
-
+import { MdOutlineSecurity } from "react-icons/md";
 import { MdOutlineHistory, MdLocationOn, MdPayments } from "react-icons/md";
 import { MdPerson, MdPhone, MdCalendarToday, MdStar } from 'react-icons/md';
 import { FaUserTie } from 'react-icons/fa';
@@ -714,6 +714,14 @@ const ProfilePage = ({ userDetails }) => {
                           >
                             <MdOutlinePayment size={18} className={getStatusColor(booking?.paymentStatus, 'payment')?.icon} /> Payment : {booking?.paymentStatus}
                           </motion.span>
+
+                          {booking?.completionOTP && <motion.span
+                            whileHover={{ scale: 1.05 }}
+                            className={`px-4 py-2 text-sm font-bold flex gap-2 rounded-xl border-2 ${getStatusColor(booking?.paymentStatus, 'payment')?.box} shadow-sm`}
+                          >
+                            <MdOutlineSecurity size={18} className={getStatusColor(booking?.paymentStatus, 'payment')?.icon} /> OTP : {booking?.completionOTP}
+                          </motion.span>}
+                          
                         </div>
 
                         {/* Service seeker Info */}
