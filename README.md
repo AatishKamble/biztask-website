@@ -10,7 +10,8 @@ The system allows businesses to offer services, hire workers, manage bookings, a
 
 ⚠️ **Note on Email OTP**  
 Email OTP functionality works correctly in local development.  
-On production, email delivery may be delayed or blocked due to **SMTP limitations on free hosting (Render)**.  
+On production, email delivery may be delayed or blocked due to **SMTP limitations on free hosting (Render)**. 
+However, for **service completion OTP**, customers can navigate to **Service Booking History**, locate the specific service, and view the OTP there.
 This is a deployment constraint, and the feature logic is fully implemented and ready for production-grade email services (SES / Resend / SendGrid).
 
 </div>
