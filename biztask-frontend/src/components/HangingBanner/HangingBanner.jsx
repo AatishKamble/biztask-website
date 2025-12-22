@@ -132,18 +132,7 @@ const HangingBanner = ({ imgage, title, subtitle }) => {
         </motion.div>
 
         
-        <motion.div
-          className="absolute top-1/4 left-8 w-2 h-16 bg-gradient-to-b from-cyan-400 to-transparent rounded-full"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 64, opacity: 0.6 }}
-          transition={{ duration: 1, delay: 2 }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-8 w-2 h-20 bg-gradient-to-t from-emerald-400 to-transparent rounded-full"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 80, opacity: 0.5 }}
-          transition={{ duration: 1.2, delay: 2.5 }}
-        />
+      
       </motion.div>
 
       {/* Bottom  effect */}

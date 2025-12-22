@@ -299,7 +299,7 @@ const SearchJobs = () => {
 
           <div>
             {jobStore.jobs?.totalPages > 0 && (
-              <div className='w-full h-20 flex justify-center items-center pt-16'>
+              <div className='w-full h-20 flex justify-center items-center pt-10 sm:pt-12'>
                 <Pagination
                   count={jobStore.jobs?.totalPages || 0}
                   variant="outlined"

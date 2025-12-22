@@ -118,7 +118,7 @@ const FeaturedJob = () => {
             </div>
             {!isLoading && jobStore?.jobs?.jobs?.length > 0 && (
               <motion.div
-                className="w-full flex justify-center items-center  mt-2 xl:mt-20 rounded-xl "
+                className="w-full flex justify-center items-center  mt-10 xl:mt-20 rounded-xl "
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

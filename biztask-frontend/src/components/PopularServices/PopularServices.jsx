@@ -5,7 +5,7 @@ import homeCleaning from "../../assets/clean.jpg";
 import plumbing from "../../assets/Plumbing.jpg";
 import catering from "../../assets/catering.jpg";
 import gardening from "../../assets/Gardening.jpg";
-import motor from "../../assets/motor.jpeg";
+import electrical from "../../assets/electrical.jpg";
 import { HiOutlineSparkles } from "react-icons/hi2";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
@@ -43,24 +43,14 @@ const PopularServices = () => {
       gradient: "from-teal-500 via-teal-400 to-teal-500",
     },
     {
-      type: "Motor Repairing",
-      image: motor,
-      value: "Motor Repairing",
+      type: "Electrical Services",
+      image: electrical,
+      value: "Electrical",
       gradient: "from-red-500 via-red-400 to-red-500",
     },
   ];
 
-  // Animation variants for container elements
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
+ 
 
   // Animation variants for services cards
   const serviceCardVariants = {
@@ -129,7 +119,7 @@ const PopularServices = () => {
        
         {/* Left Section: Available Services */}
         <motion.div
-          className="bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white w-full lg:w-[400px] xl:w-[480px] h-[400px] lg:h-[520px] flex flex-col justify-center items-center rounded-3xl shadow-xl p-8 relative overflow-hidden"
+          className="bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white w-full lg:w-[400px] xl:w-[480px] h-[420px] lg:h-[520px]  flex flex-col justify-center items-center rounded-3xl shadow-xl p-8 relative overflow-hidden"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2, margin: "-100px" }}
@@ -171,8 +161,7 @@ const PopularServices = () => {
           </motion.p>
 
 
-          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-white opacity-20 rounded-full blur-xl"></div>
-
+          
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -182,24 +171,8 @@ const PopularServices = () => {
             whileTap={{ scale: 0.98 }}
           >
             <Link to="/services" aria-label="View All Services">
-              <div className="bg-white hover:bg-[#6bdfff] text-[#6E45E2] w-[240px] mt-6 cursor-pointer h-14 rounded-full flex justify-center items-center text-lg border-2 border-white transition-all duration-300 shadow-lg hover:shadow-xl group">
-                <span className="font-serif font-bold pe-2 text-xl">View All Services</span>
-                <motion.svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </motion.svg>
+              <div className="bg-white hover:bg-[#6bdfff] text-[#6E45E2] w-[240px] mt-6 cursor-pointer h-14 rounded-full flex justify-center items-center text-lg border-2 border-white transition-all duration-300 shadow-lg hover:shadow-xl group ">
+                <span className="font-serif font-bold pe-2 text-lg lg:text-xl">View All Services</span>
               </div>
             </Link>
           </motion.div>

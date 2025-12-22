@@ -3,6 +3,7 @@ import { FaInstagram, FaLinkedin, FaFacebookSquare, FaTwitter, FaPhoneAlt } from
 import { MdEmail, MdLocationOn } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../../assets/logo-transparent.png';
+import { FaRegCopyright } from "react-icons/fa";
 
 const Footer = ({ userDetails, handleLogInButtonClick }) => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
   
 
   return (
-    <footer className="relative pt-6">
+    <footer className="relative pt-6 font-serif">
      
       
       {/* Main Footer Content */}
@@ -27,21 +28,21 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             
          
-          <div className="border-b xl:border-b-0  md:border-r  border-cyan-200 border-dotted  xl:ps-0 ">
+          <div className="border-b lg:border-b-0  md:border-r  border-cyan-200 border-dotted  xl:ps-0 ">
           <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4 pb-2">
                 About Company
               </h3>
               <div className="flex flex-col md:items-center items-start pb-5 md:pb-0">
-                <div className="md:h-20 md:w-[85%] h-24 w-[170px]   ">
+                <div className=" h-24 w-[170px]  ">
                   <img src={logo} alt='logo' className='h-full w-full object-cover' />
                 </div>
-                <p className="md:text-center text-start  font-serif text-cyan-100 hover:text-cyan-300 text-lg  leading-relaxed italic  xl:p-2  xl:pt-2">
+                <p className="md:text-center text-start  font-serif text-cyan-100 hover:text-cyan-300 text-lg  leading-relaxed italic p-2  xl:pt-2">
                   Connecting businesses, workers and service seekers with ease
                 </p>
               </div>
             </div>
             {/* Quick Links */}
-            <div className="border-b xl:border-b-0  md:border-r  border-cyan-200 border-dotted">
+            <div className="border-b lg:border-b-0  lg:border-r  border-cyan-200 border-dotted">
               <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4  pb-2">
                 Quick Links
               </h3>
@@ -69,7 +70,7 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
             </div>
 
             {/* Resources */}
-            <div className="border-b xl:border-b-0  md:border-r  border-cyan-200 border-dotted  ">
+            <div className="border-b md:border-b-0  md:border-r  border-cyan-200 border-dotted  ">
               <h3 className="text-xl font-serif font-semibold text-cyan-200 mb-4  pb-2">
                 Resources
               </h3>
@@ -103,15 +104,16 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
               </h3>
               <div className=" text-lg flex flex-col gap-4">
                 <div className="flex items-center gap-3">
-                  <MdLocationOn className="text-cyan-300 text-2xl" />
-                  <span className="text-cyan-100 font-serif">Kolhapur</span>
+                  <span><MdLocationOn className="text-cyan-300 " size={24}/>
+                 </span>
+                   <span className="text-cyan-100 font-serif">Kolhapur</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MdEmail className="text-cyan-300 text-xl" />
-                  <span className="text-cyan-100 font-serif">Atishk2454@gmail.com</span>
+                  <span><MdEmail className="text-cyan-300 " size={20}/></span>
+                  <span className="text-cyan-100 font-serif break-all">Atishk2454@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <FaPhoneAlt className="text-cyan-300 text-xl" />
+                <span> <FaPhoneAlt className="text-cyan-300 " size={20}/></span> 
                   <span className="text-cyan-100 font-serif">(+91) XXXXXXXX54</span>
                 </div>
                 
@@ -136,9 +138,10 @@ const Footer = ({ userDetails, handleLogInButtonClick }) => {
           </div>
           
           {/* Copyright Section */}
-          <div className="mt-12 pt-6 border-t border-cyan-300 text-center">
-            <p className="text-cyan-100 font-serif">
-              © {new Date().getFullYear()} Biztask Platform. All rights reserved.
+          <div className="mt-12 pt-6 border-t border-cyan-300 text-cyan-100 flex justify-center items-center gap-2 ">
+             <span><FaRegCopyright size={16}/></span> 
+            <p className=" ">
+            {new Date().getFullYear()} Biztask Platform. All rights reserved.
             </p>
           </div>
         </div>
